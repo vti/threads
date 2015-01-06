@@ -68,6 +68,10 @@ sub _add_routes {
     $routes->add_route('/not_found', name => 'not_found');
 
     $routes->add_route('/forbidden', name => 'forbidden');
+
+    $routes->add_route('/create_thread', name => 'create_thread');
+    $routes->add_route('/threads/:id', name => 'view_thread');
+    $routes->add_route('/threads/:id/delete', name => 'delete_thread', method => 'POST');
 }
 
 sub _add_acl {
