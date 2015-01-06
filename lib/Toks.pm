@@ -71,6 +71,7 @@ sub _add_routes {
 
     $routes->add_route('/create_thread', name => 'create_thread');
     $routes->add_route('/threads/:id', name => 'view_thread');
+    $routes->add_route('/threads/:id/update', name => 'update_thread');
     $routes->add_route('/threads/:id/delete', name => 'delete_thread', method => 'POST');
 }
 
