@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/Toks/Action/Login.pm:41 lib/Toks/Action/RequestPasswordReset.pm:34
+msgid "Account not activated"
+msgstr ""
+
+#: lib/Toks/Action/Deregister.pm:34
+msgid "Deregistration confirmation"
+msgstr ""
+
+#: lib/Toks/Action/FormBase.pm:19
+msgid "Invalid email"
+msgstr ""
+
+#: lib/Toks/Action/ChangePassword.pm:33
+msgid "Invalid password"
+msgstr ""
+
+#: lib/Toks/Action/FormBase.pm:20
+msgid "Password mismatch"
+msgstr ""
+
+#: lib/Toks/Action/RequestPasswordReset.pm:64
+msgid "Password reset"
+msgstr ""
+
+#: lib/Toks/Action/Register.pm:58
+msgid "Registration confirmation"
+msgstr ""
+
+#: lib/Toks/Action/FormBase.pm:18
+msgid "Required"
+msgstr ""
+
+#: lib/Toks/Action/Login.pm:31 lib/Toks/Action/Login.pm:36
+msgid "Unknown credentials"
+msgstr ""
+
+#: lib/Toks/Action/RequestPasswordReset.pm:29
+msgid "User does not exist"
+msgstr ""
+
+#: lib/Toks/Action/Register.pm:28
+msgid "User exists"
+msgstr ""

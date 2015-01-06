@@ -1,0 +1,17 @@
+---
+base_url: 'http://localhost:5000'
+session:
+    secret: '123'
+database:
+    dsn: 'dbi:SQLite:db.db'
+    attrs:
+        RaiseError: 1
+        sqlite_unicode: 1
+mailer:
+    subject_prefix: '[Toks]'
+    headers:
+        - 'From'
+        - 'foo@bar.com'
+    transport:
+        name: 'test'
+        path: '/tmp/mailer.log'

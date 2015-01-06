@@ -1,0 +1,140 @@
+html, body {
+    height:100%;
+}
+
+body {
+  font: 13px / 1.5 "Helvetica Neue", Arial, "Liberation Sans", FreeSans, sans-serif;
+}
+
+pre,
+code {
+  font-family: "DejaVu Sans Mono", Monaco, Consolas, monospace;
+}
+
+hr {
+  border: 0 #ccc solid;
+  border-top-width: 1px;
+  clear: both;
+  height: 0;
+}
+
+h1 {
+  font-size: 25px;
+}
+
+h2 {
+  font-size: 23px;
+}
+
+h3 {
+  font-size: 21px;
+}
+
+h4 {
+  font-size: 19px;
+}
+
+h5 {
+  font-size: 17px;
+}
+
+h6 {
+  font-size: 15px;
+}
+
+ol {
+  list-style: decimal;
+}
+
+ul {
+  list-style: disc;
+}
+
+li {
+  margin-left: 30px;
+}
+
+p,
+dl,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ol,
+ul,
+pre,
+table,
+address,
+fieldset,
+figure {
+  margin-bottom: 20px;
+}
+
+body {
+  background: white;
+  color: #333;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+h1 {
+  padding-top: 20px;
+}
+
+.grid-container {
+  padding-bottom: 20px;
+}
+
+.grid-container > hr {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.dynamic-px-width {
+  display: block;
+}
+
+#header {
+    padding-top:2em;
+    text-align:right;
+}
+#header hr {
+    margin-top:1em;
+}
+#wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -82px;
+}
+#footer, #push {
+    text-align:center;
+    height: 82px;
+}
+
+.error {color:red}
+
+.status-ok {
+    color: #4F8A10
+}
+
+.status-notice {
+    color: #9F6000
+}
+
+input, select {
+    margin-bottom:0.5em
+}
+
+input[type=submit] {
+    margin-top:1em
+}
