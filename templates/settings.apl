@@ -4,13 +4,14 @@
 
     <form method="POST">
 
-    <%== $helpers->form->input('name', label => 'Name') %>
+    <%== $helpers->form->input('name', label => 'Name', default => $user->{name}) %>
 
     <input type="submit" value="<%= loc('Update') %>" />
 
     </form>
 
-
-    <a href="<%= $helpers->url->deregister %>"><%= loc('Remove account') %></a>
+    <div style="padding-top:2em">
+        <a href="<%= $helpers->url->deregister %>"><%= loc('Remove account') %></a>
+    </div>
 
 </div>
