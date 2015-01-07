@@ -1,12 +1,12 @@
         <div class="reply-controls">
-            <button class="quick-reply-button">reply</button>
+            <button class="quick-reply-button"><%= loc('reply') %></button>
 
             % if ($helpers->acl->is_allowed('update_reply', $reply)) {
-            <button class="quick-edit-button">edit</button>
+            <button class="quick-edit-button"><%= loc('edit') %></button>
             % }
             % if ($helpers->acl->is_allowed('delete_reply', $reply)) {
             <form class="form-inline" method="POST" action="<%= $helpers->url->delete_reply(id => $reply->{id}) %>">
-            <input type="submit" value="delete" />
+            <input type="submit" value="<%= loc('delete') %>" />
             </form>
             % }
 

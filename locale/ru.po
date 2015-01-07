@@ -6,44 +6,260 @@ msgstr ""
 
 #: lib/Toks/Action/Login.pm:41 lib/Toks/Action/RequestPasswordReset.pm:34
 msgid "Account not activated"
-msgstr ""
+msgstr "Аккаунт не активирован"
+
+#: templates/login.apl:3
+msgid "Authorization"
+msgstr "Авторизация"
+
+#: templates/change_password.apl:3 templates/layout.apl:34
+msgid "Change password"
+msgstr "Изменить пароль"
+
+#: templates/create_reply.apl:9
+msgid "Create"
+msgstr "Создать"
+
+#: templates/create_thread.apl:10
+msgid "Create new thread"
+msgstr "Создать новую тему"
+
+#: templates/create_reply.apl:3
+msgid "Create reply"
+msgstr "Создать ответ"
+
+#: templates/create_thread.apl:3 templates/layout.apl:32
+msgid "Create thread"
+msgstr "Создать тему"
+
+#: templates/change_password.apl:7
+msgid "Current password"
+msgstr "Текущий пароль"
+
+#: templates/deregister.apl:3
+msgid "Deregistration"
+msgstr "Удаление аккаунта"
 
 #: lib/Toks/Action/Deregister.pm:34
 msgid "Deregistration confirmation"
-msgstr ""
+msgstr "Подтверждение удаления аккаунта"
+
+#: templates/layout.apl:7
+msgid "Forum"
+msgstr "Форум"
+
+#: templates/deregistration_confirmation_needed.apl:5
+msgid "Good luck!"
+msgstr "Удачи!"
 
 #: lib/Toks/Action/FormBase.pm:19
 msgid "Invalid email"
-msgstr ""
+msgstr "Неправильный email"
 
 #: lib/Toks/Action/ChangePassword.pm:33
 msgid "Invalid password"
-msgstr ""
+msgstr "Неправильный пароль"
+
+#: templates/activation_success.apl:5 templates/layout.apl:37
+#: templates/login.apl:11
+msgid "Login"
+msgstr "Вход"
+
+#: templates/layout.apl:35
+msgid "Logout"
+msgstr "Выход"
+
+#: templates/change_password.apl:8 templates/reset_password.apl:7
+msgid "New password"
+msgstr "Новый пароль"
+
+#: templates/email/confirmation_required.apl:7
+#: templates/email/deregistration_confirmation_required.apl:7
+#: templates/email/password_reset.apl:7
+msgid "Otherwise just ignore this email."
+msgstr "Иначе проигнорируйте это письмо."
+
+#: templates/login.apl:8 templates/register.apl:8
+msgid "Password"
+msgstr "Пароль"
+
+#: templates/password_changed.apl:3
+msgid "Password changed."
+msgstr "Пароль изменен."
 
 #: lib/Toks/Action/FormBase.pm:20
 msgid "Password mismatch"
-msgstr ""
+msgstr "Пароли не совпадают"
 
 #: lib/Toks/Action/RequestPasswordReset.pm:64
+#: templates/request_password_reset.apl:3
 msgid "Password reset"
-msgstr ""
+msgstr "Сброс пароля"
 
-#: lib/Toks/Action/Register.pm:58
+#: templates/deregistration_confirmation_needed.apl:3
+#: templates/password_reset_confirmation_needed.apl:3
+msgid "Please check your email for a confirmation link."
+msgstr "Пожалуйста, проверьте свою почту на наличие письма с подтверждением."
+
+#: templates/register.apl:10
+msgid "Register"
+msgstr "Зарегистрироваться"
+
+#: templates/register.apl:3
+msgid "Registration"
+msgstr "Регистрация"
+
+#: lib/Toks/Action/Register.pm:56
 msgid "Registration confirmation"
-msgstr ""
+msgstr "Подтверждение регистрации"
+
+#: templates/settings.apl:14
+msgid "Remove account"
+msgstr "Удаление аккаунта"
+
+#: templates/deregister.apl:7
+msgid "Remove my account"
+msgstr "Удалить аккаунт"
+
+#: templates/change_password.apl:9 templates/reset_password.apl:8
+msgid "Repeat new password"
+msgstr "Повторите новый пароль"
 
 #: lib/Toks/Action/FormBase.pm:18
 msgid "Required"
+msgstr "Обязательно"
+
+#: templates/reset_password.apl:10
+msgid "Reset"
+msgstr "Сбросить"
+
+#: templates/login.apl:9 templates/request_password_reset.apl:9
+#: templates/reset_password.apl:3
+msgid "Reset password"
+msgstr "Сбросить пароль"
+
+#: templates/change_password.apl:11
+msgid "Save"
+msgstr "Сохранить"
+
+#: templates/activation_needed.apl:5
+msgid "See you soon!"
+msgstr "Скоро увидимся!"
+
+#: templates/include/quick-edit-form.apl:6
+#: templates/include/quick-reply-form.apl:10
+msgid "Send"
+msgstr "Отправить"
+
+#: templates/layout.apl:33 templates/settings.apl:3
+msgid "Settings"
+msgstr "Настройки"
+
+#: templates/layout.apl:37
+msgid "Sign up"
+msgstr "Регистрация"
+
+#: templates/activation_needed.apl:3
+msgid ""
+"Thank you for registering. Please check your email for a confirmation link."
 msgstr ""
+"Спасибо за вашу регистрацию. Пожалуйста, проверьте почту на наличие "
+"подтверждения."
 
 #: lib/Toks/Action/Login.pm:31 lib/Toks/Action/Login.pm:36
 msgid "Unknown credentials"
-msgstr ""
+msgstr "Неизвестные данные"
+
+#: templates/settings.apl:9 templates/update_thread.apl:10
+msgid "Update"
+msgstr "Обновить"
+
+#: templates/update_thread.apl:3
+msgid "Update thread"
+msgstr "Обновить тему"
 
 #: lib/Toks/Action/RequestPasswordReset.pm:29
 msgid "User does not exist"
-msgstr ""
+msgstr "Пользователь не существует"
 
 #: lib/Toks/Action/Register.pm:28
 msgid "User exists"
+msgstr "Пользователь существует"
+
+#: templates/layout.apl:51
+msgid "Written by"
+msgstr "Написано"
+
+#. ($email)
+#: templates/email/deregistration_confirmation_required.apl:2
+msgid ""
+"You or somebody else has deregistered '%1' at our website. If that was you, "
+"please use the following link to confirm your account removal"
 msgstr ""
+"Вы или кто-то другой удалил регистрацию '%1' на нашем сайте. Если это были "
+"вы, пожалуйста проследуйте по следующей ссылке для подтверждения:"
+
+#. ($email)
+#: templates/email/confirmation_required.apl:2
+msgid ""
+"You or somebody else has registered '%1' at our website. If that was you, "
+"please use the following link to confirm your registration:"
+msgstr ""
+"Вы или кто-то другой зарегистрировал '%1' на нашем сайте. Если это были вы, "
+"пожалуйста проследуйте по следующей ссылке для подтверждения:"
+
+#. ($email)
+#: templates/email/password_reset.apl:2
+msgid ""
+"You or somebody else has requested a password reset for '%1' at our website. "
+"If that was you, please use the following link to confirm your action:"
+msgstr ""
+"Вы или кто-то другой затребовал сброс пароля '%1' на нашем сайте. Если это "
+"были вы, пожалуйста проследуйте по следующей ссылке для подтверждения:"
+
+#: templates/deregistration_confirmation_success.apl:3
+msgid "Your account was successfully removed!"
+msgstr "Ваш аккаунт был успешно удален!"
+
+#: templates/password_reset_success.apl:3
+msgid "Your password was successfully reset!"
+msgstr "Выш пароль был успешно сброшен!"
+
+#: templates/activation_success.apl:3
+msgid "Your registration was successfully activated!"
+msgstr "Ваша регистрация была успешно активирована!"
+
+#: templates/include/thread.apl:12
+msgid "by"
+msgstr "от"
+
+#: templates/include/reply-controls.apl:9
+#: templates/include/thread-controls.apl:11
+msgid "delete"
+msgstr "удалить"
+
+#: templates/include/reply-controls.apl:5
+#: templates/include/thread-controls.apl:6
+msgid "edit"
+msgstr "изменить"
+
+#: templates/include/quick-edit-form.apl:6
+#: templates/include/quick-reply-form.apl:10
+msgid "or"
+msgstr "или"
+
+#: templates/layout.apl:51
+msgid "powered by"
+msgstr "работает на"
+
+#: templates/include/reply-controls.apl:2
+msgid "reply"
+msgstr "ответить"
+
+#: templates/include/thread-controls.apl:2
+msgid "reply to thread"
+msgstr "ответить в тему"
+
+#: templates/include/thread.apl:5
+msgid "subscribe"
+msgstr "подписаться"

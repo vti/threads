@@ -3,7 +3,7 @@
 
                 <%== $helpers->form->textarea('content', default => $reply->{content}) %>
 
-                <input type="submit" value="<%= loc('Send') %>" /> <em>or</em> CTRL+Enter
+                <input type="submit" value="<%= loc('Send') %>" /> <em><%= loc('or') %></em> CTRL+Enter
 
                 (<a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a>)
 

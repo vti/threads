@@ -8,8 +8,48 @@ msgstr ""
 msgid "Account not activated"
 msgstr ""
 
+#: templates/login.apl:3
+msgid "Authorization"
+msgstr ""
+
+#: templates/change_password.apl:3 templates/layout.apl:34
+msgid "Change password"
+msgstr ""
+
+#: templates/create_reply.apl:9
+msgid "Create"
+msgstr ""
+
+#: templates/create_thread.apl:10
+msgid "Create new thread"
+msgstr ""
+
+#: templates/create_reply.apl:3
+msgid "Create reply"
+msgstr ""
+
+#: templates/create_thread.apl:3 templates/layout.apl:32
+msgid "Create thread"
+msgstr ""
+
+#: templates/change_password.apl:7
+msgid "Current password"
+msgstr ""
+
+#: templates/deregister.apl:3
+msgid "Deregistration"
+msgstr ""
+
 #: lib/Toks/Action/Deregister.pm:34
 msgid "Deregistration confirmation"
+msgstr ""
+
+#: templates/layout.apl:7
+msgid "Forum"
+msgstr ""
+
+#: templates/deregistration_confirmation_needed.apl:5
+msgid "Good luck!"
 msgstr ""
 
 #: lib/Toks/Action/FormBase.pm:19
@@ -20,24 +60,120 @@ msgstr ""
 msgid "Invalid password"
 msgstr ""
 
+#: templates/activation_success.apl:5 templates/layout.apl:37
+#: templates/login.apl:11
+msgid "Login"
+msgstr ""
+
+#: templates/layout.apl:35
+msgid "Logout"
+msgstr ""
+
+#: templates/change_password.apl:8 templates/reset_password.apl:7
+msgid "New password"
+msgstr ""
+
+#: templates/email/confirmation_required.apl:7
+#: templates/email/deregistration_confirmation_required.apl:7
+#: templates/email/password_reset.apl:7
+msgid "Otherwise just ignore this email."
+msgstr ""
+
+#: templates/login.apl:8 templates/register.apl:8
+msgid "Password"
+msgstr ""
+
+#: templates/password_changed.apl:3
+msgid "Password changed."
+msgstr ""
+
 #: lib/Toks/Action/FormBase.pm:20
 msgid "Password mismatch"
 msgstr ""
 
 #: lib/Toks/Action/RequestPasswordReset.pm:64
+#: templates/request_password_reset.apl:3
 msgid "Password reset"
 msgstr ""
 
-#: lib/Toks/Action/Register.pm:58
+#: templates/deregistration_confirmation_needed.apl:3
+#: templates/password_reset_confirmation_needed.apl:3
+msgid "Please check your email for a confirmation link."
+msgstr ""
+
+#: templates/register.apl:10
+msgid "Register"
+msgstr ""
+
+#: templates/register.apl:3
+msgid "Registration"
+msgstr ""
+
+#: lib/Toks/Action/Register.pm:56
 msgid "Registration confirmation"
+msgstr ""
+
+#: templates/settings.apl:14
+msgid "Remove account"
+msgstr ""
+
+#: templates/deregister.apl:7
+msgid "Remove my account"
+msgstr ""
+
+#: templates/change_password.apl:9 templates/reset_password.apl:8
+msgid "Repeat new password"
 msgstr ""
 
 #: lib/Toks/Action/FormBase.pm:18
 msgid "Required"
 msgstr ""
 
+#: templates/reset_password.apl:10
+msgid "Reset"
+msgstr ""
+
+#: templates/login.apl:9 templates/request_password_reset.apl:9
+#: templates/reset_password.apl:3
+msgid "Reset password"
+msgstr ""
+
+#: templates/change_password.apl:11
+msgid "Save"
+msgstr ""
+
+#: templates/activation_needed.apl:5
+msgid "See you soon!"
+msgstr ""
+
+#: templates/include/quick-edit-form.apl:6
+#: templates/include/quick-reply-form.apl:10
+msgid "Send"
+msgstr ""
+
+#: templates/layout.apl:33 templates/settings.apl:3
+msgid "Settings"
+msgstr ""
+
+#: templates/layout.apl:37
+msgid "Sign up"
+msgstr ""
+
+#: templates/activation_needed.apl:3
+msgid ""
+"Thank you for registering. Please check your email for a confirmation link."
+msgstr ""
+
 #: lib/Toks/Action/Login.pm:31 lib/Toks/Action/Login.pm:36
 msgid "Unknown credentials"
+msgstr ""
+
+#: templates/settings.apl:9 templates/update_thread.apl:10
+msgid "Update"
+msgstr ""
+
+#: templates/update_thread.apl:3
+msgid "Update thread"
 msgstr ""
 
 #: lib/Toks/Action/RequestPasswordReset.pm:29
@@ -46,4 +182,76 @@ msgstr ""
 
 #: lib/Toks/Action/Register.pm:28
 msgid "User exists"
+msgstr ""
+
+#: templates/layout.apl:51
+msgid "Written by"
+msgstr ""
+
+#. ($email)
+#: templates/email/deregistration_confirmation_required.apl:2
+msgid ""
+"You or somebody else has deregistered '%1' at our website. If that was you, "
+"please use the following link to confirm your account removal"
+msgstr ""
+
+#. ($email)
+#: templates/email/confirmation_required.apl:2
+msgid ""
+"You or somebody else has registered '%1' at our website. If that was you, "
+"please use the following link to confirm your registration:"
+msgstr ""
+
+#. ($email)
+#: templates/email/password_reset.apl:2
+msgid ""
+"You or somebody else has requested a password reset for '%1' at our website. "
+"If that was you, please use the following link to confirm your action:"
+msgstr ""
+
+#: templates/deregistration_confirmation_success.apl:3
+msgid "Your account was successfully removed!"
+msgstr ""
+
+#: templates/password_reset_success.apl:3
+msgid "Your password was successfully reset!"
+msgstr ""
+
+#: templates/activation_success.apl:3
+msgid "Your registration was successfully activated!"
+msgstr ""
+
+#: templates/include/thread.apl:12
+msgid "by"
+msgstr ""
+
+#: templates/include/reply-controls.apl:9
+#: templates/include/thread-controls.apl:11
+msgid "delete"
+msgstr ""
+
+#: templates/include/reply-controls.apl:5
+#: templates/include/thread-controls.apl:6
+msgid "edit"
+msgstr ""
+
+#: templates/include/quick-edit-form.apl:6
+#: templates/include/quick-reply-form.apl:10
+msgid "or"
+msgstr ""
+
+#: templates/layout.apl:51
+msgid "powered by"
+msgstr ""
+
+#: templates/include/reply-controls.apl:2
+msgid "reply"
+msgstr ""
+
+#: templates/include/thread-controls.apl:2
+msgid "reply to thread"
+msgstr ""
+
+#: templates/include/thread.apl:5
+msgid "subscribe"
 msgstr ""

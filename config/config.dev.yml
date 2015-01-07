@@ -7,6 +7,10 @@ database:
     attrs:
         RaiseError: 1
         sqlite_unicode: 1
+i18n:
+    default_language: 'ru'
+    languages:
+        - 'ru'
 mailer:
     subject_prefix: '[Toks]'
     headers:

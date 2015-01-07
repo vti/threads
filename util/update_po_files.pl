@@ -7,6 +7,7 @@ use File::Copy ();
 use Locale::Maketext::Extract::Run 'xgettext';
 
 my ($dir) = @ARGV;
+$dir ||= 'locale';
 die 'Usage: <locale_dir>' unless $dir && -d $dir;
 
 xgettext('-D', 'lib', '-D', 'templates');
