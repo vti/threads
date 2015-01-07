@@ -228,7 +228,7 @@ subtest 'change user password' => sub {
 
     $ua->follow_link(text => 'Login');
     $ua->submit_form(fields => {email => 'foo@bar.com', password => 'foo'});
-    $ua->content_contains('Index');
+    $ua->content_contains('Sort by');
 };
 
 sub _build_ua {

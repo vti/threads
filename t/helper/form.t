@@ -12,7 +12,7 @@ subtest 'builds simple input' => sub {
     my $helper = _build_helper();
 
     is $helper->input('username'), <<'EOT';
-<div>
+<div class="form-input">
     <input type="text" name="username" />
 </div>
 EOT
@@ -22,7 +22,7 @@ subtest 'builds input with label' => sub {
     my $helper = _build_helper();
 
     is $helper->input('username', label => 'Login'), <<'EOT';
-<div>
+<div class="form-input">
     <label>Login</label><br />
     <input type="text" name="username" />
 </div>
@@ -33,7 +33,7 @@ subtest 'builds input with label marked required' => sub {
     my $helper = _build_helper();
 
     is $helper->input('username', label => 'Login', required => 1), <<'EOT';
-<div>
+<div class="form-input">
     <label>Login*</label><br />
     <input type="text" name="username" />
 </div>
@@ -44,7 +44,7 @@ subtest 'builds input with default value' => sub {
     my $helper = _build_helper();
 
     is $helper->input('username', default => 'foo'), <<'EOT';
-<div>
+<div class="form-input">
     <input type="text" name="username" value="foo" />
 </div>
 EOT
@@ -54,7 +54,7 @@ subtest 'builds input with previously submitted value' => sub {
     my $helper = _build_helper(vars => {params => {username => 'foo'}});
 
     is $helper->input('username'), <<'EOT';
-<div>
+<div class="form-input">
     <input type="text" name="username" value="foo" />
 </div>
 EOT
@@ -64,7 +64,7 @@ subtest 'builds input with error' => sub {
     my $helper = _build_helper(vars => {errors => {username => 'required'}});
 
     is $helper->input('username'), <<'EOT';
-<div>
+<div class="form-input">
     <input type="text" name="username" />
     <div class="error">required</div>
 </div>
@@ -75,7 +75,7 @@ subtest 'builds input with additional tags' => sub {
     my $helper = _build_helper();
 
     is $helper->input('username', foo => 'bar'), <<'EOT';
-<div>
+<div class="form-input">
     <input type="text" name="username" foo="bar" />
 </div>
 EOT
@@ -85,7 +85,7 @@ subtest 'builds simple select' => sub {
     my $helper = _build_helper();
 
     is $helper->select('name', options => [foo => 'bar']), <<'EOT';
-<div>
+<div class="form-input">
     <select name="name">
         <option value="foo">bar</option>
     </select>
@@ -98,7 +98,7 @@ subtest 'builds simple select with label' => sub {
 
     is $helper->select('name', label => 'Choose', options => [foo => 'bar']),
       <<'EOT';
-<div>
+<div class="form-input">
     <label>Choose</label><br />
     <select name="name">
         <option value="foo">bar</option>
@@ -117,7 +117,7 @@ subtest 'builds simple select with default' => sub {
         default => ['foo', 'bar']
       ),
       <<'EOT';
-<div>
+<div class="form-input">
     <select name="name" multiple>
         <option value="foo" selected="selected">bar</option>
         <option value="bar" selected="selected">baz</option>
@@ -131,7 +131,7 @@ subtest 'builds simple select with error' => sub {
 
     is $helper->select('name', options => [foo => 'bar', bar => 'baz']),
       <<'EOT';
-<div>
+<div class="form-input">
     <select name="name">
         <option value="foo">bar</option>
         <option value="bar">baz</option>
@@ -150,7 +150,7 @@ subtest 'builds multiple select with default' => sub {
         default => 'bar'
       ),
       <<'EOT';
-<div>
+<div class="form-input">
     <select name="name">
         <option value="foo">bar</option>
         <option value="bar" selected="selected">baz</option>
@@ -168,7 +168,7 @@ subtest 'builds simple select with submitted value' => sub {
         default => 'baz'
       ),
       <<'EOT';
-<div>
+<div class="form-input">
     <select name="name">
         <option value="foo" selected="selected">bar</option>
         <option value="bar">baz</option>
@@ -187,7 +187,7 @@ subtest 'builds multiple select with submitted value' => sub {
         default  => 'baz'
       ),
       <<'EOT';
-<div>
+<div class="form-input">
     <select name="name" multiple>
         <option value="foo" selected="selected">bar</option>
         <option value="bar" selected="selected">baz</option>
