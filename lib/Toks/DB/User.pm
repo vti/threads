@@ -42,7 +42,7 @@ sub hash_password {
     my $self = shift;
     my ($password) = @_;
 
-    $password = Encode::encode('UTF_8', $password);
+    $password = Encode::encode('UTF-8', $password);
 
     return Digest::MD5::md5_hex($password || '');
 }
