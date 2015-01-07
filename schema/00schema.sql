@@ -23,6 +23,7 @@ CREATE TABLE `threads` (
   `user_id` INT NOT NULL,
   `created` integer(4) not null default (strftime('%s','now')),
   `title` VARCHAR(32) NOT NULL DEFAULT '',
+  `replies_count` INT NOT NULL DEFAULT 0,
   `content` TEXT NOT NULL DEFAULT ''
 );
 

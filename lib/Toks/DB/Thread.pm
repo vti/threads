@@ -14,6 +14,7 @@ __PACKAGE__->meta(
           created
           title
           content
+          replies_count
           /
     ],
     primary_key    => 'id',

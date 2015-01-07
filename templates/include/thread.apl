@@ -1,7 +1,7 @@
     <div class="thread">
         <div class="thread-header">
             <div class="thread-counters">
-            <div class="thread-counters-replies">0</div>
+            <div class="thread-counters-replies"><%= $thread->{replies_count} %></div>
             Views: 567<br />
             <a href="">subscribe</a>
             </div>

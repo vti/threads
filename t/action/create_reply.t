@@ -102,6 +102,27 @@ subtest 'creates reply with correct params when parent present' => sub {
     is $reply->get_column('parent_id'), $parent->get_column('id');
 };
 
+subtest 'updates replies_count in thread' => sub {
+    TestDB->setup;
+
+    my $user =
+      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $thread =
+      Toks::DB::Thread->new(user_id => $user->get_column('id'))->create;
+
+    my $action = _build_action(
+        req       => POST('/' => {content => 'bar'}),
+        captures  => {id      => $thread->get_column('id')},
+        'tu.user' => $user
+    );
+
+    $action->run;
+
+    $thread->load;
+
+    is $thread->get_column('replies_count'), 1
+};
+
 subtest 'redirects to thread view' => sub {
     TestDB->setup;
 
