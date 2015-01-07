@@ -27,6 +27,10 @@
             </div>
             <div class="grid-80 mobile-grid-100">
             <div id="header" class="grid-100 mobile-grid-100">
+                % if (my $header = $helpers->config->config->{theme}->{header}) {
+                    <%== $header %>
+                % }
+
                 <a href="<%= $helpers->url->index %>"><%= loc('Threads') %></a> |
                 % if (var('user')) {
                 <a href="<%= $helpers->url->create_thread %>">+ <%= loc('Create thread') %></a> |
