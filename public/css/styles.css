@@ -90,6 +90,21 @@ h1 {
   padding-top: 20px;
 }
 
+td {
+    padding-right:0.5em;
+    padding-top.5em;
+}
+
+td.td-right {
+    padding-right:0px;
+    padding-left.5em;
+    padding-top.5em;
+}
+
+.no-wrap {
+    white-space: nowrap;
+}
+
 .grid-container {
   padding-bottom: 20px;
 }

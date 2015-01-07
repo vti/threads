@@ -116,6 +116,15 @@ sub _add_routes {
         '/subscriptions',
         name   => 'list_subscriptions',
     );
+
+    $routes->add_route(
+        '/notifications',
+        name   => 'list_notifications',
+    );
+    $routes->add_route(
+        '/delete-notifications',
+        name   => 'delete_notifications',
+    );
 }
 
 sub _add_acl {

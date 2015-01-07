@@ -11,6 +11,8 @@ use HTTP::Request::Common;
 use Toks::DB::User;
 use Toks::DB::Thread;
 use Toks::DB::Reply;
+use Toks::DB::Subscription;
+use Toks::DB::Notification;
 use Toks::Action::CreateReply;
 
 subtest 'returns 404 when unknown thread' => sub {
@@ -143,6 +145,103 @@ subtest 'redirects to thread view' => sub {
     my ($name) = $action->mocked_call_args('redirect');
 
     is $name, 'view_thread';
+};
+
+subtest 'does not notify thread author when same replier' => sub {
+    TestDB->setup;
+
+    my $user =
+      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $thread =
+      Toks::DB::Thread->new(user_id => $user->get_column('id'))->create;
+    Toks::DB::Subscription->new(
+        user_id   => $user->get_column('id'),
+        thread_id => $thread->get_column('id')
+    )->create;
+
+    my $action = _build_action(
+        req       => POST('/' => {content => 'bar'}),
+        captures  => {id      => $thread->get_column('id')},
+        'tu.user' => $user
+    );
+
+    $action->run;
+
+    ok !Toks::DB::Notification->find(first => 1);
+};
+
+subtest 'notify subscribed users' => sub {
+    TestDB->setup;
+
+    my $thread_author =
+      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $thread =
+      Toks::DB::Thread->new(user_id => $thread_author->get_column('id'))->create;
+    Toks::DB::Subscription->new(
+        user_id   => $thread_author->get_column('id'),
+        thread_id => $thread->get_column('id')
+    )->create;
+
+    my $user2 =
+      Toks::DB::User->new(email => 'foo2@bar.com', password => 'bar')->create;
+    Toks::DB::Subscription->new(
+        user_id   => $user2->get_column('id'),
+        thread_id => $thread->get_column('id')
+    )->create;
+
+    my $action = _build_action(
+        req       => POST('/' => {content => 'bar'}),
+        captures  => {id      => $thread->get_column('id')},
+        'tu.user' => $user2
+    );
+
+    $action->run;
+
+    my $reply = Toks::DB::Reply->find(first => 1);
+    my $notification = Toks::DB::Notification->find(first => 1);
+
+    is(Toks::DB::Notification->table->count, 1);
+
+    ok $notification;
+    is $notification->get_column('user_id'), $thread_author->get_column('id');
+    is $notification->get_column('reply_id'), $reply->get_column('id');
+};
+
+subtest 'notify parent reply user' => sub {
+    TestDB->setup;
+
+    my $thread_author =
+      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $thread =
+      Toks::DB::Thread->new(user_id => $thread_author->get_column('id'))->create;
+
+    my $user =
+      Toks::DB::User->new(email => 'foo2@bar.com', password => 'bar')->create;
+
+    my $parent_reply = Toks::DB::Reply->new(
+        thread_id => $thread->get_column('id'),
+        user_id   => $user->get_column('id')
+    )->create;
+
+    my $user2 =
+      Toks::DB::User->new(email => 'foo3@bar.com', password => 'bar')->create;
+
+    my $action = _build_action(
+        req       => POST('/?to=' . $parent_reply->get_column('id') => {content => 'bar'}),
+        captures  => {id      => $thread->get_column('id')},
+        'tu.user' => $user
+    );
+
+    $action->run;
+
+    my $reply = Toks::DB::Reply->find(first => 1, order_by => [id => 'DESC']);
+    my $notification = Toks::DB::Notification->find(first => 1);
+
+    is(Toks::DB::Notification->table->count, 1);
+
+    ok $notification;
+    is $notification->get_column('user_id'), $user->get_column('id');
+    is $notification->get_column('reply_id'), $reply->get_column('id');
 };
 
 sub _build_action {

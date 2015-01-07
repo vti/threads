@@ -113,4 +113,25 @@
         return false;
     });
 
+    $('.quick-delete-notifications').submit(function() {
+        var form = $(this);
+        var formData = $(this).serializeArray();
+
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: formData,
+            success: function(data) {
+                var redirect = data.redirect;
+
+                if (redirect) {
+                    window.location = redirect;
+                }
+            },
+            failure: function(errMsg) {}
+        });
+
+        return false;
+    });
+
 })();

@@ -31,6 +31,7 @@
                 % if (var('user')) {
                 <a href="<%= $helpers->url->create_thread %>">+ <%= loc('Create thread') %></a> |
                 <a href="<%= $helpers->url->list_subscriptions %>"><%= loc('Subscriptions') %></a> |
+                <a href="<%= $helpers->url->list_notifications %>"><%= loc('Notifications') %> (<%= $helpers->notification->count %>)</a> |
                 <a href="<%= $helpers->url->settings %>"><%= loc('Settings') %></a> |
                 <a href="<%= $helpers->url->change_password %>"><%= loc('Change password') %></a> |
                 <a href="<%= $helpers->url->logout %>"><%= loc('Logout') %></a>

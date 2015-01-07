@@ -8,6 +8,8 @@ use parent 'Toks::Action::FormBase';
 use Toks::DB::User;
 use Toks::DB::Thread;
 use Toks::DB::Reply;
+use Toks::DB::Notification;
+use Toks::DB::Subscription;
 
 sub build_validator {
     my $self = shift;
@@ -58,6 +60,27 @@ sub submit {
     $thread->set_column(
         replies_count => $thread->count_related('replies'));
     $thread->update;
+
+    my @subscriptions = Toks::DB::Subscription->find(
+        where => [
+            user_id   => {'!=' => $user->get_column('id')},
+            thread_id => $thread->get_column('id'),
+        ]
+    );
+
+    foreach my $subscription (@subscriptions) {
+        Toks::DB::Notification->new(
+            user_id  => $subscription->get_column('user_id'),
+            reply_id => $reply->get_column('id')
+        )->create;
+    }
+
+    if ($parent) {
+        Toks::DB::Notification->new(
+            user_id  => $parent->related('user')->get_column('id'),
+            reply_id => $reply->get_column('id')
+        )->load_or_create;
+    }
 
     return $self->redirect(
         'view_thread',
