@@ -53,6 +53,16 @@ subtest 'removes double dashes' => sub {
     is $thread->get_column('slug'), 'привет-это-мы';
 };
 
+subtest 'removes leading and trailing dashes' => sub {
+    TestDB->setup;
+
+    my $thread = _build_thread(title => '--Привет, -- это # мы!--')->create;
+
+    $thread = $thread->load;
+
+    is $thread->get_column('slug'), 'привет-это-мы';
+};
+
 done_testing;
 
 sub _build_thread {
