@@ -16,6 +16,10 @@ msgstr ""
 msgid "Change password"
 msgstr ""
 
+#: templates/create_thread.apl:8 templates/update_thread.apl:8
+msgid "Content"
+msgstr ""
+
 #: templates/create_reply.apl:9
 msgid "Create"
 msgstr ""
@@ -162,6 +166,14 @@ msgstr ""
 #: templates/activation_needed.apl:3
 msgid ""
 "Thank you for registering. Please check your email for a confirmation link."
+msgstr ""
+
+#: templates/layout.apl:30
+msgid "Threads"
+msgstr ""
+
+#: templates/create_thread.apl:7 templates/update_thread.apl:7
+msgid "Title"
 msgstr ""
 
 #: lib/Toks/Action/Login.pm:31 lib/Toks/Action/Login.pm:36

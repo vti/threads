@@ -17,6 +17,8 @@ sub build_validator {
     return $validator;
 }
 
+sub show_errors { shift->throw_error('Invalid request', 400) }
+
 sub run {
     my $self = shift;
 

@@ -27,7 +27,7 @@
             </div>
             <div class="grid-80 mobile-grid-100">
             <div id="header" class="grid-100 mobile-grid-100">
-                <a href="<%= $helpers->url->index %>">Toks</a> |
+                <a href="<%= $helpers->url->index %>"><%= loc('Threads') %></a> |
                 % if (var('user')) {
                 <a href="<%= $helpers->url->create_thread %>">+ <%= loc('Create thread') %></a> |
                 <a href="<%= $helpers->url->settings %>"><%= loc('Settings') %></a> |

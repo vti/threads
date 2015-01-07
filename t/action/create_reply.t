@@ -37,7 +37,7 @@ subtest 'returns 404 when unknown to' => sub {
     is $e->code, 404;
 };
 
-subtest 'set template var errors' => sub {
+subtest 'throws 404 on errors' => sub {
     TestDB->setup;
 
     my $thread = Toks::DB::Thread->new(user_id => 1)->create;
@@ -46,9 +46,9 @@ subtest 'set template var errors' => sub {
         captures => {id      => $thread->get_column('id')}
     );
 
-    $action->run;
+    my $e = exception { $action->run };
 
-    ok $action->scope->displayer->vars->{errors};
+    is $e->code, 400;
 };
 
 subtest 'creates reply with correct params' => sub {

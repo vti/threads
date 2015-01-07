@@ -16,6 +16,10 @@ msgstr "Авторизация"
 msgid "Change password"
 msgstr "Изменить пароль"
 
+#: templates/create_thread.apl:8 templates/update_thread.apl:8
+msgid "Content"
+msgstr "Содержимое"
+
 #: templates/create_reply.apl:9
 msgid "Create"
 msgstr "Создать"
@@ -165,6 +169,14 @@ msgid ""
 msgstr ""
 "Спасибо за вашу регистрацию. Пожалуйста, проверьте почту на наличие "
 "подтверждения."
+
+#: templates/layout.apl:30
+msgid "Threads"
+msgstr "Темы"
+
+#: templates/create_thread.apl:7 templates/update_thread.apl:7
+msgid "Title"
+msgstr "Заголовок"
 
 #: lib/Toks/Action/Login.pm:31 lib/Toks/Action/Login.pm:36
 msgid "Unknown credentials"

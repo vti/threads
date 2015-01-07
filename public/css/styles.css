@@ -121,7 +121,9 @@ h1 {
     height: 82px;
 }
 
-.error {color:red}
+.error {
+    color:red
+}
 
 .status-ok {
     color: #4F8A10
@@ -142,6 +144,10 @@ h1 {
 textarea {
     width:50%;
     height:100px;
+}
+
+textarea.error {
+    border-color:red;
 }
 
 .form-input {

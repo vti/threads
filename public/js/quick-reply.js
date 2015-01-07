@@ -1,30 +1,23 @@
 (function(){
 
-    $('.quick-reply-button').click(function() {
-        var form = $(this).parent().find('.quick-reply-form');
+    $('.quick-reply-form, .quick-edit-form').submit(function() {
+        var textarea = $(this).find('textarea');
+        var val = textarea.val().replace(/^\s+|\s+$/g, '');
 
-        if (form.css('display') == 'none') {
-            form.show();
-            form.find('textarea').focus();
-
-            form.find('textarea').keydown(function (e) {
-              if ((e.keyCode == 10 || e.keyCode == 13) && e.ctrlKey) {
-                  e.preventDefault();
-
-                  $(this).parent().parent().submit();
-              }
-            });
+        if (val.length) {
+            return true;
         }
         else {
-            form.find('textarea').val('');
-            form.find('textarea').off('keydown');
-            form.hide();
+            textarea.addClass('error');
+            return false;
         }
-
-        return false;
     });
 
-    $('.quick-edit-button').click(function() {
+    $('.quick-reply-form textarea, .quick-edit-form textarea').focus(function() {
+       $(this).removeClass('error');
+    });
+
+    $('.quick-reply-button, .quick-edit-button').click(function() {
         var form = $(this).parent().find('.quick-edit-form');
 
         if (!form.css('display') || form.css('display') == 'none') {
@@ -40,7 +33,6 @@
             });
         }
         else {
-            //form.find('textarea').val('');
             form.find('textarea').off('keydown');
             form.hide();
         }

@@ -58,7 +58,7 @@ subtest 'returns 404 when has ansestors' => sub {
     is $e->code, 404;
 };
 
-subtest 'set template var errors' => sub {
+subtest 'returns 400 when validation errors' => sub {
     TestDB->setup;
 
     my $user = Toks::DB::User->new(email => 'foo', password => 'bar')->create;
@@ -72,9 +72,9 @@ subtest 'set template var errors' => sub {
         'tu.user' => $user
     );
 
-    $action->run;
+    my $e = exception { $action->run };
 
-    ok $action->scope->displayer->vars->{errors};
+    is $e->code, 400;
 };
 
 subtest 'updates reply with correct params' => sub {
