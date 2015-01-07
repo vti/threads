@@ -114,7 +114,7 @@ subtest 'login with new password' => sub {
     $ua->follow_link(text => 'Login');
     $ua->submit_form(fields => {email => 'foo@bar.com', password => 'foo'});
 
-    $ua->content_contains('Sort by');
+    $ua->content_contains('Sort');
 };
 
 sub _login {

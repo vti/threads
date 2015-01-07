@@ -127,7 +127,7 @@ subtest 'redirects after deletion' => sub {
 
     $ua->post('/threads/' . $thread->get_column('id') . '/delete');
 
-    like $ua->content, qr/Sort by/;
+    like $ua->content, qr/Sort/;
 };
 
 sub _build_loggedin_ua {

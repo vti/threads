@@ -91,7 +91,7 @@ subtest 'redirect to root' => sub {
     $ua->follow_link(text => 'Login');
 
     $ua->submit_form(fields => {email => 'foo@bar.com', password => 'silly'});
-    $ua->content_contains('Sort by');
+    $ua->content_contains('Sort');
 };
 
 subtest 'logout is forbidden when not logged in' => sub {
@@ -117,7 +117,7 @@ subtest 'logout' => sub {
     $ua->submit_form(fields => {email => 'foo@bar.com', password => 'silly'});
 
     $ua->follow_link(text => 'Logout');
-    $ua->content_contains('Sort by');
+    $ua->content_contains('Sort');
 };
 
 sub _build_ua {

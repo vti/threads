@@ -116,7 +116,7 @@ subtest 'activate user' => sub {
 
     $ua->submit_form(
         fields => {email => 'foo@bar.com', password => 'password'});
-    $ua->content_contains('Sort by');
+    $ua->content_contains('Sort');
 };
 
 subtest 'forbidden when logged in' => sub {
