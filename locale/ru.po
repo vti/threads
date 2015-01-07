@@ -40,6 +40,10 @@ msgstr "Удаление аккаунта"
 msgid "Deregistration confirmation"
 msgstr "Подтверждение удаления аккаунта"
 
+#: templates/settings.apl:8
+msgid "Email notifications"
+msgstr "Email-уведомления"
+
 #: templates/layout.apl:7
 msgid "Forum"
 msgstr "Форум"
@@ -64,6 +68,10 @@ msgstr "Вход"
 #: templates/layout.apl:36
 msgid "Logout"
 msgstr "Выход"
+
+#: templates/settings.apl:7
+msgid "Name"
+msgstr "Имя"
 
 #: templates/change_password.apl:8 templates/reset_password.apl:7
 msgid "New password"
@@ -109,7 +117,7 @@ msgstr "Регистрация"
 msgid "Registration confirmation"
 msgstr "Подтверждение регистрации"
 
-#: templates/settings.apl:14
+#: templates/settings.apl:15
 msgid "Remove account"
 msgstr "Удаление аккаунта"
 
@@ -178,7 +186,7 @@ msgstr "Заголовок"
 msgid "Unknown credentials"
 msgstr "Неизвестные данные"
 
-#: templates/settings.apl:9 templates/update_thread.apl:10
+#: templates/settings.apl:10 templates/update_thread.apl:10
 msgid "Update"
 msgstr "Обновить"
 

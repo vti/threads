@@ -40,6 +40,10 @@ msgstr ""
 msgid "Deregistration confirmation"
 msgstr ""
 
+#: templates/settings.apl:8
+msgid "Email notifications"
+msgstr ""
+
 #: templates/layout.apl:7
 msgid "Forum"
 msgstr ""
@@ -63,6 +67,10 @@ msgstr ""
 
 #: templates/layout.apl:36
 msgid "Logout"
+msgstr ""
+
+#: templates/settings.apl:7
+msgid "Name"
 msgstr ""
 
 #: templates/change_password.apl:8 templates/reset_password.apl:7
@@ -109,7 +117,7 @@ msgstr ""
 msgid "Registration confirmation"
 msgstr ""
 
-#: templates/settings.apl:14
+#: templates/settings.apl:15
 msgid "Remove account"
 msgstr ""
 
@@ -176,7 +184,7 @@ msgstr ""
 msgid "Unknown credentials"
 msgstr ""
 
-#: templates/settings.apl:9 templates/update_thread.apl:10
+#: templates/settings.apl:10 templates/update_thread.apl:10
 msgid "Update"
 msgstr ""
 

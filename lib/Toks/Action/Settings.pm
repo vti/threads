@@ -11,6 +11,7 @@ sub build_validator {
     my $validator = $self->SUPER::build_validator;
 
     $validator->add_optional_field('name');
+    $validator->add_optional_field('email_notifications');
 
     return $validator;
 }

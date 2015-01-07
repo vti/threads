@@ -4,7 +4,12 @@
 
     <form method="POST">
 
-    <%== $helpers->form->input('name', label => 'Name', default => $user->{name}) %>
+    <div><label>Email</label></div>
+    <div class="form-input"><input value="<%= $user->{email} %>" disabled="disabled"/></div>
+
+    <%== $helpers->form->input('name', label => loc('Name'), default => $user->{name}) %>
+
+    <%== $helpers->form->input('email_notifications', type => 'checkbox', label => loc('Email notifications'), default => $user->{email_notifications}) %>
 
     <input type="submit" value="<%= loc('Update') %>" />
 
