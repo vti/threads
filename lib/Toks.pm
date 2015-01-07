@@ -73,6 +73,8 @@ sub _add_routes {
     $routes->add_route('/threads/:id', name => 'view_thread');
     $routes->add_route('/threads/:id/update', name => 'update_thread');
     $routes->add_route('/threads/:id/delete', name => 'delete_thread', method => 'POST');
+
+    $routes->add_route('/threads/:id/reply', name => 'create_reply');
 }
 
 sub _add_acl {
