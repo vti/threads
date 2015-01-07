@@ -81,6 +81,11 @@ sub _add_routes {
         name   => 'delete_thread',
         method => 'POST'
     );
+    $routes->add_route(
+        '/threads/:id/toggle-subscription',
+        name   => 'toggle_subscription',
+        method => 'POST'
+    );
 
     $routes->add_route(
         '/threads/:id/reply',
@@ -101,6 +106,15 @@ sub _add_routes {
         '/replies/:id/thank',
         name   => 'thank_reply',
         method => 'POST'
+    );
+
+    $routes->add_route(
+        '/delete-subscriptions',
+        name   => 'delete_subscriptions',
+    );
+    $routes->add_route(
+        '/subscriptions',
+        name   => 'list_subscriptions',
     );
 }
 

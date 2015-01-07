@@ -79,4 +79,38 @@
         return false;
     });
 
+    $('.quick-subscribe-form').submit(function() {
+        var form = $(this);
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            success: function(data) {
+                var state = data.state;
+
+                form.find('.quick-subscribe-button').html(state);
+            },
+            failure: function(errMsg) {}
+        });
+
+        return false;
+    });
+
+    $('.quick-delete-subscriptions').submit(function() {
+        var form = $(this);
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            success: function(data) {
+                var redirect = data.redirect;
+
+                if (redirect) {
+                    window.location = redirect;
+                }
+            },
+            failure: function(errMsg) {}
+        });
+
+        return false;
+    });
+
 })();

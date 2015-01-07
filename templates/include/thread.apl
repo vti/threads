@@ -2,7 +2,11 @@
         <div class="thread-header">
             <div class="thread-counters">
             <div class="thread-counters-replies"><%= $thread->{replies_count} %></div>
-            <a href=""><%= loc('subscribe') %></a>
+            % if (var('view')) {
+            <form class="form-inline quick-subscribe-form" action="<%= $helpers->url->toggle_subscription(id => $thread->{id}) %>">
+                <button class="quick-subscribe-button"><%= $helpers->subscription->is_subscribed($thread) ? loc('unsubscribe') : loc('subscribe') %></button>
+            </form>
+            % }
             </div>
 
             <h1 class="thread-title">
@@ -16,8 +20,10 @@
             <div class="clear"></div>
         </div>
 
+        % if (!var('no_content')) {
         <div class="thread-content">
             <%== $helpers->markdown->render($thread->{content}) %>
         </div>
+        % }
 
     </div>

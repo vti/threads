@@ -17,6 +17,9 @@ __PACKAGE__->meta(
           name
           status
           created
+          email_notifications
+          notify_when_replied
+          auto_subscribe
           /
     ],
     primary_key    => 'id',

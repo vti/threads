@@ -12,7 +12,7 @@ msgstr "Аккаунт не активирован"
 msgid "Authorization"
 msgstr "Авторизация"
 
-#: templates/change_password.apl:3 templates/layout.apl:34
+#: templates/change_password.apl:3 templates/layout.apl:35
 msgid "Change password"
 msgstr "Изменить пароль"
 
@@ -56,12 +56,12 @@ msgstr "Неправильный email"
 msgid "Invalid password"
 msgstr "Неправильный пароль"
 
-#: templates/activation_success.apl:5 templates/layout.apl:37
+#: templates/activation_success.apl:5 templates/layout.apl:38
 #: templates/login.apl:11
 msgid "Login"
 msgstr "Вход"
 
-#: templates/layout.apl:35
+#: templates/layout.apl:36
 msgid "Logout"
 msgstr "Выход"
 
@@ -147,13 +147,17 @@ msgstr "Скоро увидимся!"
 msgid "Send"
 msgstr "Отправить"
 
-#: templates/layout.apl:33 templates/settings.apl:3
+#: templates/layout.apl:34 templates/settings.apl:3
 msgid "Settings"
 msgstr "Настройки"
 
-#: templates/layout.apl:37
+#: templates/layout.apl:38
 msgid "Sign up"
 msgstr "Регистрация"
+
+#: templates/layout.apl:33 templates/list_subscriptions.apl:5
+msgid "Subscriptions"
+msgstr "Подписки"
 
 #: templates/activation_needed.apl:3
 msgid ""
@@ -190,7 +194,7 @@ msgstr "Пользователь не существует"
 msgid "User exists"
 msgstr "Пользователь существует"
 
-#: templates/layout.apl:51
+#: templates/layout.apl:52
 msgid "Written by"
 msgstr "Написано"
 
@@ -233,7 +237,7 @@ msgstr "Выш пароль был успешно сброшен!"
 msgid "Your registration was successfully activated!"
 msgstr "Ваша регистрация была успешно активирована!"
 
-#: templates/include/thread.apl:12
+#: templates/include/thread.apl:16
 msgid "by"
 msgstr "от"
 
@@ -241,6 +245,10 @@ msgstr "от"
 #: templates/include/thread-controls.apl:11
 msgid "delete"
 msgstr "удалить"
+
+#: templates/list_subscriptions.apl:12
+msgid "delete subscriptions"
+msgstr "удалить подписки"
 
 #: templates/include/reply-controls.apl:8
 #: templates/include/thread-controls.apl:6
@@ -252,7 +260,7 @@ msgstr "изменить"
 msgid "or"
 msgstr "или"
 
-#: templates/layout.apl:51
+#: templates/layout.apl:52
 msgid "powered by"
 msgstr "работает на"
 
@@ -264,10 +272,14 @@ msgstr "ответить"
 msgid "reply to thread"
 msgstr "ответить в тему"
 
-#: templates/include/thread.apl:5
+#: lib/Toks/Action/ToggleSubscription.pm:33 templates/include/thread.apl:7
 msgid "subscribe"
 msgstr "подписаться"
 
 #: templates/include/reply-controls.apl:3
 msgid "thank"
 msgstr "спасибо"
+
+#: lib/Toks/Action/ToggleSubscription.pm:41 templates/include/thread.apl:7
+msgid "unsubscribe"
+msgstr "отписаться"

@@ -12,7 +12,7 @@ msgstr ""
 msgid "Authorization"
 msgstr ""
 
-#: templates/change_password.apl:3 templates/layout.apl:34
+#: templates/change_password.apl:3 templates/layout.apl:35
 msgid "Change password"
 msgstr ""
 
@@ -56,12 +56,12 @@ msgstr ""
 msgid "Invalid password"
 msgstr ""
 
-#: templates/activation_success.apl:5 templates/layout.apl:37
+#: templates/activation_success.apl:5 templates/layout.apl:38
 #: templates/login.apl:11
 msgid "Login"
 msgstr ""
 
-#: templates/layout.apl:35
+#: templates/layout.apl:36
 msgid "Logout"
 msgstr ""
 
@@ -147,12 +147,16 @@ msgstr ""
 msgid "Send"
 msgstr ""
 
-#: templates/layout.apl:33 templates/settings.apl:3
+#: templates/layout.apl:34 templates/settings.apl:3
 msgid "Settings"
 msgstr ""
 
-#: templates/layout.apl:37
+#: templates/layout.apl:38
 msgid "Sign up"
+msgstr ""
+
+#: templates/layout.apl:33 templates/list_subscriptions.apl:5
+msgid "Subscriptions"
 msgstr ""
 
 #: templates/activation_needed.apl:3
@@ -188,7 +192,7 @@ msgstr ""
 msgid "User exists"
 msgstr ""
 
-#: templates/layout.apl:51
+#: templates/layout.apl:52
 msgid "Written by"
 msgstr ""
 
@@ -225,13 +229,17 @@ msgstr ""
 msgid "Your registration was successfully activated!"
 msgstr ""
 
-#: templates/include/thread.apl:12
+#: templates/include/thread.apl:16
 msgid "by"
 msgstr ""
 
 #: templates/include/reply-controls.apl:12
 #: templates/include/thread-controls.apl:11
 msgid "delete"
+msgstr ""
+
+#: templates/list_subscriptions.apl:12
+msgid "delete subscriptions"
 msgstr ""
 
 #: templates/include/reply-controls.apl:8
@@ -244,7 +252,7 @@ msgstr ""
 msgid "or"
 msgstr ""
 
-#: templates/layout.apl:51
+#: templates/layout.apl:52
 msgid "powered by"
 msgstr ""
 
@@ -256,10 +264,14 @@ msgstr ""
 msgid "reply to thread"
 msgstr ""
 
-#: templates/include/thread.apl:5
+#: lib/Toks/Action/ToggleSubscription.pm:33 templates/include/thread.apl:7
 msgid "subscribe"
 msgstr ""
 
 #: templates/include/reply-controls.apl:3
 msgid "thank"
+msgstr ""
+
+#: lib/Toks/Action/ToggleSubscription.pm:41 templates/include/thread.apl:7
+msgid "unsubscribe"
 msgstr ""

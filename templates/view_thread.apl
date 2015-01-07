@@ -2,7 +2,7 @@
 
 <div class="grid-100">
 
-    %== $helpers->displayer->render('include/thread', thread => $thread, quick_reply => 1);
+    %== $helpers->displayer->render('include/thread', thread => $thread, view => 1);
 
     %== $helpers->displayer->render('include/thread-controls', thread => $thread);
 
