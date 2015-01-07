@@ -19,6 +19,20 @@ subtest 'creates simple slug' => sub {
     is $thread->get_column('slug'), 'foo';
 };
 
+subtest 'updates slug' => sub {
+    TestDB->setup;
+
+    my $thread = _build_thread(title => 'Foo')->create;
+
+    $thread = $thread->load;
+    $thread->set_column(title => 'Bar');
+    $thread->update;
+
+    $thread = $thread->load;
+
+    is $thread->get_column('slug'), 'bar';
+};
+
 subtest 'creates slug from unicode' => sub {
     TestDB->setup;
 
