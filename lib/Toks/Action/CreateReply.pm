@@ -57,7 +57,11 @@ sub submit {
         replies_count => $thread->count_related('replies'));
     $thread->update;
 
-    return $self->redirect('view_thread', id => $thread->get_column('id'));
+    return $self->redirect(
+        'view_thread',
+        id   => $thread->get_column('id'),
+        slug => $thread->get_column('slug')
+    );
 }
 
 1;

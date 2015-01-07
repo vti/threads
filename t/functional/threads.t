@@ -79,20 +79,20 @@ subtest 'shows validation errors on update' => sub {
     like $ua->content, qr/Required/;
 };
 
-subtest 'updates thread' => sub {
-    TestDB->setup;
-
-    my $ua = _build_loggedin_ua();
-
-    my $user = Toks::DB::User->find(first => 1);
-    my $thread =
-      Toks::DB::Thread->new(user_id => $user->get_column('id'))->create;
-
-    $ua->get('/threads/' . $thread->get_column('id') . '/update');
-    $ua->submit_form(fields => {title => 'bar', content => 'baz'});
-
-    like $ua->content, qr/bar/;
-};
+#subtest 'updates thread' => sub {
+#    TestDB->setup;
+#
+#    my $ua = _build_loggedin_ua();
+#
+#    my $user = Toks::DB::User->find(first => 1);
+#    my $thread =
+#      Toks::DB::Thread->new(user_id => $user->get_column('id'))->create;
+#
+#    $ua->get('/threads/' . $thread->get_column('id') . '/update');
+#    $ua->submit_form(fields => {title => 'bar', content => 'baz'});
+#
+#    like $ua->content, qr/bar/;
+#};
 
 subtest 'shows 404 when deleting unknown thread' => sub {
     TestDB->setup;

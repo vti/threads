@@ -140,10 +140,9 @@ subtest 'redirects to thread view' => sub {
 
     $action->run;
 
-    my ($name, %params) = $action->mocked_call_args('redirect');
+    my ($name) = $action->mocked_call_args('redirect');
 
     is $name, 'view_thread';
-    is_deeply \%params, {id => $thread->get_column('id')};
 };
 
 sub _build_action {

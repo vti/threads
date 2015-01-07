@@ -6,7 +6,7 @@
             </div>
 
             <h1 class="thread-title">
-                <a href="<%= $helpers->url->view_thread(id => $thread->{id}) %>"><%= $thread->{title} %></a>
+                <a href="<%= $helpers->url->view_thread(id => $thread->{id}, slug => $thread->{slug}) %>"><%= $thread->{title} %></a>
             </h1>
             <div class="thread-meta">
                 by <%= $helpers->user->display_name($thread->{user}) %>

@@ -29,7 +29,11 @@ sub submit {
       Toks::DB::Thread->new(%$params, user_id => $user->get_column('id'))
       ->create;
 
-    return $self->redirect('view_thread', id => $thread->get_column('id'));
+    return $self->redirect(
+        'view_thread',
+        id   => $thread->get_column('id'),
+        slug => $thread->get_column('slug')
+    );
 }
 
 1;

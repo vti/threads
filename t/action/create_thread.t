@@ -33,7 +33,7 @@ subtest 'creates thread with correct params' => sub {
     my $user = Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
 
     my $action = _build_action(
-        req       => POST('/' => {title => 'foo', content => 'bar'}),
+        req       => POST('/' => {title => 'This is a title, with ?# symbols', content => 'bar'}),
         'tu.user' => $user
     );
 
@@ -43,7 +43,8 @@ subtest 'creates thread with correct params' => sub {
 
     ok $thread;
     is $thread->get_column('user_id'),   $user->get_column('id');
-    is $thread->get_column('title'),   'foo';
+    is $thread->get_column('slug'),   'this-is-a-title-with-symbols';
+    is $thread->get_column('title'),   'This is a title, with ?# symbols';
     is $thread->get_column('content'), 'bar';
 };
 
@@ -61,12 +62,9 @@ subtest 'redirects to thread view' => sub {
 
     $action->run;
 
-    my ($name, %params) =  $action->mocked_call_args('redirect');
-
-    my $thread = Toks::DB::Thread->find(first => 1);
+    my ($name) =  $action->mocked_call_args('redirect');
 
     is $name, 'view_thread';
-    is_deeply \%params, {id => $thread->get_column('id')};
 };
 
 sub _build_action {

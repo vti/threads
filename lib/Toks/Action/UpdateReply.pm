@@ -50,7 +50,11 @@ sub submit {
 
     my $thread = $reply->related('thread');
 
-    return $self->redirect('view_thread', id => $thread->get_column('id'));
+    return $self->redirect(
+        'view_thread',
+        id   => $thread->get_column('id'),
+        slug => $thread->get_column('slug')
+    );
 }
 
 1;

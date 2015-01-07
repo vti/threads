@@ -126,7 +126,6 @@ subtest 'redirects' => sub {
     my ($name, %params) = $action->mocked_call_args('redirect');
 
     is $name, 'view_thread';
-    is_deeply \%params, {id => $thread->get_column('id')};
 };
 
 sub _build_action {

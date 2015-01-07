@@ -12,6 +12,7 @@ __PACKAGE__->meta(
           id
           user_id
           created
+          slug
           title
           content
           replies_count
@@ -32,5 +33,21 @@ __PACKAGE__->meta(
         }
     }
 );
+
+sub create {
+    my $self = shift;
+
+    if (!$self->get_column('slug')) {
+        my $slug = lc ($self->get_column('title') // '');
+
+        $slug =~ s{\s+}{-}g;
+        $slug =~ s{[^[:alnum:]\-]}{}g;
+        $slug =~ s{-+}{-}g;
+
+        $self->set_column(slug => $slug);
+    }
+
+    return $self->SUPER::create;
+}
 
 1;
