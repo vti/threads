@@ -1,5 +1,6 @@
 use strict;
 use warnings;
+use utf8;
 
 use Test::More;
 use Test::WWW::Mechanize::PSGI;
@@ -58,6 +59,22 @@ subtest 'show validation errors when wrong password' => sub {
     $ua->follow_link(text => 'Login');
 
     $ua->submit_form(fields => {email => 'foo@bar.com', password => 'silly'});
+    $ua->content_contains('Unknown credentials');
+};
+
+subtest 'show validation errors when wrong unicode password' => sub {
+    TestDB->setup;
+    Toks::DB::User->new(
+        email    => 'foo@bar.com',
+        password => 'another'
+    )->create;
+
+    my $ua = _build_ua();
+
+    $ua->get('/');
+    $ua->follow_link(text => 'Login');
+
+    $ua->submit_form(fields => {email => 'foo@bar.com', password => 'привет'});
     $ua->content_contains('Unknown credentials');
 };
 

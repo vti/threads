@@ -45,6 +45,21 @@ subtest 'show activation needed page' => sub {
     $ua->content_contains('check your email');
 };
 
+subtest 'registers with unicode password' => sub {
+    TestDB->setup;
+    TestMail->setup;
+
+    my $ua = _build_ua();
+
+    $ua->get('/');
+    $ua->follow_link(text => 'Sign up');
+
+    $ua->submit_form(
+        fields => {email => 'foo@bar.com', password => 'привет'});
+
+    $ua->content_contains('check your email');
+};
+
 subtest 'send activation email' => sub {
     TestDB->setup;
     TestMail->setup;

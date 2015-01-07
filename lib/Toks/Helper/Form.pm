@@ -183,7 +183,6 @@ sub _get_value {
     my ($name, $default) = @_;
 
     my $value = $self->param($name);
-    $value = Encode::decode('UTF-8', $value) if defined $value;
     $value = $default unless defined $value;
     $value = ''       unless defined $value;
 

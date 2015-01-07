@@ -44,7 +44,9 @@ sub hash_password {
 
     $password = Encode::encode('UTF-8', $password);
 
-    return Digest::MD5::md5_hex($password || '');
+    $password = Digest::MD5::md5_hex($password || '');
+
+    return Encode::decode('UTF-8', $password);
 }
 
 sub check_password {
