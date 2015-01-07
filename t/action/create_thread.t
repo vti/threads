@@ -9,6 +9,7 @@ use TestRequest;
 use HTTP::Request::Common;
 use Toks::DB::User;
 use Toks::DB::Thread;
+use Toks::DB::Subscription;
 use Toks::Action::CreateThread;
 
 subtest 'returns nothing on GET' => sub {
@@ -65,6 +66,28 @@ subtest 'redirects to thread view' => sub {
     my ($name) =  $action->mocked_call_args('redirect');
 
     is $name, 'view_thread';
+};
+
+subtest 'creates subscription' => sub {
+    TestDB->setup;
+
+    my $user = Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+
+    my $action = _build_action(
+        req       => POST('/' => {title => 'foo', content => 'bar'}),
+        'tu.user' => $user
+    );
+
+    $action->mock('redirect');
+
+    $action->run;
+
+    my $thread = Toks::DB::Thread->find(first => 1);
+    my $subscription = Toks::DB::Subscription->find(first => 1);
+
+    ok $subscription;
+    is $subscription->get_column('user_id'), $user->get_column('id');
+    is $subscription->get_column('thread_id'), $thread->get_column('id');
 };
 
 sub _build_action {

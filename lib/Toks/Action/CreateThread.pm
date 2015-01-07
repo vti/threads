@@ -7,6 +7,7 @@ use parent 'Toks::Action::FormBase';
 
 use Toks::DB::User;
 use Toks::DB::Thread;
+use Toks::DB::Subscription;
 
 sub build_validator {
     my $self = shift;
@@ -28,6 +29,11 @@ sub submit {
     my $thread =
       Toks::DB::Thread->new(%$params, user_id => $user->get_column('id'))
       ->create;
+
+    Toks::DB::Subscription->new(
+        user_id   => $user->get_column('id'),
+        thread_id => $thread->get_column('id')
+    )->create;
 
     return $self->redirect(
         'view_thread',
