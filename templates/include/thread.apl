@@ -20,23 +20,4 @@
             <%== $helpers->markdown->render($thread->{content}) %>
         </div>
 
-        % if ($quick_reply && var('user')) {
-        <div class="thread-controls">
-        Thread actions:
-            % if ($helpers->acl->is_allowed('update_thread', $thread)) {
-            <form class="form-inline" action="<%= $helpers->url->update_thread(id => $thread->{id}) %>">
-            <input type="submit" value="edit" />
-            </form>
-            % }
-            % if ($helpers->acl->is_allowed('delete_thread', $thread)) {
-            <form class="form-inline" method="POST" action="<%= $helpers->url->delete_thread(id => $thread->{id}) %>">
-            <input type="submit" value="delete" />
-            </form>
-            % }
-        </div>
-        % }
     </div>
-
-% if ($quick_reply) {
-    %== $helpers->displayer->render('include/quick-reply', thread => $thread);
-% }

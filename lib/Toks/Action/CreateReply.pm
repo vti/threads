@@ -53,7 +53,8 @@ sub submit {
         $parent ? (parent_id => $parent->get_column('id')) : ()
     )->create;
 
-    $thread->set_column(replies_count => $thread->get_column('replies_count') + 1);
+    $thread->set_column(
+        replies_count => $thread->count_related('replies'));
     $thread->update;
 
     return $self->redirect('view_thread', id => $thread->get_column('id'));

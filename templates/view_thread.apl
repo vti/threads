@@ -4,6 +4,8 @@
 
     %== $helpers->displayer->render('include/thread', thread => $thread, quick_reply => 1);
 
+    %== $helpers->displayer->render('include/thread-controls', thread => $thread);
+
     % foreach my $reply ($helpers->reply->find_by_thread($thread)) {
         % my $padding = $reply->{level} * 10;
         % $padding = 100 if $padding > 100;
@@ -19,14 +21,14 @@
                         → <%= $helpers->user->display_name($reply->{parent}->{user2}) %>
                     % }
                 </div>
-                <div class="reply-date"><%= $helpers->date->format($reply->{created}) %></div>
+                <div class="reply-date"><a href="#comment-<%= $reply->{id} %>"><%= $helpers->date->format($reply->{created}) %></a></div>
             </div>
 
             <div class="reply-content">
                 <%== $helpers->markdown->render($reply->{content}) %>
             </div>
 
-            %== $helpers->displayer->render('include/quick-reply', thread => $thread, to => $reply->{id});
+            %== $helpers->displayer->render('include/reply-controls', thread => $thread, reply => $reply);
         </div>
     % }
 

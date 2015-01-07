@@ -23,6 +23,11 @@ __PACKAGE__->meta(
     primary_key    => 'id',
     auto_increment => 'id',
     relationships  => {
+        thread => {
+            type  => 'many to one',
+            class => 'Toks::DB::Thread',
+            map   => {thread_id => 'id'}
+        },
         parent => {
             type  => 'many to one',
             class => 'Toks::DB::Reply',

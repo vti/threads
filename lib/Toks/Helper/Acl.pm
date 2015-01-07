@@ -6,6 +6,7 @@ use warnings;
 use parent 'Tu::Helper';
 
 use Toks::DB::Thread;
+use Toks::DB::Reply;
 
 sub is_allowed {
     my $self = shift;
@@ -16,12 +17,16 @@ sub is_allowed {
 
     return 0 unless $user->get_column('id') == $object->{user_id};
 
-    if ($action =~ m/^update_/) {
+    if ($action eq 'update_thread') {
         return 1;
     }
     elsif ($action eq 'delete_thread') {
         return 0 unless my $thread = Toks::DB::Thread->new(id => $object->{id})->load;
         return 1 if $thread->get_column('replies_count') == 0;
+    }
+    elsif ($action eq 'update_reply' || $action eq 'delete_reply') {
+        return 0 unless my $reply = Toks::DB::Reply->new(id => $object->{id})->load;
+        return 1 if $reply->count_related('ansestors') == 0;
     }
 
     return 0;

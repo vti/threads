@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-<title><%= loc('Send Wikipedia featured article to kindle') %> | Toks</title>
+<title><%= loc('Forum') %> | Toks</title>
 <!--[if lt IE 9]>
   <script src="/unsemantic/js/html5.js"></script>
 <![endif]-->
@@ -48,32 +48,12 @@
     <div id="footer">
         <div class="grid-container">
             <div class="grid-100 mobile-grid-100">
-                <div>
-                % if ($lang eq 'en') {
-                    English
-                % } else {
-                    <a href="/en">English</a>
-                % }
-                |
-                % if ($lang eq 'ru') {
-                    Русский
-                % } else {
-                    <a href="/ru">Русский</a>
-                % }
-                |
-                % if ($lang eq 'uk') {
-                    Українська
-                % } else {
-                    <a href="/uk">Українська</a>
-                % }
-                </div>
-
                 <%= loc('Written by') %> <a href="http://twitter.com/vtivti">@vti</a>, <%= loc('powered by') %> <a href="http://perl.org">Perl</a>
             </div>
         </div>
     </div>
     <script src="/unsemantic/js/jquery.js"></script>
-    <script src="/formalize/js/formalize.min.js"></script>
+    <script src="/formalize/js/jquery.formalize.min.js"></script>
     %== $helpers->assets->include(type => 'js');
 </body>
 </html>

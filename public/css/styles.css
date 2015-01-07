@@ -140,6 +140,7 @@ h1 {
 /*}*/
 
 textarea {
+    width:50%;
     height:100px;
 }
 
@@ -221,10 +222,13 @@ textarea {
     margin-top:1em;
 }
 
-.quick-reply-button {
+.quick-reply-form {
+    padding-top:0.5em;
+    display:none;
 }
 
-.quick-reply .inner {
+.quick-edit-form {
+    padding-top:0.5em;
     display:none;
 }
 
