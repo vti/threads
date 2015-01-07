@@ -69,6 +69,7 @@ subtest 'create user with correct params' => sub {
     ok $user;
     is $user->get_column('status'),     'new';
     is $user->get_column('email'),      'foo@bar.com';
+    is $user->get_column('name'),       'foo';
     isnt $user->get_column('password'), 'bar';
     like $user->get_column('created'),  qr/^\d+$/;
 };

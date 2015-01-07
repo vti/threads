@@ -36,7 +36,9 @@ sub submit {
     my $self = shift;
     my ($params) = @_;
 
-    my $user = Toks::DB::User->new(%$params)->create;
+    my ($name) = split /\@/, $params->{email};
+
+    my $user = Toks::DB::User->new(%$params, name => $name)->create;
 
     my $confirmation =
       Toks::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
