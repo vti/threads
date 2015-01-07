@@ -12,6 +12,7 @@ __PACKAGE__->meta(
           id
           user_id
           created
+          last_activity
           slug
           title
           content
@@ -40,6 +41,10 @@ sub create {
 
     if (!$self->get_column('slug')) {
         $self->set_column(slug => $self->_slug($self->get_column('title')));
+    }
+
+    if (!$self->get_column('last_activity')) {
+        $self->set_column(last_activity => time);
     }
 
     return $self->SUPER::create;

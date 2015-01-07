@@ -12,7 +12,7 @@ msgstr ""
 msgid "Authorization"
 msgstr ""
 
-#: templates/change_password.apl:3 templates/layout.apl:36
+#: templates/change_password.apl:3 templates/layout.apl:40
 msgid "Change password"
 msgstr ""
 
@@ -24,7 +24,7 @@ msgstr ""
 msgid "Create new thread"
 msgstr ""
 
-#: templates/create_thread.apl:3 templates/layout.apl:32
+#: templates/create_thread.apl:3 templates/layout.apl:36
 msgid "Create thread"
 msgstr ""
 
@@ -60,12 +60,12 @@ msgstr ""
 msgid "Invalid password"
 msgstr ""
 
-#: templates/activation_success.apl:5 templates/layout.apl:39
+#: templates/activation_success.apl:5 templates/layout.apl:43
 #: templates/login.apl:11
 msgid "Login"
 msgstr ""
 
-#: templates/layout.apl:37
+#: templates/layout.apl:41
 msgid "Logout"
 msgstr ""
 
@@ -77,7 +77,7 @@ msgstr ""
 msgid "New password"
 msgstr ""
 
-#: templates/layout.apl:34 templates/list_notifications.apl:5
+#: templates/layout.apl:38 templates/list_notifications.apl:5
 msgid "Notifications"
 msgstr ""
 
@@ -159,15 +159,19 @@ msgstr ""
 msgid "Send"
 msgstr ""
 
-#: templates/layout.apl:35 templates/settings.apl:3
+#: templates/layout.apl:39 templates/settings.apl:3
 msgid "Settings"
 msgstr ""
 
-#: templates/layout.apl:39
+#: templates/layout.apl:43
 msgid "Sign up"
 msgstr ""
 
-#: templates/layout.apl:33 templates/list_subscriptions.apl:5
+#: templates/index.apl:5
+msgid "Sort"
+msgstr ""
+
+#: templates/layout.apl:37 templates/list_subscriptions.apl:5
 msgid "Subscriptions"
 msgstr ""
 
@@ -176,7 +180,7 @@ msgid ""
 "Thank you for registering. Please check your email for a confirmation link."
 msgstr ""
 
-#: templates/layout.apl:30
+#: templates/layout.apl:34
 msgid "Threads"
 msgstr ""
 
@@ -204,7 +208,7 @@ msgstr ""
 msgid "User exists"
 msgstr ""
 
-#: templates/layout.apl:53
+#: templates/layout.apl:57
 msgid "Written by"
 msgstr ""
 
@@ -245,8 +249,16 @@ msgstr ""
 msgid "author"
 msgstr ""
 
-#: templates/include/thread.apl:16
+#: templates/include/thread.apl:17
 msgid "by"
+msgstr ""
+
+#: templates/index.apl:7
+msgid "by activity"
+msgstr ""
+
+#: templates/index.apl:7
+msgid "by popularity"
 msgstr ""
 
 #: templates/include/reply-controls.apl:12
@@ -273,7 +285,7 @@ msgstr ""
 msgid "or"
 msgstr ""
 
-#: templates/layout.apl:53
+#: templates/layout.apl:57
 msgid "powered by"
 msgstr ""
 
@@ -289,7 +301,7 @@ msgstr ""
 msgid "reply to thread"
 msgstr ""
 
-#: lib/Toks/Action/ToggleSubscription.pm:33 templates/include/thread.apl:7
+#: lib/Toks/Action/ToggleSubscription.pm:33 templates/include/thread.apl:8
 msgid "subscribe"
 msgstr ""
 
@@ -301,6 +313,6 @@ msgstr ""
 msgid "thread"
 msgstr ""
 
-#: lib/Toks/Action/ToggleSubscription.pm:41 templates/include/thread.apl:7
+#: lib/Toks/Action/ToggleSubscription.pm:41 templates/include/thread.apl:8
 msgid "unsubscribe"
 msgstr ""

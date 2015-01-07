@@ -148,13 +148,9 @@ td.td-right {
     color: #9F6000
 }
 
-/*input, select {*/
-    /*margin-bottom:0.5em*/
-/*}*/
-
-/*input[type=submit] {*/
-    /*margin-top:1em*/
-/*}*/
+.index-sorting {
+    padding-bottom:2em;
+}
 
 textarea {
     width:50%;
@@ -170,6 +166,12 @@ textarea.error {
 }
 
 .form-inline {
+    padding:0;
+    margin:0;
+    display:inline;
+}
+
+.form-inline .form-input {
     padding:0;
     margin:0;
     display:inline;

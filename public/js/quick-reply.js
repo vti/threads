@@ -134,4 +134,9 @@
         return false;
     });
 
+    $('.index-sorting select').change(function() {
+        $('.index-sorting form').submit();
+        return false;
+    });
+
 })();

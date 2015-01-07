@@ -122,7 +122,31 @@ subtest 'updates replies_count in thread' => sub {
 
     $thread->load;
 
-    is $thread->get_column('replies_count'), 1
+    is $thread->get_column('replies_count'), 1;
+};
+
+subtest 'updates last_activity in thread' => sub {
+    TestDB->setup;
+
+    my $user =
+      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $thread = Toks::DB::Thread->new(
+        user_id       => $user->get_column('id'),
+        last_activity => '123'
+    )->create;
+    my $last_activity = $thread->get_column('last_activity');
+
+    my $action = _build_action(
+        req       => POST('/' => {content => 'bar'}),
+        captures  => {id      => $thread->get_column('id')},
+        'tu.user' => $user
+    );
+
+    $action->run;
+
+    $thread->load;
+
+    isnt $thread->get_column('last_activity'), $last_activity;
 };
 
 subtest 'redirects to thread view' => sub {
@@ -176,7 +200,8 @@ subtest 'notify subscribed users' => sub {
     my $thread_author =
       Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $thread =
-      Toks::DB::Thread->new(user_id => $thread_author->get_column('id'))->create;
+      Toks::DB::Thread->new(user_id => $thread_author->get_column('id'))
+      ->create;
     Toks::DB::Subscription->new(
         user_id   => $thread_author->get_column('id'),
         thread_id => $thread->get_column('id')
@@ -203,7 +228,7 @@ subtest 'notify subscribed users' => sub {
     is(Toks::DB::Notification->table->count, 1);
 
     ok $notification;
-    is $notification->get_column('user_id'), $thread_author->get_column('id');
+    is $notification->get_column('user_id'),  $thread_author->get_column('id');
     is $notification->get_column('reply_id'), $reply->get_column('id');
 };
 
@@ -213,7 +238,8 @@ subtest 'notify parent reply user' => sub {
     my $thread_author =
       Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $thread =
-      Toks::DB::Thread->new(user_id => $thread_author->get_column('id'))->create;
+      Toks::DB::Thread->new(user_id => $thread_author->get_column('id'))
+      ->create;
 
     my $user =
       Toks::DB::User->new(email => 'foo2@bar.com', password => 'bar')->create;
@@ -227,8 +253,9 @@ subtest 'notify parent reply user' => sub {
       Toks::DB::User->new(email => 'foo3@bar.com', password => 'bar')->create;
 
     my $action = _build_action(
-        req       => POST('/?to=' . $parent_reply->get_column('id') => {content => 'bar'}),
-        captures  => {id      => $thread->get_column('id')},
+        req =>
+          POST('/?to=' . $parent_reply->get_column('id') => {content => 'bar'}),
+        captures  => {id => $thread->get_column('id')},
         'tu.user' => $user
     );
 
@@ -240,7 +267,7 @@ subtest 'notify parent reply user' => sub {
     is(Toks::DB::Notification->table->count, 1);
 
     ok $notification;
-    is $notification->get_column('user_id'), $user->get_column('id');
+    is $notification->get_column('user_id'),  $user->get_column('id');
     is $notification->get_column('reply_id'), $reply->get_column('id');
 };
 

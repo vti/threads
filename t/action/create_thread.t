@@ -43,10 +43,12 @@ subtest 'creates thread with correct params' => sub {
     my $thread = Toks::DB::Thread->find(first => 1);
 
     ok $thread;
-    is $thread->get_column('user_id'),   $user->get_column('id');
-    is $thread->get_column('slug'),   'this-is-a-title-with-symbols';
+    is $thread->get_column('user_id'), $user->get_column('id');
+    is $thread->get_column('slug'),    'this-is-a-title-with-symbols';
     is $thread->get_column('title'),   'This is a title, with ?# symbols';
     is $thread->get_column('content'), 'bar';
+    isnt $thread->get_column('last_activity'), 0;
+    like $thread->get_column('last_activity'), qr/^\d+$/;
 };
 
 subtest 'redirects to thread view' => sub {

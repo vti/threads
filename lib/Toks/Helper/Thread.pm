@@ -10,8 +10,20 @@ use Toks::DB::Thread;
 sub find {
     my $self = shift;
 
-    my @threads =
-      Toks::DB::Thread->find(order_by => [created => 'DESC'], with => 'user');
+    my $by = $self->param('by') || '';
+
+    my @sort_by;
+    if ($by eq 'popularity') {
+        @sort_by = (replies_count => 'DESC', views_count => 'DESC');
+    }
+    else {
+        @sort_by = (last_activity => 'DESC');
+    }
+
+    my @threads = Toks::DB::Thread->find(
+        order_by => [@sort_by],
+        with     => 'user'
+    );
 
     return map { $_->to_hash } @threads;
 }

@@ -59,6 +59,7 @@ sub submit {
 
     $thread->set_column(
         replies_count => $thread->count_related('replies'));
+    $thread->set_column(last_activity => time);
     $thread->update;
 
     my @subscriptions = Toks::DB::Subscription->find(
