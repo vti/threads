@@ -5,6 +5,7 @@ use warnings;
 
 use parent 'Toks::DB';
 
+use Encode ();
 use Digest::MD5 ();
 
 __PACKAGE__->meta(
@@ -40,6 +41,8 @@ sub load_from_session {
 sub hash_password {
     my $self = shift;
     my ($password) = @_;
+
+    $password = Encode::encode('UTF_8', $password);
 
     return Digest::MD5::md5_hex($password || '');
 }
