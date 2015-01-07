@@ -23,7 +23,7 @@ sub run {
 
     my $view;
 
-    my $today = Time::Piece->new->strftime('%Y-%m-%d');
+    my $today = gmtime->strftime('%Y-%m-%d');
 
     if ($user && $user->role eq 'user') {
         $view = Toks::DB::View->find(
