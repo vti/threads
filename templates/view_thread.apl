@@ -4,7 +4,9 @@
 
     %== $helpers->displayer->render('include/thread', thread => $thread, view => 1);
 
+    % if (var('user')) {
     %== $helpers->displayer->render('include/thread-controls', thread => $thread);
+    % }
 
     % foreach my $reply ($helpers->reply->find_by_thread($thread)) {
         % my $padding = $reply->{level} * 10;

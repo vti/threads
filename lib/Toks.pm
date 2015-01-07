@@ -141,6 +141,7 @@ sub _add_acl {
     $acl->allow('anonymous', 'request_password_reset');
     $acl->allow('anonymous', 'reset_password');
     $acl->allow('anonymous', 'login');
+    $acl->allow('anonymous', 'view_thread');
     $acl->allow('anonymous', 'not_found');
     $acl->allow('anonymous', 'forbidden');
     $acl->allow('user',      '*');

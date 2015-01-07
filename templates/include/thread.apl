@@ -2,7 +2,8 @@
         <div class="thread-header">
             <div class="thread-counters">
             <div class="thread-counters-replies"><%= $thread->{replies_count} %></div>
-            % if (var('view')) {
+            <div>Views: <%= $thread->{views_count} %></div>
+            % if (var('view') && var('user')) {
             <form class="form-inline quick-subscribe-form" action="<%= $helpers->url->toggle_subscription(id => $thread->{id}) %>">
                 <button class="quick-subscribe-button"><%= $helpers->subscription->is_subscribed($thread) ? loc('unsubscribe') : loc('subscribe') %></button>
             </form>

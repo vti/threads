@@ -33,6 +33,74 @@ subtest 'returns nothing on success' => sub {
     ok $action->scope->displayer->vars->{thread};
 };
 
+subtest 'increments view count' => sub {
+    TestDB->setup;
+
+    my $thread = Toks::DB::Thread->new(user_id => 1)->create;
+
+    my $action = _build_action(captures => {id => $thread->get_column('id')});
+
+    $action->run;
+
+    $thread->load;
+    is $thread->get_column('views_count'), 1;
+};
+
+subtest 'not increments view count when same user' => sub {
+    TestDB->setup;
+
+    my $thread = Toks::DB::Thread->new(user_id => 1)->create;
+    my $user = Toks::DB::User->new(email => 'foo@bar.com', password=> 'silly')->create;
+
+    my $action = _build_action(captures => {id => $thread->get_column('id')}, 'tu.user' => $user);
+    $action->run;
+
+    $action->run;
+
+    $thread->load;
+    is $thread->get_column('views_count'), 1;
+};
+
+subtest 'increments view count when same user but another day' => sub {
+    TestDB->setup;
+
+    my $thread = Toks::DB::Thread->new(user_id => 1)->create;
+    my $user = Toks::DB::User->new(email => 'foo@bar.com', password=> 'silly')->create;
+
+    my $action = _build_action(captures => {id => $thread->get_column('id')}, 'tu.user' => $user);
+    $action->run;
+
+    Toks::DB::View->table->update(set => [created => '123']);
+
+    $action = _build_action(captures => {id => $thread->get_column('id')}, 'tu.user' => $user);
+    $action->run;
+
+    $thread->load;
+    is $thread->get_column('views_count'), 2;
+};
+
+subtest 'increments view count when another user agent' => sub {
+    TestDB->setup;
+
+    my $thread = Toks::DB::Thread->new(user_id => 1)->create;
+    my $user = Toks::DB::User->new(email => 'foo@bar.com', password=> 'silly')->create;
+
+    my $action = _build_action(
+        req => GET('/', 'User-Agent' => 'one'),
+        captures  => {id => $thread->get_column('id')}
+    );
+    $action->run;
+
+    $action = _build_action(
+        req => GET('/', 'User-Agent' => 'two'),
+        captures  => {id => $thread->get_column('id')}
+    );
+    $action->run;
+
+    $thread->load;
+    is $thread->get_column('views_count'), 2;
+};
+
 sub _build_action {
     my (%params) = @_;
 

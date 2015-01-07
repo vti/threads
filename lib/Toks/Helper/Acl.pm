@@ -13,7 +13,7 @@ sub is_allowed {
     my ($action, $object) = @_;
 
     my $user = $self->scope->user;
-    return 0 unless $user;
+    return 0 unless $user && $user->role eq 'user';
 
     return 0 unless $user->get_column('id') == $object->{user_id};
 
