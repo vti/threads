@@ -1,4 +1,7 @@
         <div class="reply-controls">
+            <form class="form-inline quick-thank-form" method="POST" action="<%= $helpers->url->thank_reply(id => $reply->{id}) %>">
+            <button><%= loc('thank') %> (<span class="quick-thank-counter"><%= $reply->{thanks_count} %></span>)</button>
+            </form>
             <button class="quick-reply-button"><%= loc('reply') %></button>
 
             % if ($helpers->acl->is_allowed('update_reply', $reply)) {

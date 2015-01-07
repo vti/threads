@@ -20,17 +20,9 @@ msgstr "Изменить пароль"
 msgid "Content"
 msgstr "Содержимое"
 
-#: templates/create_reply.apl:9
-msgid "Create"
-msgstr "Создать"
-
 #: templates/create_thread.apl:10
 msgid "Create new thread"
 msgstr "Создать новую тему"
-
-#: templates/create_reply.apl:3
-msgid "Create reply"
-msgstr "Создать ответ"
 
 #: templates/create_thread.apl:3 templates/layout.apl:32
 msgid "Create thread"
@@ -245,12 +237,12 @@ msgstr "Ваша регистрация была успешно активиро
 msgid "by"
 msgstr "от"
 
-#: templates/include/reply-controls.apl:9
+#: templates/include/reply-controls.apl:12
 #: templates/include/thread-controls.apl:11
 msgid "delete"
 msgstr "удалить"
 
-#: templates/include/reply-controls.apl:5
+#: templates/include/reply-controls.apl:8
 #: templates/include/thread-controls.apl:6
 msgid "edit"
 msgstr "изменить"
@@ -264,7 +256,7 @@ msgstr "или"
 msgid "powered by"
 msgstr "работает на"
 
-#: templates/include/reply-controls.apl:2
+#: templates/include/reply-controls.apl:5
 msgid "reply"
 msgstr "ответить"
 
@@ -275,3 +267,7 @@ msgstr "ответить в тему"
 #: templates/include/thread.apl:5
 msgid "subscribe"
 msgstr "подписаться"
+
+#: templates/include/reply-controls.apl:3
+msgid "thank"
+msgstr "спасибо"

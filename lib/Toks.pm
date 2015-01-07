@@ -55,7 +55,7 @@ sub _add_routes {
 
     $routes->add_route('/login', name => 'login');
 
-    $routes->add_route('/settings', name => 'settings');
+    $routes->add_route('/settings',        name => 'settings');
     $routes->add_route('/change-password', name => 'change_password');
 
     $routes->add_route('/request-password-reset',
@@ -70,13 +70,38 @@ sub _add_routes {
     $routes->add_route('/forbidden', name => 'forbidden');
 
     $routes->add_route('/create_thread', name => 'create_thread');
-    $routes->add_route('/threads/(:id)-(:slug)', name => 'view_thread', constraints => {id => qr/\d+/});
+    $routes->add_route(
+        '/threads/(:id)-(:slug)',
+        name        => 'view_thread',
+        constraints => {id => qr/\d+/}
+    );
     $routes->add_route('/threads/:id/update', name => 'update_thread');
-    $routes->add_route('/threads/:id/delete', name => 'delete_thread', method => 'POST');
+    $routes->add_route(
+        '/threads/:id/delete',
+        name   => 'delete_thread',
+        method => 'POST'
+    );
 
-    $routes->add_route('/threads/:id/reply',  name => 'create_reply', method => 'POST');
-    $routes->add_route('/replies/:id/update', name => 'update_reply', method => 'POST');
-    $routes->add_route('/replies/:id/delete', name => 'delete_reply', method => 'POST');
+    $routes->add_route(
+        '/threads/:id/reply',
+        name   => 'create_reply',
+        method => 'POST'
+    );
+    $routes->add_route(
+        '/replies/:id/update',
+        name   => 'update_reply',
+        method => 'POST'
+    );
+    $routes->add_route(
+        '/replies/:id/delete',
+        name   => 'delete_reply',
+        method => 'POST'
+    );
+    $routes->add_route(
+        '/replies/:id/thank',
+        name   => 'thank_reply',
+        method => 'POST'
+    );
 }
 
 sub _add_acl {

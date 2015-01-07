@@ -18,6 +18,7 @@ __PACKAGE__->meta(
           rgt
           lft
           content
+          thanks_count
           /
     ],
     primary_key    => 'id',

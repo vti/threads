@@ -63,4 +63,20 @@
         return false;
     });
 
+    $('.quick-thank-form').submit(function() {
+        var form = $(this);
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            success: function(data) {
+                var count = data.count;
+
+                form.find('.quick-thank-counter').html(count);
+            },
+            failure: function(errMsg) {}
+        });
+
+        return false;
+    });
+
 })();

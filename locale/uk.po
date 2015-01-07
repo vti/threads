@@ -20,16 +20,8 @@ msgstr ""
 msgid "Content"
 msgstr ""
 
-#: templates/create_reply.apl:9
-msgid "Create"
-msgstr ""
-
 #: templates/create_thread.apl:10
 msgid "Create new thread"
-msgstr ""
-
-#: templates/create_reply.apl:3
-msgid "Create reply"
 msgstr ""
 
 #: templates/create_thread.apl:3 templates/layout.apl:32
@@ -237,12 +229,12 @@ msgstr ""
 msgid "by"
 msgstr ""
 
-#: templates/include/reply-controls.apl:9
+#: templates/include/reply-controls.apl:12
 #: templates/include/thread-controls.apl:11
 msgid "delete"
 msgstr ""
 
-#: templates/include/reply-controls.apl:5
+#: templates/include/reply-controls.apl:8
 #: templates/include/thread-controls.apl:6
 msgid "edit"
 msgstr ""
@@ -256,7 +248,7 @@ msgstr ""
 msgid "powered by"
 msgstr ""
 
-#: templates/include/reply-controls.apl:2
+#: templates/include/reply-controls.apl:5
 msgid "reply"
 msgstr ""
 
@@ -266,4 +258,8 @@ msgstr ""
 
 #: templates/include/thread.apl:5
 msgid "subscribe"
+msgstr ""
+
+#: templates/include/reply-controls.apl:3
+msgid "thank"
 msgstr ""
