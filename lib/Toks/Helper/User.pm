@@ -7,6 +7,17 @@ use parent 'Tu::Helper';
 
 use Toks::DB::User;
 
+sub display_name {
+    my $self = shift;
+    my ($user) = @_;
+
+    return '' unless $user;
+
+    return $user->{name} if $user->{name};
+
+    return 'User' . $user->{id};
+}
+
 sub count {
     my $self = shift;
     my (%params) = @_;

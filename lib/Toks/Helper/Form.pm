@@ -58,7 +58,7 @@ sub input {
     $attrs = ' ' . $attrs if $attrs;
 
     return <<"";
-<div>
+<div class="form-input">
     $label<input type="$type" name="$name"$attrs />$error
 </div>
 
@@ -89,7 +89,7 @@ sub textarea {
     $attrs = ' ' . $attrs if $attrs;
 
     return <<"";
-<div>
+<div class="form-input">
     $label<textarea name="$name">$value</textarea>$error
 </div>
 
@@ -144,7 +144,7 @@ sub select {
     }
 
     return <<"";
-<div>
+<div class="form-input">
     $label<select name="$name"$multiple>
 $options_str
     </select>$error

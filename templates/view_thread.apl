@@ -5,9 +5,20 @@
     %== $helpers->displayer->render('include/thread', thread => $thread, quick_reply => 1);
 
     % foreach my $reply ($helpers->reply->find_by_thread($thread)) {
-        <div class="reply">
+        % my $padding = $reply->{level} * 10;
+        % $padding = 100 if $padding > 100;
+        <div class="reply" style="padding-left:<%= $padding %>px">
             <div class="reply-meta">
-                <div class="reply-author"><%= $reply->{user}->{name} || 'User' . $reply->{user_id} %></div>
+                <div class="reply-author">
+                    <a name="comment-<%= $reply->{id} %>"></a>
+                    <div class="reply-gravatar">
+                    %== $helpers->gravatar->img($reply->{user}->{email});
+                    </div>
+                    <%= $helpers->user->display_name($reply->{user}) %>
+                    % if ($reply->{parent}) {
+                        → <%= $helpers->user->display_name($reply->{parent}->{user2}) %>
+                    % }
+                </div>
                 <div class="reply-date"><%= $helpers->date->format($reply->{created}) %></div>
             </div>
 

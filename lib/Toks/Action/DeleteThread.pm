@@ -21,6 +21,9 @@ sub run {
     return $self->throw_not_found
       unless $user->get_column('id') == $thread->get_column('user_id');
 
+    return $self->throw_not_found
+      if $thread->count_related('replies');
+
     $thread->delete;
 
     return $self->redirect('index');

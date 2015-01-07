@@ -9,6 +9,7 @@ use TestRequest;
 
 use Toks::DB::User;
 use Toks::DB::Thread;
+use Toks::DB::Reply;
 use Toks::Action::DeleteThread;
 
 subtest 'returns 404 when unknown thread' => sub {
@@ -26,6 +27,26 @@ subtest 'returns 404 when wrong user' => sub {
 
     my $user = Toks::DB::User->new(email => 'foo', password => 'bar')->create;
     my $thread = Toks::DB::Thread->new(user_id => 2)->create;
+
+    my $action = _build_action(
+        captures  => {id => $thread->get_column('id')},
+        'tu.user' => $user
+    );
+
+    my $e = exception { $action->run };
+
+    is $e->code, 404;
+};
+
+subtest 'returns 404 when thread is not empty' => sub {
+    TestDB->setup;
+
+    my $user = Toks::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $thread = Toks::DB::Thread->new(user_id => $user->get_column('id'))->create;
+    Toks::DB::Reply->new(
+        user_id   => $user->get_column('id'),
+        thread_id => $thread->get_column('id')
+    )->create;
 
     my $action = _build_action(
         captures  => {id => $thread->get_column('id')},

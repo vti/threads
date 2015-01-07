@@ -33,6 +33,8 @@ sub run {
 
     $self->{thread} = $thread;
 
+    $self->set_var(thread => $thread->to_hash);
+
     return $self->SUPER::run;
 }
 

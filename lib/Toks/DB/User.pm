@@ -14,6 +14,7 @@ __PACKAGE__->meta(
           id
           email
           password
+          name
           status
           created
           /

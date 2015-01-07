@@ -131,20 +131,37 @@ h1 {
     color: #9F6000
 }
 
-input, select {
-    margin-bottom:0.5em
-}
+/*input, select {*/
+    /*margin-bottom:0.5em*/
+/*}*/
 
-input[type=submit] {
-    margin-top:1em
-}
+/*input[type=submit] {*/
+    /*margin-top:1em*/
+/*}*/
 
 textarea {
     height:100px;
 }
 
+.form-input {
+    padding-bottom:0.5em;
+}
+
+.form-inline {
+    padding:0;
+    margin:0;
+    display:inline;
+}
+
+.form-inline input, .form-inline input[type=submit] {
+    display:inline;
+}
+
 .clear {
   clear: both;
+}
+
+.thread {
 }
 
 .thread-counters {
@@ -165,6 +182,9 @@ textarea {
     margin:0px;
 }
 
+.thread-controls {
+}
+
 .thread-date {
     color:#999;
 }
@@ -178,8 +198,11 @@ textarea {
     margin-top:10px;
     margin-bottom:10px;
     padding-top:10px;
+}
 
-    border-top:1px solid #eee;
+.reply-gravatar {
+    float:left;
+    margin-right:0.5em;
 }
 
 .reply-author {
@@ -195,6 +218,7 @@ textarea {
 }
 
 .quick-reply {
+    margin-top:1em;
 }
 
 .quick-reply-button {
@@ -203,3 +227,4 @@ textarea {
 .quick-reply .inner {
     display:none;
 }
+

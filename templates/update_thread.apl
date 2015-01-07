@@ -4,8 +4,8 @@
 
     <form method="POST">
 
-    <%== $helpers->form->input('title', label => 'Title') %>
-    <%== $helpers->form->input('content', label => 'Content') %>
+    <%== $helpers->form->input('title', label => 'Title', default => $thread->{title}) %>
+    <%== $helpers->form->textarea('content', label => 'Content', default => $thread->{content}) %>
 
     <input type="submit" value="<%= loc('Update') %>" />
 

@@ -13,7 +13,8 @@ sub run {
     my $thread_id = $self->captures->{id};
 
     return $self->throw_not_found
-      unless my $thread = Toks::DB::Thread->new(id => $thread_id)->load;
+      unless my $thread =
+      Toks::DB::Thread->new(id => $thread_id)->load(with => 'user');
 
     $self->set_var(thread => $thread->to_hash);
 

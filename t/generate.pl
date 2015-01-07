@@ -31,3 +31,9 @@ Toks::DB::User->new(
     password => 'password',
     status   => 'active'
 )->create;
+
+Toks::DB::User->new(
+    email    => 'foo2@bar.com',
+    password => 'password',
+    status   => 'active'
+)->create;

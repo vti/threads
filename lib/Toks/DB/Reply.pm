@@ -37,6 +37,11 @@ __PACKAGE__->meta(
             type  => 'many to one',
             class => 'Toks::DB::User',
             map   => {user_id => 'id'}
+        },
+        user2 => {
+            type  => 'many to one',
+            class => 'Toks::DB::User',
+            map   => {user_id => 'id'}
         }
     }
 );

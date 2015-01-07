@@ -24,6 +24,11 @@ __PACKAGE__->meta(
             type  => 'many to one',
             class => 'Toks::DB::User',
             map   => {user_id => 'id'}
+        },
+        replies => {
+            type  => 'one to many',
+            class => 'Toks::DB::Reply',
+            map   => {id => 'thread_id'}
         }
     }
 );
