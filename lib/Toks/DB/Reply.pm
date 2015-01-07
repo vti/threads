@@ -33,11 +33,11 @@ __PACKAGE__->meta(
             class => 'Toks::DB::Reply',
             map   => {id => 'parent_id'}
         },
-        items => {
-            type  => 'one to many',
-            class => 'Toks::DB::Item',
-            map   => {id => 'reply_id'}
-        },
+        user => {
+            type  => 'many to one',
+            class => 'Toks::DB::User',
+            map   => {user_id => 'id'}
+        }
     }
 );
 

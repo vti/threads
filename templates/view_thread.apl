@@ -1,6 +1,6 @@
 % $helpers->assets->require('/js/quick-reply.js');
 
-<div class="grid-50 mobile-grid-100">
+<div class="grid-100">
 
     %== $helpers->displayer->render('include/thread', thread => $thread, quick_reply => 1);
 
@@ -8,7 +8,7 @@
         <div class="reply">
             <div class="reply-meta">
                 <div class="reply-author"><%= $reply->{user}->{name} || 'User' . $reply->{user_id} %></div>
-                <div class="reply-date"><%= $helpers->date->format($reply->{create}) %></div>
+                <div class="reply-date"><%= $helpers->date->format($reply->{created}) %></div>
             </div>
 
             <div class="reply-content">

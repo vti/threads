@@ -19,6 +19,13 @@ __PACKAGE__->meta(
     ],
     primary_key    => 'id',
     auto_increment => 'id',
+    relationships  => {
+        user => {
+            type  => 'many to one',
+            class => 'Toks::DB::User',
+            map   => {user_id => 'id'}
+        }
+    }
 );
 
 1;
