@@ -66,6 +66,34 @@ sub input {
 
 sub password { shift->input(shift, type => 'password', @_) }
 
+sub textarea {
+    my $self = shift;
+    my ($name, %params) = @_;
+
+    my $label    = delete $params{label}    || '';
+    my $required = delete $params{required} || 0;
+    my $default  = delete $params{default}  || '';
+
+    my %attrs;
+    foreach my $param (keys %params) {
+        $attrs{$param} = $params{$param};
+    }
+
+    $label = $self->_build_label($label, $required);
+
+    my $value = $self->_get_value($name, $default);
+
+    my $error = $self->_build_error($name);
+
+    my $attrs = join ' ', map { qq/$_="$attrs{$_}"/ } sort keys %attrs;
+    $attrs = ' ' . $attrs if $attrs;
+
+    return <<"";
+<div>
+    $label<textarea name="$name">$value</textarea>$error
+</div>
+
+}
 sub select {
     my $self = shift;
     my ($name, %params) = @_;

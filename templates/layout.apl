@@ -15,6 +15,8 @@
 <!--[if (lt IE 9) & (!IEMobile)]>
   <link rel="stylesheet" href="/unsemantic/css/ie.css" />
 <![endif]-->
+  <link rel="stylesheet" href="/formalize/css/formalize.css" />
+%== $helpers->assets->include(type => 'css');
 <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
@@ -27,6 +29,7 @@
             <div id="header" class="grid-100 mobile-grid-100">
                 <a href="<%= $helpers->url->index %>">Toks</a> |
                 % if (var('user')) {
+                <a href="<%= $helpers->url->create_thread %>">+ <%= loc('Create thread') %></a> |
                 <a href="<%= $helpers->url->settings %>"><%= loc('Settings') %></a> |
                 <a href="<%= $helpers->url->change_password %>"><%= loc('Change password') %></a> |
                 <a href="<%= $helpers->url->logout %>"><%= loc('Logout') %></a>
@@ -70,5 +73,7 @@
         </div>
     </div>
     <script src="/unsemantic/js/jquery.js"></script>
+    <script src="/formalize/js/formalize.min.js"></script>
+    %== $helpers->assets->include(type => 'js');
 </body>
 </html>

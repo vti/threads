@@ -138,3 +138,65 @@ input, select {
 input[type=submit] {
     margin-top:1em
 }
+
+textarea {
+    height:100px;
+}
+
+.clear {
+  clear: both;
+}
+
+.thread-counters {
+    float:left;
+    width:100px;
+    background:#eee;
+    padding:0.5em;
+    margin-right:1em;
+    text-align:center;
+}
+
+.thread-counters-replies {
+    font-size:200%;
+}
+
+.thread-title {
+    padding:0px;
+    margin:0px;
+}
+
+.thread-content {
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+.reply {
+    margin-top:10px;
+    margin-bottom:10px;
+    padding-top:10px;
+
+    border-top:1px solid #eee;
+}
+
+.reply-author {
+    font-weight:bold;
+}
+
+.reply-date {
+    color:#999;
+}
+
+.reply-content {
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+.quick-reply {
+}
+
+.quick-reply-button {
+}
+
+.quick-reply .inner {
+    display:none;
+}

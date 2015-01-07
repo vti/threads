@@ -1,5 +1,7 @@
 <div class="grid-100">
-    Index
+    % foreach my $thread ($helpers->thread->find) {
 
-    <a href="<%= $helpers->url->create_thread %>">Create thread</a>
+    %== $helpers->displayer->render('include/thread', thread => $thread, quick_reply => 0);
+
+    % }
 </div>

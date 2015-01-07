@@ -1,30 +1,22 @@
+% $helpers->assets->require('/js/quick-reply.js');
+
 <div class="grid-50 mobile-grid-100">
 
-    <h1><%= $thread->{title} %></h1>
-
-    <%= $thread->{content} %>
-
-    <form method="POST" action="<%= $helpers->url->create_reply(id => $thread->{id}) %>">
-
-    <%== $helpers->form->input('content', label => 'Content') %>
-
-    <input type="submit" value="<%= loc('Reply') %>" />
-
-    </form>
+    %== $helpers->displayer->render('include/thread', thread => $thread, quick_reply => 1);
 
     % foreach my $reply ($helpers->reply->find_by_thread($thread)) {
-        <div>
-            <%= $reply->{content} %>
+        <div class="reply">
+            <div class="reply-meta">
+                <div class="reply-author"><%= $reply->{user}->{name} || 'User' . $reply->{user_id} %></div>
+                <div class="reply-date"><%= $helpers->date->format($reply->{create}) %></div>
+            </div>
+
+            <div class="reply-content">
+                <%== $helpers->markdown->render($reply->{content}) %>
+            </div>
+
+            %== $helpers->displayer->render('include/quick-reply', thread => $thread, to => $reply->{id});
         </div>
-
-        <form method="POST" action="<%= $helpers->url->create_reply(id => $thread->{id}) %>">
-
-        <input type="hidden" name="to" value="<%= $reply->{id} %>" />
-        <%== $helpers->form->input('content', label => 'Content') %>
-
-        <input type="submit" value="<%= loc('Reply to') %>" />
-
-        </form>
     % }
 
 </div>

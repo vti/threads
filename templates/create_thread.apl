@@ -5,9 +5,9 @@
     <form method="POST">
 
     <%== $helpers->form->input('title', label => 'Title') %>
-    <%== $helpers->form->input('content', label => 'Content') %>
+    <%== $helpers->form->textarea('content', label => 'Content') %>
 
-    <input type="submit" value="<%= loc('Create') %>" />
+    <input type="submit" value="<%= loc('Create new thread') %>" />
 
     </form>
 
