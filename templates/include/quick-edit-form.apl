@@ -5,7 +5,9 @@
 
                 <input type="submit" value="<%= loc('Send') %>" /> <em><%= loc('or') %></em> CTRL+Enter
 
-                (<a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a>)
+                (<a href="#" class="markup-help-button"><%= loc('markup help') %></a>)
+
+                <div class="markup-help"></div>
 
                 </form>
             </div>

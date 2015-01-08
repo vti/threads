@@ -27,11 +27,12 @@
             </div>
 
             <div class="reply-content">
-                <%== $helpers->markdown->render($reply->{content}) %>
+                <%== $helpers->markup->render($reply->{content}) %>
             </div>
 
             %== $helpers->displayer->render('include/reply-controls', thread => $thread, reply => $reply);
         </div>
     % }
 
+    %== $helpers->displayer->render('include/markup-help');
 </div>

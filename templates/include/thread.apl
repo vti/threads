@@ -28,7 +28,7 @@
 
         % if (!var('no_content')) {
         <div class="thread-content">
-            % my $thread_content = $helpers->markdown->render($thread->{content});
+            % my $thread_content = $helpers->markup->render($thread->{content});
             % if (!var('view')) {
             %     $thread_content = $helpers->truncate->truncate($thread_content);
             % }

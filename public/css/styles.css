@@ -162,7 +162,7 @@ blockquote {
 }
 
 textarea {
-    width:50%;
+    max-width:500px;
     height:100px;
 }
 
@@ -284,3 +284,20 @@ button.link {
     display:none;
 }
 
+.markup-help-instance {
+    margin-top:1em;
+    padding:0.5em;
+    background:#FF851B;
+    display:none;
+    max-width:500px;
+}
+
+.markdown-help-instance pre, .markdown-help-instance code {
+    padding:0px;
+    margin:0px;
+}
+
+a.markup-help-button {
+    text-decoration:none;
+    border-bottom: dotted 1px #0074D9;
+}

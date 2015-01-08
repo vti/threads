@@ -37,7 +37,7 @@
     <%== $helpers->user->display_name($reply->{user}) %>
     </td>
     <td>
-    <%== $helpers->markdown->render($reply->{content}) %>
+    <%== $helpers->markup->render($reply->{content}) %>
 <a href="<%= $helpers->url->view_thread(id => $thread->{id}, slug => $thread->{slug}) %>#comment-<%= $reply->{id}%>">go to</a>
     </td>
 

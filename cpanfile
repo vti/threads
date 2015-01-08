@@ -14,7 +14,6 @@ requires 'Routes::Tiny';
 requires 'String::CamelCase';
 requires 'Text::APL';
 requires 'YAML::Tiny';
-requires 'Text::Markdown';
 requires 'HTML::Truncate';
 requires 'Tu';
 

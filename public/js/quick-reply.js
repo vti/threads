@@ -149,4 +149,15 @@
         return false;
     });
 
+    $('.markup-help-button').click(function() {
+        var help = $(this).parent().find('.markup-help');
+        if (!help.html().length) {
+            var el = $('.markup-help-template').clone();
+            help.html(el.html());
+        }
+
+        help.find('.markup-help-instance').toggle();
+        return false;
+    });
+
 })();
