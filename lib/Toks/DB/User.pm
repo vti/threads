@@ -35,7 +35,10 @@ sub load_from_session {
     my ($session) = @_;
 
     return unless $session->{user_id};
-    return $self->find(first => 1, where => [id => $session->{user_id}]);
+    my $user = $self->find(first => 1, where => [id => $session->{user_id}]);
+    return unless $user && $user->get_column('status') eq 'active';
+
+    return $user;
 }
 
 sub hash_password {

@@ -24,10 +24,24 @@ subtest 'return undef when unknown user_id' => sub {
     ok !defined $user->load_from_session({user_id => 123});
 };
 
-subtest 'return user when found' => sub {
+subtest 'return undef when user not active' => sub {
     TestDB->setup;
 
     my $existing_user = Toks::DB::User->new(email => 'foo@bar.com')->create;
+
+    my $user = _build_user();
+
+    my $loaded_user =
+      $user->load_from_session({user_id => $existing_user->get_column('id')});
+
+    ok !$loaded_user;
+};
+
+subtest 'return user when found' => sub {
+    TestDB->setup;
+
+    my $existing_user =
+      Toks::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
 
     my $user = _build_user();
 
