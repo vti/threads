@@ -18,28 +18,30 @@ sub run {
 
     my $user = $self->scope->user;
 
-    my $thank = Toks::DB::Thank->find(
-        first => 1,
-        where => [
-            user_id  => $user->get_column('id'),
-            reply_id => $reply->get_column('id')
-        ]
-    );
-
     my $count =
       Toks::DB::Thank->table->count(
         where => [reply_id => $reply->get_column('id')]);
 
-    if (!$thank) {
-        Toks::DB::Thank->new(
-            user_id  => $user->get_column('id'),
-            reply_id => $reply->get_column('id')
-        )->create;
+    if ($user->get_column('id') != $reply->get_column('user_id')) {
+        my $thank = Toks::DB::Thank->find(
+            first => 1,
+            where => [
+                user_id  => $user->get_column('id'),
+                reply_id => $reply->get_column('id')
+            ]
+        );
 
-        $count++;
+        if (!$thank) {
+            Toks::DB::Thank->new(
+                user_id  => $user->get_column('id'),
+                reply_id => $reply->get_column('id')
+            )->create;
 
-        $reply->set_column(thanks_count => $count);
-        $reply->update;
+            $count++;
+
+            $reply->set_column(thanks_count => $count);
+            $reply->update;
+        }
     }
 
     return {count => $count}, type => 'json';

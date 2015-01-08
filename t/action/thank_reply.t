@@ -29,8 +29,7 @@ subtest 'creates thank log' => sub {
 
     my $user =
       Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
-    my $reply =
-      Toks::DB::Reply->new(thread_id => 1, user_id => $user->get_column('id'))->create;
+    my $reply = Toks::DB::Reply->new(thread_id => 1, user_id => 999)->create;
 
     my $action = _build_action(
         req       => POST('/' => {}),
@@ -43,7 +42,7 @@ subtest 'creates thank log' => sub {
     my $thank = Toks::DB::Thank->find(first => 1);
 
     ok $thank;
-    is $thank->get_column('user_id'),   $user->get_column('id');
+    is $thank->get_column('user_id'),  $user->get_column('id');
     is $thank->get_column('reply_id'), $reply->get_column('id');
 };
 
@@ -52,11 +51,13 @@ subtest 'returns current count' => sub {
 
     my $user =
       Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
-    my $reply =
-      Toks::DB::Reply->new(thread_id => 1, user_id => $user->get_column('id'))->create;
-      for (67 .. 70) {
-    Toks::DB::Thank->new(user_id => $_, reply_id => $reply->get_column('id'))->create;
-}
+    my $reply = Toks::DB::Reply->new(thread_id => 1, user_id => 999)->create;
+    for (67 .. 70) {
+        Toks::DB::Thank->new(
+            user_id  => $_,
+            reply_id => $reply->get_column('id')
+        )->create;
+    }
 
     my $action = _build_action(
         req       => POST('/' => {}),
@@ -74,11 +75,13 @@ subtest 'updates reply thank count' => sub {
 
     my $user =
       Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
-    my $reply =
-      Toks::DB::Reply->new(thread_id => 1, user_id => $user->get_column('id'))->create;
-      for (67 .. 70) {
-    Toks::DB::Thank->new(user_id => $_, reply_id => $reply->get_column('id'))->create;
-}
+    my $reply = Toks::DB::Reply->new(thread_id => 1, user_id => 999)->create;
+    for (67 .. 70) {
+        Toks::DB::Thank->new(
+            user_id  => $_,
+            reply_id => $reply->get_column('id')
+        )->create;
+    }
 
     my $action = _build_action(
         req       => POST('/' => {}),
@@ -99,8 +102,12 @@ subtest 'not create when exists' => sub {
     my $user =
       Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $reply =
-      Toks::DB::Reply->new(thread_id => 1, user_id => $user->get_column('id'))->create;
-    Toks::DB::Thank->new(user_id => $user->get_column('id'), reply_id => $reply->get_column('id'))->create;
+      Toks::DB::Reply->new(thread_id => 1, user_id => $user->get_column('id'))
+      ->create;
+    Toks::DB::Thank->new(
+        user_id  => $user->get_column('id'),
+        reply_id => $reply->get_column('id')
+    )->create;
 
     my $action = _build_action(
         req       => POST('/' => {}),
@@ -113,14 +120,38 @@ subtest 'not create when exists' => sub {
     is(Toks::DB::Thank->table->count, 1);
 };
 
+subtest 'not create when same user' => sub {
+    TestDB->setup;
+
+    my $user =
+      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $reply =
+      Toks::DB::Reply->new(thread_id => 1, user_id => $user->get_column('id'))
+      ->create;
+
+    my $action = _build_action(
+        req       => POST('/' => {}),
+        captures  => {id      => $reply->get_column('id')},
+        'tu.user' => $user
+    );
+
+    $action->run;
+
+    is(Toks::DB::Thank->table->count, 0);
+};
+
 subtest 'returns count when exists' => sub {
     TestDB->setup;
 
     my $user =
       Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $reply =
-      Toks::DB::Reply->new(thread_id => 1, user_id => $user->get_column('id'))->create;
-    Toks::DB::Thank->new(user_id => $user->get_column('id'), reply_id => $reply->get_column('id'))->create;
+      Toks::DB::Reply->new(thread_id => 1, user_id => $user->get_column('id'))
+      ->create;
+    Toks::DB::Thank->new(
+        user_id  => $user->get_column('id'),
+        reply_id => $reply->get_column('id')
+    )->create;
 
     my $action = _build_action(
         req       => POST('/' => {}),
