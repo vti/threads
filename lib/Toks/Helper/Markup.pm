@@ -5,6 +5,7 @@ use warnings;
 
 use parent 'Tu::Helper';
 
+use Encode ();
 use Digest::MD5 qw(md5_hex);
 
 sub render {
@@ -15,7 +16,7 @@ sub render {
 
     my $save = sub {
         my ($capture, $tag) = @_;
-        my $key = md5_hex($capture);
+        my $key = md5_hex(Encode::encode('UTf-8', $capture));
         $parts{$key} = $tag;
         "--#$key#--"
     };

@@ -1,5 +1,6 @@
 use strict;
 use warnings;
+use utf8;
 
 use Test::More;
 use TestLib;
@@ -16,6 +17,12 @@ subtest 'renders paragraph' => sub {
     my $helper = _build_helper();
 
     is $helper->render('foo'), '<p>foo</p>';
+};
+
+subtest 'renders unicode' => sub {
+    my $helper = _build_helper();
+
+    is $helper->render('_привет_'), '<p><em>привет</em></p>';
 };
 
 subtest 'renders paragraph with single newlines' => sub {
