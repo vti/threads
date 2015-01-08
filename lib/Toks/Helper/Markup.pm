@@ -28,7 +28,7 @@ sub render {
     $text =~ s{<}{&lt;}g;
     $text =~ s{"}{&quot;}g;
 
-    $text =~ s{\s*^```([a-z]+)?\s+(.*?)^```\s*}{my $lang = $1 || 'perl'; $save->("$lang:$2", qq{<pre class="$lang"><code>$2</code></pre>})}emsg;
+    $text =~ s{\s*^```([a-z]+)?\s+(.*?)\s*^```\s*}{my $lang = $1 || 'perl'; $save->("$lang:$2", qq{<pre class="$lang"><code>$2</code></pre>})}emsg;
     $text =~ s{`(.*?)`}{$save->($1, "<code>$1</code>")}eg;
 
     $text =~ s{_(.*?)_}{$save->($1, "<em>$1</em>")}eg;

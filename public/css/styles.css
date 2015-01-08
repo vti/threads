@@ -301,3 +301,14 @@ a.markup-help-button {
     text-decoration:none;
     border-bottom: dotted 1px #0074D9;
 }
+
+.CodeMirror {
+    border: 1px solid #eee;
+    max-width:500px;
+    height:auto;
+}
+.CodeMirror-scroll {
+    height: auto;
+    overflow-y: hidden;
+    overflow-x: auto;
+}

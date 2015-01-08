@@ -40,8 +40,7 @@ subtest 'renders paragraphs' => sub {
 subtest 'renders code' => sub {
     my $helper = _build_helper();
 
-    is $helper->render(qq{```\nmy \$foo = "bar"\n```}), qq{<p><pre class="perl"><code>my \$foo = &quot;bar&quot;
-</code></pre></p>};
+    is $helper->render(qq{```\nmy \$foo = "bar"\n```}), qq{<p><pre class="perl"><code>my \$foo = &quot;bar&quot;</code></pre></p>};
 };
 
 subtest 'renders em' => sub {

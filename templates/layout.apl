@@ -17,6 +17,7 @@
 <![endif]-->
   <link rel="stylesheet" href="/formalize/css/formalize.css" />
   <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="/codemirror/codemirror.css" />
 %== $helpers->assets->include(type => 'css');
 <link rel="stylesheet" href="/css/styles.css" />
 </head>
@@ -65,6 +66,21 @@
     </div>
     <script src="/unsemantic/js/jquery.js"></script>
     <script src="/formalize/js/jquery.formalize.min.js"></script>
+    <script src="/codemirror/codemirror.js"></script>
+    <script src="/codemirror/perl.js"></script>
     %== $helpers->assets->include(type => 'js');
+    <script>
+        $(document).ready(function() {
+            var editors = [];
+            $('pre code').each(function() {
+                $(this).replaceWith('<textarea class="code perl">' + $(this).text() + '</textarea>');
+            });
+            $('textarea.code').each(function() {
+                var editor = CodeMirror.fromTextArea(this, {readOnly: true, lineNumbers: true});
+                editors.push(editor);
+            });
+        });
+    </script>
+
 </body>
 </html>
