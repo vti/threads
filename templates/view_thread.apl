@@ -16,7 +16,7 @@
                 <div class="reply-author">
                     <a name="comment-<%= $reply->{id} %>"></a>
                     <div class="reply-gravatar">
-                    %== $helpers->gravatar->img($reply->{user}->{email});
+                    %== $helpers->gravatar->img($reply->{user});
                     </div>
                     <%= $helpers->user->display_name($reply->{user}) %>
                     % if ($reply->{parent}) {

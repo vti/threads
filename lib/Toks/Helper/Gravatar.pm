@@ -9,7 +9,11 @@ use Digest::MD5 qw(md5_hex);
 
 sub img {
     my $self = shift;
-    my ($email) = @_;
+    my ($user) = @_;
+
+    return '<img src="/images/gravatar.jpg" />' if $user->{status} eq 'deleted';
+
+    my $email = $user->{email};
 
     my $hash = md5_hex lc $email;
 
