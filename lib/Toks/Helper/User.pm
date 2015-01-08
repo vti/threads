@@ -13,6 +13,8 @@ sub display_name {
 
     return '' unless $user;
 
+    return '<deleted>' if $user->{status} eq 'deleted';
+
     return $user->{name} if $user->{name};
 
     return 'User' . $user->{id};

@@ -10,6 +10,8 @@ use TestRequest;
 use HTTP::Request::Common;
 use Toks::DB::User;
 use Toks::DB::Confirmation;
+use Toks::DB::Notification;
+use Toks::DB::Subscription;
 use Toks::Action::ConfirmDeregistration;
 
 subtest 'return 404 when confirmation token not found' => sub {
@@ -53,7 +55,54 @@ subtest 'remove user' => sub {
 
     $action->run;
 
-    ok !$user->load;
+    $user->load;
+
+    is $user->get_column('email'), $user->get_column('id');
+    is $user->get_column('password'), '';
+    is $user->get_column('name'), '';
+    is $user->get_column('status'), 'deleted';
+
+    is_deeply $action->env->{'psgix.session.options'}, {expire => 1};
+};
+
+subtest 'deletes user notifications' => sub {
+    TestDB->setup;
+
+    my $user = Toks::DB::User->new(email => 'foo@bar.com')->create;
+    my $confirmation =
+      Toks::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+    my $action =
+      _build_action(captures => {token => $confirmation->get_column('token')});
+
+    Toks::DB::Notification->new(user_id => 123, reply_id => 1)->create;
+    Toks::DB::Notification->new(
+        user_id  => $user->get_column('id'),
+        reply_id => 1
+    )->create;
+
+    $action->run;
+
+    is(Toks::DB::Notification->table->count, 1);
+};
+
+subtest 'deletes user subscriptions' => sub {
+    TestDB->setup;
+
+    my $user = Toks::DB::User->new(email => 'foo@bar.com')->create;
+    my $confirmation =
+      Toks::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+    my $action =
+      _build_action(captures => {token => $confirmation->get_column('token')});
+
+    Toks::DB::Subscription->new(user_id => 123, thread_id => 1)->create;
+    Toks::DB::Subscription->new(
+        user_id  => $user->get_column('id'),
+        thread_id => 1
+    )->create;
+
+    $action->run;
+
+    is(Toks::DB::Subscription->table->count, 1);
 };
 
 subtest 'delete confirmation' => sub {
