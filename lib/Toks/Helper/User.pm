@@ -13,9 +13,15 @@ sub display_name {
 
     return '' unless $user;
 
-    return '<deleted>' if $user->{status} eq 'deleted';
+    return '<strike>deleted</strike>' if $user->{status} eq 'deleted';
 
-    return $user->{name} if $user->{name};
+    if (my $name = $user->{name}) {
+        $name =~ s{&}{&amp;}g;
+        $name =~ s{>}{&gt;}g;
+        $name =~ s{<}{&lt;}g;
+        $name =~ s{"}{&quot;}g;
+        return $name;
+    }
 
     return 'User' . $user->{id};
 }

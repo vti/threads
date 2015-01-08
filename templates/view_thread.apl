@@ -18,9 +18,9 @@
                     <div class="reply-gravatar">
                     %== $helpers->gravatar->img($reply->{user});
                     </div>
-                    <%= $helpers->user->display_name($reply->{user}) %>
+                    <%== $helpers->user->display_name($reply->{user}) %>
                     % if ($reply->{parent}) {
-                        → <%= $helpers->user->display_name($reply->{parent}->{user2}) %>
+                        → <%== $helpers->user->display_name($reply->{parent}->{user2}) %>
                     % }
                 </div>
                 <div class="reply-date"><a href="#comment-<%= $reply->{id} %>"><%= $helpers->date->format($reply->{created}) %></a></div>

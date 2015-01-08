@@ -34,7 +34,7 @@
     <a href="<%= $helpers->url->view_thread(id => $thread->{id}, slug => $thread->{slug}) %>"><%= $thread->{title} %></a>
     </td>
     <td>
-    <%= $helpers->user->display_name($reply->{user}) %>
+    <%== $helpers->user->display_name($reply->{user}) %>
     </td>
     <td>
     <%== $helpers->markdown->render($reply->{content}) %>

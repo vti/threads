@@ -12,6 +12,12 @@ subtest 'returns name when available' => sub {
     is $helper->display_name({name => 'foo', status => 'active'}), 'foo';
 };
 
+subtest 'escapes name characters' => sub {
+    my $helper = _build_helper();
+
+    is $helper->display_name({name => '<foo', status => 'active'}), '&lt;foo';
+};
+
 subtest 'returns User<id> when name not available' => sub {
     my $helper = _build_helper();
 
@@ -21,10 +27,11 @@ subtest 'returns User<id> when name not available' => sub {
 subtest 'returns deleted when user deleted' => sub {
     my $helper = _build_helper();
 
-    is $helper->display_name({status => 'deleted'}), '<deleted>';
+    is $helper->display_name({status => 'deleted'}), '<strike>deleted</strike>';
 };
 
 my $env = {};
+
 sub _build_helper {
     Toks::Helper::User->new(env => $env);
 }
