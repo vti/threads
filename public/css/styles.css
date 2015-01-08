@@ -157,7 +157,7 @@ blockquote {
     width:50%;
     background:#eee;
     border-left:10px solid #ccc;
-    padding-left:10px;
+    padding:10px;
 }
 
 textarea {
