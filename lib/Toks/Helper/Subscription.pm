@@ -29,11 +29,15 @@ sub find {
 
     my $user = $self->scope->user;
 
-    my @subscriptions = Toks::DB::Subscription->find(where => [
-            user_id => $user->get_column('id')
-        ], with => 'thread');
+    my @subscriptions = Toks::DB::Subscription->find(
+        where => [
+            user_id     => $user->get_column('id'),
+            'thread.id' => {'!=' => ''}
+        ],
+        with => 'thread'
+    );
 
-    return map {$_->to_hash} @subscriptions;
+    return map { $_->to_hash } @subscriptions;
 }
 
 1;
