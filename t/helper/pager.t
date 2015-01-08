@@ -44,6 +44,18 @@ subtest 'builds pager when last page' => sub {
     };
 };
 
+subtest 'builds pager when last page exactly' => sub {
+    my $helper = _build_helper(params => {page_size => 10, page => 2});
+
+    is_deeply $helper->build(total => 20), {
+        first_page => 1,
+        prev_page  => 1,
+        next_page  => 0,
+        last_page  => 0
+
+    };
+};
+
 subtest 'builds pager when over last page' => sub {
     my $helper = _build_helper(params => {page_size => 10, page => 10});
 

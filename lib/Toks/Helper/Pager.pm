@@ -22,7 +22,10 @@ sub build {
     my $first_page = $current_page == 1 ? 0 : 1;
     my $prev_page  = $current_page == 1 ? 0 : 1;
 
-    my $last_page = int($total / $page_size) + 1;
+    my $last_page = $total / $page_size;
+    if ($last_page != int($last_page)) {
+        $last_page = int($last_page) + 1;
+    }
     my $next_page = $current_page + 1;
     $next_page = 0 if $next_page > $last_page;
     $last_page = 0 if $last_page <= $current_page;

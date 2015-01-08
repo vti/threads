@@ -55,4 +55,5 @@
     % }
     </table>
 
+    %== $helpers->displayer->render('include/pager', base_url => $helpers->url->list_notifications, total => $helpers->notification->count);
 </div>

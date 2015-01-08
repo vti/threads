@@ -23,15 +23,19 @@ sub count {
 sub find {
     my $self = shift;
 
-    my $user = $self->scope->user;
+    my $user      = $self->scope->user;
+    my $page      = $self->param('page') || 1;
+    my $page_size = $self->param('page_size') || 10;
 
     my @notifications = Toks::DB::Notification->find(
         where => [
             user_id    => $user->get_column('id'),
             'reply.id' => {'!=' => ''}
         ],
-        order_by => [id => 'DESC'],
-        with     => [qw/reply reply.thread.user reply.user2/]
+        page      => $page,
+        page_size => $page_size,
+        order_by  => [id => 'DESC'],
+        with      => [qw/reply reply.thread.user reply.user2/]
     );
 
     return map { $_->to_hash } @notifications;
