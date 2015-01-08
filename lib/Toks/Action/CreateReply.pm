@@ -76,7 +76,7 @@ sub submit {
         )->create;
     }
 
-    if ($parent) {
+    if ($parent && $parent->get_column('user_id') != $user->get_column('id')) {
         Toks::DB::Notification->new(
             user_id  => $parent->related('user')->get_column('id'),
             reply_id => $reply->get_column('id')

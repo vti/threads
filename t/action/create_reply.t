@@ -256,7 +256,7 @@ subtest 'notify parent reply user' => sub {
         req =>
           POST('/?to=' . $parent_reply->get_column('id') => {content => 'bar'}),
         captures  => {id => $thread->get_column('id')},
-        'tu.user' => $user
+        'tu.user' => $user2
     );
 
     $action->run;
@@ -269,6 +269,38 @@ subtest 'notify parent reply user' => sub {
     ok $notification;
     is $notification->get_column('user_id'),  $user->get_column('id');
     is $notification->get_column('reply_id'), $reply->get_column('id');
+};
+
+subtest 'not notify parent reply user when same user' => sub {
+    TestDB->setup;
+
+    my $thread_author =
+      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $thread =
+      Toks::DB::Thread->new(user_id => $thread_author->get_column('id'))
+      ->create;
+
+    my $user =
+      Toks::DB::User->new(email => 'foo2@bar.com', password => 'bar')->create;
+
+    my $parent_reply = Toks::DB::Reply->new(
+        thread_id => $thread->get_column('id'),
+        user_id   => $user->get_column('id')
+    )->create;
+
+    my $action = _build_action(
+        req =>
+          POST('/?to=' . $parent_reply->get_column('id') => {content => 'bar'}),
+        captures  => {id => $thread->get_column('id')},
+        'tu.user' => $user
+    );
+
+    $action->run;
+
+    my $reply = Toks::DB::Reply->find(first => 1, order_by => [id => 'DESC']);
+    my $notification = Toks::DB::Notification->find(first => 1);
+
+    is(Toks::DB::Notification->table->count, 0);
 };
 
 sub _build_action {
