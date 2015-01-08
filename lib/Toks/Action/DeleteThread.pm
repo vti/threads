@@ -7,6 +7,7 @@ use parent 'Tu::Action';
 
 use Toks::DB::User;
 use Toks::DB::Thread;
+use Toks::DB::Subscription;
 
 sub run {
     my $self = shift;
@@ -23,6 +24,9 @@ sub run {
 
     return $self->throw_not_found
       if $thread->count_related('replies');
+
+    Toks::DB::Subscription->table->delete(
+        where => [thread_id => $thread->get_column('id')]);
 
     $thread->delete;
 

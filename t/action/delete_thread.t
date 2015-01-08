@@ -10,6 +10,7 @@ use TestRequest;
 use Toks::DB::User;
 use Toks::DB::Thread;
 use Toks::DB::Reply;
+use Toks::DB::Subscription;
 use Toks::Action::DeleteThread;
 
 subtest 'returns 404 when unknown thread' => sub {
@@ -72,6 +73,32 @@ subtest 'deletes thread' => sub {
     $action->run;
 
     ok !Toks::DB::Thread->find(first => 1);
+};
+
+subtest 'deletes thread subscriptions' => sub {
+    TestDB->setup;
+
+    my $user = Toks::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $thread = Toks::DB::Thread->new(user_id => $user->get_column('id'))->create;
+
+    Toks::DB::Subscription->new(
+        user_id   => $user->get_column('id'),
+        thread_id => $thread->get_column('id')
+    )->create;
+
+    Toks::DB::Subscription->new(
+        user_id   => $user->get_column('id'),
+        thread_id => 999
+    )->create;
+
+    my $action = _build_action(
+        captures  => {id => $thread->get_column('id')},
+        'tu.user' => $user
+    );
+
+    $action->run;
+
+    is(Toks::DB::Subscription->table->count, 1);
 };
 
 subtest 'redirects' => sub {
