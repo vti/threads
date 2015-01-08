@@ -75,14 +75,15 @@ figure {
 
 body {
   background: white;
-  color: #333;
+  color: #111;
 }
 
 a {
-  color: blue;
+  color: #0074D9;
   text-decoration: underline;
 }
 a:hover {
+  color: #001F3F;
   text-decoration: underline;
 }
 
@@ -172,7 +173,7 @@ button.link {
     vertical-align : baseline;
 
     cursor: pointer;
-    color: blue;
+    color: #0074D9;
     text-decoration: underline;
     font-weight:normal;
 }
@@ -207,7 +208,7 @@ button.link {
 .thread-counters {
     float:left;
     width:100px;
-    background:#eee;
+    background:#ddd;
     padding:0.5em;
     margin-right:1em;
     text-align:center;
@@ -220,6 +221,10 @@ button.link {
 .thread-title {
     padding:0px;
     margin:0px;
+}
+
+.thread-title a, .thread-title a:hover{
+    text-decoration:none
 }
 
 .thread-controls {

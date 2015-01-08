@@ -9,7 +9,7 @@
     % if (@notifications) {
         <p>
         <form class="form-inline quick-delete-notifications" method="POST" action="<%= $helpers->url->delete_notifications %>">
-        <button><%= loc('mark all read') %></button>
+        <button><i class="fa fa-check"></i> <%= loc('mark all read') %></button>
         </form>
         </p>
     % }
@@ -44,7 +44,7 @@
     <td width="1%" class="td-right">
         <form class="form-inline quick-delete-notifications" method="POST" action="<%= $helpers->url->delete_notifications %>">
         <input type="hidden" name="id" value="<%= $notification->{id} %>" />
-        <button><%= loc('delete') %></button>
+        <button class="no-wrap"><i class="fa fa-remove"></i> <%= loc('delete') %></button>
         </form>
     </td>
     <tr>
