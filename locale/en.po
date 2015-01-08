@@ -60,12 +60,12 @@ msgstr ""
 msgid "Invalid password"
 msgstr ""
 
-#: templates/activation_success.apl:5 templates/layout.apl:43
+#: templates/activation_success.apl:5 templates/layout.apl:47
 #: templates/login.apl:11
 msgid "Login"
 msgstr ""
 
-#: templates/layout.apl:41
+#: templates/layout.apl:43
 msgid "Logout"
 msgstr ""
 
@@ -117,7 +117,7 @@ msgstr ""
 msgid "Registration"
 msgstr ""
 
-#: lib/Toks/Action/Register.pm:56
+#: lib/Toks/Action/Register.pm:58
 msgid "Registration confirmation"
 msgstr ""
 
@@ -163,11 +163,11 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: templates/layout.apl:43
+#: templates/layout.apl:47
 msgid "Sign up"
 msgstr ""
 
-#: templates/index.apl:5
+#: templates/index.apl:6
 msgid "Sort"
 msgstr ""
 
@@ -208,7 +208,11 @@ msgstr ""
 msgid "User exists"
 msgstr ""
 
-#: templates/layout.apl:57
+#: templates/include/thread.apl:5
+msgid "Views"
+msgstr ""
+
+#: templates/layout.apl:61
 msgid "Written by"
 msgstr ""
 
@@ -253,11 +257,11 @@ msgstr ""
 msgid "by"
 msgstr ""
 
-#: templates/index.apl:7
+#: templates/index.apl:8
 msgid "by activity"
 msgstr ""
 
-#: templates/index.apl:7
+#: templates/index.apl:8
 msgid "by popularity"
 msgstr ""
 
@@ -285,7 +289,7 @@ msgstr ""
 msgid "or"
 msgstr ""
 
-#: templates/layout.apl:57
+#: templates/layout.apl:61
 msgid "powered by"
 msgstr ""
 

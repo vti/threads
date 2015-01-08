@@ -34,7 +34,7 @@ sub find {
             user_id     => $user->get_column('id'),
             'thread.id' => {'!=' => ''}
         ],
-        with => 'thread'
+        with => ['thread', 'thread.user']
     );
 
     return map { $_->to_hash } @subscriptions;

@@ -60,12 +60,12 @@ msgstr "Неправильный email"
 msgid "Invalid password"
 msgstr "Неправильный пароль"
 
-#: templates/activation_success.apl:5 templates/layout.apl:43
+#: templates/activation_success.apl:5 templates/layout.apl:47
 #: templates/login.apl:11
 msgid "Login"
 msgstr "Вход"
 
-#: templates/layout.apl:41
+#: templates/layout.apl:43
 msgid "Logout"
 msgstr "Выход"
 
@@ -117,7 +117,7 @@ msgstr "Зарегистрироваться"
 msgid "Registration"
 msgstr "Регистрация"
 
-#: lib/Toks/Action/Register.pm:56
+#: lib/Toks/Action/Register.pm:58
 msgid "Registration confirmation"
 msgstr "Подтверждение регистрации"
 
@@ -163,11 +163,11 @@ msgstr "Отправить"
 msgid "Settings"
 msgstr "Настройки"
 
-#: templates/layout.apl:43
+#: templates/layout.apl:47
 msgid "Sign up"
 msgstr "Регистрация"
 
-#: templates/index.apl:5
+#: templates/index.apl:6
 msgid "Sort"
 msgstr "Сортировать"
 
@@ -210,7 +210,11 @@ msgstr "Пользователь не существует"
 msgid "User exists"
 msgstr "Пользователь существует"
 
-#: templates/layout.apl:57
+#: templates/include/thread.apl:5
+msgid "Views"
+msgstr "Просмотры"
+
+#: templates/layout.apl:61
 msgid "Written by"
 msgstr "Написано"
 
@@ -261,11 +265,11 @@ msgstr "автор"
 msgid "by"
 msgstr "от"
 
-#: templates/index.apl:7
+#: templates/index.apl:8
 msgid "by activity"
 msgstr "по активности"
 
-#: templates/index.apl:7
+#: templates/index.apl:8
 msgid "by popularity"
 msgstr "по популярности"
 
@@ -293,7 +297,7 @@ msgstr "отметить все как прочитанное"
 msgid "or"
 msgstr "или"
 
-#: templates/layout.apl:57
+#: templates/layout.apl:61
 msgid "powered by"
 msgstr "работает на"
 
