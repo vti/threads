@@ -1,7 +1,7 @@
             <div class="quick-edit-form">
                 <form method="POST" action="<%= $helpers->url->update_reply(id => $reply->{id}) %>">
 
-                <%== $helpers->form->textarea('content', default => $reply->{content}) %>
+                <%= $helpers->form->textarea('content', default => $reply->{content}) %>
 
                 <input type="submit" value="<%= loc('Send') %>" /> <em><%= loc('or') %></em> CTRL+Enter
 
