@@ -14,7 +14,7 @@
                 <a href="<%= $helpers->url->view_thread(id => $thread->{id}, slug => $thread->{slug}) %>"><%= $thread->{title} %></a>
             </h1>
             <div class="thread-meta">
-                <%= loc('by') %> <%== $helpers->user->display_name($thread->{user}) %>
+                <%= loc('by') %> <strong><%== $helpers->user->display_name($thread->{user}) %></strong>
             </div>
             <div class="thread-date">
                 <%= $helpers->date->format($thread->{created}) %>
