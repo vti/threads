@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="/unsemantic/css/ie.css" />
 <![endif]-->
   <link rel="stylesheet" href="/formalize/css/formalize.css" />
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" />
 %== $helpers->assets->include(type => 'css');
 <link rel="stylesheet" href="/css/styles.css" />
 </head>

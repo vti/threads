@@ -12,7 +12,7 @@ msgstr ""
 msgid "Authorization"
 msgstr ""
 
-#: templates/change_password.apl:3 templates/layout.apl:40
+#: templates/change_password.apl:3 templates/layout.apl:41
 msgid "Change password"
 msgstr ""
 
@@ -24,7 +24,7 @@ msgstr ""
 msgid "Create new thread"
 msgstr ""
 
-#: templates/create_thread.apl:3 templates/layout.apl:36
+#: templates/create_thread.apl:3 templates/layout.apl:37
 msgid "Create thread"
 msgstr ""
 
@@ -60,12 +60,12 @@ msgstr ""
 msgid "Invalid password"
 msgstr ""
 
-#: templates/activation_success.apl:5 templates/layout.apl:47
+#: templates/activation_success.apl:5 templates/layout.apl:48
 #: templates/login.apl:11
 msgid "Login"
 msgstr ""
 
-#: templates/layout.apl:43
+#: templates/layout.apl:44
 msgid "Logout"
 msgstr ""
 
@@ -77,7 +77,7 @@ msgstr ""
 msgid "New password"
 msgstr ""
 
-#: templates/layout.apl:38 templates/list_notifications.apl:5
+#: templates/layout.apl:39 templates/list_notifications.apl:5
 msgid "Notifications"
 msgstr ""
 
@@ -159,11 +159,11 @@ msgstr ""
 msgid "Send"
 msgstr ""
 
-#: templates/layout.apl:39 templates/settings.apl:3
+#: templates/layout.apl:40 templates/settings.apl:3
 msgid "Settings"
 msgstr ""
 
-#: templates/layout.apl:47
+#: templates/layout.apl:48
 msgid "Sign up"
 msgstr ""
 
@@ -171,7 +171,7 @@ msgstr ""
 msgid "Sort"
 msgstr ""
 
-#: templates/layout.apl:37 templates/list_subscriptions.apl:5
+#: templates/layout.apl:38 templates/list_subscriptions.apl:5
 msgid "Subscriptions"
 msgstr ""
 
@@ -180,7 +180,7 @@ msgid ""
 "Thank you for registering. Please check your email for a confirmation link."
 msgstr ""
 
-#: templates/layout.apl:34
+#: templates/layout.apl:35
 msgid "Threads"
 msgstr ""
 
@@ -208,11 +208,7 @@ msgstr ""
 msgid "User exists"
 msgstr ""
 
-#: templates/include/thread.apl:5
-msgid "Views"
-msgstr ""
-
-#: templates/layout.apl:61
+#: templates/layout.apl:62
 msgid "Written by"
 msgstr ""
 
@@ -289,7 +285,7 @@ msgstr ""
 msgid "or"
 msgstr ""
 
-#: templates/layout.apl:61
+#: templates/layout.apl:62
 msgid "powered by"
 msgstr ""
 
