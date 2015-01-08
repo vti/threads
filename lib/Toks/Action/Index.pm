@@ -17,7 +17,7 @@ sub run {
     my $page = $self->req->param('page');
     $page = 1 unless $page && $page =~ m/^\d+$/;
 
-    my $page_size = 5;
+    my $page_size = 10;
 
     $self->set_var(
         params => {
