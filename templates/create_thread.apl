@@ -1,3 +1,5 @@
+% $helpers->assets->require('/js/quick-reply.js');
+
 <div class="grid-100">
 
     <h1><%= loc('Create thread') %></h1>
@@ -9,6 +11,12 @@
 
     <input type="submit" value="<%= loc('Create new thread') %>" />
 
+    (<a href="#" class="markup-help-button"><%= loc('markup help') %></a>)
+
+    <div class="markup-help"></div>
+
     </form>
+
+    %== $helpers->displayer->render('include/markup-help');
 
 </div>
