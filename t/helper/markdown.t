@@ -26,6 +26,16 @@ subtest 'forbids html' => sub {
     is $helper->render('<a>'), "<p>&lt;a&gt;</p>\n";
 };
 
+subtest 'passes blockquotes' => sub {
+    my $helper = _build_helper();
+
+    my $got = $helper->render("> this is\n> a quote");
+    $got =~ s{\n*}{}g;
+    $got =~ s{\s+}{ }g;
+
+    is $got, '<blockquote> <p>this is a quote</p></blockquote>';
+};
+
 my $env = {};
 sub _build_helper {
     Toks::Helper::Markdown->new(env => $env);
