@@ -160,4 +160,26 @@
         return false;
     });
 
+    function highightReply() {
+        var hash = window.location.hash;
+        if (hash) {
+            var re = /reply-\d+/;
+            var match = re.exec(hash);
+
+            if (match && match.length) {
+                var el = $('a[name=' + match[0] + ']').parent().parent().parent();
+
+                el.css('backgroundColor', '#eee');
+                setTimeout(function() {
+                    el.css('backgroundColor', 'white');
+                }, 500);
+            }
+        }
+    }
+
+    highightReply();
+    $(window).bind('hashchange', function() {
+        highightReply();
+    });
+
 })();

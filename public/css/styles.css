@@ -91,15 +91,20 @@ h1 {
   padding-top: 20px;
 }
 
+tr.border-bottom td {
+    border-bottom:1pt solid #ddd;
+}
+
 td {
     padding-right:0.5em;
-    padding-top.5em;
+    padding-top:.5em;
+    padding-bottom:.5em;
 }
 
 td.td-right {
     padding-right:0px;
-    padding-left.5em;
-    padding-top.5em;
+    padding-left:.5em;
+    padding-top:.5em;
 }
 
 .no-wrap {
@@ -312,4 +317,8 @@ a.markup-help-button {
     height: auto;
     overflow-y: hidden;
     overflow-x: auto;
+}
+
+.highlighted {
+    background:red;
 }

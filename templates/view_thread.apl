@@ -14,7 +14,7 @@
         <div class="reply" style="padding-left:<%= $padding %>px">
             <div class="reply-meta">
                 <div class="reply-author">
-                    <a name="comment-<%= $reply->{id} %>"></a>
+                    <a name="reply-<%= $reply->{id} %>"></a>
                     <div class="reply-gravatar">
                     %== $helpers->gravatar->img($reply->{user});
                     </div>
@@ -23,7 +23,7 @@
                         → <%== $helpers->user->display_name($reply->{parent}->{user2}) %>
                     % }
                 </div>
-                <div class="reply-date"><a href="#comment-<%= $reply->{id} %>"><%= $helpers->date->format($reply->{created}) %></a></div>
+                <div class="reply-date"><a href="#reply-<%= $reply->{id} %>"><%= $helpers->date->format($reply->{created}) %></a></div>
             </div>
 
             <div class="reply-content">

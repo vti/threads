@@ -31,7 +31,7 @@ sub find {
             'reply.id' => {'!=' => ''}
         ],
         order_by => [id => 'DESC'],
-        with     => [qw/reply reply.thread reply.user/]
+        with     => [qw/reply reply.thread.user reply.user2/]
     );
 
     return map { $_->to_hash } @notifications;
