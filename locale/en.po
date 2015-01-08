@@ -16,15 +16,15 @@ msgstr ""
 msgid "Change password"
 msgstr ""
 
-#: templates/create_thread.apl:8 templates/update_thread.apl:8
+#: templates/create_thread.apl:10 templates/update_thread.apl:10
 msgid "Content"
 msgstr ""
 
-#: templates/create_thread.apl:10
+#: templates/create_thread.apl:12
 msgid "Create new thread"
 msgstr ""
 
-#: templates/create_thread.apl:3 templates/layout.apl:37
+#: templates/create_thread.apl:5 templates/layout.apl:37
 msgid "Create thread"
 msgstr ""
 
@@ -184,7 +184,7 @@ msgstr ""
 msgid "Threads"
 msgstr ""
 
-#: templates/create_thread.apl:7 templates/update_thread.apl:7
+#: templates/create_thread.apl:9 templates/update_thread.apl:9
 msgid "Title"
 msgstr ""
 
@@ -192,11 +192,11 @@ msgstr ""
 msgid "Unknown credentials"
 msgstr ""
 
-#: templates/settings.apl:14 templates/update_thread.apl:10
+#: templates/settings.apl:14 templates/update_thread.apl:12
 msgid "Update"
 msgstr ""
 
-#: templates/update_thread.apl:3
+#: templates/update_thread.apl:5
 msgid "Update thread"
 msgstr ""
 
@@ -278,6 +278,11 @@ msgstr ""
 
 #: templates/list_notifications.apl:12
 msgid "mark all read"
+msgstr ""
+
+#: templates/create_thread.apl:14 templates/include/quick-edit-form.apl:8
+#: templates/include/quick-reply-form.apl:12 templates/update_thread.apl:14
+msgid "markup help"
 msgstr ""
 
 #: templates/include/quick-edit-form.apl:6
