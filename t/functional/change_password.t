@@ -23,6 +23,7 @@ subtest 'show change password page' => sub {
 
     my $ua = _login();
 
+    $ua->follow_link(text => 'Settings');
     $ua->follow_link(text => 'Change password');
 
     $ua->content_contains('Change password');
@@ -33,6 +34,7 @@ subtest 'show validation errors' => sub {
 
     my $ua = _login();
 
+    $ua->follow_link(text => 'Settings');
     $ua->follow_link(text => 'Change password');
 
     $ua->submit_form(fields => {}, form_id => 'change-password');
@@ -44,6 +46,7 @@ subtest 'show error when wrong password' => sub {
 
     my $ua = _login();
 
+    $ua->follow_link(text => 'Settings');
     $ua->follow_link(text => 'Change password');
 
     $ua->submit_form(
@@ -63,6 +66,7 @@ subtest 'show error when new passwords do not match' => sub {
 
     my $ua = _login();
 
+    $ua->follow_link(text => 'Settings');
     $ua->follow_link(text => 'Change password');
 
     $ua->submit_form(
@@ -82,6 +86,7 @@ subtest 'show password changed page' => sub {
 
     my $ua = _login();
 
+    $ua->follow_link(text => 'Settings');
     $ua->follow_link(text => 'Change password');
 
     $ua->submit_form(
@@ -101,6 +106,7 @@ subtest 'login with new password' => sub {
 
     my $ua = _login();
 
+    $ua->follow_link(text => 'Settings');
     $ua->follow_link(text => 'Change password');
 
     $ua->submit_form(
