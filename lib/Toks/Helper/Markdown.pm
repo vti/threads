@@ -16,6 +16,8 @@ sub render {
     $text =~ s{<}{&lt;}g;
     $text =~ s{"}{&quot;}g;
 
+    $text =~ s{^&gt; }{> }mg;
+
     return Text::Markdown->new->markdown($text);
 }
 

@@ -153,6 +153,13 @@ td.td-right {
     padding-bottom:2em;
 }
 
+blockquote {
+    width:50%;
+    background:#eee;
+    border-left:10px solid #ccc;
+    padding-left:10px;
+}
+
 textarea {
     width:50%;
     height:100px;

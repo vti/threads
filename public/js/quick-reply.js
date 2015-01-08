@@ -22,7 +22,17 @@
 
         if (!form.css('display') || form.css('display') == 'none') {
             form.show();
-            form.find('textarea').focus();
+
+            var textarea = form.find('textarea');
+
+            var selection = window.getSelection().toString();
+            if (selection) {
+                selection = selection.replace(/^/gm, '> ');
+                selection += "\n\n";
+                textarea.val(selection);
+            }
+
+            textarea.focus();
 
             form.find('textarea').keydown(function (e) {
               if ((e.keyCode == 10 || e.keyCode == 13) && e.ctrlKey) {
