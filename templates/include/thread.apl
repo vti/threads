@@ -16,7 +16,12 @@
             <div class="thread-meta">
                 <%= loc('by') %> <%== $helpers->user->display_name($thread->{user}) %>
             </div>
-            <div class="thread-date"><%= $helpers->date->format($thread->{created}) %></div>
+            <div class="thread-date">
+                <%= $helpers->date->format($thread->{created}) %>
+                % if ($thread->{updated}) {
+                    <%= loc('upd.') %> <%= $helpers->date->format($thread->{updated}) %>
+                % }
+            </div>
 
             <div class="clear"></div>
         </div>

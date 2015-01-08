@@ -78,8 +78,34 @@ subtest 'updates thread with correct params' => sub {
 
     $thread->load;
 
-    is $thread->get_column('title'),   'bar';
-    is $thread->get_column('content'), 'foo';
+    is $thread->get_column('title'),     'bar';
+    is $thread->get_column('content'),   'foo';
+    isnt $thread->get_column('updated'), 0;
+};
+
+subtest 'updates last_activity' => sub {
+    TestDB->setup;
+
+    my $user =
+      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $thread = Toks::DB::Thread->new(
+        user_id       => $user->get_column('id'),
+        title         => 'foo',
+        content       => 'bar',
+        last_activity => 123
+    )->create;
+
+    my $action = _build_action(
+        req => POST('/' => {title => 'bar', content => 'foo'}),
+        captures  => {id => $thread->get_column('id')},
+        'tu.user' => $user
+    );
+
+    $action->run;
+
+    $thread->load;
+
+    isnt $thread->get_column('last_activity'), 123;
 };
 
 subtest 'redirects after update' => sub {

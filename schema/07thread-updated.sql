@@ -1,0 +1,1 @@
+ALTER TABLE `threads` ADD COLUMN `updated` INT NOT NULL DEFAULT 0;

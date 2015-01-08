@@ -324,3 +324,7 @@ msgstr "тема"
 #: lib/Toks/Action/ToggleSubscription.pm:41 templates/include/thread.apl:8
 msgid "unsubscribe"
 msgstr "отписаться"
+
+#: templates/include/thread.apl:22
+msgid "upd."
+msgstr "обн."
