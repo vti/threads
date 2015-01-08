@@ -72,7 +72,7 @@
     <script>
         $(document).ready(function() {
             var editors = [];
-            $('pre code').each(function() {
+            $('pre.markup code').each(function() {
                 $(this).replaceWith('<textarea class="code perl">' + $(this).text() + '</textarea>');
             });
             $('textarea.code').each(function() {

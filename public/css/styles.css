@@ -245,6 +245,7 @@ button.link {
 .thread-content {
     padding-top:10px;
     padding-bottom:10px;
+    max-width:700px;
 }
 
 .reply {
