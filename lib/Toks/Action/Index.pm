@@ -14,7 +14,18 @@ sub run {
     my $by = $self->req->param('by');
     $by = 'activity' unless $by && first { $by eq $_ } qw/activity popularity/;
 
-    $self->set_var(params => {by => $by});
+    my $page = $self->req->param('page');
+    $page = 1 unless $page && $page =~ m/^\d+$/;
+
+    my $page_size = 5;
+
+    $self->set_var(
+        params => {
+            by        => $by,
+            page      => $page,
+            page_size => $page_size
+        }
+    );
 
     return;
 }
