@@ -12,7 +12,7 @@ msgstr ""
 msgid "Authorization"
 msgstr ""
 
-#: templates/change_password.apl:3 templates/layout.apl:41
+#: templates/change_password.apl:3 templates/layout.apl:42
 msgid "Change password"
 msgstr ""
 
@@ -24,7 +24,7 @@ msgstr ""
 msgid "Create new thread"
 msgstr ""
 
-#: templates/create_thread.apl:5 templates/layout.apl:37
+#: templates/create_thread.apl:5 templates/layout.apl:38
 msgid "Create thread"
 msgstr ""
 
@@ -60,12 +60,12 @@ msgstr ""
 msgid "Invalid password"
 msgstr ""
 
-#: templates/activation_success.apl:5 templates/layout.apl:48
+#: templates/activation_success.apl:5 templates/layout.apl:49
 #: templates/login.apl:11
 msgid "Login"
 msgstr ""
 
-#: templates/layout.apl:44
+#: templates/layout.apl:45
 msgid "Logout"
 msgstr ""
 
@@ -73,11 +73,15 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
+#: lib/Toks/Action/Settings.pm:38
+msgid "Name already exists"
+msgstr ""
+
 #: templates/change_password.apl:8 templates/reset_password.apl:7
 msgid "New password"
 msgstr ""
 
-#: templates/layout.apl:39 templates/list_notifications.apl:5
+#: templates/layout.apl:40 templates/list_notifications.apl:5
 msgid "Notifications"
 msgstr ""
 
@@ -117,7 +121,7 @@ msgstr ""
 msgid "Registration"
 msgstr ""
 
-#: lib/Toks/Action/Register.pm:58
+#: lib/Toks/Action/Register.pm:62
 msgid "Registration confirmation"
 msgstr ""
 
@@ -159,11 +163,11 @@ msgstr ""
 msgid "Send"
 msgstr ""
 
-#: templates/layout.apl:40 templates/settings.apl:3
+#: templates/layout.apl:41 templates/settings.apl:3
 msgid "Settings"
 msgstr ""
 
-#: templates/layout.apl:48
+#: templates/layout.apl:49
 msgid "Sign up"
 msgstr ""
 
@@ -171,7 +175,7 @@ msgstr ""
 msgid "Sort"
 msgstr ""
 
-#: templates/layout.apl:38 templates/list_subscriptions.apl:5
+#: templates/layout.apl:39 templates/list_subscriptions.apl:5
 msgid "Subscriptions"
 msgstr ""
 
@@ -180,7 +184,7 @@ msgid ""
 "Thank you for registering. Please check your email for a confirmation link."
 msgstr ""
 
-#: templates/layout.apl:35
+#: templates/layout.apl:36
 msgid "Threads"
 msgstr ""
 
@@ -208,7 +212,7 @@ msgstr ""
 msgid "User exists"
 msgstr ""
 
-#: templates/layout.apl:62
+#: templates/layout.apl:63
 msgid "Written by"
 msgstr ""
 
@@ -290,7 +294,7 @@ msgstr ""
 msgid "or"
 msgstr ""
 
-#: templates/layout.apl:62
+#: templates/layout.apl:63
 msgid "powered by"
 msgstr ""
 

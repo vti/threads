@@ -29,6 +29,49 @@ subtest 'update settings' => sub {
     is $user->get_column('name'), 'foo';
 };
 
+subtest 'show validation error when name exists' => sub {
+    TestDB->setup;
+
+    Toks::DB::User->new(
+        email    => 'foo2@bar.com',
+        name     => 'exists',
+        password => 'silly'
+    )->create;
+
+    my $user =
+      Toks::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
+    my $action = _build_action(
+        req => POST(
+            '/' => {name => 'exists'}
+        ),
+        'tu.user' => $user
+    );
+
+    $action->run;
+
+    is $action->vars->{errors}->{name}, 'Name already exists';
+};
+
+subtest 'update settings with same name' => sub {
+    TestDB->setup;
+
+    my $user = Toks::DB::User->new(
+        email    => 'foo@bar.com',
+        name     => 'foo',
+        password => 'silly'
+    )->create;
+    my $action = _build_action(
+        req => POST(
+            '/' => {name => 'foo'}
+        ),
+        'tu.user' => $user
+    );
+
+    $action->run;
+
+    ok !$action->vars->{errors};
+};
+
 subtest 'redirects' => sub {
     TestDB->setup;
 

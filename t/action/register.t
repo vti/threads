@@ -69,9 +69,41 @@ subtest 'create user with correct params' => sub {
     ok $user;
     is $user->get_column('status'),     'new';
     is $user->get_column('email'),      'foo@bar.com';
-    is $user->get_column('name'),       'foo';
     isnt $user->get_column('password'), 'bar';
     like $user->get_column('created'),  qr/^\d+$/;
+};
+
+subtest 'create user with name from email' => sub {
+    TestDB->setup;
+
+    my $action = _build_action(
+        req => POST('/' => {email => 'foo@bar.com', password => 'bar'}),
+        'tu.displayer.vars' => {lang => 'ru'}
+    );
+
+    $action->run;
+
+    my $user = Toks::DB::User->find(first => 1);
+
+    is $user->get_column('name'), 'foo';
+};
+
+subtest 'create user with empty name when exists' => sub {
+    TestDB->setup;
+
+    Toks::DB::User->new(email => 'foo2@bar.com', name => 'foo')->create;
+
+    my $action = _build_action(
+        req => POST('/' => {email => 'foo@bar.com', password => 'bar'}),
+        'tu.displayer.vars' => {lang => 'ru'}
+    );
+
+    $action->run;
+
+    my $user =
+      Toks::DB::User->find(first => 1, where => [email => 'foo@bar.com']);
+
+    is $user->get_column('name'), '';
 };
 
 subtest 'create confirmation token with correct params' => sub {

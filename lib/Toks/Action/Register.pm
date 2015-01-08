@@ -38,6 +38,10 @@ sub submit {
 
     my ($name) = split /\@/, $params->{email};
 
+    if (Toks::DB::User->find(first => 1, where => [name => $name])) {
+        $name = '';
+    }
+
     my $user = Toks::DB::User->new(%$params, name => $name)->create;
 
     my $confirmation =
