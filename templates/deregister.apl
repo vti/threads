@@ -2,7 +2,7 @@
 
     <h1><%= loc('Deregistration') %></h1>
 
-    <form method="POST">
+    <form method="POST" id="deregister">
 
     <input type="submit" value="<%= loc('Remove my account') %>" />
 

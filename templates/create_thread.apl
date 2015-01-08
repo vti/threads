@@ -2,7 +2,7 @@
 
     <h1><%= loc('Create thread') %></h1>
 
-    <form method="POST">
+    <form method="POST" id="create-thread">
 
     <%== $helpers->form->input('title', label => loc('Title')) %>
     <%== $helpers->form->textarea('content', label => loc('Content')) %>

@@ -2,7 +2,7 @@
 
     <h1><%= loc('Authorization') %></h1>
 
-    <form method="POST">
+    <form method="POST" id="login">
 
     <%== $helpers->form->input('email', label => 'E-mail') %>
     <%== $helpers->form->password('password', label => loc('Password')) %>

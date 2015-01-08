@@ -26,7 +26,7 @@ subtest 'shows validation errors' => sub {
     my $ua = _build_loggedin_ua();
 
     $ua->get('/create_thread');
-    $ua->submit_form(fields => {});
+    $ua->submit_form(fields => {}, form_id => 'create-thread');
 
     like $ua->content, qr/Required/;
 };
@@ -37,7 +37,10 @@ subtest 'redirects after creation' => sub {
     my $ua = _build_loggedin_ua();
 
     $ua->get('/create_thread');
-    $ua->submit_form(fields => {title => 'foo', content => 'bar'});
+    $ua->submit_form(
+        fields  => {title => 'foo', content => 'bar'},
+        form_id => 'create-thread'
+    );
 
     like $ua->content, qr/foo/;
 };
@@ -74,7 +77,7 @@ subtest 'shows validation errors on update' => sub {
       Toks::DB::Thread->new(user_id => $user->get_column('id'))->create;
 
     $ua->get('/threads/' . $thread->get_column('id') . '/update');
-    $ua->submit_form(fields => {});
+    $ua->submit_form(fields => {}, form_id => 'update-thread');
 
     like $ua->content, qr/Required/;
 };
@@ -142,7 +145,10 @@ sub _build_loggedin_ua {
     $ua->get('/');
     $ua->follow_link(text => 'Login');
 
-    $ua->submit_form(fields => {email => 'foo@bar.com', password => 'silly'});
+    $ua->submit_form(
+        fields  => {email => 'foo@bar.com', password => 'silly'},
+        form_id => 'login'
+    );
 
     return $ua;
 }

@@ -63,7 +63,7 @@ sub _add_routes {
 
     $routes->add_route('/reset-password/:token', name => 'reset_password');
 
-    $routes->add_route('/logout', name => 'logout');
+    $routes->add_route('/logout', name => 'logout', method => 'POST');
 
     $routes->add_route('/not_found', name => 'not_found');
 

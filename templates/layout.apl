@@ -38,7 +38,11 @@
                 <a href="<%= $helpers->url->list_notifications %>"><%= loc('Notifications') %> (<%= $helpers->notification->count %>)</a> |
                 <a href="<%= $helpers->url->settings %>"><%= loc('Settings') %></a> |
                 <a href="<%= $helpers->url->change_password %>"><%= loc('Change password') %></a> |
-                <a href="<%= $helpers->url->logout %>"><%= loc('Logout') %></a>
+
+                <form class="form-inline" method="post" action="<%= $helpers->url->logout %>" id="logout">
+                    <button class="link" type="submit"><%= loc('Logout') %></button>
+                </form>
+
                 % } else {
                 <a href="<%= $helpers->url->register %>"><%= loc('Sign up') %></a> | <a href="<%= $helpers->url->login %>"><%= loc('Login') %></a>
                 % }

@@ -35,7 +35,7 @@ subtest 'show validation errors' => sub {
 
     $ua->follow_link(text => 'Change password');
 
-    $ua->submit_form(fields => {});
+    $ua->submit_form(fields => {}, form_id => 'change-password');
     $ua->content_contains('Required');
 };
 
@@ -52,7 +52,8 @@ subtest 'show error when wrong password' => sub {
             old_password              => 'wrong',
             new_password              => 'foo',
             new_password_confirmation => 'foo'
-        }
+        },
+        form_id => 'change-password'
     );
     $ua->content_contains('Invalid');
 };
@@ -70,7 +71,8 @@ subtest 'show error when new passwords do not match' => sub {
             old_password              => 'silly',
             new_password              => 'foo',
             new_password_confirmation => 'bar'
-        }
+        },
+        form_id => 'change-password'
     );
     $ua->content_contains('Password mismatch');
 };
@@ -88,7 +90,8 @@ subtest 'show password changed page' => sub {
             old_password              => 'silly',
             new_password              => 'foo',
             new_password_confirmation => 'foo'
-        }
+        },
+        form_id => 'change-password'
     );
     $ua->content_contains('Password changed');
 };
@@ -106,7 +109,8 @@ subtest 'login with new password' => sub {
             old_password              => 'silly',
             new_password              => 'foo',
             new_password_confirmation => 'foo'
-        }
+        },
+        form_id => 'change-password'
     );
 
     $ua->follow_link(text => 'Logout');
@@ -125,7 +129,9 @@ sub _login {
     )->create;
 
     my $ua = _build_ua();
-    $ua->get('/login');
+    $ua->get('/');
+
+    $ua->follow_link(text => 'Login');
     $ua->submit_form(fields => {email => 'foo@bar.com', password => 'silly'});
 
     return $ua;

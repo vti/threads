@@ -2,7 +2,7 @@
 
     <h1><%= loc('Change password') %></h1>
 
-    <form method="POST">
+    <form method="POST" id="change-password">
 
     <%== $helpers->form->password('old_password', label => loc('Current password')) %>
     <%== $helpers->form->password('new_password', label => loc('New password')) %>

@@ -114,7 +114,7 @@ subtest 'redirect to root' => sub {
 subtest 'logout is forbidden when not logged in' => sub {
     my $ua = _build_ua();
 
-    my $res = $ua->get('/logout');
+    my $res = $ua->post('/logout');
     is $res->code, 403;
 };
 

@@ -39,7 +39,7 @@ subtest 'show deregistration confirmation needed page' => sub {
     $ua->follow_link(text => 'Settings');
     $ua->follow_link(text => 'Remove account');
 
-    $ua->submit_form(fields => {});
+    $ua->submit_form(fields => {}, form_id => 'deregister');
     $ua->content_contains('check your email');
 };
 
@@ -52,7 +52,7 @@ subtest 'send activation email' => sub {
     $ua->follow_link(text => 'Settings');
     $ua->follow_link(text => 'Remove account');
 
-    $ua->submit_form(fields => {});
+    $ua->submit_form(fields => {}, form_id => 'deregister');
 
     my ($headers, $message) = TestMail->get_last_message;
 
@@ -79,7 +79,7 @@ subtest 'show confirmation success page' => sub {
     $ua->follow_link(text => 'Settings');
     $ua->follow_link(text => 'Remove account');
 
-    $ua->submit_form(fields => {});
+    $ua->submit_form(fields => {}, form_id => 'deregister');
 
     my (undef, $message) = TestMail->get_last_message;
 
@@ -98,7 +98,7 @@ subtest 'remove account' => sub {
     $ua->follow_link(text => 'Settings');
     $ua->follow_link(text => 'Remove account');
 
-    $ua->submit_form(fields => {});
+    $ua->submit_form(fields => {}, form_id => 'deregister');
 
     my (undef, $message) = TestMail->get_last_message;
 
@@ -108,7 +108,10 @@ subtest 'remove account' => sub {
 
     $ua->get('/');
     $ua->follow_link(text => 'Login');
-    $ua->submit_form(fields => {email => 'foo@bar.com', password => 'silly'});
+    $ua->submit_form(
+        fields  => {email => 'foo@bar.com', password => 'silly'},
+        form_id => 'login'
+    );
     $ua->content_contains('Unknown credentials');
 };
 
