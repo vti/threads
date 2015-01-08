@@ -56,9 +56,6 @@ sub update {
 
     $self->set_column(slug => $self->_slug($self->get_column('title')));
 
-    $self->set_column(updated       => time);
-    $self->set_column(last_activity => time);
-
     return $self->SUPER::update;
 }
 
