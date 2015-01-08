@@ -7,6 +7,7 @@ use parent 'Tu::Action';
 
 use Toks::DB::User;
 use Toks::DB::Reply;
+use Toks::DB::Notification;
 
 sub run {
     my $self = shift;
@@ -25,6 +26,9 @@ sub run {
       if $reply->count_related('ansestors');
 
     my $thread = $reply->related('thread');
+
+    Toks::DB::Notification->table->delete(
+        where => [reply_id => $reply->get_column('id')]);
 
     $reply->delete;
 

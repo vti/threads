@@ -10,6 +10,7 @@ use TestRequest;
 use Toks::DB::User;
 use Toks::DB::Thread;
 use Toks::DB::Reply;
+use Toks::DB::Notification;
 use Toks::Action::DeleteReply;
 
 subtest 'returns 404 when unknown reply' => sub {
@@ -80,6 +81,35 @@ subtest 'deletes reply' => sub {
     $action->run;
 
     ok !Toks::DB::Reply->find(first => 1);
+};
+
+subtest 'deletes reply notifications' => sub {
+    TestDB->setup;
+
+    my $user = Toks::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $thread = Toks::DB::Thread->new(user_id => 1)->create;
+    my $reply = Toks::DB::Reply->new(
+        thread_id => $thread->get_column('id'),
+        user_id   => $user->get_column('id')
+    )->create;
+
+    Toks::DB::Notification->new(
+        user_id  => $user->get_column('id'),
+        reply_id => $reply->get_column('id')
+    )->create;
+    Toks::DB::Notification->new(
+        user_id  => $user->get_column('id'),
+        reply_id => 999
+    )->create;
+
+    my $action = _build_action(
+        captures  => {id => $reply->get_column('id')},
+        'tu.user' => $user
+    );
+
+    $action->run;
+
+    is(Toks::DB::Notification->table->count, 1);
 };
 
 subtest 'updates thread reply counter' => sub {
