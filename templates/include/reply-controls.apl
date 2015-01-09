@@ -5,7 +5,14 @@
             % if (var('user') && var('user')->{id} == $reply->{user_id}) {
             %    $disabled = ' disabled="disabled"';
             % }
-            <button<%= $disabled %>><%= loc('thank') %> (<span class="quick-thank-counter"><%= $reply->{thanks_count} %></span>)</button>
+            <button<%= $disabled %>>
+                <i class="fa fa-thumbs-up"></i>
+                <span class="quick-thank-counter">
+                % if ($reply->{thanks_count}) {
+                <%= $reply->{thanks_count} %>
+                % }
+                </span>
+            </button>
             </form>
             <button class="quick-reply-button"><i class="fa fa-reply"></i> <%= loc('reply') %></button>
 
