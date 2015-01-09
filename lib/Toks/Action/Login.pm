@@ -6,6 +6,7 @@ use warnings;
 use parent 'Toks::Action::FormBase';
 
 use Toks::DB::User;
+use Toks::DB::Nonce;
 
 sub build_validator {
     my $self = shift;
@@ -50,7 +51,10 @@ sub submit {
     my $self = shift;
     my ($params) = @_;
 
-    $self->scope->auth->login($self->env, $self->{user}->get_column('id'));
+    my $nonce =
+      Toks::DB::Nonce->new(user_id => $self->{user}->get_column('id'))->create;
+
+    $self->scope->auth->login($self->env, {id => $nonce->get_column('id')});
 
     return $self->redirect('index');
 }

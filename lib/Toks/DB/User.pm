@@ -7,6 +7,7 @@ use parent 'Toks::DB';
 
 use Encode ();
 use Digest::MD5 ();
+use Toks::DB::Nonce;
 
 __PACKAGE__->meta(
     table   => 'users',
@@ -30,12 +31,19 @@ __PACKAGE__->meta(
 
 sub role { 'user' }
 
-sub load_by_auth_id {
+sub load_auth {
     my $self = shift;
-    my ($id) = @_;
+    my ($options) = @_;
 
-    my $user = $self->new(id => $id)->load;
+    return unless my $nonce = Toks::DB::Nonce->new(id => $options->{id})->load;
+
+    my $user = $self->new(id => $nonce->get_column('user_id'))->load;
     return unless $user && $user->get_column('status') eq 'active';
+
+    $nonce->delete;
+
+    my $new_nonce = Toks::DB::Nonce->new(user_id => $user->get_column('id'))->create;
+    $options->{id} = $new_nonce->get_column('id');
 
     return $user;
 }

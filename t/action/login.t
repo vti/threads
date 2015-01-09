@@ -9,6 +9,7 @@ use TestRequest;
 
 use HTTP::Request::Common;
 use Toks::DB::User;
+use Toks::DB::Nonce;
 use Toks::Action::Login;
 
 subtest 'set template var errors' => sub {
@@ -92,6 +93,31 @@ subtest 'calls login' => sub {
     $action->run;
 
     ok $auth->mocked_called('login');
+};
+
+subtest 'creates nonce' => sub {
+    TestDB->setup;
+
+    my $auth = Test::MonkeyMock->new;
+    $auth->mock(login => sub { });
+
+    my $user = Toks::DB::User->new(
+        email    => 'foo@bar.com',
+        password => 'silly',
+        status   => 'active'
+    )->create;
+
+    my $action = _build_action(
+        req       => POST('/' => {email => 'foo@bar.com', password => 'silly'}),
+        'tu.auth' => $auth
+    );
+
+    $action->run;
+
+    my $nonce = Toks::DB::Nonce->find(first => 1);
+
+    ok $nonce;
+    is $nonce->get_column('user_id'), $user->get_column('id');
 };
 
 subtest 'redirect to root' => sub {
