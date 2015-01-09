@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Toks/Action/Login.pm:40 lib/Toks/Action/RequestPasswordReset.pm:34
+#: lib/Toks/Action/Login.pm:41 lib/Toks/Action/RequestPasswordReset.pm:34
 msgid "Account not activated"
 msgstr "Аккаунт не активирован"
 
@@ -210,7 +210,7 @@ msgstr "Слишком длинно"
 msgid "Too short"
 msgstr "Слишком коротко"
 
-#: lib/Toks/Action/Login.pm:30 lib/Toks/Action/Login.pm:35
+#: lib/Toks/Action/Login.pm:31 lib/Toks/Action/Login.pm:36
 msgid "Unknown credentials"
 msgstr "Неизвестные данные"
 
@@ -233,6 +233,10 @@ msgstr "Пользователь существует"
 #: templates/layout.apl:63
 msgid "Written by"
 msgstr "Написано"
+
+#: lib/Toks/Action/CreateReply.pm:46 lib/Toks/Action/CreateThread.pm:38
+msgid "You are too fast"
+msgstr "Слишком быстро"
 
 #. ($email)
 #: templates/email/deregistration_confirmation_required.apl:2
