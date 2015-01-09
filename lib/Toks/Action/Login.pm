@@ -5,7 +5,6 @@ use warnings;
 
 use parent 'Toks::Action::FormBase';
 
-use Plack::Session;
 use Toks::DB::User;
 
 sub build_validator {
@@ -51,8 +50,7 @@ sub submit {
     my $self = shift;
     my ($params) = @_;
 
-    my $session = Plack::Session->new($self->env);
-    $session->set(user_id => $self->{user}->get_column('id'));
+    $self->scope->auth->login($self->env, $self->{user}->get_column('id'));
 
     return $self->redirect('index');
 }

@@ -8,16 +8,17 @@ use TestRequest;
 
 use Toks::Action::Logout;
 
-subtest 'expire session' => sub {
-    my $env     = TestRequest->to_env;
-    my $session = Plack::Session->new($env);
-    $session->set(user_id => 1);
+subtest 'calls logout' => sub {
+    my $auth = Test::MonkeyMock->new;
+    $auth->mock(logout => sub { });
+
+    my $env = TestRequest->to_env('tu.auth' => $auth);
 
     my $action = _build_action(env => $env);
 
     $action->run;
 
-    is_deeply $action->env->{'psgix.session'}, {};
+    ok $auth->mocked_called('logout');
 };
 
 sub _build_action {
@@ -27,7 +28,6 @@ sub _build_action {
 
     my $action = Toks::Action::Logout->new(env => $env);
     $action = Test::MonkeyMock->new($action);
-    $action->mock(render => sub { '' });
 
     return $action;
 }

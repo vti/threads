@@ -20,6 +20,7 @@ sub to_env {
     $env->{'psgix.session'}         ||= {};
     $env->{'psgix.session.options'} ||= {};
     $env->{'tu.displayer.vars'}     ||= $params{'tu.displayer.vars'} || {};
+    $env->{'tu.auth'}               ||= $params{'tu.auth'};
     $env->{'tu.user'}               ||= $params{'tu.user'};
     $env->{'tu.dispatched_request'} ||= _build_dispatched_request(%params);
 

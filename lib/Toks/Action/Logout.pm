@@ -5,13 +5,10 @@ use warnings;
 
 use parent 'Tu::Action';
 
-use Plack::Session;
-
 sub run {
     my $self = shift;
 
-    my $session = Plack::Session->new($self->env);
-    $session->expire;
+    $self->scope->auth->logout;
 
     return $self->redirect('index');
 }

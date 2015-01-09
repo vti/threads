@@ -44,7 +44,7 @@ subtest 'return 404 when user not found' => sub {
     is $e->code, '404';
 };
 
-subtest 'remove user' => sub {
+subtest 'removes user' => sub {
     TestDB->setup;
 
     my $user = Toks::DB::User->new(email => 'foo@bar.com')->create;
@@ -57,12 +57,30 @@ subtest 'remove user' => sub {
 
     $user->load;
 
-    is $user->get_column('email'), $user->get_column('id');
+    is $user->get_column('email'),    $user->get_column('id');
     is $user->get_column('password'), '';
-    is $user->get_column('name'), '';
-    is $user->get_column('status'), 'deleted';
+    is $user->get_column('name'),     '';
+    is $user->get_column('status'),   'deleted';
+};
 
-    is_deeply $action->env->{'psgix.session.options'}, {expire => 1};
+subtest 'logouts user' => sub {
+    TestDB->setup;
+
+    my $user = Toks::DB::User->new(email => 'foo@bar.com')->create;
+    my $confirmation =
+      Toks::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+
+    my $auth   = _mock_auth();
+    my $action = _build_action(
+        captures  => {token => $confirmation->get_column('token')},
+        'tu.auth' => $auth
+    );
+
+    $action->run;
+
+    $user->load;
+
+    ok $auth->mocked_called('logout');
 };
 
 subtest 'deletes user notifications' => sub {
@@ -96,7 +114,7 @@ subtest 'deletes user subscriptions' => sub {
 
     Toks::DB::Subscription->new(user_id => 123, thread_id => 1)->create;
     Toks::DB::Subscription->new(
-        user_id  => $user->get_column('id'),
+        user_id   => $user->get_column('id'),
         thread_id => 1
     )->create;
 
@@ -119,8 +137,16 @@ subtest 'delete confirmation' => sub {
     ok !$confirmation->load;
 };
 
+sub _mock_auth {
+    my $auth = Test::MonkeyMock->new;
+    $auth->mock(logout => sub { });
+    return $auth;
+}
+
 sub _build_action {
     my (%params) = @_;
+
+    $params{'tu.auth'} ||= _mock_auth();
 
     my $env = TestRequest->to_env(%params);
 

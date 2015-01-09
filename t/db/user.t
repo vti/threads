@@ -13,7 +13,7 @@ subtest 'return undef when no user_id in session' => sub {
 
     my $user = _build_user();
 
-    ok !defined $user->load_from_session;
+    ok !defined $user->load_by_auth_id;
 };
 
 subtest 'return undef when unknown user_id' => sub {
@@ -21,7 +21,7 @@ subtest 'return undef when unknown user_id' => sub {
 
     my $user = _build_user();
 
-    ok !defined $user->load_from_session({user_id => 123});
+    ok !defined $user->load_by_auth_id(123);
 };
 
 subtest 'return undef when user not active' => sub {
@@ -32,7 +32,7 @@ subtest 'return undef when user not active' => sub {
     my $user = _build_user();
 
     my $loaded_user =
-      $user->load_from_session({user_id => $existing_user->get_column('id')});
+      $user->load_by_auth_id($existing_user->get_column('id'));
 
     ok !$loaded_user;
 };
@@ -46,7 +46,7 @@ subtest 'return user when found' => sub {
     my $user = _build_user();
 
     my $loaded_user =
-      $user->load_from_session({user_id => $existing_user->get_column('id')});
+      $user->load_by_auth_id($existing_user->get_column('id'));
 
     ok $loaded_user;
     is $loaded_user->get_column('id'), $existing_user->get_column('id');

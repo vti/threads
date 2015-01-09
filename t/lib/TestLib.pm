@@ -5,6 +5,11 @@ use warnings;
 
 use base 'Exporter';
 
+BEGIN {
+    use FindBin '$RealBin';
+    unshift @INC, "$_/lib" for glob "$RealBin/../../contrib/*";
+}
+
 sub import {
     $ENV{PLACK_ENV} = 'test';
 

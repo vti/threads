@@ -1,0 +1,3 @@
+[submodule "contrib/tu"]
+	path = contrib/tu
+	url = http://github.com/vti/tu

@@ -5,7 +5,6 @@ use warnings;
 
 use parent 'Tu::Action';
 
-use Plack::Session;
 use Toks::DB::User;
 use Toks::DB::Confirmation;
 use Toks::DB::Notification;
@@ -33,8 +32,7 @@ sub run {
     );
     $user->update;
 
-    my $session = Plack::Session->new($self->env);
-    $session->expire;
+    $self->scope->auth->logout;
 
     $confirmation->delete;
 

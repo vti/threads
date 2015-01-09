@@ -2,6 +2,7 @@ use strict;
 use warnings;
 
 use Test::More;
+use Test::MonkeyMock;
 use TestLib;
 use TestDB;
 use TestRequest;
@@ -71,8 +72,11 @@ subtest 'set template error when not active' => sub {
     is $action->vars->{errors}->{email}, 'Account not activated';
 };
 
-subtest 'set session' => sub {
+subtest 'calls login' => sub {
     TestDB->setup;
+
+    my $auth = Test::MonkeyMock->new;
+    $auth->mock(login => sub { });
 
     my $user = Toks::DB::User->new(
         email    => 'foo@bar.com',
@@ -80,14 +84,14 @@ subtest 'set session' => sub {
         status   => 'active'
     )->create;
 
-    my $action =
-      _build_action(
-        req => POST('/' => {email => 'foo@bar.com', password => 'silly'}));
+    my $action = _build_action(
+        req       => POST('/' => {email => 'foo@bar.com', password => 'silly'}),
+        'tu.auth' => $auth
+    );
 
     $action->run;
 
-    is_deeply $action->env->{'psgix.session'},
-      {user_id => $user->get_column('id')};
+    ok $auth->mocked_called('login');
 };
 
 subtest 'redirect to root' => sub {
@@ -110,6 +114,11 @@ subtest 'redirect to root' => sub {
 
 sub _build_action {
     my (%params) = @_;
+
+    $params{'tu.auth'} ||= do {
+        my $auth = Test::MonkeyMock->new;
+        $auth->mock(login => sub { });
+    };
 
     my $env = $params{env} || TestRequest->to_env(%params);
 

@@ -7,6 +7,7 @@ use FindBin '$RealBin';
 
 BEGIN {
     unshift @INC, "$RealBin/lib";
+    unshift @INC, "$_/lib" for glob "$RealBin/contrib/*";
 }
 
 use Plack::Builder;

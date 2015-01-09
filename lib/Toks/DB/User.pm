@@ -30,12 +30,11 @@ __PACKAGE__->meta(
 
 sub role { 'user' }
 
-sub load_from_session {
+sub load_by_auth_id {
     my $self = shift;
-    my ($session) = @_;
+    my ($id) = @_;
 
-    return unless $session->{user_id};
-    my $user = $self->find(first => 1, where => [id => $session->{user_id}]);
+    my $user = $self->new(id => $id)->load;
     return unless $user && $user->get_column('status') eq 'active';
 
     return $user;
