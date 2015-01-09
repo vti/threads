@@ -17,6 +17,8 @@ sub build_validator {
     $validator->add_field('title');
     $validator->add_field('content');
 
+    $validator->add_rule('title', 'Readable');
+
     return $validator;
 }
 

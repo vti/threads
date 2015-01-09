@@ -12,7 +12,7 @@ msgstr ""
 msgid "Authorization"
 msgstr ""
 
-#: templates/change_password.apl:3 templates/layout.apl:42
+#: templates/change_password.apl:3 templates/settings.apl:19
 msgid "Change password"
 msgstr ""
 
@@ -60,12 +60,12 @@ msgstr ""
 msgid "Invalid password"
 msgstr ""
 
-#: templates/activation_success.apl:5 templates/layout.apl:49
+#: templates/activation_success.apl:5 templates/layout.apl:48
 #: templates/login.apl:11
 msgid "Login"
 msgstr ""
 
-#: templates/layout.apl:45
+#: templates/layout.apl:44
 msgid "Logout"
 msgstr ""
 
@@ -79,6 +79,10 @@ msgstr ""
 
 #: templates/change_password.apl:8 templates/reset_password.apl:7
 msgid "New password"
+msgstr ""
+
+#: lib/Toks/Action/FormBase.pm:21
+msgid "Not readable"
 msgstr ""
 
 #: templates/layout.apl:40 templates/list_notifications.apl:5
@@ -125,7 +129,7 @@ msgstr ""
 msgid "Registration confirmation"
 msgstr ""
 
-#: templates/settings.apl:19
+#: templates/settings.apl:23
 msgid "Remove account"
 msgstr ""
 
@@ -167,7 +171,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: templates/layout.apl:49
+#: templates/layout.apl:48
 msgid "Sign up"
 msgstr ""
 
@@ -182,6 +186,10 @@ msgstr ""
 #: templates/activation_needed.apl:3
 msgid ""
 "Thank you for registering. Please check your email for a confirmation link."
+msgstr ""
+
+#: templates/list_notifications.apl:26
+msgid "Thread"
 msgstr ""
 
 #: templates/layout.apl:36
@@ -212,7 +220,7 @@ msgstr ""
 msgid "User exists"
 msgstr ""
 
-#: templates/layout.apl:63
+#: templates/layout.apl:62
 msgid "Written by"
 msgstr ""
 
@@ -249,10 +257,6 @@ msgstr ""
 msgid "Your registration was successfully activated!"
 msgstr ""
 
-#: templates/list_notifications.apl:21
-msgid "author"
-msgstr ""
-
 #: templates/include/thread.apl:17
 msgid "by"
 msgstr ""
@@ -267,7 +271,7 @@ msgstr ""
 
 #: templates/include/reply-controls.apl:12
 #: templates/include/thread-controls.apl:11
-#: templates/list_notifications.apl:47
+#: templates/list_notifications.apl:51
 msgid "delete"
 msgstr ""
 
@@ -294,16 +298,12 @@ msgstr ""
 msgid "or"
 msgstr ""
 
-#: templates/layout.apl:63
+#: templates/layout.apl:62
 msgid "powered by"
 msgstr ""
 
 #: templates/include/reply-controls.apl:5
 msgid "reply"
-msgstr ""
-
-#: templates/list_notifications.apl:22
-msgid "reply content"
 msgstr ""
 
 #: templates/include/thread-controls.apl:2
@@ -316,10 +316,6 @@ msgstr ""
 
 #: templates/include/reply-controls.apl:3
 msgid "thank"
-msgstr ""
-
-#: templates/list_notifications.apl:20
-msgid "thread"
 msgstr ""
 
 #: lib/Toks/Action/ToggleSubscription.pm:41 templates/include/thread.apl:8

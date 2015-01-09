@@ -18,6 +18,7 @@ sub build_validator {
             REQUIRED => $self->loc('Required'),
             EMAIL    => $self->loc('Invalid email'),
             COMPARE  => $self->loc('Password mismatch'),
+            READABLE => $self->loc('Not readable'),
         },
         @_
     );

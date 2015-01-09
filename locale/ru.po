@@ -12,7 +12,7 @@ msgstr "Аккаунт не активирован"
 msgid "Authorization"
 msgstr "Авторизация"
 
-#: templates/change_password.apl:3 templates/layout.apl:42
+#: templates/change_password.apl:3 templates/settings.apl:19
 msgid "Change password"
 msgstr "Изменить пароль"
 
@@ -60,12 +60,12 @@ msgstr "Неправильный email"
 msgid "Invalid password"
 msgstr "Неправильный пароль"
 
-#: templates/activation_success.apl:5 templates/layout.apl:49
+#: templates/activation_success.apl:5 templates/layout.apl:48
 #: templates/login.apl:11
 msgid "Login"
 msgstr "Вход"
 
-#: templates/layout.apl:45
+#: templates/layout.apl:44
 msgid "Logout"
 msgstr "Выход"
 
@@ -80,6 +80,10 @@ msgstr "Имя уже существует"
 #: templates/change_password.apl:8 templates/reset_password.apl:7
 msgid "New password"
 msgstr "Новый пароль"
+
+#: lib/Toks/Action/FormBase.pm:21
+msgid "Not readable"
+msgstr "Не читаемо"
 
 #: templates/layout.apl:40 templates/list_notifications.apl:5
 msgid "Notifications"
@@ -125,7 +129,7 @@ msgstr "Регистрация"
 msgid "Registration confirmation"
 msgstr "Подтверждение регистрации"
 
-#: templates/settings.apl:19
+#: templates/settings.apl:23
 msgid "Remove account"
 msgstr "Удаление аккаунта"
 
@@ -167,7 +171,7 @@ msgstr "Отправить"
 msgid "Settings"
 msgstr "Настройки"
 
-#: templates/layout.apl:49
+#: templates/layout.apl:48
 msgid "Sign up"
 msgstr "Регистрация"
 
@@ -185,6 +189,10 @@ msgid ""
 msgstr ""
 "Спасибо за вашу регистрацию. Пожалуйста, проверьте почту на наличие "
 "подтверждения."
+
+#: templates/list_notifications.apl:26
+msgid "Thread"
+msgstr "Тема"
 
 #: templates/layout.apl:36
 msgid "Threads"
@@ -214,7 +222,7 @@ msgstr "Пользователь не существует"
 msgid "User exists"
 msgstr "Пользователь существует"
 
-#: templates/layout.apl:63
+#: templates/layout.apl:62
 msgid "Written by"
 msgstr "Написано"
 
@@ -257,10 +265,6 @@ msgstr "Выш пароль был успешно сброшен!"
 msgid "Your registration was successfully activated!"
 msgstr "Ваша регистрация была успешно активирована!"
 
-#: templates/list_notifications.apl:21
-msgid "author"
-msgstr "автор"
-
 #: templates/include/thread.apl:17
 msgid "by"
 msgstr "от"
@@ -275,7 +279,7 @@ msgstr "по популярности"
 
 #: templates/include/reply-controls.apl:12
 #: templates/include/thread-controls.apl:11
-#: templates/list_notifications.apl:47
+#: templates/list_notifications.apl:51
 msgid "delete"
 msgstr "удалить"
 
@@ -302,17 +306,13 @@ msgstr "markup-помощь"
 msgid "or"
 msgstr "или"
 
-#: templates/layout.apl:63
+#: templates/layout.apl:62
 msgid "powered by"
 msgstr "работает на"
 
 #: templates/include/reply-controls.apl:5
 msgid "reply"
 msgstr "ответить"
-
-#: templates/list_notifications.apl:22
-msgid "reply content"
-msgstr "содержимое ответа"
 
 #: templates/include/thread-controls.apl:2
 msgid "reply to thread"
@@ -325,10 +325,6 @@ msgstr "подписаться"
 #: templates/include/reply-controls.apl:3
 msgid "thank"
 msgstr "спасибо"
-
-#: templates/list_notifications.apl:20
-msgid "thread"
-msgstr "тема"
 
 #: lib/Toks/Action/ToggleSubscription.pm:41 templates/include/thread.apl:8
 msgid "unsubscribe"
