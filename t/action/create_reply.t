@@ -53,6 +53,28 @@ subtest 'shows errors' => sub {
     ok $json->{errors};
 };
 
+subtest 'shows errors when limits' => sub {
+    TestDB->setup;
+
+    my $user =
+      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $thread =
+      Toks::DB::Thread->new(user_id => $user->get_column('id'))->create;
+
+    my $services = _mock_services(config => {limits => {replies => {60 => 5}}});
+    my $action = _build_action(
+        req       => POST('/' => {content => 'bar'}),
+        captures  => {id      => $thread->get_column('id')},
+        'tu.user' => $user,
+        services => $services
+    );
+
+    $action->run for 1 .. 10;
+
+    is(Toks::DB::Reply->table->count, 5);
+    is $action->vars->{errors}->{content}, 'You are too fast';
+};
+
 subtest 'creates reply with correct params' => sub {
     TestDB->setup;
 
@@ -304,12 +326,26 @@ subtest 'not notify parent reply user when same user' => sub {
     is(Toks::DB::Notification->table->count, 0);
 };
 
+sub _mock_services {
+    my (%params) = @_;
+
+    my $services = Test::MonkeyMock->new;
+    $services->mock(
+        service => sub { $params{config} || {} },
+        when => sub { $_[1] eq 'config' }
+    );
+    return $services;
+}
+
 sub _build_action {
     my (%params) = @_;
 
     my $env = $params{env} || TestRequest->to_env(%params);
 
-    my $action = Toks::Action::CreateReply->new(env => $env);
+    my $action = Toks::Action::CreateReply->new(
+        env      => $env,
+        services => $params{services} || _mock_services()
+    );
     $action = Test::MonkeyMock->new($action);
 
     return $action;

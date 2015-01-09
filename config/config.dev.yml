@@ -1,5 +1,14 @@
 ---
 base_url: 'http://localhost:5000'
+limits:
+    threads:
+        60: 2
+        3600: 5
+        86400: 10
+    replies:
+        60: 2
+        3600: 5
+        86400: 10
 session:
     secret: '123'
 database:

@@ -5,6 +5,7 @@ use warnings;
 
 use parent 'Toks::Action::FormBase';
 
+use Toks::LimitChecker;
 use Toks::DB::User;
 use Toks::DB::Thread;
 use Toks::DB::Subscription;
@@ -17,11 +18,28 @@ sub build_validator {
     $validator->add_field('title');
     $validator->add_field('content');
 
-    $validator->add_rule('title', 'Readable');
-    $validator->add_rule('title', 'MaxLength', 255);
+    $validator->add_rule('title',   'Readable');
+    $validator->add_rule('title',   'MaxLength', 255);
     $validator->add_rule('content', 'MaxLength', 5 * 1024);
 
     return $validator;
+}
+
+sub validate {
+    my $self = shift;
+    my ($validator, $params) = @_;
+
+    my $config = $self->service('config');
+
+    my $limits_reached =
+      Toks::LimitChecker->new->check($config->{limits}->{threads},
+        Toks::DB::Thread->new);
+    if ($limits_reached) {
+        $validator->add_error(title => $self->loc('You are too fast'));
+        return 0;
+    }
+
+    return 1;
 }
 
 sub submit {

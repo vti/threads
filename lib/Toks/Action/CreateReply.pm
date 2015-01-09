@@ -5,6 +5,7 @@ use warnings;
 
 use parent 'Toks::Action::FormBase';
 
+use Toks::LimitChecker;
 use Toks::DB::User;
 use Toks::DB::Thread;
 use Toks::DB::Reply;
@@ -30,6 +31,23 @@ sub show_errors {
     my $errors = $self->vars->{errors};
 
     return {errors => $errors}, type => 'json';
+}
+
+sub validate {
+    my $self = shift;
+    my ($validator, $params) = @_;
+
+    my $config = $self->service('config');
+
+    my $limits_reached =
+      Toks::LimitChecker->new->check($config->{limits}->{replies},
+        Toks::DB::Reply->new);
+    if ($limits_reached) {
+        $validator->add_error(content => $self->loc('You are too fast'));
+        return 0;
+    }
+
+    return 1;
 }
 
 sub run {

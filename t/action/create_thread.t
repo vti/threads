@@ -28,13 +28,40 @@ subtest 'set template var errors' => sub {
     ok $action->scope->displayer->vars->{errors};
 };
 
+subtest 'shows error when limits' => sub {
+    TestDB->setup;
+
+    my $user =
+      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+
+    my $services = _mock_services(config => {limits => {threads => {60 => 5}}});
+
+    my $action = _build_action(
+        req => POST(
+            '/' =>
+              {title => 'This is a title, with ?# symbols', content => 'bar'}
+        ),
+        'tu.user' => $user,
+        services  => $services
+    );
+
+    $action->run for 1 .. 10;
+
+    is(Toks::DB::Thread->table->count, 5);
+    is $action->vars->{errors}->{title}, 'You are too fast';
+};
+
 subtest 'creates thread with correct params' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $user =
+      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
 
     my $action = _build_action(
-        req       => POST('/' => {title => 'This is a title, with ?# symbols', content => 'bar'}),
+        req => POST(
+            '/' =>
+              {title => 'This is a title, with ?# symbols', content => 'bar'}
+        ),
         'tu.user' => $user
     );
 
@@ -54,7 +81,8 @@ subtest 'creates thread with correct params' => sub {
 subtest 'redirects to thread view' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $user =
+      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
 
     my $action = _build_action(
         req       => POST('/' => {title => 'foo', content => 'bar'}),
@@ -65,7 +93,7 @@ subtest 'redirects to thread view' => sub {
 
     $action->run;
 
-    my ($name) =  $action->mocked_call_args('redirect');
+    my ($name) = $action->mocked_call_args('redirect');
 
     is $name, 'view_thread';
 };
@@ -73,7 +101,8 @@ subtest 'redirects to thread view' => sub {
 subtest 'creates subscription' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $user =
+      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
 
     my $action = _build_action(
         req       => POST('/' => {title => 'foo', content => 'bar'}),
@@ -88,16 +117,30 @@ subtest 'creates subscription' => sub {
     my $subscription = Toks::DB::Subscription->find(first => 1);
 
     ok $subscription;
-    is $subscription->get_column('user_id'), $user->get_column('id');
+    is $subscription->get_column('user_id'),   $user->get_column('id');
     is $subscription->get_column('thread_id'), $thread->get_column('id');
 };
+
+sub _mock_services {
+    my (%params) = @_;
+
+    my $services = Test::MonkeyMock->new;
+    $services->mock(
+        service => sub { $params{config} || {} },
+        when => sub { $_[1] eq 'config' }
+    );
+    return $services;
+}
 
 sub _build_action {
     my (%params) = @_;
 
     my $env = $params{env} || TestRequest->to_env(%params);
 
-    my $action = Toks::Action::CreateThread->new(env => $env);
+    my $action = Toks::Action::CreateThread->new(
+        env      => $env,
+        services => $params{services} || _mock_services()
+    );
     $action = Test::MonkeyMock->new($action);
 
     return $action;
