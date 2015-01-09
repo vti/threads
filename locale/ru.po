@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Toks/Action/Login.pm:41 lib/Toks/Action/RequestPasswordReset.pm:34
+#: lib/Toks/Action/Login.pm:40 lib/Toks/Action/RequestPasswordReset.pm:34
 msgid "Account not activated"
 msgstr "Аккаунт не активирован"
 
@@ -16,15 +16,15 @@ msgstr "Авторизация"
 msgid "Change password"
 msgstr "Изменить пароль"
 
-#: templates/create_thread.apl:10 templates/update_thread.apl:10
+#: templates/create_thread.apl:12 templates/update_thread.apl:12
 msgid "Content"
 msgstr "Содержимое"
 
-#: templates/create_thread.apl:12
+#: templates/create_thread.apl:14
 msgid "Create new thread"
 msgstr "Создать новую тему"
 
-#: templates/create_thread.apl:5 templates/layout.apl:38
+#: templates/create_thread.apl:7 templates/layout.apl:38
 msgid "Create thread"
 msgstr "Создать тему"
 
@@ -73,7 +73,7 @@ msgstr "Выход"
 msgid "Name"
 msgstr "Имя"
 
-#: lib/Toks/Action/Settings.pm:38
+#: lib/Toks/Action/Settings.pm:40
 msgid "Name already exists"
 msgstr "Имя уже существует"
 
@@ -198,7 +198,7 @@ msgstr "Тема"
 msgid "Threads"
 msgstr "Темы"
 
-#: templates/create_thread.apl:9 templates/update_thread.apl:9
+#: templates/create_thread.apl:11 templates/update_thread.apl:11
 msgid "Title"
 msgstr "Заголовок"
 
@@ -210,15 +210,15 @@ msgstr "Слишком длинно"
 msgid "Too short"
 msgstr "Слишком коротко"
 
-#: lib/Toks/Action/Login.pm:31 lib/Toks/Action/Login.pm:36
+#: lib/Toks/Action/Login.pm:30 lib/Toks/Action/Login.pm:35
 msgid "Unknown credentials"
 msgstr "Неизвестные данные"
 
-#: templates/settings.apl:14 templates/update_thread.apl:12
+#: templates/settings.apl:14 templates/update_thread.apl:14
 msgid "Update"
 msgstr "Обновить"
 
-#: templates/update_thread.apl:5
+#: templates/update_thread.apl:7
 msgid "Update thread"
 msgstr "Обновить тему"
 
@@ -273,7 +273,7 @@ msgstr "Выш пароль был успешно сброшен!"
 msgid "Your registration was successfully activated!"
 msgstr "Ваша регистрация была успешно активирована!"
 
-#: templates/include/thread.apl:17
+#: templates/include/thread.apl:18
 msgid "by"
 msgstr "от"
 
@@ -285,7 +285,7 @@ msgstr "по активности"
 msgid "by popularity"
 msgstr "по популярности"
 
-#: templates/include/reply-controls.apl:12
+#: templates/include/reply-controls.apl:17
 #: templates/include/thread-controls.apl:11
 #: templates/list_notifications.apl:51
 msgid "delete"
@@ -295,7 +295,7 @@ msgstr "удалить"
 msgid "delete subscriptions"
 msgstr "удалить подписки"
 
-#: templates/include/reply-controls.apl:8
+#: templates/include/reply-controls.apl:13
 #: templates/include/thread-controls.apl:6
 msgid "edit"
 msgstr "изменить"
@@ -304,10 +304,9 @@ msgstr "изменить"
 msgid "mark all read"
 msgstr "отметить все как прочитанное"
 
-#: templates/create_thread.apl:14 templates/include/quick-edit-form.apl:8
-#: templates/include/quick-reply-form.apl:12 templates/update_thread.apl:14
-msgid "markup help"
-msgstr "markup-помощь"
+#: templates/include/markup-help-button.apl:1
+msgid "markup"
+msgstr "формат"
 
 #: templates/include/quick-edit-form.apl:6
 #: templates/include/quick-reply-form.apl:10
@@ -318,7 +317,7 @@ msgstr "или"
 msgid "powered by"
 msgstr "работает на"
 
-#: templates/include/reply-controls.apl:5
+#: templates/include/reply-controls.apl:10
 msgid "reply"
 msgstr "ответить"
 
@@ -326,18 +325,18 @@ msgstr "ответить"
 msgid "reply to thread"
 msgstr "ответить в тему"
 
-#: lib/Toks/Action/ToggleSubscription.pm:33 templates/include/thread.apl:8
+#: lib/Toks/Action/ToggleSubscription.pm:33 templates/include/thread.apl:9
 msgid "subscribe"
 msgstr "подписаться"
 
-#: templates/include/reply-controls.apl:3
+#: templates/include/reply-controls.apl:8
 msgid "thank"
 msgstr "спасибо"
 
-#: lib/Toks/Action/ToggleSubscription.pm:41 templates/include/thread.apl:8
+#: lib/Toks/Action/ToggleSubscription.pm:41 templates/include/thread.apl:9
 msgid "unsubscribe"
 msgstr "отписаться"
 
-#: templates/include/thread.apl:22
+#: templates/include/thread.apl:23
 msgid "upd."
 msgstr "обн."

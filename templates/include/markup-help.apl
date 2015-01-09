@@ -1,30 +1,28 @@
                 <div class="markup-help-template">
-                <div class="markup-help-instance">
-                <ul>
-                    <li>
-                        _<em>italic</em>_, **<strong>bold</strong>**
-                    </li>
-
-                    <li>
-                    (title)[link], &lt;http://example.com&gt;<br />
-                    </li>
-
-                    <li>
-                    `<code>my $foo = 'bar'</code>`<br />
-                    </li>
-                    <li>
-
-<pre><code>```
-my $multiline;
-$perl;
-$code;
+                    <div class="markup-help-instance">
+                    <ul>
+                    % foreach my $code (
+                    %   '_italic_',
+                    %   '**bold**',
+                    %   '[PP](http://pragmaticperl.com)',
+                    %   '<http://pragmaticperl.com>',
+                    %   'module:Plack',
+                    %   'release:URI',
+                    %   'author:VTI',
+                    %   ) {
+                        <li>
+                        <pre><code><%= $code %></code></pre> &rarr; <%== $helpers->markup->render($code) %>
+                        </li>
+                    % }
+                        <li>
+                        <pre><code>`my $foo = 'bar'`</code></pre>
+                        </li>
+                        <li>
+                        <pre><code>```
+my $multi;
+$line;
 ```</code></pre>
-                    </li>
-                    <li>
-                        module:Plack, release:URI, author:VTI
-                    </li>
-
-                </ul>
-
-</div>
-</div>
+                        </li>
+                    </ul>
+                    </div>
+                </div>

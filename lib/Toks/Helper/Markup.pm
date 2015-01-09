@@ -28,9 +28,9 @@ sub render {
     $text =~ s{<}{&lt;}g;
     $text =~ s{"}{&quot;}g;
 
-    $text =~ s{author:([^\s]+)}{($1)[http://metacpan.org/author/$1]}g;
-    $text =~ s{module:([^\s]+)}{($1)[http://metacpan.org/module/$1]}g;
-    $text =~ s{release:([^\s]+)}{($1)[http://metacpan.org/release/$1]}g;
+    $text =~ s{author:([^\s]+)}{[$1](http://metacpan.org/author/$1)}g;
+    $text =~ s{module:([^\s]+)}{[$1](http://metacpan.org/module/$1)}g;
+    $text =~ s{release:([^\s]+)}{[$1](http://metacpan.org/release/$1)}g;
 
     $text =~ s{^```([a-z]+)?\s+(.*?)\s*^```}
         {my $lang = $1 || 'perl'; $save->("$lang:$2", qq{<pre class="markup $lang"><code>$2</code></pre>})}emsg;
@@ -39,7 +39,7 @@ sub render {
     $text =~ s{_(.*?)_}{$save->($1, "<em>$1</em>")}eg;
     $text =~ s{\*\*(.*?)\*\*}{$save->($1, "<strong>$1</strong>")}eg;
 
-    $text =~ s{\((.*?)\)\[(.*?)\]}{$save->("$1:$2", qq{<a href="$2" rel="nofollow">$1</a>})}eg;
+    $text =~ s{\[(.*?)\]\((.*?)\)}{$save->("$1:$2", qq{<a href="$2" rel="nofollow">$1</a>})}eg;
 
     $text =~ s#(?:\r?\n){2,}#</p><p>#g;
 

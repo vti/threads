@@ -13,9 +13,7 @@
 
     <input type="submit" value="<%= loc('Create new thread') %>" />
 
-    (<a href="#" class="markup-help-button"><%= loc('markup help') %></a>)
-
-    <div class="markup-help"></div>
+    %== $helpers->displayer->render('include/markup-help-button');
 
     </form>
 

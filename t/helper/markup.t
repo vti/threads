@@ -59,7 +59,7 @@ subtest 'renders strong' => sub {
 subtest 'renders link' => sub {
     my $helper = _build_helper();
 
-    is $helper->render('(title)[http://href]'),
+    is $helper->render('[title](http://href)'),
       '<p><a href="http://href" rel="nofollow">title</a></p>';
 };
 

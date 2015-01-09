@@ -302,7 +302,14 @@ button.link {
     max-width:500px;
 }
 
+.markup-help-instance p {
+    padding:0;
+    margin:0;
+    display:inline;
+}
+
 .markup-help-instance pre, .markup-help-instance code {
+    display:inline;
     padding:0px;
     margin:0px;
 }

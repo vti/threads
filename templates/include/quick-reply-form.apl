@@ -9,9 +9,7 @@
 
                 <input type="submit" name="reply" value="<%= loc('Send') %>" /> <em><%= loc('or') %></em> CTRL+Enter
 
-                (<a href="#" class="markup-help-button"><%= loc('markup help') %></a>)
-
-                <div class="markup-help"></div>
+                %== $helpers->displayer->render('include/markup-help-button');
 
                 </form>
             </div>
