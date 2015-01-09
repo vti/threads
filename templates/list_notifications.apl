@@ -21,7 +21,7 @@
 
     <tr>
     <td width="1%">
-        <form class="form-inline quick-delete-notifications" method="POST" action="<%= $helpers->url->delete_notifications %>">
+        <form class="form-inline ajax" method="POST" action="<%= $helpers->url->delete_notifications %>">
         <input type="hidden" name="id" value="<%= $notification->{id} %>" />
         <button class="no-wrap"><i class="fa fa-check"></i></button>
         </form>
