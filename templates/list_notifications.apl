@@ -19,37 +19,28 @@
     %    my $reply  = $notification->{reply};
     %    my $thread = $reply->{thread};
 
-    <tr class="border-bottom">
-    <td width="20%">
-
-        <div class="thread-title">
-            <%= loc('Thread') %>: <a href="<%= $helpers->url->view_thread(id => $thread->{id}, slug => $thread->{slug}) %>">
-                <%= $thread->{title} %>
-            </a>
-        </div>
-
-        <div class="reply-meta">
-            <div class="reply-author">
-                <div class="reply-gravatar">
-                %== $helpers->gravatar->img($reply->{user2});
-                </div>
-                <%== $helpers->user->display_name($reply->{user2}) %>
-            </div>
-            <div class="reply-date"><a href="<%= $helpers->url->view_thread(id => $thread->{id}, slug => $thread->{slug}) %>#reply-<%= $reply->{id} %>"><%= $helpers->date->format($reply->{created}) %></a></div>
-        </div>
-
-    </td>
-    <td>
-            <div class="reply-content">
-                <%== $helpers->markup->render($reply->{content}) %>
-            </div>
-
-    </td>
-    <td>
+    <tr>
+    <td width="1%">
         <form class="form-inline quick-delete-notifications" method="POST" action="<%= $helpers->url->delete_notifications %>">
         <input type="hidden" name="id" value="<%= $notification->{id} %>" />
-        <button class="no-wrap"><i class="fa fa-remove"></i> <%= loc('delete') %></button>
+        <button class="no-wrap"><i class="fa fa-check"></i></button>
         </form>
+    </td>
+    <td>
+        <strong>
+            <a href="<%= $helpers->url->view_thread(id => $thread->{id}, slug => $thread->{slug}) %>">
+                <%= $thread->{title} %>
+            </a>
+        </strong>
+
+        <br />
+        <br />
+
+        %== $helpers->displayer->render('include/reply-meta', reply => $reply, thread => $thread);
+
+        <div class="reply-content">
+            <%== $helpers->markup->render($reply->{content}) %>
+        </div>
     </td>
     </tr>
     % }

@@ -35,7 +35,7 @@ sub find {
         page      => $page,
         page_size => $page_size,
         order_by  => [id => 'DESC'],
-        with      => [qw/reply reply.thread.user reply.user2/]
+        with      => [qw/reply reply.user reply.parent.user reply.thread/]
     );
 
     return map { $_->to_hash } @notifications;

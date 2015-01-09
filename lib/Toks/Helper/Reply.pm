@@ -14,7 +14,7 @@ sub find_by_thread {
     my @replies = Toks::DB::Reply->find(
         where    => [thread_id => $thread->{id}],
         order_by => [lft       => 'ASC'],
-        with     => [qw/user parent.user2/]
+        with     => [qw/user parent.user/]
     );
 
     return map { $_->to_hash } @replies;

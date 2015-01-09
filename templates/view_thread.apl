@@ -12,19 +12,8 @@
         % my $padding = $reply->{level} * 10;
         % $padding = 100 if $padding > 100;
         <div class="reply" style="padding-left:<%= $padding %>px">
-            <div class="reply-meta">
-                <div class="reply-author">
-                    <a name="reply-<%= $reply->{id} %>"></a>
-                    <div class="reply-gravatar">
-                    %== $helpers->gravatar->img($reply->{user});
-                    </div>
-                    <%== $helpers->user->display_name($reply->{user}) %>
-                    % if ($reply->{parent}) {
-                        → <%== $helpers->user->display_name($reply->{parent}->{user2}) %>
-                    % }
-                </div>
-                <div class="reply-date"><a href="#reply-<%= $reply->{id} %>"><%= $helpers->date->format($reply->{created}) %></a></div>
-            </div>
+
+            %== $helpers->displayer->render('include/reply-meta', reply => $reply, thread => $thread);
 
             <div class="reply-content">
                 <%== $helpers->markup->render($reply->{content}) %>

@@ -1,3 +1,9 @@
 [submodule "contrib/tu"]
 	path = contrib/tu
 	url = http://github.com/vti/tu
+[submodule "contrib/sql-composer"]
+	path = contrib/sql-composer
+	url = http://github.com/vti/sql-composer
+[submodule "contrib/object-db"]
+	path = contrib/object-db
+	url = http://github.com/vti/object-db
