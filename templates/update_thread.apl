@@ -1,3 +1,5 @@
+% $helpers->assets->require('/autosize/jquery.autosize.min.js');
+% $helpers->assets->require('/js/autosize.js');
 % $helpers->assets->require('/js/quick-reply.js');
 
 <div class="grid-100">

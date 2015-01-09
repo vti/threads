@@ -91,7 +91,7 @@ sub textarea {
 
     return <<"";
 <div class="form-input">
-    $label<textarea name="$name">$value</textarea>$error
+    $label<textarea name="$name"$attrs>$value</textarea>$error
 </div>
 
 }
