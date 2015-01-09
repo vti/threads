@@ -202,6 +202,14 @@ msgstr "Темы"
 msgid "Title"
 msgstr "Заголовок"
 
+#: lib/Toks/Action/FormBase.pm:23
+msgid "Too long"
+msgstr "Слишком длинно"
+
+#: lib/Toks/Action/FormBase.pm:22
+msgid "Too short"
+msgstr "Слишком коротко"
+
 #: lib/Toks/Action/Login.pm:31 lib/Toks/Action/Login.pm:36
 msgid "Unknown credentials"
 msgstr "Неизвестные данные"

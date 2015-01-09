@@ -200,6 +200,14 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
+#: lib/Toks/Action/FormBase.pm:23
+msgid "Too long"
+msgstr ""
+
+#: lib/Toks/Action/FormBase.pm:22
+msgid "Too short"
+msgstr ""
+
 #: lib/Toks/Action/Login.pm:31 lib/Toks/Action/Login.pm:36
 msgid "Unknown credentials"
 msgstr ""

@@ -16,6 +16,8 @@ sub build_validator {
     $validator->add_optional_field('name');
     $validator->add_optional_field('email_notifications');
 
+    $validator->add_rule('name', 'MaxLength', 32);
+
     return $validator;
 }
 

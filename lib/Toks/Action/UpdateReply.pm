@@ -14,6 +14,9 @@ sub build_validator {
 
     $validator->add_field('content');
 
+    $validator->add_rule('content', 'Readable');
+    $validator->add_rule('content', 'MaxLength', 1024);
+
     return $validator;
 }
 

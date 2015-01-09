@@ -15,10 +15,12 @@ sub build_validator {
     return Tu::Validator->new(
         namespaces => ['Toks::Validator::', 'Tu::Validator::'],
         messages   => {
-            REQUIRED => $self->loc('Required'),
-            EMAIL    => $self->loc('Invalid email'),
-            COMPARE  => $self->loc('Password mismatch'),
-            READABLE => $self->loc('Not readable'),
+            REQUIRED  => $self->loc('Required'),
+            EMAIL     => $self->loc('Invalid email'),
+            COMPARE   => $self->loc('Password mismatch'),
+            READABLE  => $self->loc('Not readable'),
+            MINLENGTH => $self->loc('Too short'),
+            MAXLENGTH => $self->loc('Too long'),
         },
         @_
     );

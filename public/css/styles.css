@@ -234,6 +234,7 @@ button.link {
 .thread-title {
     padding:0px;
     margin:0px;
+    word-wrap: break-word;
 }
 
 .thread-title a, .thread-title a:hover{
