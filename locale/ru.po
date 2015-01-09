@@ -40,6 +40,10 @@ msgstr "Удаление аккаунта"
 msgid "Deregistration confirmation"
 msgstr "Подтверждение удаления аккаунта"
 
+#: lib/Toks/Action/FormBase.pm:25
+msgid "Disposable emails are not allowed"
+msgstr "Одноразовые email-адреса не приветствуются"
+
 #: templates/settings.apl:12
 msgid "Email notifications"
 msgstr "Email-уведомления"
@@ -60,12 +64,12 @@ msgstr "Неправильный email"
 msgid "Invalid password"
 msgstr "Неправильный пароль"
 
-#: templates/activation_success.apl:5 templates/layout.apl:48
+#: templates/activation_success.apl:5 templates/layout.apl:49
 #: templates/login.apl:11
 msgid "Login"
 msgstr "Вход"
 
-#: templates/layout.apl:44
+#: templates/layout.apl:45
 msgid "Logout"
 msgstr "Выход"
 
@@ -85,7 +89,7 @@ msgstr "Новый пароль"
 msgid "Not readable"
 msgstr "Не читаемо"
 
-#: templates/layout.apl:40 templates/list_notifications.apl:5
+#: templates/layout.apl:41 templates/list_notifications.apl:5
 msgid "Notifications"
 msgstr "Уведомления"
 
@@ -125,7 +129,7 @@ msgstr "Зарегистрироваться"
 msgid "Registration"
 msgstr "Регистрация"
 
-#: lib/Toks/Action/Register.pm:62
+#: lib/Toks/Action/Register.pm:64
 msgid "Registration confirmation"
 msgstr "Подтверждение регистрации"
 
@@ -167,11 +171,11 @@ msgstr "Скоро увидимся!"
 msgid "Send"
 msgstr "Отправить"
 
-#: templates/layout.apl:41 templates/settings.apl:3
+#: templates/layout.apl:42 templates/settings.apl:3
 msgid "Settings"
 msgstr "Настройки"
 
-#: templates/layout.apl:48
+#: templates/layout.apl:49
 msgid "Sign up"
 msgstr "Регистрация"
 
@@ -189,10 +193,6 @@ msgid ""
 msgstr ""
 "Спасибо за вашу регистрацию. Пожалуйста, проверьте почту на наличие "
 "подтверждения."
-
-#: templates/list_notifications.apl:26
-msgid "Thread"
-msgstr "Тема"
 
 #: templates/layout.apl:36
 msgid "Threads"
@@ -226,11 +226,11 @@ msgstr "Обновить тему"
 msgid "User does not exist"
 msgstr "Пользователь не существует"
 
-#: lib/Toks/Action/Register.pm:28
+#: lib/Toks/Action/Register.pm:30
 msgid "User exists"
 msgstr "Пользователь существует"
 
-#: templates/layout.apl:62
+#: templates/layout.apl:63
 msgid "Written by"
 msgstr "Написано"
 
@@ -285,9 +285,8 @@ msgstr "по активности"
 msgid "by popularity"
 msgstr "по популярности"
 
-#: templates/include/reply-controls.apl:17
+#: templates/include/reply-controls.apl:27
 #: templates/include/thread-controls.apl:11
-#: templates/list_notifications.apl:51
 msgid "delete"
 msgstr "удалить"
 
@@ -295,7 +294,7 @@ msgstr "удалить"
 msgid "delete subscriptions"
 msgstr "удалить подписки"
 
-#: templates/include/reply-controls.apl:13
+#: templates/include/reply-controls.apl:23
 #: templates/include/thread-controls.apl:6
 msgid "edit"
 msgstr "изменить"
@@ -313,11 +312,11 @@ msgstr "формат"
 msgid "or"
 msgstr "или"
 
-#: templates/layout.apl:62
+#: templates/layout.apl:63
 msgid "powered by"
 msgstr "работает на"
 
-#: templates/include/reply-controls.apl:10
+#: templates/include/reply-controls.apl:19
 msgid "reply"
 msgstr "ответить"
 
@@ -328,10 +327,6 @@ msgstr "ответить в тему"
 #: lib/Toks/Action/ToggleSubscription.pm:33 templates/include/thread.apl:9
 msgid "subscribe"
 msgstr "подписаться"
-
-#: templates/include/reply-controls.apl:8
-msgid "thank"
-msgstr "спасибо"
 
 #: lib/Toks/Action/ToggleSubscription.pm:41 templates/include/thread.apl:9
 msgid "unsubscribe"

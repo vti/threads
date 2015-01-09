@@ -15,7 +15,9 @@ sub build_validator {
 
     $validator->add_field('email');
     $validator->add_field('password');
+
     $validator->add_rule('email', 'Email');
+    $validator->add_rule('email', 'NotDisposableEmail');
 
     return $validator;
 }
