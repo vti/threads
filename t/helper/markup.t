@@ -40,7 +40,8 @@ subtest 'renders paragraphs' => sub {
 subtest 'renders code' => sub {
     my $helper = _build_helper();
 
-    is $helper->render(qq{```\nmy \$foo = "bar"\n```}), qq{<p><pre class="markup perl"><code>my \$foo = &quot;bar&quot;</code></pre></p>};
+    is $helper->render(qq{```\nmy \$foo = "bar"\n```}),
+qq{<p><pre class="markup perl"><code>my \$foo = &quot;bar&quot;</code></pre></p>};
 };
 
 subtest 'renders em' => sub {
@@ -58,7 +59,8 @@ subtest 'renders strong' => sub {
 subtest 'renders link' => sub {
     my $helper = _build_helper();
 
-    is $helper->render('(title)[http://href]'), '<p><a href="http://href">title</a></p>';
+    is $helper->render('(title)[http://href]'),
+      '<p><a href="http://href">title</a></p>';
 };
 
 subtest 'forbids html' => sub {
@@ -67,7 +69,19 @@ subtest 'forbids html' => sub {
     is $helper->render('<a>'), '<p>&lt;a&gt;</p>';
 };
 
+subtest 'perl specific' => sub {
+    my $helper = _build_helper();
+
+    is $helper->render('module:Foo'),
+      '<p><a href="http://metacpan.org/module/Foo">Foo</a></p>';
+    is $helper->render('author:VTI'),
+      '<p><a href="http://metacpan.org/author/VTI">VTI</a></p>';
+    is $helper->render('release:Foo'),
+      '<p><a href="http://metacpan.org/release/Foo">Foo</a></p>';
+};
+
 my $env = {};
+
 sub _build_helper {
     Toks::Helper::Markup->new(env => $env);
 }

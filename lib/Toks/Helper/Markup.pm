@@ -28,6 +28,10 @@ sub render {
     $text =~ s{<}{&lt;}g;
     $text =~ s{"}{&quot;}g;
 
+    $text =~ s{author:([^\s]+)}{($1)[http://metacpan.org/author/$1]}g;
+    $text =~ s{module:([^\s]+)}{($1)[http://metacpan.org/module/$1]}g;
+    $text =~ s{release:([^\s]+)}{($1)[http://metacpan.org/release/$1]}g;
+
     $text =~ s{^```([a-z]+)?\s+(.*?)\s*^```}
         {my $lang = $1 || 'perl'; $save->("$lang:$2", qq{<pre class="markup $lang"><code>$2</code></pre>})}emsg;
     $text =~ s{`(.*?)`}{$save->($1, "<code>$1</code>")}eg;
