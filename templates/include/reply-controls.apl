@@ -1,5 +1,6 @@
         <div class="reply-controls">
-            <form class="form-inline quick-thank-form" method="POST" action="<%= $helpers->url->thank_reply(id => $reply->{id}) %>">
+            <form class="form-inline ajax" method="POST" action="<%= $helpers->url->thank_reply(id => $reply->{id}) %>">
+            <input type="hidden" name="update" value=".quick-thank-counter=count" />
             <button><%= loc('thank') %> (<span class="quick-thank-counter"><%= $reply->{thanks_count} %></span>)</button>
             </form>
             <button class="quick-reply-button"><i class="fa fa-reply"></i> <%= loc('reply') %></button>

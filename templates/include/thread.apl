@@ -4,7 +4,8 @@
             <div class="thread-counters-replies"><%= $thread->{replies_count} %></div>
             <div><i class="fa fa-eye"></i> <%= $thread->{views_count} %></div>
             % if (var('view') && var('user')) {
-            <form class="form-inline quick-subscribe-form" action="<%= $helpers->url->toggle_subscription(id => $thread->{id}) %>">
+            <form class="form-inline ajax" action="<%= $helpers->url->toggle_subscription(id => $thread->{id}) %>">
+                <input type="hidden" name="update" value=".quick-subscribe-button=state" />
                 <button class="quick-subscribe-button"><%= $helpers->subscription->is_subscribed($thread) ? loc('unsubscribe') : loc('subscribe') %></button>
             </form>
             % }

@@ -1,5 +1,5 @@
             <div class="quick-reply-form">
-                <form method="POST" action="<%= $helpers->url->create_reply(id => $thread->{id}) %>">
+                <form method="POST" class="ajax" action="<%= $helpers->url->create_reply(id => $thread->{id}) %>">
 
                 % if (my $reply = var('reply')) {
                     <input type="hidden" name="to" value="<%= $reply->{id} %>" />

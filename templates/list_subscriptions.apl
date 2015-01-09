@@ -8,7 +8,7 @@
 
     % if (@subscriptions) {
         <p>
-        <form class="form-inline quick-delete-subscriptions" method="POST" action="<%= $helpers->url->delete_subscriptions %>">
+        <form class="form-inline ajax" method="POST" action="<%= $helpers->url->delete_subscriptions %>">
         <button><i class="fa fa-remove"></i> <%= loc('delete subscriptions') %></button>
         </form>
         </p>

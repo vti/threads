@@ -1,20 +1,8 @@
 (function(){
 
-    $('.quick-reply-form, .quick-edit-form').submit(function() {
-        var textarea = $(this).find('textarea');
-        var val = textarea.val().replace(/^\s+|\s+$/g, '');
-
-        if (val.length) {
-            return true;
-        }
-        else {
-            textarea.addClass('error');
-            return false;
-        }
-    });
-
     $('.quick-reply-form textarea, .quick-edit-form textarea').focus(function() {
        $(this).removeClass('error');
+       $(this).next('div.error').hide();
     });
 
     $('.quick-reply-button').click(function() {
@@ -73,77 +61,6 @@
         return false;
     });
 
-    $('.quick-thank-form').submit(function() {
-        var form = $(this);
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            success: function(data) {
-                var count = data.count;
-
-                form.find('.quick-thank-counter').html(count);
-            },
-            failure: function(errMsg) {}
-        });
-
-        return false;
-    });
-
-    $('.quick-subscribe-form').submit(function() {
-        var form = $(this);
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            success: function(data) {
-                var state = data.state;
-
-                form.find('.quick-subscribe-button').html(state);
-            },
-            failure: function(errMsg) {}
-        });
-
-        return false;
-    });
-
-    $('.quick-delete-subscriptions').submit(function() {
-        var form = $(this);
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            success: function(data) {
-                var redirect = data.redirect;
-
-                if (redirect) {
-                    window.location = redirect;
-                }
-            },
-            failure: function(errMsg) {}
-        });
-
-        return false;
-    });
-
-    $('.quick-delete-notifications').submit(function() {
-        var form = $(this);
-        var formData = $(this).serializeArray();
-
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            data: formData,
-            success: function(data) {
-                var redirect = data.redirect;
-
-                if (redirect) {
-                    window.location = redirect;
-                }
-            },
-            failure: function(errMsg) {}
-        });
-
-        return false;
-    });
-
     $('.index-sorting select').change(function() {
         $('.index-sorting form').submit();
         return false;
@@ -180,6 +97,46 @@
     highightReply();
     $(window).bind('hashchange', function() {
         highightReply();
+    });
+
+    $('form.ajax').submit(function() {
+        var form = $(this);
+        var formData = form.serializeArray();
+        $.ajax({
+            type: 'POST',
+            url: form.attr('action'),
+            data: formData,
+            success: function(data) {
+                if (data.redirect) {
+                    window.location = data.redirect;
+                }
+                else if (data.errors) {
+                    for (var key in data.errors) {
+                        var field = form.find('textarea[name='+key+']');
+
+                        if (field.length) {
+                            field.addClass('error');
+                            if (!field.next('div.error').length) {
+                                field.after('<div class="error"></div>');
+                            }
+                            field.next('div.error').html(data.errors[key]).show();
+                        }
+                    }
+                }
+                else {
+                    var update = form.find('input[name=update]');
+                    if (update.length) {
+                        var value = update.attr('value');
+                        var arr = value.split('=');
+
+                        form.find(arr[0]).html(data[arr[1]]);
+                    }
+                }
+            },
+            failure: function(errMsg) {}
+        });
+
+        return false;
     });
 
 })();

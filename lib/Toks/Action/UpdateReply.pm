@@ -20,7 +20,13 @@ sub build_validator {
     return $validator;
 }
 
-sub show_errors { shift->throw_error('Invalid request', 400) }
+sub show_errors {
+    my $self = shift;
+
+    my $errors = $self->vars->{errors};
+
+    return {errors => $errors}, type => 'json';
+}
 
 sub run {
     my $self = shift;
@@ -55,11 +61,17 @@ sub submit {
 
     my $thread = $reply->related('thread');
 
-    return $self->redirect(
+    my $redirect = $self->url_for(
         'view_thread',
         id   => $thread->get_column('id'),
         slug => $thread->get_column('slug')
     );
+
+    return {redirect => $redirect . '?t='
+          . time
+          . '#reply-'
+          . $reply->get_column('id')
+    }, type => 'json';
 }
 
 1;

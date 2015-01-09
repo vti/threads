@@ -1,5 +1,5 @@
             <div class="quick-edit-form">
-                <form method="POST" action="<%= $helpers->url->update_reply(id => $reply->{id}) %>">
+                <form method="POST" class="ajax" action="<%= $helpers->url->update_reply(id => $reply->{id}) %>">
 
                 <%== $helpers->form->textarea('content', default => $reply->{content}) %>
 

@@ -24,7 +24,13 @@ sub build_validator {
     return $validator;
 }
 
-sub show_errors { shift->throw_error('Invalid request', 400) }
+sub show_errors {
+    my $self = shift;
+
+    my $errors = $self->vars->{errors};
+
+    return {errors => $errors}, type => 'json';
+}
 
 sub run {
     my $self = shift;
@@ -49,7 +55,7 @@ sub submit {
     my $self = shift;
     my ($params) = @_;
 
-    my $user = $self->scope->user;
+    my $user   = $self->scope->user;
     my $thread = $self->{thread};
     my $parent = $self->{parent};
 
@@ -60,8 +66,7 @@ sub submit {
         $parent ? (parent_id => $parent->get_column('id')) : ()
     )->create;
 
-    $thread->set_column(
-        replies_count => $thread->count_related('replies'));
+    $thread->set_column(replies_count => $thread->count_related('replies'));
     $thread->set_column(last_activity => time);
     $thread->update;
 
@@ -86,11 +91,17 @@ sub submit {
         )->load_or_create;
     }
 
-    return $self->redirect(
+    my $redirect = $self->url_for(
         'view_thread',
         id   => $thread->get_column('id'),
         slug => $thread->get_column('slug')
     );
+
+    return {redirect => $redirect . '?t='
+          . time
+          . '#reply-'
+          . $reply->get_column('id')
+    }, type => 'json';
 }
 
 1;

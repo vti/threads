@@ -39,7 +39,7 @@ subtest 'returns 404 when unknown to' => sub {
     is $e->code, 404;
 };
 
-subtest 'throws 404 on errors' => sub {
+subtest 'shows errors' => sub {
     TestDB->setup;
 
     my $thread = Toks::DB::Thread->new(user_id => 1)->create;
@@ -48,9 +48,9 @@ subtest 'throws 404 on errors' => sub {
         captures => {id      => $thread->get_column('id')}
     );
 
-    my $e = exception { $action->run };
+    my ($json) = $action->run;
 
-    is $e->code, 400;
+    ok $json->{errors};
 };
 
 subtest 'creates reply with correct params' => sub {
@@ -162,13 +162,14 @@ subtest 'redirects to thread view' => sub {
         captures  => {id      => $thread->get_column('id')},
         'tu.user' => $user
     );
-    $action->mock('redirect');
+    $action->mock('url_for');
 
-    $action->run;
+    my ($json) = $action->run;
 
-    my ($name) = $action->mocked_call_args('redirect');
-
+    my ($name) = $action->mocked_call_args('url_for');
     is $name, 'view_thread';
+
+    ok $json->{redirect};
 };
 
 subtest 'does not notify thread author when same replier' => sub {

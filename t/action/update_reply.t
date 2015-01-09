@@ -58,7 +58,7 @@ subtest 'returns 404 when has ansestors' => sub {
     is $e->code, 404;
 };
 
-subtest 'returns 400 when validation errors' => sub {
+subtest 'shows errors' => sub {
     TestDB->setup;
 
     my $user = Toks::DB::User->new(email => 'foo', password => 'bar')->create;
@@ -72,9 +72,9 @@ subtest 'returns 400 when validation errors' => sub {
         'tu.user' => $user
     );
 
-    my $e = exception { $action->run };
+    my ($json) = $action->run;
 
-    is $e->code, 400;
+    ok $json->{errors};
 };
 
 subtest 'updates reply with correct params' => sub {
@@ -124,13 +124,15 @@ subtest 'redirects after update' => sub {
         'tu.user' => $user
     );
 
-    $action->mock('redirect');
+    $action->mock('url_for');
 
-    $action->run;
+    my ($json) = $action->run;
 
-    my ($name) = $action->mocked_call_args('redirect');
+    my ($name) = $action->mocked_call_args('url_for');
 
     is $name, 'view_thread';
+
+    ok $json->{redirect};
 };
 
 sub _build_action {

@@ -8,7 +8,7 @@
 
     % if (@notifications) {
         <p>
-        <form class="form-inline quick-delete-notifications" method="POST" action="<%= $helpers->url->delete_notifications %>">
+        <form class="form-inline ajax" method="POST" action="<%= $helpers->url->delete_notifications %>">
         <button><i class="fa fa-check"></i> <%= loc('mark all read') %></button>
         </form>
         </p>
