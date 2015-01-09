@@ -21,7 +21,7 @@ sub render {
         "--#$key#--"
     };
 
-    $text =~ s{<(https?://[^<"&\s]+)>}{$save->($1, qq{<a href="$1">$1</a>})}eg;
+    $text =~ s{<(https?://[^<"&\s]+)>}{$save->($1, qq{<a href="$1" rel="nofollow">$1</a>})}eg;
 
     $text =~ s{&}{&amp;}g;
     $text =~ s{>}{&gt;}g;
@@ -39,7 +39,7 @@ sub render {
     $text =~ s{_(.*?)_}{$save->($1, "<em>$1</em>")}eg;
     $text =~ s{\*\*(.*?)\*\*}{$save->($1, "<strong>$1</strong>")}eg;
 
-    $text =~ s{\((.*?)\)\[(.*?)\]}{$save->("$1:$2", qq{<a href="$2">$1</a>})}eg;
+    $text =~ s{\((.*?)\)\[(.*?)\]}{$save->("$1:$2", qq{<a href="$2" rel="nofollow">$1</a>})}eg;
 
     $text =~ s#(?:\r?\n){2,}#</p><p>#g;
 

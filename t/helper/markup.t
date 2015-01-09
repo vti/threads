@@ -60,7 +60,7 @@ subtest 'renders link' => sub {
     my $helper = _build_helper();
 
     is $helper->render('(title)[http://href]'),
-      '<p><a href="http://href">title</a></p>';
+      '<p><a href="http://href" rel="nofollow">title</a></p>';
 };
 
 subtest 'forbids html' => sub {
@@ -73,11 +73,11 @@ subtest 'perl specific' => sub {
     my $helper = _build_helper();
 
     is $helper->render('module:Foo'),
-      '<p><a href="http://metacpan.org/module/Foo">Foo</a></p>';
+      '<p><a href="http://metacpan.org/module/Foo" rel="nofollow">Foo</a></p>';
     is $helper->render('author:VTI'),
-      '<p><a href="http://metacpan.org/author/VTI">VTI</a></p>';
+      '<p><a href="http://metacpan.org/author/VTI" rel="nofollow">VTI</a></p>';
     is $helper->render('release:Foo'),
-      '<p><a href="http://metacpan.org/release/Foo">Foo</a></p>';
+      '<p><a href="http://metacpan.org/release/Foo" rel="nofollow">Foo</a></p>';
 };
 
 my $env = {};
