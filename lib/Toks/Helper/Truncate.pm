@@ -15,9 +15,7 @@ sub truncate {
 
     my $ht = HTML::Truncate->new(chars => $chars);
 
-    my $truncated = $ht->truncate(Encode::encode('UTF-8', $text));
-
-    return Encode::decode('UTF-8', $truncated);
+    return $ht->truncate($text);
 }
 
 1;
