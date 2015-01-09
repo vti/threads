@@ -133,8 +133,9 @@ subtest 'logout' => sub {
 
     $ua->submit_form(fields => {email => 'foo@bar.com', password => 'silly'});
 
-    $ua->follow_link(text => 'Logout');
-    $ua->content_contains('Sort');
+    $ua->post('/logout');
+
+    $ua->content_contains('Login');
 };
 
 sub _build_ua {
