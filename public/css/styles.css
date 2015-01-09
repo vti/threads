@@ -302,9 +302,14 @@ button.link {
     max-width:500px;
 }
 
-.markdown-help-instance pre, .markdown-help-instance code {
+.markup-help-instance pre, .markup-help-instance code {
     padding:0px;
     margin:0px;
+}
+
+.markup-help-instance ul {
+    padding-bottom:0px;
+    margin-bottom:0px;
 }
 
 a.markup-help-button {
