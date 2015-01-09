@@ -335,6 +335,6 @@ a.markup-help-button {
     overflow-x: auto;
 }
 
-.highlighted {
-    background:red;
+.noti {
+    background:#FFDC00;
 }

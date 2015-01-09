@@ -37,7 +37,8 @@
                 % if (var('user')) {
                 <a href="<%= $helpers->url->create_thread %>">+ <%= loc('Create thread') %></a> |
                 <a href="<%= $helpers->url->list_subscriptions %>"><%= loc('Subscriptions') %></a> |
-                <a href="<%= $helpers->url->list_notifications %>"><%= loc('Notifications') %> (<%= $helpers->notification->count %>)</a> |
+                % my $notification_count = $helpers->notification->count;
+                <a href="<%= $helpers->url->list_notifications %>"<%= ' class="noti"' if $notification_count %>><%= loc('Notifications') %> (<%= $notification_count %>)</a> |
                 <a href="<%= $helpers->url->settings %>"><%= loc('Settings') %></a> |
 
                 <form class="form-inline" method="post" action="<%= $helpers->url->logout %>" id="logout">
