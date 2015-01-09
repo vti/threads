@@ -45,7 +45,7 @@ sub input {
     if ($type eq 'checkbox') {
         my $value = $self->param($name);
         $value = $default unless $self->param('submit');
-        $attrs{checked} = 'checked' if defined $value && $value ne '';
+        $attrs{checked} = 'checked' if defined $value && length($value);
     }
     else {
         $value = $self->_get_value($name, $default);
@@ -65,6 +65,7 @@ sub input {
 }
 
 sub password { shift->input(shift, type => 'password', @_) }
+sub checkbox { shift->input(shift, type => 'checkbox', @_) }
 
 sub textarea {
     my $self = shift;
@@ -94,6 +95,7 @@ sub textarea {
 </div>
 
 }
+
 sub select {
     my $self = shift;
     my ($name, %params) = @_;
@@ -123,6 +125,9 @@ sub select {
 
     my @options;
     while (my ($k, $v) = splice @$options, 0, 2) {
+        $k = $self->_html_escape($k);
+        $v = $self->_html_escape($v);
+
         my $selected = '';
         if (
             $is_multiple && ref $value eq 'ARRAY'
@@ -186,7 +191,7 @@ sub _get_value {
     $value = $default unless defined $value;
     $value = ''       unless defined $value;
 
-    return $value;
+    return $self->_html_escape($value);
 }
 
 sub _get_values {
@@ -203,7 +208,23 @@ sub _get_values {
     ];
     @$values = @$default unless $values && @$values;
 
+    $values = [map {$self->_html_escape($_)} @$values];
+
     return $values;
+}
+
+sub _html_escape {
+    my $self = shift;
+    my ($input) = @_;
+
+    for ($input) {
+        s/&/&amp;/g;
+        s/</&lt;/g;
+        s/>/&gt;/g;
+        s/"/&quot;/g;
+    }
+
+    return $input;
 }
 
 1;
