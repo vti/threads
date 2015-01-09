@@ -96,13 +96,13 @@ subtest 'updates reply thank count' => sub {
     is $reply->get_column('thanks_count'), 5;
 };
 
-subtest 'not create when exists' => sub {
+subtest 'toggles when exists' => sub {
     TestDB->setup;
 
     my $user =
       Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $reply =
-      Toks::DB::Reply->new(thread_id => 1, user_id => $user->get_column('id'))
+      Toks::DB::Reply->new(thread_id => 1, user_id => 33)
       ->create;
     Toks::DB::Thank->new(
         user_id  => $user->get_column('id'),
@@ -117,7 +117,10 @@ subtest 'not create when exists' => sub {
 
     $action->run;
 
-    is(Toks::DB::Thank->table->count, 1);
+    $reply->load;
+
+    is(Toks::DB::Thank->table->count, 0);
+    is $reply->get_column('thanks_count'), 0;
 };
 
 subtest 'not create when same user' => sub {

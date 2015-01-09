@@ -31,7 +31,11 @@ sub run {
             ]
         );
 
-        if (!$thank) {
+        if ($thank) {
+            $thank->delete;
+
+            $count--;
+        } else {
             Toks::DB::Thank->new(
                 user_id  => $user->get_column('id'),
                 reply_id => $reply->get_column('id')
@@ -39,9 +43,10 @@ sub run {
 
             $count++;
 
-            $reply->set_column(thanks_count => $count);
-            $reply->update;
         }
+
+        $reply->set_column(thanks_count => $count);
+        $reply->update;
     }
 
     return {count => $count}, type => 'json';
