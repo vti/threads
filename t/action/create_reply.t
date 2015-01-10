@@ -72,7 +72,7 @@ subtest 'shows errors when limits' => sub {
     $action->run for 1 .. 10;
 
     is(Toks::DB::Reply->table->count, 5);
-    is $action->vars->{errors}->{content}, 'You are too fast';
+    is $action->vars->{errors}->{content}, 'Replying too often';
 };
 
 subtest 'creates reply with correct params' => sub {

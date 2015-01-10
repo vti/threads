@@ -48,7 +48,7 @@ subtest 'shows error when limits' => sub {
     $action->run for 1 .. 10;
 
     is(Toks::DB::Thread->table->count, 5);
-    is $action->vars->{errors}->{title}, 'You are too fast';
+    is $action->vars->{errors}->{title}, 'Creating threads too often';
 };
 
 subtest 'creates thread with correct params' => sub {
