@@ -16,7 +16,7 @@ sub run {
     $by = 'activity' unless $by && first { $by eq $_ } qw/activity popularity/;
 
     my $user_id = $self->req->param('user_id');
-    $user_id = 1 unless $user_id && $user_id =~ m/^\d+$/;
+    $user_id = 0 unless $user_id && $user_id =~ m/^\d+$/;
 
     $self->throw_not_found
       if $user_id && !Toks::DB::User->new(id => $user_id)->load;
