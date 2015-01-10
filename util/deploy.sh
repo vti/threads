@@ -2,11 +2,12 @@
 
 #set -x
 
-. util/deploy.sh.rc
-
-TARGET=${1:-origin/master}
+CONFIG=${1:-util/deploy.sh.rc}
+TARGET="origin/master"
 DATE=`date '+%Y-%m-%dT%H%M%S'`
 STAGING_DIR="/tmp/deploy-$DATE"
+
+. $CONFIG
 
 ssh -t $HOST "
     git clone '$CLONE_PATH' '$STAGING_DIR' &&

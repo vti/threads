@@ -79,7 +79,7 @@ msgid "Invalid password"
 msgstr ""
 
 #: templates/activation_success.apl:5 templates/layout.apl:56
-#: templates/login.apl:13 templates/view_thread.apl:34
+#: templates/login.apl:13 templates/view_thread.apl:69
 msgid "Login"
 msgstr ""
 
@@ -198,7 +198,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: templates/layout.apl:56 templates/view_thread.apl:34
+#: templates/layout.apl:56 templates/view_thread.apl:69
 msgid "Sign up"
 msgstr ""
 
@@ -224,7 +224,7 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: templates/view_thread.apl:31
+#: templates/view_thread.apl:66
 msgid "To reply to this thread login or register"
 msgstr ""
 
@@ -293,10 +293,6 @@ msgstr ""
 msgid "Your registration was successfully activated!"
 msgstr ""
 
-#: templates/include/thread.apl:23
-msgid "by"
-msgstr ""
-
 #: templates/index.apl:9
 msgid "by activity"
 msgstr ""
@@ -305,7 +301,7 @@ msgstr ""
 msgid "by popularity"
 msgstr ""
 
-#: templates/include/reply-controls.apl:27
+#: templates/include/reply-controls.apl:11
 #: templates/include/thread-controls.apl:11
 msgid "delete"
 msgstr ""
@@ -314,7 +310,7 @@ msgstr ""
 msgid "delete subscriptions"
 msgstr ""
 
-#: templates/include/reply-controls.apl:23
+#: templates/include/reply-controls.apl:7
 #: templates/include/thread-controls.apl:6
 msgid "edit"
 msgstr ""
@@ -328,7 +324,7 @@ msgid "markup"
 msgstr ""
 
 #: templates/include/quick-edit-form.apl:6
-#: templates/include/quick-reply-form.apl:10 templates/view_thread.apl:34
+#: templates/include/quick-reply-form.apl:10 templates/view_thread.apl:69
 msgid "or"
 msgstr ""
 
@@ -336,7 +332,7 @@ msgstr ""
 msgid "powered by"
 msgstr ""
 
-#: templates/include/reply-controls.apl:19
+#: templates/include/reply-controls.apl:3
 msgid "reply"
 msgstr ""
 
@@ -344,8 +340,16 @@ msgstr ""
 msgid "reply to thread"
 msgstr ""
 
+#: templates/include/reply-controls.apl:22
+msgid "report"
+msgstr ""
+
 #: templates/include/thread.apl:11
 msgid "subscribe"
+msgstr ""
+
+#: templates/view_thread.apl:29
+msgid "thank you"
 msgstr ""
 
 #: templates/include/thread.apl:11

@@ -20,7 +20,7 @@
             </h1>
             <div class="thread-meta">
                 %== $helpers->gravatar->img($thread->{user}, 20);
-                <%= loc('by') %> <strong><%== $helpers->user->display_name($thread->{user}) %></strong>
+                <strong><%== $helpers->user->display_name($thread->{user}) %></strong>
             </div>
             <div class="thread-date">
                 <%= $helpers->date->format($thread->{created}) %>

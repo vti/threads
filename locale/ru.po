@@ -79,7 +79,7 @@ msgid "Invalid password"
 msgstr "Неправильный пароль"
 
 #: templates/activation_success.apl:5 templates/layout.apl:56
-#: templates/login.apl:13 templates/view_thread.apl:34
+#: templates/login.apl:13 templates/view_thread.apl:69
 msgid "Login"
 msgstr "Вход"
 
@@ -198,7 +198,7 @@ msgstr "Отправить"
 msgid "Settings"
 msgstr "Настройки"
 
-#: templates/layout.apl:56 templates/view_thread.apl:34
+#: templates/layout.apl:56 templates/view_thread.apl:69
 msgid "Sign up"
 msgstr "Регистрация"
 
@@ -226,7 +226,7 @@ msgstr "Темы"
 msgid "Title"
 msgstr "Заголовок"
 
-#: templates/view_thread.apl:31
+#: templates/view_thread.apl:66
 msgid "To reply to this thread login or register"
 msgstr "Чтобы ответить, залогиньтесь или зарегистрируйтесь"
 
@@ -301,10 +301,6 @@ msgstr "Выш пароль был успешно сброшен!"
 msgid "Your registration was successfully activated!"
 msgstr "Ваша регистрация была успешно активирована!"
 
-#: templates/include/thread.apl:23
-msgid "by"
-msgstr "от"
-
 #: templates/index.apl:9
 msgid "by activity"
 msgstr "по активности"
@@ -313,7 +309,7 @@ msgstr "по активности"
 msgid "by popularity"
 msgstr "по популярности"
 
-#: templates/include/reply-controls.apl:27
+#: templates/include/reply-controls.apl:11
 #: templates/include/thread-controls.apl:11
 msgid "delete"
 msgstr "удалить"
@@ -322,7 +318,7 @@ msgstr "удалить"
 msgid "delete subscriptions"
 msgstr "удалить подписки"
 
-#: templates/include/reply-controls.apl:23
+#: templates/include/reply-controls.apl:7
 #: templates/include/thread-controls.apl:6
 msgid "edit"
 msgstr "изменить"
@@ -336,7 +332,7 @@ msgid "markup"
 msgstr "формат"
 
 #: templates/include/quick-edit-form.apl:6
-#: templates/include/quick-reply-form.apl:10 templates/view_thread.apl:34
+#: templates/include/quick-reply-form.apl:10 templates/view_thread.apl:69
 msgid "or"
 msgstr "или"
 
@@ -344,7 +340,7 @@ msgstr "или"
 msgid "powered by"
 msgstr "работает на"
 
-#: templates/include/reply-controls.apl:19
+#: templates/include/reply-controls.apl:3
 msgid "reply"
 msgstr "ответить"
 
@@ -352,9 +348,17 @@ msgstr "ответить"
 msgid "reply to thread"
 msgstr "ответить в тему"
 
+#: templates/include/reply-controls.apl:22
+msgid "report"
+msgstr ""
+
 #: templates/include/thread.apl:11
 msgid "subscribe"
 msgstr "подписаться"
+
+#: templates/view_thread.apl:29
+msgid "thank you"
+msgstr ""
 
 #: templates/include/thread.apl:11
 msgid "unsubscribe"
