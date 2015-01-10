@@ -38,10 +38,11 @@ sub validate {
     my ($validator, $params) = @_;
 
     my $config = $self->service('config');
+    my $user   = $self->scope->user;
 
     my $limits_reached =
       Toks::LimitChecker->new->check($config->{limits}->{replies},
-        Toks::DB::Reply->new);
+        $user, Toks::DB::Reply->new);
     if ($limits_reached) {
         $validator->add_error(content => $self->loc('Replying too often'));
         return 0;
