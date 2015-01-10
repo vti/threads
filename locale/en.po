@@ -4,9 +4,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: lib/Threads/Action/Login.pm:46
+msgid "Account blocked"
+msgstr ""
+
 #: lib/Threads/Action/Login.pm:41
 #: lib/Threads/Action/RequestPasswordReset.pm:34
 msgid "Account not activated"
+msgstr ""
+
+#: lib/Threads/Action/Login.pm:51
+msgid "Account not active"
 msgstr ""
 
 #: templates/login.apl:1 templates/login.apl:5

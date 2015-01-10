@@ -45,7 +45,8 @@ subtest 'set template error when wrong password' => sub {
     TestDB->setup;
 
     my $user =
-      Threads::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'silly')
+      ->create;
 
     my $action =
       _build_action(
@@ -71,6 +72,42 @@ subtest 'set template error when not active' => sub {
     $action->run;
 
     is $action->vars->{errors}->{email}, 'Account not activated';
+};
+
+subtest 'set template error when blocked' => sub {
+    TestDB->setup;
+
+    my $user = Threads::DB::User->new(
+        email    => 'foo@bar.com',
+        status   => 'blocked',
+        password => 'silly',
+    )->create;
+
+    my $action =
+      _build_action(
+        req => POST('/' => {email => 'foo@bar.com', password => 'silly'}));
+
+    $action->run;
+
+    is $action->vars->{errors}->{email}, 'Account blocked';
+};
+
+subtest 'set template error when other status' => sub {
+    TestDB->setup;
+
+    my $user = Threads::DB::User->new(
+        email    => 'foo@bar.com',
+        status   => 'other',
+        password => 'silly',
+    )->create;
+
+    my $action =
+      _build_action(
+        req => POST('/' => {email => 'foo@bar.com', password => 'silly'}));
+
+    $action->run;
+
+    is $action->vars->{errors}->{email}, 'Account not active';
 };
 
 subtest 'calls login' => sub {

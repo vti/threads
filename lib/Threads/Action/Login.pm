@@ -37,8 +37,18 @@ sub validate {
         return;
     }
 
-    if ($user->get_column('status') ne 'active') {
+    if ($user->get_column('status') eq 'new') {
         $validator->add_error(email => $self->loc('Account not activated'));
+        return;
+    }
+
+    if ($user->get_column('status') eq 'blocked') {
+        $validator->add_error(email => $self->loc('Account blocked'));
+        return;
+    }
+
+    if ($user->get_column('status') ne 'active') {
+        $validator->add_error(email => $self->loc('Account not active'));
         return;
     }
 

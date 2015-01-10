@@ -74,7 +74,8 @@ subtest 'show validation errors when wrong unicode password' => sub {
     $ua->get('/');
     $ua->follow_link(text => 'Login');
 
-    $ua->submit_form(fields => {email => 'foo@bar.com', password => 'привет'});
+    $ua->submit_form(
+        fields => {email => 'foo@bar.com', password => 'привет'});
     $ua->content_contains('Unknown credentials');
 };
 
@@ -92,6 +93,40 @@ subtest 'show validation errors when user not activated' => sub {
 
     $ua->submit_form(fields => {email => 'foo@bar.com', password => 'silly'});
     $ua->content_contains('Account not activated');
+};
+
+subtest 'show validation errors when user blocked' => sub {
+    TestDB->setup;
+    Threads::DB::User->new(
+        email    => 'foo@bar.com',
+        status   => 'blocked',
+        password => 'silly'
+    )->create;
+
+    my $ua = _build_ua();
+
+    $ua->get('/');
+    $ua->follow_link(text => 'Login');
+
+    $ua->submit_form(fields => {email => 'foo@bar.com', password => 'silly'});
+    $ua->content_contains('Account blocked');
+};
+
+subtest 'show validation errors when other status' => sub {
+    TestDB->setup;
+    Threads::DB::User->new(
+        email    => 'foo@bar.com',
+        status   => 'other',
+        password => 'silly'
+    )->create;
+
+    my $ua = _build_ua();
+
+    $ua->get('/');
+    $ua->follow_link(text => 'Login');
+
+    $ua->submit_form(fields => {email => 'foo@bar.com', password => 'silly'});
+    $ua->content_contains('Account not active');
 };
 
 subtest 'redirect to root' => sub {
