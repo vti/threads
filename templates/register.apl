@@ -1,3 +1,5 @@
+% $helpers->meta->set(title => loc('Registration'));
+
 <div class="grid-50 mobile-grid-100">
 
     <h1><%= loc('Registration') %></h1>

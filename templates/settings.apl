@@ -1,3 +1,5 @@
+% $helpers->meta->set(title => loc('Settings'));
+
 <div class="grid-100">
 
     <h1><%= loc('Settings') %></h1>

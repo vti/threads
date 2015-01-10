@@ -1,5 +1,8 @@
 ---
 base_url: 'http://localhost:5000'
+meta:
+    title: 'My forum'
+    description: 'The best forum on earth!'
 pagers:
     threads: 5
     subscriptions: 5

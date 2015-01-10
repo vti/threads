@@ -1,4 +1,5 @@
 % $helpers->assets->require('/js/quick-reply.js');
+% $helpers->meta->set(title => $thread->{title});
 
 <div class="grid-100">
 

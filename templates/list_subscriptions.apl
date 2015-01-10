@@ -1,4 +1,5 @@
 % $helpers->assets->require('/js/quick-reply.js');
+% $helpers->meta->set(title => loc('Subscriptions'));
 
 <div class="grid-100">
 

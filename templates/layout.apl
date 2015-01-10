@@ -4,7 +4,12 @@
 <meta charset="utf-8" />
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-<title><%= loc('Forum') %></title>
+% my $base_title = $helpers->config->config->{meta}->{title} || loc('Forum');
+<title><%= $helpers->meta->get('title') ? $helpers->meta->get('title') . ' | ' : '' %><%= $base_title %></title>
+% my $description = $helpers->config->config->{meta}->{description} || $helpers->meta->get('title');
+% if ($description) {
+<meta name="description" content="<%= $description %>" />
+% }
 <!--[if lt IE 9]>
   <script src="/unsemantic/js/html5.js"></script>
 <![endif]-->

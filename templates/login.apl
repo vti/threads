@@ -1,3 +1,5 @@
+% $helpers->meta->set(title => loc('Authorization'));
+
 <div class="grid-50 mobile-grid-100">
 
     <h1><%= loc('Authorization') %></h1>

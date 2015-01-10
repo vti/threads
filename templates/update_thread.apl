@@ -1,6 +1,7 @@
 % $helpers->assets->require('/autosize/jquery.autosize.min.js');
 % $helpers->assets->require('/js/autosize.js');
 % $helpers->assets->require('/js/quick-reply.js');
+% $helpers->meta->set(title => loc('Update thread'));
 
 <div class="grid-100">
 
