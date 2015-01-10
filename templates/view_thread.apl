@@ -11,7 +11,39 @@
 
     <div class="replies">
     % foreach my $reply ($helpers->reply->find_by_thread($thread)) {
-        % my $padding = $reply->{level} * 10;
+        <div class="grid-container grid-parent">
+        <div class="grid-5 mobile-grid-10 grid-parent">
+
+            <div class="reply-thank">
+
+            % if (!var('user') || $helpers->reply->is_author($reply)) {
+                <button disabled="disabled">
+                <span class="quick-thank-counter"><%= $reply->{thanks_count} ? $reply->{thanks_counter} : '' %></span>
+                <i class="fa fa-thumbs-o-up"></i>
+                </button>
+            % } else {
+            % my $is_thanked = $helpers->reply->is_thanked($reply);
+            <form class="form-inline ajax" method="POST" action="<%= $helpers->url->thank_reply(id => $reply->{id}) %>">
+            <input type="hidden" name="update" value=".quick-thank-counter=count" />
+            <input type="hidden" name="replace-class" value=".quick-thank-button i=fa-thumbs-up,fa-thumbs-o-up" />
+            <button class="quick-thank-button" title="<%= loc('thank you') %>">
+                <span class="quick-thank-counter">
+                % if ($reply->{thanks_count}) {
+                <%= $reply->{thanks_count} %>
+                % }
+                </span>
+                <i class="fa fa-thumbs<%= $is_thanked ? '' : '-o' %>-up"></i>
+            </button>
+            </form>
+            % }
+
+            </div>
+
+
+        </div>
+        <div class="grid-95 mobile-grid-80 grid-parent">
+
+        % my $padding = $reply->{level} * 10 + 10;
         % $padding = 100 if $padding > 100;
         <div class="reply" style="padding-left:<%= $padding %>px">
 
@@ -22,6 +54,9 @@
             </div>
 
             %== $helpers->displayer->render('include/reply-controls', thread => $thread, reply => $reply);
+        </div>
+
+        </div>
         </div>
     % }
     </div>

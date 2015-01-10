@@ -268,13 +268,19 @@ a.no-underline, a.no-underline:hover{
 }
 
 .replies {
-    padding-top:1em;
+    padding-top:2em;
 }
 
 .reply {
-    margin-top:10px;
+    /*margin-top:10px;*/
     margin-bottom:10px;
-    padding-top:10px;
+    /*padding-top:10px;*/
+}
+
+.reply-thank {
+    text-align:right;
+    /*margin-top:10px;*/
+    /*padding-top:10px;*/
 }
 
 .reply-gravatar {
