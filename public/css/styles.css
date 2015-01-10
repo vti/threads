@@ -155,6 +155,12 @@ td.td-right {
 }
 
 .index-sorting {
+    float:left;
+    padding-bottom:1em;
+}
+
+.index-stats {
+    float:right;
     padding-bottom:2em;
 }
 

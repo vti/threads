@@ -3,11 +3,22 @@
 <div class="grid-100">
 
     <div class="index-sorting">
+
         <%= loc('Sort') %>
         <form class="form-inline">
         <%== $helpers->form->select('by', options => [activity => loc('by activity'), popularity => loc('by popularity')]) %>
         </form>
     </div>
+
+    <div class="index-stats">
+        <i class="fa fa-folder"></i>
+        <strong><%= $helpers->thread->count %></strong>
+
+        <i class="fa fa-user"></i>
+        <strong><%= $helpers->user->count %></strong>
+    </div>
+
+    <div class="clear"></div>
 
     % foreach my $thread ($helpers->thread->find) {
     %== $helpers->displayer->render('include/thread', thread => $thread);
