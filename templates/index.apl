@@ -27,5 +27,5 @@
     %== $helpers->displayer->render('include/thread', thread => $thread);
     % }
 
-    %== $helpers->displayer->render('include/pager', base_url => $helpers->url->index, query_params => ['by'], total => $helpers->thread->count);
+    %== $helpers->displayer->render('include/pager', base_url => $helpers->url->index, query_params => ['by', 'user_id'], total => $helpers->thread->count);
 </div>

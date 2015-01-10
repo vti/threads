@@ -347,8 +347,12 @@ a.markup-help-button {
     overflow-x: auto;
 }
 
-.noti {
+.status-bg-notice {
     background:#FFDC00;
+}
+
+.status-danger {
+    color:#FF4136
 }
 
 .not-user-notice {

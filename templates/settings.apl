@@ -22,7 +22,7 @@
     </div>
 
     <div style="padding-top:2em">
-        <a href="<%= $helpers->url->deregister %>"><%= loc('Remove account') %></a>
+        <a href="<%= $helpers->url->deregister %>" class="status-danger"><%= loc('Remove account') %></a>
     </div>
 
 </div>

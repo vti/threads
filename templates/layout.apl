@@ -43,11 +43,11 @@
                 <a href="<%= $helpers->url->create_thread %>">+ <%= loc('Create thread') %></a> |
                 <a href="<%= $helpers->url->list_subscriptions %>"><%= loc('Subscriptions') %></a> |
                 % my $notification_count = $helpers->notification->count;
-                <a href="<%= $helpers->url->list_notifications %>"<%= ' class="noti"' if $notification_count %>><%= loc('Notifications') %> (<%= $notification_count %>)</a> |
+                <a href="<%= $helpers->url->list_notifications %>"<%= ' class="status-bg-notice"' if $notification_count %>><%= loc('Notifications') %> (<%= $notification_count %>)</a> |
                 <a href="<%= $helpers->url->settings %>"><%= loc('Settings') %></a> |
 
                 <form class="form-inline" method="post" action="<%= $helpers->url->logout %>" id="logout">
-                    <button class="link" type="submit"><%= loc('Logout') %></button>
+                    <button class="link" type="submit"><%= loc('Logout') %></button> (<%= $helpers->user->display_name(var('user')) %>)
                 </form>
 
                 % } else {
