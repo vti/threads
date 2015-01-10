@@ -7,6 +7,15 @@ use parent 'Tu::Helper';
 
 use Threads::DB::Thread;
 
+sub is_author {
+    my $self = shift;
+    my ($thread, $user) = @_;
+
+    return 1 if $user && $user->{id} == $thread->{user_id};
+
+    return 0;
+}
+
 sub find {
     my $self = shift;
 

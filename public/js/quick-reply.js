@@ -133,7 +133,6 @@
 
                     form.find('input[name=replace-class]').each(function() {
                         var value = $(this).attr('value');
-                        console.log(value);
                         var arr = value.split('=');
 
                         var classes = arr[1].split(',');

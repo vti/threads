@@ -2,11 +2,13 @@
             <form class="form-inline ajax" method="POST" action="<%= $helpers->url->thank_reply(id => $reply->{id}) %>">
             <input type="hidden" name="update" value=".quick-thank-counter=count" />
             % my $disabled = '';
-            % if (!var('user') || var('user')->{id} == $reply->{user_id}) {
+            % if (!var('user') || $helpers->reply->is_author($reply)) {
             %    $disabled = ' disabled="disabled"';
             % }
-            <button<%= $disabled %>>
-                <i class="fa fa-thumbs-up"></i>
+            % my $is_thanked = $helpers->reply->is_thanked($reply);
+            <input type="hidden" name="replace-class" value=".quick-thank-button i=fa-thumbs-up,fa-thumbs-o-up" />
+            <button class="quick-thank-button" title="<%= loc('thank you') %>"<%= $disabled %>>
+                <i class="fa fa-thumbs<%= $is_thanked ? '' : '-o' %>-up"></i>
                 <span class="quick-thank-counter">
                 % if ($reply->{thanks_count}) {
                 <%= $reply->{thanks_count} %>
@@ -26,6 +28,18 @@
             <form class="form-inline" method="POST" action="<%= $helpers->url->delete_reply(id => $reply->{id}) %>">
             <button type="submit"><i class="fa fa-remove"></i> <%= loc('delete') %></button>
             </form>
+            % }
+
+            % if (0) {
+            % if (var('user') && var('user')->{id} != $reply->{user_id}) {
+            % my $is_flagged = $helpers->reply->is_flagged($reply);
+            % my $current_class = $is_flagged ? 'fa-flag' : 'fa-flag-o';
+
+            <form class="ajax form-inline" method="POST" action="<%= $helpers->url->toggle_report(id => $reply->{id}) %>">
+            <input type="hidden" name="replace-class" value=".quick-flag-button i=fa-flag,fa-flag-o" />
+            <button class="quick-flag-button" type="submit" title="<%= loc('report') %>"><i class="fa <%= $current_class %>"></i></button>
+            </form>
+            % }
             % }
 
             %== $helpers->displayer->render('include/quick-reply-form', thread => $thread, reply => var('reply'));

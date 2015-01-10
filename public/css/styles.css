@@ -355,6 +355,10 @@ a.markup-help-button {
     background:#FFDC00;
 }
 
+.status-bg-highlight {
+    background:#01FF70;
+}
+
 .status-danger {
     color:#FF4136
 }
