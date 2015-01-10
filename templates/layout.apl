@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 % my $base_title = $helpers->config->config->{meta}->{title} || loc('Forum');
 <title><%= $helpers->meta->get('title') ? $helpers->meta->get('title') . ' | ' : '' %><%= $base_title %></title>
-% my $description = $helpers->config->config->{meta}->{description} || $helpers->meta->get('title');
+% my $description = $helpers->meta->get('description') || $helpers->config->config->{meta}->{description};
 % if ($description) {
 <meta name="description" content="<%= $description %>" />
 % }
