@@ -8,23 +8,24 @@ msgstr ""
 msgid "Account not activated"
 msgstr "Аккаунт не активирован"
 
-#: templates/login.apl:3
+#: templates/login.apl:1 templates/login.apl:5
 msgid "Authorization"
 msgstr "Авторизация"
 
-#: templates/change_password.apl:3 templates/settings.apl:19
+#: templates/change_password.apl:3 templates/profile.apl:14
 msgid "Change password"
 msgstr "Изменить пароль"
 
-#: templates/create_thread.apl:12 templates/update_thread.apl:12
+#: templates/create_thread.apl:13 templates/update_thread.apl:13
 msgid "Content"
 msgstr "Содержимое"
 
-#: templates/create_thread.apl:14
+#: templates/create_thread.apl:15
 msgid "Create new thread"
 msgstr "Создать новую тему"
 
-#: templates/create_thread.apl:7 templates/layout.apl:38
+#: templates/create_thread.apl:4 templates/create_thread.apl:8
+#: templates/layout.apl:43
 msgid "Create thread"
 msgstr "Создать тему"
 
@@ -48,7 +49,7 @@ msgstr "Подтверждение удаления аккаунта"
 msgid "Disposable emails are not allowed"
 msgstr "Одноразовые email-адреса не приветствуются"
 
-#: templates/settings.apl:12
+#: templates/settings.apl:14
 msgid "Email notifications"
 msgstr "Email-уведомления"
 
@@ -68,16 +69,16 @@ msgstr "Неправильный email"
 msgid "Invalid password"
 msgstr "Неправильный пароль"
 
-#: templates/activation_success.apl:5 templates/layout.apl:49
-#: templates/login.apl:11 templates/view_thread.apl:33
+#: templates/activation_success.apl:5 templates/layout.apl:56
+#: templates/login.apl:13 templates/view_thread.apl:34
 msgid "Login"
 msgstr "Вход"
 
-#: templates/layout.apl:45
+#: templates/layout.apl:52
 msgid "Logout"
 msgstr "Выход"
 
-#: templates/settings.apl:10
+#: templates/settings.apl:12
 msgid "Name"
 msgstr "Имя"
 
@@ -93,7 +94,8 @@ msgstr "Новый пароль"
 msgid "Not readable"
 msgstr "Не читаемо"
 
-#: templates/layout.apl:41 templates/list_notifications.apl:5
+#: templates/layout.apl:48 templates/list_notifications.apl:2
+#: templates/list_notifications.apl:6
 msgid "Notifications"
 msgstr "Уведомления"
 
@@ -103,7 +105,7 @@ msgstr "Уведомления"
 msgid "Otherwise just ignore this email."
 msgstr "Иначе проигнорируйте это письмо."
 
-#: templates/login.apl:8 templates/register.apl:8
+#: templates/login.apl:10 templates/register.apl:10
 msgid "Password"
 msgstr "Пароль"
 
@@ -125,11 +127,15 @@ msgstr "Сброс пароля"
 msgid "Please check your email for a confirmation link."
 msgstr "Пожалуйста, проверьте свою почту на наличие письма с подтверждением."
 
-#: templates/register.apl:10 templates/view_thread.apl:33
+#: templates/profile.apl:1 templates/profile.apl:5
+msgid "Profile"
+msgstr "Профиль"
+
+#: templates/register.apl:12
 msgid "Register"
 msgstr "Зарегистрироваться"
 
-#: templates/register.apl:3
+#: templates/register.apl:1 templates/register.apl:5
 msgid "Registration"
 msgstr "Регистрация"
 
@@ -137,7 +143,7 @@ msgstr "Регистрация"
 msgid "Registration confirmation"
 msgstr "Подтверждение регистрации"
 
-#: templates/settings.apl:23
+#: templates/profile.apl:18
 msgid "Remove account"
 msgstr "Удаление аккаунта"
 
@@ -161,7 +167,7 @@ msgstr "Обязательно"
 msgid "Reset"
 msgstr "Сбросить"
 
-#: templates/login.apl:9 templates/request_password_reset.apl:9
+#: templates/login.apl:11 templates/request_password_reset.apl:9
 #: templates/reset_password.apl:3
 msgid "Reset password"
 msgstr "Сбросить пароль"
@@ -179,19 +185,20 @@ msgstr "Скоро увидимся!"
 msgid "Send"
 msgstr "Отправить"
 
-#: templates/layout.apl:42 templates/settings.apl:3
+#: templates/profile.apl:13 templates/settings.apl:1 templates/settings.apl:5
 msgid "Settings"
 msgstr "Настройки"
 
-#: templates/layout.apl:49
+#: templates/layout.apl:56 templates/view_thread.apl:34
 msgid "Sign up"
 msgstr "Регистрация"
 
-#: templates/index.apl:6
+#: templates/index.apl:7
 msgid "Sort"
 msgstr "Сортировать"
 
-#: templates/layout.apl:39 templates/list_subscriptions.apl:5
+#: templates/list_subscriptions.apl:2 templates/list_subscriptions.apl:6
+#: templates/profile.apl:9
 msgid "Subscriptions"
 msgstr "Подписки"
 
@@ -202,15 +209,15 @@ msgstr ""
 "Спасибо за вашу регистрацию. Пожалуйста, проверьте почту на наличие "
 "подтверждения."
 
-#: templates/layout.apl:36
+#: templates/layout.apl:41 templates/profile.apl:8
 msgid "Threads"
 msgstr "Темы"
 
-#: templates/create_thread.apl:11 templates/update_thread.apl:11
+#: templates/create_thread.apl:12 templates/update_thread.apl:12
 msgid "Title"
 msgstr "Заголовок"
 
-#: templates/view_thread.apl:30
+#: templates/view_thread.apl:31
 msgid "To reply to this thread login or register"
 msgstr "Чтобы ответить, залогиньтесь или зарегистрируйтесь"
 
@@ -226,11 +233,11 @@ msgstr "Слишком коротко"
 msgid "Unknown credentials"
 msgstr "Неизвестные данные"
 
-#: templates/settings.apl:14 templates/update_thread.apl:14
+#: templates/settings.apl:16 templates/update_thread.apl:15
 msgid "Update"
 msgstr "Обновить"
 
-#: templates/update_thread.apl:7
+#: templates/update_thread.apl:4 templates/update_thread.apl:8
 msgid "Update thread"
 msgstr "Обновить тему"
 
@@ -242,7 +249,7 @@ msgstr "Пользователь не существует"
 msgid "User exists"
 msgstr "Пользователь существует"
 
-#: templates/layout.apl:63
+#: templates/layout.apl:70
 msgid "Written by"
 msgstr "Написано"
 
@@ -289,11 +296,11 @@ msgstr "Ваша регистрация была успешно активиро
 msgid "by"
 msgstr "от"
 
-#: templates/index.apl:8
+#: templates/index.apl:9
 msgid "by activity"
 msgstr "по активности"
 
-#: templates/index.apl:8
+#: templates/index.apl:9
 msgid "by popularity"
 msgstr "по популярности"
 
@@ -302,7 +309,7 @@ msgstr "по популярности"
 msgid "delete"
 msgstr "удалить"
 
-#: templates/list_subscriptions.apl:12
+#: templates/list_subscriptions.apl:13
 msgid "delete subscriptions"
 msgstr "удалить подписки"
 
@@ -311,7 +318,7 @@ msgstr "удалить подписки"
 msgid "edit"
 msgstr "изменить"
 
-#: templates/list_notifications.apl:12
+#: templates/list_notifications.apl:13
 msgid "mark all read"
 msgstr "отметить все как прочитанное"
 
@@ -320,11 +327,11 @@ msgid "markup"
 msgstr "формат"
 
 #: templates/include/quick-edit-form.apl:6
-#: templates/include/quick-reply-form.apl:10 templates/view_thread.apl:33
+#: templates/include/quick-reply-form.apl:10 templates/view_thread.apl:34
 msgid "or"
 msgstr "или"
 
-#: templates/layout.apl:63
+#: templates/layout.apl:70
 msgid "powered by"
 msgstr "работает на"
 

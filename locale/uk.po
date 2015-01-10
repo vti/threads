@@ -8,23 +8,24 @@ msgstr ""
 msgid "Account not activated"
 msgstr ""
 
-#: templates/login.apl:3
+#: templates/login.apl:1 templates/login.apl:5
 msgid "Authorization"
 msgstr ""
 
-#: templates/change_password.apl:3 templates/settings.apl:19
+#: templates/change_password.apl:3 templates/profile.apl:14
 msgid "Change password"
 msgstr ""
 
-#: templates/create_thread.apl:12 templates/update_thread.apl:12
+#: templates/create_thread.apl:13 templates/update_thread.apl:13
 msgid "Content"
 msgstr ""
 
-#: templates/create_thread.apl:14
+#: templates/create_thread.apl:15
 msgid "Create new thread"
 msgstr ""
 
-#: templates/create_thread.apl:7 templates/layout.apl:38
+#: templates/create_thread.apl:4 templates/create_thread.apl:8
+#: templates/layout.apl:43
 msgid "Create thread"
 msgstr ""
 
@@ -48,7 +49,7 @@ msgstr ""
 msgid "Disposable emails are not allowed"
 msgstr ""
 
-#: templates/settings.apl:12
+#: templates/settings.apl:14
 msgid "Email notifications"
 msgstr ""
 
@@ -68,16 +69,16 @@ msgstr ""
 msgid "Invalid password"
 msgstr ""
 
-#: templates/activation_success.apl:5 templates/layout.apl:49
-#: templates/login.apl:11 templates/view_thread.apl:33
+#: templates/activation_success.apl:5 templates/layout.apl:56
+#: templates/login.apl:13 templates/view_thread.apl:34
 msgid "Login"
 msgstr ""
 
-#: templates/layout.apl:45
+#: templates/layout.apl:52
 msgid "Logout"
 msgstr ""
 
-#: templates/settings.apl:10
+#: templates/settings.apl:12
 msgid "Name"
 msgstr ""
 
@@ -93,7 +94,8 @@ msgstr ""
 msgid "Not readable"
 msgstr ""
 
-#: templates/layout.apl:41 templates/list_notifications.apl:5
+#: templates/layout.apl:48 templates/list_notifications.apl:2
+#: templates/list_notifications.apl:6
 msgid "Notifications"
 msgstr ""
 
@@ -103,7 +105,7 @@ msgstr ""
 msgid "Otherwise just ignore this email."
 msgstr ""
 
-#: templates/login.apl:8 templates/register.apl:8
+#: templates/login.apl:10 templates/register.apl:10
 msgid "Password"
 msgstr ""
 
@@ -125,11 +127,15 @@ msgstr ""
 msgid "Please check your email for a confirmation link."
 msgstr ""
 
-#: templates/register.apl:10 templates/view_thread.apl:33
+#: templates/profile.apl:1 templates/profile.apl:5
+msgid "Profile"
+msgstr ""
+
+#: templates/register.apl:12
 msgid "Register"
 msgstr ""
 
-#: templates/register.apl:3
+#: templates/register.apl:1 templates/register.apl:5
 msgid "Registration"
 msgstr ""
 
@@ -137,7 +143,7 @@ msgstr ""
 msgid "Registration confirmation"
 msgstr ""
 
-#: templates/settings.apl:23
+#: templates/profile.apl:18
 msgid "Remove account"
 msgstr ""
 
@@ -161,7 +167,7 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-#: templates/login.apl:9 templates/request_password_reset.apl:9
+#: templates/login.apl:11 templates/request_password_reset.apl:9
 #: templates/reset_password.apl:3
 msgid "Reset password"
 msgstr ""
@@ -179,19 +185,20 @@ msgstr ""
 msgid "Send"
 msgstr ""
 
-#: templates/layout.apl:42 templates/settings.apl:3
+#: templates/profile.apl:13 templates/settings.apl:1 templates/settings.apl:5
 msgid "Settings"
 msgstr ""
 
-#: templates/layout.apl:49
+#: templates/layout.apl:56 templates/view_thread.apl:34
 msgid "Sign up"
 msgstr ""
 
-#: templates/index.apl:6
+#: templates/index.apl:7
 msgid "Sort"
 msgstr ""
 
-#: templates/layout.apl:39 templates/list_subscriptions.apl:5
+#: templates/list_subscriptions.apl:2 templates/list_subscriptions.apl:6
+#: templates/profile.apl:9
 msgid "Subscriptions"
 msgstr ""
 
@@ -200,15 +207,15 @@ msgid ""
 "Thank you for registering. Please check your email for a confirmation link."
 msgstr ""
 
-#: templates/layout.apl:36
+#: templates/layout.apl:41 templates/profile.apl:8
 msgid "Threads"
 msgstr ""
 
-#: templates/create_thread.apl:11 templates/update_thread.apl:11
+#: templates/create_thread.apl:12 templates/update_thread.apl:12
 msgid "Title"
 msgstr ""
 
-#: templates/view_thread.apl:30
+#: templates/view_thread.apl:31
 msgid "To reply to this thread login or register"
 msgstr ""
 
@@ -224,11 +231,11 @@ msgstr ""
 msgid "Unknown credentials"
 msgstr ""
 
-#: templates/settings.apl:14 templates/update_thread.apl:14
+#: templates/settings.apl:16 templates/update_thread.apl:15
 msgid "Update"
 msgstr ""
 
-#: templates/update_thread.apl:7
+#: templates/update_thread.apl:4 templates/update_thread.apl:8
 msgid "Update thread"
 msgstr ""
 
@@ -240,7 +247,7 @@ msgstr ""
 msgid "User exists"
 msgstr ""
 
-#: templates/layout.apl:63
+#: templates/layout.apl:70
 msgid "Written by"
 msgstr ""
 
@@ -281,11 +288,11 @@ msgstr ""
 msgid "by"
 msgstr ""
 
-#: templates/index.apl:8
+#: templates/index.apl:9
 msgid "by activity"
 msgstr ""
 
-#: templates/index.apl:8
+#: templates/index.apl:9
 msgid "by popularity"
 msgstr ""
 
@@ -294,7 +301,7 @@ msgstr ""
 msgid "delete"
 msgstr ""
 
-#: templates/list_subscriptions.apl:12
+#: templates/list_subscriptions.apl:13
 msgid "delete subscriptions"
 msgstr ""
 
@@ -303,7 +310,7 @@ msgstr ""
 msgid "edit"
 msgstr ""
 
-#: templates/list_notifications.apl:12
+#: templates/list_notifications.apl:13
 msgid "mark all read"
 msgstr ""
 
@@ -312,11 +319,11 @@ msgid "markup"
 msgstr ""
 
 #: templates/include/quick-edit-form.apl:6
-#: templates/include/quick-reply-form.apl:10 templates/view_thread.apl:33
+#: templates/include/quick-reply-form.apl:10 templates/view_thread.apl:34
 msgid "or"
 msgstr ""
 
-#: templates/layout.apl:63
+#: templates/layout.apl:70
 msgid "powered by"
 msgstr ""
 
