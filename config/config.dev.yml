@@ -1,5 +1,9 @@
 ---
 base_url: 'http://localhost:5000'
+pagers:
+    threads: 5
+    subscriptions: 5
+    notifications: 5
 limits:
     threads:
         60: 2

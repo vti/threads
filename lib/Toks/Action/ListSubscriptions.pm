@@ -1,4 +1,4 @@
-package Toks::Action::ListNotifications;
+package Toks::Action::ListSubscriptions;
 
 use strict;
 use warnings;
@@ -11,7 +11,7 @@ sub run {
     my $page = $self->req->param('page');
     $page = 1 unless $page && $page =~ m/^\d+$/;
 
-    my $page_size = $self->service('config')->{pagers}->{notifications} || 10;
+    my $page_size = $self->service('config')->{pagers}->{subscriptions} || 10;
 
     $self->set_var(
         params => {

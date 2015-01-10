@@ -40,4 +40,17 @@ sub find {
     return map { $_->to_hash } @subscriptions;
 }
 
+sub count {
+    my $self = shift;
+
+    my $user = $self->scope->user;
+
+    return Toks::DB::Subscription->table->count(
+        where => [
+            user_id     => $user->get_column('id'),
+            'thread.id' => {'!=' => ''}
+        ]
+    );
+}
+
 1;

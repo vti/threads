@@ -20,4 +20,6 @@
     <br />
     % }
 
+    %== $helpers->displayer->render('include/pager', base_url => $helpers->url->list_subscriptions, total => $helpers->subscription->count);
+
 </div>
