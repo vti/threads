@@ -123,7 +123,7 @@ subtest 'toggles when exists' => sub {
     is $reply->get_column('thanks_count'), 0;
 };
 
-subtest 'not create when same user' => sub {
+subtest 'not found when same user' => sub {
     TestDB->setup;
 
     my $user =
@@ -138,33 +138,9 @@ subtest 'not create when same user' => sub {
         'tu.user' => $user
     );
 
-    $action->run;
+    ok exception { $action->run };
 
     is(Threads::DB::Thank->table->count, 0);
-};
-
-subtest 'returns count when exists' => sub {
-    TestDB->setup;
-
-    my $user =
-      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
-    my $reply =
-      Threads::DB::Reply->new(thread_id => 1, user_id => $user->get_column('id'))
-      ->create;
-    Threads::DB::Thank->new(
-        user_id  => $user->get_column('id'),
-        reply_id => $reply->get_column('id')
-    )->create;
-
-    my $action = _build_action(
-        req       => POST('/' => {}),
-        captures  => {id      => $reply->get_column('id')},
-        'tu.user' => $user
-    );
-
-    my ($json) = $action->run;
-
-    ok $json->{count};
 };
 
 sub _build_action {

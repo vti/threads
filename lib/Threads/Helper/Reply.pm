@@ -6,6 +6,7 @@ use warnings;
 use parent 'Tu::Helper';
 
 use Threads::DB::Reply;
+use Threads::DB::Thank;
 
 sub find_by_thread {
     my $self = shift;
@@ -18,6 +19,56 @@ sub find_by_thread {
     );
 
     return map { $_->to_hash } @replies;
+}
+
+sub is_author {
+    my $self = shift;
+    my ($reply) = @_;
+
+    my $user = $self->scope->user;
+
+    return 1
+      if $user && $user->role eq 'user' && $user->id == $reply->{user_id};
+
+    return 0;
+}
+
+sub is_thanked {
+    my $self = shift;
+    my ($reply) = @_;
+
+    my $user = $self->scope->user;
+
+    return
+         $reply->{thanks_count} > 0
+      && $user
+      && $user->role eq 'user'
+      && Threads::DB::Thank->find(
+        first => 1,
+        where => [
+            reply_id => $reply->{id},
+            user_id  => $user->id,
+        ]
+      ) ? 1 : 0;
+}
+
+sub is_flagged {
+    my $self = shift;
+    my ($reply) = @_;
+
+    my $user = $self->scope->user;
+
+    return
+         $reply->{reports_count} > 0
+      && $user
+      && $user->role eq 'user'
+      && Threads::DB::Report->find(
+        first => 1,
+        where => [
+            reply_id => $reply->{id},
+            user_id  => $user->id,
+        ]
+      );
 }
 
 sub count {

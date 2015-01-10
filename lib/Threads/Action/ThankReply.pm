@@ -22,34 +22,40 @@ sub run {
       Threads::DB::Thank->table->count(
         where => [reply_id => $reply->get_column('id')]);
 
-    if ($user->get_column('id') != $reply->get_column('user_id')) {
-        my $thank = Threads::DB::Thank->find(
-            first => 1,
-            where => [
-                user_id  => $user->get_column('id'),
-                reply_id => $reply->get_column('id')
-            ]
-        );
+    return $self->throw_not_found
+      if $user->get_column('id') == $reply->get_column('user_id');
 
-        if ($thank) {
-            $thank->delete;
+    my $thank = Threads::DB::Thank->find(
+        first => 1,
+        where => [
+            user_id  => $user->get_column('id'),
+            reply_id => $reply->get_column('id')
+        ]
+    );
 
-            $count--;
-        } else {
-            Threads::DB::Thank->new(
-                user_id  => $user->get_column('id'),
-                reply_id => $reply->get_column('id')
-            )->create;
+    my $state;
+    if ($thank) {
+        $thank->delete;
 
-            $count++;
+        $state = 0;
 
-        }
+        $count--;
+    }
+    else {
+        Threads::DB::Thank->new(
+            user_id  => $user->get_column('id'),
+            reply_id => $reply->get_column('id')
+        )->create;
 
-        $reply->set_column(thanks_count => $count);
-        $reply->update;
+        $count++;
+
+        $state = 1;
     }
 
-    return {count => $count}, type => 'json';
+    $reply->set_column(thanks_count => $count);
+    $reply->update;
+
+    return {count => $count == 0 ? '': $count, state => $state}, type => 'json';
 }
 
 1;

@@ -19,6 +19,7 @@ __PACKAGE__->meta(
           lft
           content
           thanks_count
+          reports_count
           /
     ],
     primary_key    => 'id',
