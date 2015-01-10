@@ -9,19 +9,23 @@ use Digest::MD5 qw(md5_hex);
 
 sub img {
     my $self = shift;
-    my ($user) = @_;
+    my ($user, $size) = @_;
 
-    return '<img src="/images/gravatar.jpg" />' if $user->{status} eq 'deleted';
+    $size ||= 40;
 
-    my $email = $user->{email};
+    if (   $user->{status} ne 'deleted'
+        && $ENV{PLACK_ENV}
+        && $ENV{PLACK_ENV} eq 'production')
+    {
+        my $email = $user->{email};
 
-    my $hash = md5_hex lc $email;
+        my $hash = md5_hex lc $email;
 
-    if ($ENV{PLACK_ENV} && $ENV{PLACK_ENV} eq 'production') {
-        return qq{<img src="http://www.gravatar.com/avatar/$hash.jpg?s=40" />};
+        return
+          qq{<img src="http://www.gravatar.com/avatar/$hash.jpg?s=$size" />};
     }
     else {
-        return '<img src="/images/gravatar.jpg" />';
+        return qq{<img src="/images/gravatar-$size.jpg" />};
     }
 }
 
