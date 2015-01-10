@@ -124,13 +124,30 @@
                     }
                 }
                 else {
-                    var update = form.find('input[name=update]');
-                    if (update.length) {
-                        var value = update.attr('value');
+                    form.find('input[name=update]').each(function() {
+                        var value = $(this).attr('value');
                         var arr = value.split('=');
 
                         form.find(arr[0]).html(data[arr[1]]);
-                    }
+                    });
+
+                    form.find('input[name=replace-class]').each(function() {
+                        var value = $(this).attr('value');
+                        console.log(value);
+                        var arr = value.split('=');
+
+                        var classes = arr[1].split(',');
+
+                        var from = classes[0];
+                        var to = classes[1];
+
+                        if (data.state) {
+                            from = classes[1];
+                            to = classes[0];
+                        }
+
+                        form.find(arr[0]).removeClass(from).addClass(to);
+                    });
                 }
             },
             failure: function(errMsg) {}

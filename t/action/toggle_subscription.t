@@ -85,7 +85,7 @@ subtest 'returns state when subscription created' => sub {
 
     my ($json) = $action->run;
 
-    is $json->{state}, 'unsubscribe';
+    is $json->{state}, 1;
 };
 
 subtest 'removes subscription' => sub {
@@ -133,7 +133,7 @@ subtest 'returns state when subscription deleted' => sub {
 
     my ($json) = $action->run;
 
-    is $json->{state}, 'subscribe';
+    is $json->{state}, 0;
 };
 
 sub _build_action {

@@ -211,19 +211,18 @@ button.link {
     display:inline;
 }
 
-.clear {
-  clear: both;
+.thread {
+    padding:0;
+    margin:0;
 }
 
-.thread {
+.thread-header {
+    padding-left:1em;
 }
 
 .thread-counters {
-    float:left;
-    width:100px;
     background:#ddd;
     padding:0.5em;
-    margin-right:1em;
     text-align:center;
 }
 
@@ -235,6 +234,8 @@ button.link {
     padding:0px;
     margin:0px;
     word-wrap: break-word;
+    line-height:1em;
+    padding-bottom:0.2em;
 }
 
 .thread-title a, .thread-title a:hover{

@@ -30,7 +30,7 @@ sub run {
     if ($subscription) {
         $subscription->delete;
 
-        return {state => $self->loc('subscribe')}, type => 'json';
+        return {state => 0}, type => 'json';
     }
     else {
         Toks::DB::Subscription->new(
@@ -38,7 +38,7 @@ sub run {
             thread_id => $thread->get_column('id')
         )->create;
 
-        return {state => $self->loc('unsubscribe')}, type => 'json';
+        return {state => 1}, type => 'json';
     }
 }
 
