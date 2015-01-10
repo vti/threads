@@ -13,7 +13,8 @@ sub img {
 
     $size ||= 40;
 
-    if (   $user->{status} ne 'deleted'
+    if (   $user
+        && $user->{status} ne 'deleted'
         && $ENV{PLACK_ENV}
         && $ENV{PLACK_ENV} eq 'production')
     {
