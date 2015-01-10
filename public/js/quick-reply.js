@@ -155,4 +155,12 @@
         return false;
     });
 
+    $('.reply').mouseover(function() {
+        //$(this).find('.reply-controls').css('visibility', 'visible');
+    });
+
+    $('.reply').mouseout(function() {
+        //$(this).find('.reply-controls').css('visibility', 'hidden');
+    });
+
 })();

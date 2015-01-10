@@ -1,13 +1,17 @@
         <div class="reply-controls">
             <form class="form-inline ajax" method="POST" action="<%= $helpers->url->thank_reply(id => $reply->{id}) %>">
             <input type="hidden" name="update" value=".quick-thank-counter=count" />
-            % my $disabled = '';
             % if (!var('user') || $helpers->reply->is_author($reply)) {
-            %    $disabled = ' disabled="disabled"';
-            % }
+                % if ($reply->{thanks_count}) {
+                <i class="fa fa-thumbs-o-up"></i>
+                <span class="quick-thank-counter">
+                <%= $reply->{thanks_count} %>
+                </span>
+                % }
+            % } else {
             % my $is_thanked = $helpers->reply->is_thanked($reply);
             <input type="hidden" name="replace-class" value=".quick-thank-button i=fa-thumbs-up,fa-thumbs-o-up" />
-            <button class="quick-thank-button" title="<%= loc('thank you') %>"<%= $disabled %>>
+            <button class="quick-thank-button" title="<%= loc('thank you') %>">
                 <i class="fa fa-thumbs<%= $is_thanked ? '' : '-o' %>-up"></i>
                 <span class="quick-thank-counter">
                 % if ($reply->{thanks_count}) {
@@ -16,6 +20,7 @@
                 </span>
             </button>
             </form>
+            % }
 
             % if (var('user')) {
             <button class="quick-reply-button"><i class="fa fa-reply"></i> <%= loc('reply') %></button>
