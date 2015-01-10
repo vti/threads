@@ -15,7 +15,7 @@ subtest 'shows 403 when not logged in' => sub {
 
     my $ua = _build_ua();
 
-    my $res = $ua->get('/create_thread');
+    my $res = $ua->get('/create-thread');
 
     is $res->code, 403;
 };
@@ -25,7 +25,7 @@ subtest 'shows validation errors' => sub {
 
     my $ua = _build_loggedin_ua();
 
-    $ua->get('/create_thread');
+    $ua->get('/create-thread');
     $ua->submit_form(fields => {}, form_id => 'create-thread');
 
     like $ua->content, qr/Required/;
@@ -36,7 +36,7 @@ subtest 'redirects after creation' => sub {
 
     my $ua = _build_loggedin_ua();
 
-    $ua->get('/create_thread');
+    $ua->get('/create-thread');
     $ua->submit_form(
         fields  => {title => 'foo', content => 'bar'},
         form_id => 'create-thread'

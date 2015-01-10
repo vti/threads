@@ -70,7 +70,7 @@ sub _add_routes {
 
     $routes->add_route('/forbidden', name => 'forbidden');
 
-    $routes->add_route('/create_thread', name => 'create_thread');
+    $routes->add_route('/create-thread', name => 'create_thread');
     $routes->add_route(
         '/threads/(:id)-(:slug)',
         name        => 'view_thread',
