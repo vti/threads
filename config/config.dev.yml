@@ -12,7 +12,7 @@ limits:
     replies:
         60: 2
         3600: 5
-        86400: 10
+        86400: 20
 session:
     secret: '123'
 database:

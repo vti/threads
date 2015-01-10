@@ -257,6 +257,10 @@ button.link {
     word-wrap: break-word;
 }
 
+.replies {
+    padding-top:1em;
+}
+
 .reply {
     margin-top:10px;
     margin-bottom:10px;

@@ -8,6 +8,7 @@
     %== $helpers->displayer->render('include/thread-controls', thread => $thread);
     % }
 
+    <div class="replies">
     % foreach my $reply ($helpers->reply->find_by_thread($thread)) {
         % my $padding = $reply->{level} * 10;
         % $padding = 100 if $padding > 100;
@@ -22,6 +23,7 @@
             %== $helpers->displayer->render('include/reply-controls', thread => $thread, reply => $reply);
         </div>
     % }
+    </div>
 
     %== $helpers->displayer->render('include/markup-help');
 </div>
