@@ -35,7 +35,8 @@ sub validate {
       Toks::LimitChecker->new->check($config->{limits}->{threads},
         Toks::DB::Thread->new);
     if ($limits_reached) {
-        $validator->add_error(title => $self->loc('You are too fast'));
+        $validator->add_error(
+            title => $self->loc('Creating threads too often'));
         return 0;
     }
 

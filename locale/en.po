@@ -28,6 +28,10 @@ msgstr ""
 msgid "Create thread"
 msgstr ""
 
+#: lib/Toks/Action/CreateThread.pm:39
+msgid "Creating threads too often"
+msgstr ""
+
 #: templates/change_password.apl:7
 msgid "Current password"
 msgstr ""
@@ -145,6 +149,10 @@ msgstr ""
 msgid "Repeat new password"
 msgstr ""
 
+#: lib/Toks/Action/CreateReply.pm:46
+msgid "Replying too often"
+msgstr ""
+
 #: lib/Toks/Action/FormBase.pm:18
 msgid "Required"
 msgstr ""
@@ -232,10 +240,6 @@ msgstr ""
 msgid "Written by"
 msgstr ""
 
-#: lib/Toks/Action/CreateReply.pm:46 lib/Toks/Action/CreateThread.pm:38
-msgid "You are too fast"
-msgstr ""
-
 #. ($email)
 #: templates/email/deregistration_confirmation_required.apl:2
 msgid ""
@@ -269,7 +273,7 @@ msgstr ""
 msgid "Your registration was successfully activated!"
 msgstr ""
 
-#: templates/include/thread.apl:18
+#: templates/include/thread.apl:23
 msgid "by"
 msgstr ""
 
@@ -320,14 +324,14 @@ msgstr ""
 msgid "reply to thread"
 msgstr ""
 
-#: lib/Toks/Action/ToggleSubscription.pm:33 templates/include/thread.apl:9
+#: templates/include/thread.apl:11
 msgid "subscribe"
 msgstr ""
 
-#: lib/Toks/Action/ToggleSubscription.pm:41 templates/include/thread.apl:9
+#: templates/include/thread.apl:11
 msgid "unsubscribe"
 msgstr ""
 
-#: templates/include/thread.apl:23
+#: templates/include/thread.apl:28
 msgid "upd."
 msgstr ""

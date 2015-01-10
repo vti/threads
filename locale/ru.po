@@ -28,6 +28,10 @@ msgstr "Создать новую тему"
 msgid "Create thread"
 msgstr "Создать тему"
 
+#: lib/Toks/Action/CreateThread.pm:39
+msgid "Creating threads too often"
+msgstr "Слишком часто создаете темы"
+
 #: templates/change_password.apl:7
 msgid "Current password"
 msgstr "Текущий пароль"
@@ -145,6 +149,10 @@ msgstr "Удалить аккаунт"
 msgid "Repeat new password"
 msgstr "Повторите новый пароль"
 
+#: lib/Toks/Action/CreateReply.pm:46
+msgid "Replying too often"
+msgstr "Слишком часто комментируете"
+
 #: lib/Toks/Action/FormBase.pm:18
 msgid "Required"
 msgstr "Обязательно"
@@ -234,10 +242,6 @@ msgstr "Пользователь существует"
 msgid "Written by"
 msgstr "Написано"
 
-#: lib/Toks/Action/CreateReply.pm:46 lib/Toks/Action/CreateThread.pm:38
-msgid "You are too fast"
-msgstr "Слишком быстро"
-
 #. ($email)
 #: templates/email/deregistration_confirmation_required.apl:2
 msgid ""
@@ -277,7 +281,7 @@ msgstr "Выш пароль был успешно сброшен!"
 msgid "Your registration was successfully activated!"
 msgstr "Ваша регистрация была успешно активирована!"
 
-#: templates/include/thread.apl:18
+#: templates/include/thread.apl:23
 msgid "by"
 msgstr "от"
 
@@ -328,14 +332,14 @@ msgstr "ответить"
 msgid "reply to thread"
 msgstr "ответить в тему"
 
-#: lib/Toks/Action/ToggleSubscription.pm:33 templates/include/thread.apl:9
+#: templates/include/thread.apl:11
 msgid "subscribe"
 msgstr "подписаться"
 
-#: lib/Toks/Action/ToggleSubscription.pm:41 templates/include/thread.apl:9
+#: templates/include/thread.apl:11
 msgid "unsubscribe"
 msgstr "отписаться"
 
-#: templates/include/thread.apl:23
+#: templates/include/thread.apl:28
 msgid "upd."
 msgstr "обн."

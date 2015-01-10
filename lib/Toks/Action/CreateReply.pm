@@ -43,7 +43,7 @@ sub validate {
       Toks::LimitChecker->new->check($config->{limits}->{replies},
         Toks::DB::Reply->new);
     if ($limits_reached) {
-        $validator->add_error(content => $self->loc('You are too fast'));
+        $validator->add_error(content => $self->loc('Replying too often'));
         return 0;
     }
 
