@@ -13,6 +13,7 @@ BEGIN {
 }
 
 use Getopt::Long;
+use Encode ();
 use Tu::Config;
 use Threads::DB;
 use Threads::DB::User;
@@ -22,15 +23,19 @@ my $unblock;
 GetOptions('unblock' => \$unblock, 'verbose' => \$verbose)
   or die("Error in command line arguments\n");
 
-my ($id) = @ARGV;
-die 'Usage: <id|email>' unless $id;
+my ($id) = map { Encode::decode('UTF-8', $_) } @ARGV;
+die 'Usage: <id|email|name>' unless $id;
 
 my $config = Tu::Config->new(mode => 1)->load("$RealBin/../config/config.yml");
 Threads::DB->init_db(%{$config->{database}});
 
 my $user = Threads::DB::User->find(
     first => 1,
-    where => [$id =~ m/^\d+$/ ? (id => $id) : (email => $id)]
+    where => [
+        $id =~ m/^\d+$/
+        ? (id => $id)
+        : ($id =~ m/\@/ ? (email => $id) : (name => $id))
+    ]
 );
 
 die 'Unknown user' unless $user;
