@@ -1,7 +1,7 @@
 requires 'DBD::SQLite';
 requires 'Email::MIME';
-requires 'Email::Sender::Simple';
 requires 'Email::Valid';
+requires 'HTML::Truncate';
 requires 'I18N::AcceptLanguage';
 requires 'JSON';
 requires 'Locale::Maketext::Extract::Run';
@@ -14,10 +14,7 @@ requires 'Routes::Tiny';
 requires 'String::CamelCase';
 requires 'Text::APL';
 requires 'YAML::Tiny';
-requires 'HTML::Truncate';
-requires 'Tu';
 
 requires 'Test::More';
 requires 'Test::WWW::Mechanize::PSGI';
 requires 'Test::MonkeyMock';
-requires 'Test::TempDir::Tiny';
