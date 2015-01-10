@@ -213,15 +213,17 @@ button.link {
 
 .thread {
     padding:0;
-    margin:0;
+    padding-bottom:20px;
 }
 
 .thread-header {
-    padding-left:1em;
 }
 
 .thread-counters {
-    background:#ddd;
+    margin-right:1em;
+    float:left;
+    width:100px;
+    background:#eee;
     padding:0.5em;
     text-align:center;
 }
@@ -250,8 +252,7 @@ button.link {
 }
 
 .thread-content {
-    padding-top:10px;
-    padding-bottom:10px;
+    padding-top:1em;
     max-width:700px;
     word-wrap: break-word;
 }
