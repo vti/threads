@@ -28,7 +28,7 @@ msgstr ""
 msgid "Create thread"
 msgstr ""
 
-#: lib/Toks/Action/CreateThread.pm:39
+#: lib/Toks/Action/CreateThread.pm:40
 msgid "Creating threads too often"
 msgstr ""
 
@@ -69,7 +69,7 @@ msgid "Invalid password"
 msgstr ""
 
 #: templates/activation_success.apl:5 templates/layout.apl:49
-#: templates/login.apl:11
+#: templates/login.apl:11 templates/view_thread.apl:33
 msgid "Login"
 msgstr ""
 
@@ -125,7 +125,7 @@ msgstr ""
 msgid "Please check your email for a confirmation link."
 msgstr ""
 
-#: templates/register.apl:10
+#: templates/register.apl:10 templates/view_thread.apl:33
 msgid "Register"
 msgstr ""
 
@@ -149,7 +149,7 @@ msgstr ""
 msgid "Repeat new password"
 msgstr ""
 
-#: lib/Toks/Action/CreateReply.pm:46
+#: lib/Toks/Action/CreateReply.pm:47
 msgid "Replying too often"
 msgstr ""
 
@@ -206,6 +206,10 @@ msgstr ""
 
 #: templates/create_thread.apl:11 templates/update_thread.apl:11
 msgid "Title"
+msgstr ""
+
+#: templates/view_thread.apl:30
+msgid "To reply to this thread login or register"
 msgstr ""
 
 #: lib/Toks/Action/FormBase.pm:23
@@ -308,7 +312,7 @@ msgid "markup"
 msgstr ""
 
 #: templates/include/quick-edit-form.apl:6
-#: templates/include/quick-reply-form.apl:10
+#: templates/include/quick-reply-form.apl:10 templates/view_thread.apl:33
 msgid "or"
 msgstr ""
 

@@ -28,7 +28,7 @@ msgstr "Создать новую тему"
 msgid "Create thread"
 msgstr "Создать тему"
 
-#: lib/Toks/Action/CreateThread.pm:39
+#: lib/Toks/Action/CreateThread.pm:40
 msgid "Creating threads too often"
 msgstr "Слишком часто создаете темы"
 
@@ -69,7 +69,7 @@ msgid "Invalid password"
 msgstr "Неправильный пароль"
 
 #: templates/activation_success.apl:5 templates/layout.apl:49
-#: templates/login.apl:11
+#: templates/login.apl:11 templates/view_thread.apl:33
 msgid "Login"
 msgstr "Вход"
 
@@ -125,7 +125,7 @@ msgstr "Сброс пароля"
 msgid "Please check your email for a confirmation link."
 msgstr "Пожалуйста, проверьте свою почту на наличие письма с подтверждением."
 
-#: templates/register.apl:10
+#: templates/register.apl:10 templates/view_thread.apl:33
 msgid "Register"
 msgstr "Зарегистрироваться"
 
@@ -149,7 +149,7 @@ msgstr "Удалить аккаунт"
 msgid "Repeat new password"
 msgstr "Повторите новый пароль"
 
-#: lib/Toks/Action/CreateReply.pm:46
+#: lib/Toks/Action/CreateReply.pm:47
 msgid "Replying too often"
 msgstr "Слишком часто комментируете"
 
@@ -209,6 +209,10 @@ msgstr "Темы"
 #: templates/create_thread.apl:11 templates/update_thread.apl:11
 msgid "Title"
 msgstr "Заголовок"
+
+#: templates/view_thread.apl:30
+msgid "To reply to this thread login or register"
+msgstr "Чтобы ответить, залогиньтесь или зарегистрируйтесь"
 
 #: lib/Toks/Action/FormBase.pm:23
 msgid "Too long"
@@ -316,7 +320,7 @@ msgid "markup"
 msgstr "формат"
 
 #: templates/include/quick-edit-form.apl:6
-#: templates/include/quick-reply-form.apl:10
+#: templates/include/quick-reply-form.apl:10 templates/view_thread.apl:33
 msgid "or"
 msgstr "или"
 

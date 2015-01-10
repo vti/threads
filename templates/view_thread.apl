@@ -25,5 +25,16 @@
     % }
     </div>
 
+    % if (!var('user')) {
+    <div class="not-user-notice">
+        <%== loc('To reply to this thread login or register') %>.
+
+        <div>
+            <a href="<%= $helpers->url->login %>"><%= loc('Login') %></a> <%= loc('or') %> <a href="<%= $helpers->url->register %>"><%= loc('Sign up') %></a>
+        </div>
+
+    </div>
+    % }
+
     %== $helpers->displayer->render('include/markup-help');
 </div>

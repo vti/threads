@@ -344,3 +344,10 @@ a.markup-help-button {
 .noti {
     background:#FFDC00;
 }
+
+.not-user-notice {
+    margin-top:2em;
+    padding-top:1em;
+    border-top:1px solid #eee;
+    max-width:500px;
+}
