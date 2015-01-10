@@ -5,13 +5,13 @@ use Test::More;
 use TestDB;
 use TestLib;
 
-use Toks::DB::DisposableEmailBlacklist;
-use Toks::Validator::NotDisposableEmail;
+use Threads::DB::DisposableEmailBlacklist;
+use Threads::Validator::NotDisposableEmail;
 
 subtest 'return 0 when invalid' => sub {
     TestDB->setup;
 
-    Toks::DB::DisposableEmailBlacklist->new(domain => 'mailinator.com')
+    Threads::DB::DisposableEmailBlacklist->new(domain => 'mailinator.com')
       ->create;
 
     my $rule = _build_rule();
@@ -28,7 +28,7 @@ subtest 'return 1 when valid' => sub {
 };
 
 sub _build_rule {
-    Toks::Validator::NotDisposableEmail->new;
+    Threads::Validator::NotDisposableEmail->new;
 }
 
 done_testing;

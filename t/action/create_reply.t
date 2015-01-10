@@ -8,12 +8,12 @@ use TestDB;
 use TestRequest;
 
 use HTTP::Request::Common;
-use Toks::DB::User;
-use Toks::DB::Thread;
-use Toks::DB::Reply;
-use Toks::DB::Subscription;
-use Toks::DB::Notification;
-use Toks::Action::CreateReply;
+use Threads::DB::User;
+use Threads::DB::Thread;
+use Threads::DB::Reply;
+use Threads::DB::Subscription;
+use Threads::DB::Notification;
+use Threads::Action::CreateReply;
 
 subtest 'returns 404 when unknown thread' => sub {
     TestDB->setup;
@@ -28,7 +28,7 @@ subtest 'returns 404 when unknown thread' => sub {
 subtest 'returns 404 when unknown to' => sub {
     TestDB->setup;
 
-    my $thread = Toks::DB::Thread->new(user_id => 1)->create;
+    my $thread = Threads::DB::Thread->new(user_id => 1)->create;
     my $action = _build_action(
         req      => POST('/?to=123' => {}),
         captures => {id             => $thread->get_column('id')}
@@ -42,7 +42,7 @@ subtest 'returns 404 when unknown to' => sub {
 subtest 'shows errors' => sub {
     TestDB->setup;
 
-    my $thread = Toks::DB::Thread->new(user_id => 1)->create;
+    my $thread = Threads::DB::Thread->new(user_id => 1)->create;
     my $action = _build_action(
         req      => POST('/' => {}),
         captures => {id      => $thread->get_column('id')}
@@ -57,9 +57,9 @@ subtest 'shows errors when limits' => sub {
     TestDB->setup;
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $thread =
-      Toks::DB::Thread->new(user_id => $user->get_column('id'))->create;
+      Threads::DB::Thread->new(user_id => $user->get_column('id'))->create;
 
     my $services = _mock_services(config => {limits => {replies => {60 => 5}}});
     my $action = _build_action(
@@ -71,7 +71,7 @@ subtest 'shows errors when limits' => sub {
 
     $action->run for 1 .. 10;
 
-    is(Toks::DB::Reply->table->count, 5);
+    is(Threads::DB::Reply->table->count, 5);
     is $action->vars->{errors}->{content}, 'Replying too often';
 };
 
@@ -79,9 +79,9 @@ subtest 'creates reply with correct params' => sub {
     TestDB->setup;
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $thread =
-      Toks::DB::Thread->new(user_id => $user->get_column('id'))->create;
+      Threads::DB::Thread->new(user_id => $user->get_column('id'))->create;
 
     my $action = _build_action(
         req       => POST('/' => {content => 'bar'}),
@@ -91,7 +91,7 @@ subtest 'creates reply with correct params' => sub {
 
     $action->run;
 
-    my $reply = Toks::DB::Reply->find(first => 1);
+    my $reply = Threads::DB::Reply->find(first => 1);
 
     ok $reply;
     is $reply->get_column('user_id'),   $user->get_column('id');
@@ -103,10 +103,10 @@ subtest 'creates reply with correct params when parent present' => sub {
     TestDB->setup;
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $thread =
-      Toks::DB::Thread->new(user_id => $user->get_column('id'))->create;
-    my $parent = Toks::DB::Reply->new(
+      Threads::DB::Thread->new(user_id => $user->get_column('id'))->create;
+    my $parent = Threads::DB::Reply->new(
         user_id   => $user->get_column('id'),
         thread_id => $thread->get_column('id')
     )->create;
@@ -121,7 +121,7 @@ subtest 'creates reply with correct params when parent present' => sub {
 
     $action->run;
 
-    my $reply = Toks::DB::Reply->find(first => 1, order_by => [id => 'DESC']);
+    my $reply = Threads::DB::Reply->find(first => 1, order_by => [id => 'DESC']);
 
     is $reply->get_column('parent_id'), $parent->get_column('id');
 };
@@ -130,9 +130,9 @@ subtest 'updates replies_count in thread' => sub {
     TestDB->setup;
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $thread =
-      Toks::DB::Thread->new(user_id => $user->get_column('id'))->create;
+      Threads::DB::Thread->new(user_id => $user->get_column('id'))->create;
 
     my $action = _build_action(
         req       => POST('/' => {content => 'bar'}),
@@ -151,8 +151,8 @@ subtest 'updates last_activity in thread' => sub {
     TestDB->setup;
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
-    my $thread = Toks::DB::Thread->new(
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $thread = Threads::DB::Thread->new(
         user_id       => $user->get_column('id'),
         last_activity => '123'
     )->create;
@@ -175,9 +175,9 @@ subtest 'redirects to thread view' => sub {
     TestDB->setup;
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $thread =
-      Toks::DB::Thread->new(user_id => $user->get_column('id'))->create;
+      Threads::DB::Thread->new(user_id => $user->get_column('id'))->create;
 
     my $action = _build_action(
         req       => POST('/' => {content => 'bar'}),
@@ -198,10 +198,10 @@ subtest 'does not notify thread author when same replier' => sub {
     TestDB->setup;
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $thread =
-      Toks::DB::Thread->new(user_id => $user->get_column('id'))->create;
-    Toks::DB::Subscription->new(
+      Threads::DB::Thread->new(user_id => $user->get_column('id'))->create;
+    Threads::DB::Subscription->new(
         user_id   => $user->get_column('id'),
         thread_id => $thread->get_column('id')
     )->create;
@@ -214,25 +214,25 @@ subtest 'does not notify thread author when same replier' => sub {
 
     $action->run;
 
-    ok !Toks::DB::Notification->find(first => 1);
+    ok !Threads::DB::Notification->find(first => 1);
 };
 
 subtest 'notify subscribed users' => sub {
     TestDB->setup;
 
     my $thread_author =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $thread =
-      Toks::DB::Thread->new(user_id => $thread_author->get_column('id'))
+      Threads::DB::Thread->new(user_id => $thread_author->get_column('id'))
       ->create;
-    Toks::DB::Subscription->new(
+    Threads::DB::Subscription->new(
         user_id   => $thread_author->get_column('id'),
         thread_id => $thread->get_column('id')
     )->create;
 
     my $user2 =
-      Toks::DB::User->new(email => 'foo2@bar.com', password => 'bar')->create;
-    Toks::DB::Subscription->new(
+      Threads::DB::User->new(email => 'foo2@bar.com', password => 'bar')->create;
+    Threads::DB::Subscription->new(
         user_id   => $user2->get_column('id'),
         thread_id => $thread->get_column('id')
     )->create;
@@ -245,10 +245,10 @@ subtest 'notify subscribed users' => sub {
 
     $action->run;
 
-    my $reply = Toks::DB::Reply->find(first => 1);
-    my $notification = Toks::DB::Notification->find(first => 1);
+    my $reply = Threads::DB::Reply->find(first => 1);
+    my $notification = Threads::DB::Notification->find(first => 1);
 
-    is(Toks::DB::Notification->table->count, 1);
+    is(Threads::DB::Notification->table->count, 1);
 
     ok $notification;
     is $notification->get_column('user_id'),  $thread_author->get_column('id');
@@ -259,21 +259,21 @@ subtest 'notify parent reply user' => sub {
     TestDB->setup;
 
     my $thread_author =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $thread =
-      Toks::DB::Thread->new(user_id => $thread_author->get_column('id'))
+      Threads::DB::Thread->new(user_id => $thread_author->get_column('id'))
       ->create;
 
     my $user =
-      Toks::DB::User->new(email => 'foo2@bar.com', password => 'bar')->create;
+      Threads::DB::User->new(email => 'foo2@bar.com', password => 'bar')->create;
 
-    my $parent_reply = Toks::DB::Reply->new(
+    my $parent_reply = Threads::DB::Reply->new(
         thread_id => $thread->get_column('id'),
         user_id   => $user->get_column('id')
     )->create;
 
     my $user2 =
-      Toks::DB::User->new(email => 'foo3@bar.com', password => 'bar')->create;
+      Threads::DB::User->new(email => 'foo3@bar.com', password => 'bar')->create;
 
     my $action = _build_action(
         req =>
@@ -284,10 +284,10 @@ subtest 'notify parent reply user' => sub {
 
     $action->run;
 
-    my $reply = Toks::DB::Reply->find(first => 1, order_by => [id => 'DESC']);
-    my $notification = Toks::DB::Notification->find(first => 1);
+    my $reply = Threads::DB::Reply->find(first => 1, order_by => [id => 'DESC']);
+    my $notification = Threads::DB::Notification->find(first => 1);
 
-    is(Toks::DB::Notification->table->count, 1);
+    is(Threads::DB::Notification->table->count, 1);
 
     ok $notification;
     is $notification->get_column('user_id'),  $user->get_column('id');
@@ -298,15 +298,15 @@ subtest 'not notify parent reply user when same user' => sub {
     TestDB->setup;
 
     my $thread_author =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $thread =
-      Toks::DB::Thread->new(user_id => $thread_author->get_column('id'))
+      Threads::DB::Thread->new(user_id => $thread_author->get_column('id'))
       ->create;
 
     my $user =
-      Toks::DB::User->new(email => 'foo2@bar.com', password => 'bar')->create;
+      Threads::DB::User->new(email => 'foo2@bar.com', password => 'bar')->create;
 
-    my $parent_reply = Toks::DB::Reply->new(
+    my $parent_reply = Threads::DB::Reply->new(
         thread_id => $thread->get_column('id'),
         user_id   => $user->get_column('id')
     )->create;
@@ -320,10 +320,10 @@ subtest 'not notify parent reply user when same user' => sub {
 
     $action->run;
 
-    my $reply = Toks::DB::Reply->find(first => 1, order_by => [id => 'DESC']);
-    my $notification = Toks::DB::Notification->find(first => 1);
+    my $reply = Threads::DB::Reply->find(first => 1, order_by => [id => 'DESC']);
+    my $notification = Threads::DB::Notification->find(first => 1);
 
-    is(Toks::DB::Notification->table->count, 0);
+    is(Threads::DB::Notification->table->count, 0);
 };
 
 sub _mock_services {
@@ -342,7 +342,7 @@ sub _build_action {
 
     my $env = $params{env} || TestRequest->to_env(%params);
 
-    my $action = Toks::Action::CreateReply->new(
+    my $action = Threads::Action::CreateReply->new(
         env      => $env,
         services => $params{services} || _mock_services()
     );

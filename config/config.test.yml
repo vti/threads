@@ -3,7 +3,7 @@ base_url: 'http://localhost:5000'
 session:
     secret: '123'
 mailer:
-    subject_prefix: '[Toks]'
+    subject_prefix: '[Threads]'
     headers:
         - 'From'
         - 'foo@bar.com'

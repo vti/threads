@@ -3,7 +3,7 @@ package TestDB;
 use strict;
 use warnings;
 
-use Toks::DB;
+use Threads::DB;
 
 sub setup {
     my $self = shift;
@@ -26,8 +26,8 @@ sub setup {
     }
     $dbh->do($_) for @schema;
 
-    Toks::DB->init_db($dbh);
-    Toks::DB->init_db->{sqlite_unicode} = 1;
+    Threads::DB->init_db($dbh);
+    Threads::DB->init_db->{sqlite_unicode} = 1;
 }
 
 1;

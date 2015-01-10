@@ -12,9 +12,9 @@ BEGIN {
 
 use Plack::Builder;
 use Plack::App::File;
-use Toks;
+use Threads;
 
-my $app = Toks->new;
+my $app = Threads->new;
 
 builder {
     mount '/favicon.ico' =>

@@ -15,24 +15,24 @@ BEGIN {
 
 use Plack::Builder;
 use Tu::Config;
-use Toks::DB::User;
-use Toks::DB::Thread;
-use Toks::DB::Reply;
+use Threads::DB::User;
+use Threads::DB::Thread;
+use Threads::DB::Reply;
 
 my $config = Tu::Config->new(mode => 1)->load('config/config.yml');
-Toks::DB->init_db(%{$config->{database}});
+Threads::DB->init_db(%{$config->{database}});
 
-Toks::DB::User->table->delete;
-Toks::DB::Thread->table->delete;
-Toks::DB::Reply->table->delete;
+Threads::DB::User->table->delete;
+Threads::DB::Thread->table->delete;
+Threads::DB::Reply->table->delete;
 
-Toks::DB::User->new(
+Threads::DB::User->new(
     email    => 'foo@bar.com',
     password => 'password',
     status   => 'active'
 )->create;
 
-Toks::DB::User->new(
+Threads::DB::User->new(
     email    => 'foo2@bar.com',
     password => 'password',
     status   => 'active'

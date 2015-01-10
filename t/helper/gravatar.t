@@ -4,7 +4,7 @@ use warnings;
 use Test::More;
 use TestLib;
 
-use Toks::Helper::Gravatar;
+use Threads::Helper::Gravatar;
 
 subtest 'returns gravatar when in production' => sub {
     my $helper = _build_helper();
@@ -47,7 +47,7 @@ subtest 'returns default gravatar when user deleted' => sub {
 my $env = {};
 
 sub _build_helper {
-    Toks::Helper::Gravatar->new(env => $env);
+    Threads::Helper::Gravatar->new(env => $env);
 }
 
 done_testing;

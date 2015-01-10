@@ -7,8 +7,8 @@ use TestLib;
 use TestMail;
 use TestDB;
 
-use Toks;
-use Toks::DB::User;
+use Threads;
+use Threads::DB::User;
 
 subtest 'shows 403 when not logged in' => sub {
     TestDB->setup;
@@ -58,7 +58,7 @@ subtest 'shows 404 when updating unknown thread' => sub {
 subtest 'shows 404 when updating foreigner thread' => sub {
     TestDB->setup;
 
-    my $thread = Toks::DB::Thread->new(user_id => 999)->create;
+    my $thread = Threads::DB::Thread->new(user_id => 999)->create;
 
     my $ua = _build_loggedin_ua();
 
@@ -72,9 +72,9 @@ subtest 'shows validation errors on update' => sub {
 
     my $ua = _build_loggedin_ua();
 
-    my $user = Toks::DB::User->find(first => 1);
+    my $user = Threads::DB::User->find(first => 1);
     my $thread =
-      Toks::DB::Thread->new(user_id => $user->get_column('id'))->create;
+      Threads::DB::Thread->new(user_id => $user->get_column('id'))->create;
 
     $ua->get('/threads/' . $thread->get_column('id') . '/update');
     $ua->submit_form(fields => {}, form_id => 'update-thread');
@@ -87,9 +87,9 @@ subtest 'shows validation errors on update' => sub {
 #
 #    my $ua = _build_loggedin_ua();
 #
-#    my $user = Toks::DB::User->find(first => 1);
+#    my $user = Threads::DB::User->find(first => 1);
 #    my $thread =
-#      Toks::DB::Thread->new(user_id => $user->get_column('id'))->create;
+#      Threads::DB::Thread->new(user_id => $user->get_column('id'))->create;
 #
 #    $ua->get('/threads/' . $thread->get_column('id') . '/update');
 #    $ua->submit_form(fields => {title => 'bar', content => 'baz'});
@@ -110,7 +110,7 @@ subtest 'shows 404 when deleting unknown thread' => sub {
 subtest 'shows 404 when deleting foreigner thread' => sub {
     TestDB->setup;
 
-    my $thread = Toks::DB::Thread->new(user_id => 999)->create;
+    my $thread = Threads::DB::Thread->new(user_id => 999)->create;
 
     my $ua = _build_loggedin_ua();
 
@@ -123,10 +123,10 @@ subtest 'redirects after deletion' => sub {
     TestDB->setup;
 
     my $ua = _build_loggedin_ua();
-    my $user = Toks::DB::User->find(first => 1);
+    my $user = Threads::DB::User->find(first => 1);
 
     my $thread =
-      Toks::DB::Thread->new(user_id => $user->get_column('id'))->create;
+      Threads::DB::Thread->new(user_id => $user->get_column('id'))->create;
 
     $ua->post('/threads/' . $thread->get_column('id') . '/delete');
 
@@ -134,7 +134,7 @@ subtest 'redirects after deletion' => sub {
 };
 
 sub _build_loggedin_ua {
-    Toks::DB::User->new(
+    Threads::DB::User->new(
         email    => 'foo@bar.com',
         password => 'silly',
         status   => 'active'
@@ -154,7 +154,7 @@ sub _build_loggedin_ua {
 }
 
 sub _build_ua {
-    my $app = Toks->new;
+    my $app = Threads->new;
     return Test::WWW::Mechanize::PSGI->new(app => $app->to_app);
 }
 

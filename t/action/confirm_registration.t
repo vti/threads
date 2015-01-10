@@ -7,9 +7,9 @@ use TestLib;
 use TestDB;
 use TestRequest;
 
-use Toks::DB::User;
-use Toks::DB::Confirmation;
-use Toks::Action::ConfirmRegistration;
+use Threads::DB::User;
+use Threads::DB::Confirmation;
+use Threads::Action::ConfirmRegistration;
 
 subtest 'return 404 when confirmation token not found' => sub {
     my $action = _build_action(captures => {});
@@ -32,7 +32,7 @@ subtest 'return 404 when confirmation not found' => sub {
 subtest 'return 404 when user not found' => sub {
     TestDB->setup;
 
-    my $confirmation = Toks::DB::Confirmation->new(user_id => 123)->create;
+    my $confirmation = Threads::DB::Confirmation->new(user_id => 123)->create;
     my $action =
       _build_action(captures => {token => $confirmation->get_column('token')});
 
@@ -44,9 +44,9 @@ subtest 'return 404 when user not found' => sub {
 subtest 'change user status' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo@bar.com')->create;
+    my $user = Threads::DB::User->new(email => 'foo@bar.com')->create;
     my $confirmation =
-      Toks::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+      Threads::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
     my $action =
       _build_action(captures => {token => $confirmation->get_column('token')});
 
@@ -60,9 +60,9 @@ subtest 'change user status' => sub {
 subtest 'delete confirmation' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo@bar.com')->create;
+    my $user = Threads::DB::User->new(email => 'foo@bar.com')->create;
     my $confirmation =
-      Toks::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+      Threads::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
     my $action =
       _build_action(captures => {token => $confirmation->get_column('token')});
 
@@ -76,7 +76,7 @@ sub _build_action {
 
     my $env = $params{env} || TestRequest->to_env(%params);
 
-    my $action = Toks::Action::ConfirmRegistration->new(env => $env);
+    my $action = Threads::Action::ConfirmRegistration->new(env => $env);
     $action = Test::MonkeyMock->new($action);
     $action->mock(render => sub { '' });
 

@@ -4,7 +4,7 @@ use warnings;
 use Test::More;
 use TestLib;
 
-use Toks::Validator::Readable;
+use Threads::Validator::Readable;
 
 subtest 'return 0 when invalid' => sub {
     my $rule = _build_rule();
@@ -20,7 +20,7 @@ subtest 'return 1 when valid' => sub {
 };
 
 sub _build_rule {
-    Toks::Validator::Readable->new;
+    Threads::Validator::Readable->new;
 }
 
 done_testing;

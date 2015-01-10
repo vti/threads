@@ -8,9 +8,9 @@ use TestDB;
 use TestRequest;
 
 use HTTP::Request::Common;
-use Toks::DB::User;
-use Toks::DB::Confirmation;
-use Toks::Action::ResetPassword;
+use Threads::DB::User;
+use Threads::DB::Confirmation;
+use Threads::Action::ResetPassword;
 
 subtest 'return 404 when no confirmation token' => sub {
     TestDB->setup;
@@ -35,7 +35,7 @@ subtest 'return 404 when confirmation not found' => sub {
 subtest 'return 404 when user not found' => sub {
     TestDB->setup;
 
-    my $confirmation = Toks::DB::Confirmation->new(user_id => 123)->create;
+    my $confirmation = Threads::DB::Confirmation->new(user_id => 123)->create;
     my $action =
       _build_action(captures => {token => $confirmation->get_column('token')});
 
@@ -47,9 +47,9 @@ subtest 'return 404 when user not found' => sub {
 subtest 'show reset password page' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo@bar.com')->create;
+    my $user = Threads::DB::User->new(email => 'foo@bar.com')->create;
     my $confirmation =
-      Toks::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+      Threads::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
     my $action =
       _build_action(captures => {token => $confirmation->get_column('token')});
 
@@ -77,7 +77,7 @@ subtest 'return 404 when confirmation not found' => sub {
 subtest 'return 404 when user not found' => sub {
     TestDB->setup;
 
-    my $confirmation = Toks::DB::Confirmation->new(user_id => 123)->create;
+    my $confirmation = Threads::DB::Confirmation->new(user_id => 123)->create;
     my $action = _build_action(
         captures => {token   => $confirmation->get_column('token')},
         req      => POST('/' => {})
@@ -91,9 +91,9 @@ subtest 'return 404 when user not found' => sub {
 subtest 'show validation errors' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo@bar.com')->create;
+    my $user = Threads::DB::User->new(email => 'foo@bar.com')->create;
     my $confirmation =
-      Toks::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+      Threads::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
     my $action = _build_action(
         captures => {token   => $confirmation->get_column('token')},
         req      => POST('/' => {})
@@ -108,9 +108,9 @@ subtest 'show validation errors' => sub {
 subtest 'show validation errors when password do not match' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo@bar.com')->create;
+    my $user = Threads::DB::User->new(email => 'foo@bar.com')->create;
     my $confirmation =
-      Toks::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+      Threads::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
     my $action = _build_action(
         captures => {token => $confirmation->get_column('token')},
         req      => POST(
@@ -131,9 +131,9 @@ subtest 'show validation errors when password do not match' => sub {
 subtest 'change user password' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo@bar.com')->create;
+    my $user = Threads::DB::User->new(email => 'foo@bar.com')->create;
     my $confirmation =
-      Toks::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+      Threads::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
     my $action = _build_action(
         captures => {token => $confirmation->get_column('token')},
         req      => POST(
@@ -151,9 +151,9 @@ subtest 'change user password' => sub {
 subtest 'delete confirmation' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo@bar.com')->create;
+    my $user = Threads::DB::User->new(email => 'foo@bar.com')->create;
     my $confirmation =
-      Toks::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+      Threads::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
     my $action = _build_action(
         captures => {token => $confirmation->get_column('token')},
         req      => POST(
@@ -171,7 +171,7 @@ sub _build_action {
 
     my $env = $params{env} || TestRequest->to_env(%params);
 
-    my $action = Toks::Action::ResetPassword->new(env => $env);
+    my $action = Threads::Action::ResetPassword->new(env => $env);
     $action = Test::MonkeyMock->new($action);
     $action->mock(render => sub { '' });
 

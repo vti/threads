@@ -8,10 +8,10 @@ use TestDB;
 use TestRequest;
 
 use HTTP::Request::Common;
-use Toks::DB::User;
-use Toks::DB::Thread;
-use Toks::DB::Subscription;
-use Toks::Action::ToggleSubscription;
+use Threads::DB::User;
+use Threads::DB::Thread;
+use Threads::DB::Subscription;
+use Threads::Action::ToggleSubscription;
 
 subtest 'returns 404 when unknown thread' => sub {
     TestDB->setup;
@@ -27,9 +27,9 @@ subtest 'creates subscription' => sub {
     TestDB->setup;
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $thread =
-      Toks::DB::Thread->new(user_id => $user->get_column('id'))->create;
+      Threads::DB::Thread->new(user_id => $user->get_column('id'))->create;
 
     my $action = _build_action(
         req       => POST('/' => {}),
@@ -39,7 +39,7 @@ subtest 'creates subscription' => sub {
 
     $action->run;
 
-    my $subscription = Toks::DB::Subscription->find(first => 1);
+    my $subscription = Threads::DB::Subscription->find(first => 1);
 
     ok $subscription;
     is $subscription->get_column('user_id'),   $user->get_column('id');
@@ -50,9 +50,9 @@ subtest 'creates subscription' => sub {
     TestDB->setup;
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $thread =
-      Toks::DB::Thread->new(user_id => $user->get_column('id'))->create;
+      Threads::DB::Thread->new(user_id => $user->get_column('id'))->create;
 
     my $action = _build_action(
         req       => POST('/' => {}),
@@ -62,7 +62,7 @@ subtest 'creates subscription' => sub {
 
     $action->run;
 
-    my $subscription = Toks::DB::Subscription->find(first => 1);
+    my $subscription = Threads::DB::Subscription->find(first => 1);
 
     ok $subscription;
     is $subscription->get_column('user_id'),   $user->get_column('id');
@@ -73,9 +73,9 @@ subtest 'returns state when subscription created' => sub {
     TestDB->setup;
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $thread =
-      Toks::DB::Thread->new(user_id => $user->get_column('id'))->create;
+      Threads::DB::Thread->new(user_id => $user->get_column('id'))->create;
 
     my $action = _build_action(
         req       => POST('/' => {}),
@@ -92,10 +92,10 @@ subtest 'removes subscription' => sub {
     TestDB->setup;
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $thread =
-      Toks::DB::Thread->new(user_id => $user->get_column('id'))->create;
-    Toks::DB::Subscription->new(
+      Threads::DB::Thread->new(user_id => $user->get_column('id'))->create;
+    Threads::DB::Subscription->new(
         user_id   => $user->get_column('id'),
         thread_id => $thread->get_column('id')
     )->create;
@@ -108,7 +108,7 @@ subtest 'removes subscription' => sub {
 
     $action->run;
 
-    my $subscription = Toks::DB::Subscription->find(first => 1);
+    my $subscription = Threads::DB::Subscription->find(first => 1);
 
     ok !$subscription;
 };
@@ -117,10 +117,10 @@ subtest 'returns state when subscription deleted' => sub {
     TestDB->setup;
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $thread =
-      Toks::DB::Thread->new(user_id => $user->get_column('id'))->create;
-    Toks::DB::Subscription->new(
+      Threads::DB::Thread->new(user_id => $user->get_column('id'))->create;
+    Threads::DB::Subscription->new(
         user_id   => $user->get_column('id'),
         thread_id => $thread->get_column('id')
     )->create;
@@ -141,7 +141,7 @@ sub _build_action {
 
     my $env = $params{env} || TestRequest->to_env(%params);
 
-    my $action = Toks::Action::ToggleSubscription->new(env => $env);
+    my $action = Threads::Action::ToggleSubscription->new(env => $env);
     $action = Test::MonkeyMock->new($action);
 
     return $action;

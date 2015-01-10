@@ -4,7 +4,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Toks/Action/Login.pm:41 lib/Toks/Action/RequestPasswordReset.pm:34
+#: lib/Threads/Action/Login.pm:41
+#: lib/Threads/Action/RequestPasswordReset.pm:34
 msgid "Account not activated"
 msgstr ""
 
@@ -29,7 +30,7 @@ msgstr ""
 msgid "Create thread"
 msgstr ""
 
-#: lib/Toks/Action/CreateThread.pm:40
+#: lib/Threads/Action/CreateThread.pm:40
 msgid "Creating threads too often"
 msgstr ""
 
@@ -41,11 +42,11 @@ msgstr ""
 msgid "Deregistration"
 msgstr ""
 
-#: lib/Toks/Action/Deregister.pm:34
+#: lib/Threads/Action/Deregister.pm:34
 msgid "Deregistration confirmation"
 msgstr ""
 
-#: lib/Toks/Action/FormBase.pm:25
+#: lib/Threads/Action/FormBase.pm:25
 msgid "Disposable emails are not allowed"
 msgstr ""
 
@@ -61,11 +62,11 @@ msgstr ""
 msgid "Good luck!"
 msgstr ""
 
-#: lib/Toks/Action/FormBase.pm:19
+#: lib/Threads/Action/FormBase.pm:19
 msgid "Invalid email"
 msgstr ""
 
-#: lib/Toks/Action/ChangePassword.pm:33
+#: lib/Threads/Action/ChangePassword.pm:33
 msgid "Invalid password"
 msgstr ""
 
@@ -82,7 +83,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: lib/Toks/Action/Settings.pm:40
+#: lib/Threads/Action/Settings.pm:40
 msgid "Name already exists"
 msgstr ""
 
@@ -90,7 +91,7 @@ msgstr ""
 msgid "New password"
 msgstr ""
 
-#: lib/Toks/Action/FormBase.pm:21
+#: lib/Threads/Action/FormBase.pm:21
 msgid "Not readable"
 msgstr ""
 
@@ -113,11 +114,11 @@ msgstr ""
 msgid "Password changed."
 msgstr ""
 
-#: lib/Toks/Action/FormBase.pm:20
+#: lib/Threads/Action/FormBase.pm:20
 msgid "Password mismatch"
 msgstr ""
 
-#: lib/Toks/Action/RequestPasswordReset.pm:64
+#: lib/Threads/Action/RequestPasswordReset.pm:64
 #: templates/request_password_reset.apl:3
 msgid "Password reset"
 msgstr ""
@@ -139,7 +140,7 @@ msgstr ""
 msgid "Registration"
 msgstr ""
 
-#: lib/Toks/Action/Register.pm:64
+#: lib/Threads/Action/Register.pm:64
 msgid "Registration confirmation"
 msgstr ""
 
@@ -155,11 +156,11 @@ msgstr ""
 msgid "Repeat new password"
 msgstr ""
 
-#: lib/Toks/Action/CreateReply.pm:47
+#: lib/Threads/Action/CreateReply.pm:47
 msgid "Replying too often"
 msgstr ""
 
-#: lib/Toks/Action/FormBase.pm:18
+#: lib/Threads/Action/FormBase.pm:18
 msgid "Required"
 msgstr ""
 
@@ -219,15 +220,15 @@ msgstr ""
 msgid "To reply to this thread login or register"
 msgstr ""
 
-#: lib/Toks/Action/FormBase.pm:23
+#: lib/Threads/Action/FormBase.pm:23
 msgid "Too long"
 msgstr ""
 
-#: lib/Toks/Action/FormBase.pm:22
+#: lib/Threads/Action/FormBase.pm:22
 msgid "Too short"
 msgstr ""
 
-#: lib/Toks/Action/Login.pm:31 lib/Toks/Action/Login.pm:36
+#: lib/Threads/Action/Login.pm:31 lib/Threads/Action/Login.pm:36
 msgid "Unknown credentials"
 msgstr ""
 
@@ -239,11 +240,11 @@ msgstr ""
 msgid "Update thread"
 msgstr ""
 
-#: lib/Toks/Action/RequestPasswordReset.pm:29
+#: lib/Threads/Action/RequestPasswordReset.pm:29
 msgid "User does not exist"
 msgstr ""
 
-#: lib/Toks/Action/Register.pm:30
+#: lib/Threads/Action/Register.pm:30
 msgid "User exists"
 msgstr ""
 

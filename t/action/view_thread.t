@@ -8,8 +8,8 @@ use TestDB;
 use TestRequest;
 
 use HTTP::Request::Common;
-use Toks::DB::Thread;
-use Toks::Action::ViewThread;
+use Threads::DB::Thread;
+use Threads::Action::ViewThread;
 
 subtest 'throws 404 when no thread' => sub {
     TestDB->setup;
@@ -24,7 +24,7 @@ subtest 'throws 404 when no thread' => sub {
 subtest 'returns nothing on success' => sub {
     TestDB->setup;
 
-    my $thread = Toks::DB::Thread->new(user_id => 1)->create;
+    my $thread = Threads::DB::Thread->new(user_id => 1)->create;
 
     my $action = _build_action(captures => {id => $thread->get_column('id')});
 
@@ -36,7 +36,7 @@ subtest 'returns nothing on success' => sub {
 subtest 'increments view count' => sub {
     TestDB->setup;
 
-    my $thread = Toks::DB::Thread->new(user_id => 1)->create;
+    my $thread = Threads::DB::Thread->new(user_id => 1)->create;
 
     my $action = _build_action(captures => {id => $thread->get_column('id')});
 
@@ -49,9 +49,9 @@ subtest 'increments view count' => sub {
 subtest 'not increments view count when same user' => sub {
     TestDB->setup;
 
-    my $thread = Toks::DB::Thread->new(user_id => 1)->create;
+    my $thread = Threads::DB::Thread->new(user_id => 1)->create;
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
 
     my $action = _build_action(
         captures  => {id => $thread->get_column('id')},
@@ -72,9 +72,9 @@ subtest 'not increments view count when same user' => sub {
 subtest 'increments view count when same user but another day' => sub {
     TestDB->setup;
 
-    my $thread = Toks::DB::Thread->new(user_id => 1)->create;
+    my $thread = Threads::DB::Thread->new(user_id => 1)->create;
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
 
     my $action = _build_action(
         captures  => {id => $thread->get_column('id')},
@@ -82,7 +82,7 @@ subtest 'increments view count when same user but another day' => sub {
     );
     $action->run;
 
-    Toks::DB::View->table->update(set => [created => '123']);
+    Threads::DB::View->table->update(set => [created => '123']);
 
     $action = _build_action(
         captures  => {id => $thread->get_column('id')},
@@ -97,9 +97,9 @@ subtest 'increments view count when same user but another day' => sub {
 subtest 'increments view count when another user agent' => sub {
     TestDB->setup;
 
-    my $thread = Toks::DB::Thread->new(user_id => 1)->create;
+    my $thread = Threads::DB::Thread->new(user_id => 1)->create;
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
 
     my $action = _build_action(
         req => GET('/', 'User-Agent' => 'one'),
@@ -122,7 +122,7 @@ sub _build_action {
 
     my $env = $params{env} || TestRequest->to_env(%params);
 
-    my $action = Toks::Action::ViewThread->new(env => $env);
+    my $action = Threads::Action::ViewThread->new(env => $env);
 
     return $action;
 }

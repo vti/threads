@@ -7,14 +7,14 @@ use TestDB;
 use TestRequest;
 
 use HTTP::Request::Common;
-use Toks::DB::User;
-use Toks::Action::Settings;
+use Threads::DB::User;
+use Threads::Action::Settings;
 
 subtest 'update settings' => sub {
     TestDB->setup;
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
     my $action = _build_action(
         req => POST(
             '/' => {name => 'foo'}
@@ -32,14 +32,14 @@ subtest 'update settings' => sub {
 subtest 'show validation error when name exists' => sub {
     TestDB->setup;
 
-    Toks::DB::User->new(
+    Threads::DB::User->new(
         email    => 'foo2@bar.com',
         name     => 'exists',
         password => 'silly'
     )->create;
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
     my $action = _build_action(
         req => POST(
             '/' => {name => 'exists'}
@@ -55,7 +55,7 @@ subtest 'show validation error when name exists' => sub {
 subtest 'update settings with same name' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(
+    my $user = Threads::DB::User->new(
         email    => 'foo@bar.com',
         name     => 'foo',
         password => 'silly'
@@ -76,7 +76,7 @@ subtest 'redirects' => sub {
     TestDB->setup;
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
     my $action = _build_action(
         req => POST(
             '/' => {name => 'foo'}
@@ -97,7 +97,7 @@ sub _build_action {
 
     my $env = $params{env} || TestRequest->to_env(%params);
 
-    my $action = Toks::Action::Settings->new(env => $env);
+    my $action = Threads::Action::Settings->new(env => $env);
     $action = Test::MonkeyMock->new($action);
 
     return $action;

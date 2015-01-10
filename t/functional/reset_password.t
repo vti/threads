@@ -7,7 +7,7 @@ use TestLib;
 use TestMail;
 use TestDB;
 
-use Toks;
+use Threads;
 
 subtest 'show request password reset page' => sub {
     TestDB->setup;
@@ -50,7 +50,7 @@ subtest 'show validation errors when unkown user' => sub {
 subtest 'show validation errors when not activated user' => sub {
     TestDB->setup;
 
-    Toks::DB::User->new(email => 'foo@bar.com')->create;
+    Threads::DB::User->new(email => 'foo@bar.com')->create;
 
     my $ua = _build_ua();
 
@@ -65,7 +65,7 @@ subtest 'show validation errors when not activated user' => sub {
 subtest 'show confirmation needed page' => sub {
     TestDB->setup;
 
-    Toks::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
+    Threads::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
 
     my $ua = _build_ua();
 
@@ -81,7 +81,7 @@ subtest 'send confirmation email' => sub {
     TestDB->setup;
     TestMail->setup;
 
-    Toks::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
+    Threads::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
 
     my $ua = _build_ua();
 
@@ -111,7 +111,7 @@ subtest 'show password reset page' => sub {
     TestDB->setup;
     TestMail->setup;
 
-    Toks::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
+    Threads::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
 
     my $ua = _build_ua();
 
@@ -133,7 +133,7 @@ subtest 'show validation errors' => sub {
     TestDB->setup;
     TestMail->setup;
 
-    Toks::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
+    Threads::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
 
     my $ua = _build_ua();
 
@@ -157,7 +157,7 @@ subtest 'show validation errors when password do not match' => sub {
     TestDB->setup;
     TestMail->setup;
 
-    Toks::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
+    Threads::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
 
     my $ua = _build_ua();
 
@@ -182,7 +182,7 @@ subtest 'show success page' => sub {
     TestDB->setup;
     TestMail->setup;
 
-    Toks::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
+    Threads::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
 
     my $ua = _build_ua();
 
@@ -207,7 +207,7 @@ subtest 'change user password' => sub {
     TestDB->setup;
     TestMail->setup;
 
-    Toks::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
+    Threads::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
 
     my $ua = _build_ua();
 
@@ -232,7 +232,7 @@ subtest 'change user password' => sub {
 };
 
 sub _build_ua {
-    my $app = Toks->new;
+    my $app = Threads->new;
     return Test::WWW::Mechanize::PSGI->new(app => $app->to_app);
 }
 

@@ -7,8 +7,8 @@ use TestLib;
 use TestMail;
 use TestDB;
 
-use Toks;
-use Toks::DB::User;
+use Threads;
+use Threads::DB::User;
 
 subtest 'forbidden when not logged in' => sub {
     TestDB->setup;
@@ -116,7 +116,7 @@ subtest 'remove account' => sub {
 };
 
 sub _login {
-    my $user = Toks::DB::User->new(
+    my $user = Threads::DB::User->new(
         email    => 'foo@bar.com',
         password => 'silly',
         status   => 'active'
@@ -132,7 +132,7 @@ sub _login {
 }
 
 sub _build_ua {
-    my $app = Toks->new;
+    my $app = Threads->new;
     return Test::WWW::Mechanize::PSGI->new(app => $app->to_app);
 }
 

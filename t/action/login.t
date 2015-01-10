@@ -8,9 +8,9 @@ use TestDB;
 use TestRequest;
 
 use HTTP::Request::Common;
-use Toks::DB::User;
-use Toks::DB::Nonce;
-use Toks::Action::Login;
+use Threads::DB::User;
+use Threads::DB::Nonce;
+use Threads::Action::Login;
 
 subtest 'set template var errors' => sub {
     my $action = _build_action(req => POST('/' => {}));
@@ -45,7 +45,7 @@ subtest 'set template error when wrong password' => sub {
     TestDB->setup;
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
 
     my $action =
       _build_action(
@@ -59,7 +59,7 @@ subtest 'set template error when wrong password' => sub {
 subtest 'set template error when not active' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(
+    my $user = Threads::DB::User->new(
         email    => 'foo@bar.com',
         password => 'silly',
     )->create;
@@ -79,7 +79,7 @@ subtest 'calls login' => sub {
     my $auth = Test::MonkeyMock->new;
     $auth->mock(login => sub { });
 
-    my $user = Toks::DB::User->new(
+    my $user = Threads::DB::User->new(
         email    => 'foo@bar.com',
         password => 'silly',
         status   => 'active'
@@ -101,7 +101,7 @@ subtest 'creates nonce' => sub {
     my $auth = Test::MonkeyMock->new;
     $auth->mock(login => sub { });
 
-    my $user = Toks::DB::User->new(
+    my $user = Threads::DB::User->new(
         email    => 'foo@bar.com',
         password => 'silly',
         status   => 'active'
@@ -114,7 +114,7 @@ subtest 'creates nonce' => sub {
 
     $action->run;
 
-    my $nonce = Toks::DB::Nonce->find(first => 1);
+    my $nonce = Threads::DB::Nonce->find(first => 1);
 
     ok $nonce;
     is $nonce->get_column('user_id'), $user->get_column('id');
@@ -123,7 +123,7 @@ subtest 'creates nonce' => sub {
 subtest 'redirect to root' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(
+    my $user = Threads::DB::User->new(
         email    => 'foo@bar.com',
         password => 'silly',
         status   => 'active'
@@ -148,7 +148,7 @@ sub _build_action {
 
     my $env = $params{env} || TestRequest->to_env(%params);
 
-    my $action = Toks::Action::Login->new(env => $env);
+    my $action = Threads::Action::Login->new(env => $env);
     $action = Test::MonkeyMock->new($action);
     $action->mock(render => sub { '' });
 

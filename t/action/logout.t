@@ -6,13 +6,13 @@ use TestLib;
 use TestDB;
 use TestRequest;
 
-use Toks::DB::Nonce;
-use Toks::Action::Logout;
+use Threads::DB::Nonce;
+use Threads::Action::Logout;
 
 subtest 'calls logout' => sub {
     TestDB->setup;
 
-    my $nonce = Toks::DB::Nonce->new(user_id => 1)->create;
+    my $nonce = Threads::DB::Nonce->new(user_id => 1)->create;
 
     my $auth = Test::MonkeyMock->new;
     $auth->mock(logout => sub { });
@@ -30,7 +30,7 @@ subtest 'calls logout' => sub {
 subtest 'deletes nonce' => sub {
     TestDB->setup;
 
-    my $nonce = Toks::DB::Nonce->new(user_id => 1)->create;
+    my $nonce = Threads::DB::Nonce->new(user_id => 1)->create;
 
     my $auth = Test::MonkeyMock->new;
     $auth->mock(logout => sub { });
@@ -50,7 +50,7 @@ sub _build_action {
 
     my $env = $params{env} || TestRequest->to_env(%params);
 
-    my $action = Toks::Action::Logout->new(env => $env);
+    my $action = Threads::Action::Logout->new(env => $env);
     $action = Test::MonkeyMock->new($action);
 
     return $action;

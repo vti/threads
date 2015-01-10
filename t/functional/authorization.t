@@ -8,8 +8,8 @@ use TestLib;
 use TestMail;
 use TestDB;
 
-use Toks;
-use Toks::DB::User;
+use Threads;
+use Threads::DB::User;
 
 subtest 'show login page' => sub {
     TestDB->setup;
@@ -48,7 +48,7 @@ subtest 'show validation errors when unknown user' => sub {
 
 subtest 'show validation errors when wrong password' => sub {
     TestDB->setup;
-    Toks::DB::User->new(
+    Threads::DB::User->new(
         email    => 'foo@bar.com',
         password => 'another'
     )->create;
@@ -64,7 +64,7 @@ subtest 'show validation errors when wrong password' => sub {
 
 subtest 'show validation errors when wrong unicode password' => sub {
     TestDB->setup;
-    Toks::DB::User->new(
+    Threads::DB::User->new(
         email    => 'foo@bar.com',
         password => 'another'
     )->create;
@@ -80,7 +80,7 @@ subtest 'show validation errors when wrong unicode password' => sub {
 
 subtest 'show validation errors when user not activated' => sub {
     TestDB->setup;
-    Toks::DB::User->new(
+    Threads::DB::User->new(
         email    => 'foo@bar.com',
         password => 'silly'
     )->create;
@@ -96,7 +96,7 @@ subtest 'show validation errors when user not activated' => sub {
 
 subtest 'redirect to root' => sub {
     TestDB->setup;
-    Toks::DB::User->new(
+    Threads::DB::User->new(
         email    => 'foo@bar.com',
         password => 'silly',
         status   => 'active'
@@ -120,7 +120,7 @@ subtest 'logout is forbidden when not logged in' => sub {
 
 subtest 'logout' => sub {
     TestDB->setup;
-    Toks::DB::User->new(
+    Threads::DB::User->new(
         email    => 'foo@bar.com',
         password => 'silly',
         status   => 'active'
@@ -139,7 +139,7 @@ subtest 'logout' => sub {
 };
 
 sub _build_ua {
-    my $app = Toks->new;
+    my $app = Threads->new;
     return Test::WWW::Mechanize::PSGI->new(app => $app->to_app);
 }
 

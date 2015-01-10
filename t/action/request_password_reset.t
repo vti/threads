@@ -7,9 +7,9 @@ use TestDB;
 use TestRequest;
 
 use HTTP::Request::Common;
-use Toks::DB::User;
-use Toks::DB::Confirmation;
-use Toks::Action::RequestPasswordReset;
+use Threads::DB::User;
+use Threads::DB::Confirmation;
+use Threads::Action::RequestPasswordReset;
 
 subtest 'returns nothing on GET' => sub {
     my $action = _build_action();
@@ -52,7 +52,7 @@ subtest 'set template error when email does not exist' => sub {
 subtest 'set template error when user not activated' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo@bar.com')->create;
+    my $user = Threads::DB::User->new(email => 'foo@bar.com')->create;
 
     my $action = _build_action(req => POST('/' => {email => 'foo@bar.com'}));
 
@@ -67,17 +67,17 @@ subtest 'create confirmation token with correct params' => sub {
     TestDB->setup;
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
 
     my $action = _build_action(req => POST('/' => {email => 'foo@bar.com'}));
 
     $action->run;
 
-    my $confirmation = Toks::DB::Confirmation->find(first => 1);
+    my $confirmation = Threads::DB::Confirmation->find(first => 1);
 
     ok $confirmation;
     is $confirmation->get_column('user_id'),
-      Toks::DB::User->find(first => 1)->get_column('id');
+      Threads::DB::User->find(first => 1)->get_column('id');
     like $confirmation->get_column('token'), qr/^[a-z0-9]+$/i;
 };
 
@@ -87,7 +87,7 @@ subtest 'send email' => sub {
     my $mailer = _mock_mailer();
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
 
     my $action = _build_action(
         req    => POST('/' => {email => 'foo@bar.com'}),
@@ -117,7 +117,7 @@ sub _build_action {
     my $env    = $params{env}    || TestRequest->to_env(%params);
     my $mailer = $params{mailer} || _mock_mailer();
 
-    my $action = Toks::Action::RequestPasswordReset->new(env => $env);
+    my $action = Threads::Action::RequestPasswordReset->new(env => $env);
     $action = Test::MonkeyMock->new($action);
     $action->mock(render => sub { '' });
     $action->mock(mailer => sub { $mailer });

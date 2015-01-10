@@ -14,7 +14,7 @@ use Getopt::Long;
 use String::CamelCase qw(camelize);
 use Tu::Config;
 use Tu::Loader;
-use Toks::DB;
+use Threads::DB;
 
 my $verbose;
 my $dry_run;
@@ -23,12 +23,12 @@ GetOptions('verbose' => \$verbose, 'dry-run' => \$dry_run)
 
 my $config =
   Tu::Config->new(mode => 1)->load("$RealBin/../config/config.yml");
-Toks::DB->init_db(%{$config->{database}});
+Threads::DB->init_db(%{$config->{database}});
 
 my $loader = Tu::Loader->new;
 
 foreach my $job_name (@ARGV) {
-    my $job_class = 'Toks::Job::' . camelize($job_name);
+    my $job_class = 'Threads::Job::' . camelize($job_name);
     $loader->try_load_class($job_class) or die "Can't find job '$job_name'";
 
     $job_class->new(

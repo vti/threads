@@ -6,8 +6,8 @@ use Test::Fatal;
 use TestLib;
 use TestDB;
 
-use Toks::DB::User;
-use Toks::Job::CleanupInactiveRegistrations;
+use Threads::DB::User;
+use Threads::Job::CleanupInactiveRegistrations;
 
 subtest 'not delete active registrations' => sub {
     TestDB->setup;
@@ -17,7 +17,7 @@ subtest 'not delete active registrations' => sub {
     my $job = _build_job();
     $job->run;
 
-    is(Toks::DB::User->table->count, 1);
+    is(Threads::DB::User->table->count, 1);
 };
 
 subtest 'not delete new not active registrations' => sub {
@@ -28,7 +28,7 @@ subtest 'not delete new not active registrations' => sub {
     my $job = _build_job();
     $job->run;
 
-    is(Toks::DB::User->table->count, 1);
+    is(Threads::DB::User->table->count, 1);
 };
 
 subtest 'delete old not active registrations' => sub {
@@ -39,7 +39,7 @@ subtest 'delete old not active registrations' => sub {
     my $job = _build_job();
     $job->run;
 
-    is(Toks::DB::User->table->count, 0);
+    is(Threads::DB::User->table->count, 0);
 };
 
 subtest 'do not delete when dry-run' => sub {
@@ -50,17 +50,17 @@ subtest 'do not delete when dry-run' => sub {
     my $job = _build_job(dry_run => 1);
     $job->run;
 
-    is(Toks::DB::User->table->count, 1);
+    is(Threads::DB::User->table->count, 1);
 };
 
 sub _create_user {
-    Toks::DB::User->new(email => int(rand(100)), @_)->create;
+    Threads::DB::User->new(email => int(rand(100)), @_)->create;
 }
 
 sub _build_job {
     my (%params) = @_;
 
-    return Toks::Job::CleanupInactiveRegistrations->new(%params);
+    return Threads::Job::CleanupInactiveRegistrations->new(%params);
 }
 
 done_testing;

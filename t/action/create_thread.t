@@ -7,10 +7,10 @@ use TestDB;
 use TestRequest;
 
 use HTTP::Request::Common;
-use Toks::DB::User;
-use Toks::DB::Thread;
-use Toks::DB::Subscription;
-use Toks::Action::CreateThread;
+use Threads::DB::User;
+use Threads::DB::Thread;
+use Threads::DB::Subscription;
+use Threads::Action::CreateThread;
 
 subtest 'returns nothing on GET' => sub {
     my $action = _build_action();
@@ -32,7 +32,7 @@ subtest 'shows error when limits' => sub {
     TestDB->setup;
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
 
     my $services = _mock_services(config => {limits => {threads => {60 => 5}}});
 
@@ -47,7 +47,7 @@ subtest 'shows error when limits' => sub {
 
     $action->run for 1 .. 10;
 
-    is(Toks::DB::Thread->table->count, 5);
+    is(Threads::DB::Thread->table->count, 5);
     is $action->vars->{errors}->{title}, 'Creating threads too often';
 };
 
@@ -55,7 +55,7 @@ subtest 'creates thread with correct params' => sub {
     TestDB->setup;
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
 
     my $action = _build_action(
         req => POST(
@@ -67,7 +67,7 @@ subtest 'creates thread with correct params' => sub {
 
     $action->run;
 
-    my $thread = Toks::DB::Thread->find(first => 1);
+    my $thread = Threads::DB::Thread->find(first => 1);
 
     ok $thread;
     is $thread->get_column('user_id'), $user->get_column('id');
@@ -82,7 +82,7 @@ subtest 'redirects to thread view' => sub {
     TestDB->setup;
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
 
     my $action = _build_action(
         req       => POST('/' => {title => 'foo', content => 'bar'}),
@@ -102,7 +102,7 @@ subtest 'creates subscription' => sub {
     TestDB->setup;
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
 
     my $action = _build_action(
         req       => POST('/' => {title => 'foo', content => 'bar'}),
@@ -113,8 +113,8 @@ subtest 'creates subscription' => sub {
 
     $action->run;
 
-    my $thread = Toks::DB::Thread->find(first => 1);
-    my $subscription = Toks::DB::Subscription->find(first => 1);
+    my $thread = Threads::DB::Thread->find(first => 1);
+    my $subscription = Threads::DB::Subscription->find(first => 1);
 
     ok $subscription;
     is $subscription->get_column('user_id'),   $user->get_column('id');
@@ -137,7 +137,7 @@ sub _build_action {
 
     my $env = $params{env} || TestRequest->to_env(%params);
 
-    my $action = Toks::Action::CreateThread->new(
+    my $action = Threads::Action::CreateThread->new(
         env      => $env,
         services => $params{services} || _mock_services()
     );

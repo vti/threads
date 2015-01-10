@@ -8,11 +8,11 @@ use TestDB;
 use TestRequest;
 
 use HTTP::Request::Common;
-use Toks::DB::User;
-use Toks::DB::Confirmation;
-use Toks::DB::Notification;
-use Toks::DB::Subscription;
-use Toks::Action::ConfirmDeregistration;
+use Threads::DB::User;
+use Threads::DB::Confirmation;
+use Threads::DB::Notification;
+use Threads::DB::Subscription;
+use Threads::Action::ConfirmDeregistration;
 
 subtest 'return 404 when confirmation token not found' => sub {
     my $action = _build_action(captures => {});
@@ -35,7 +35,7 @@ subtest 'return 404 when confirmation not found' => sub {
 subtest 'return 404 when user not found' => sub {
     TestDB->setup;
 
-    my $confirmation = Toks::DB::Confirmation->new(user_id => 123)->create;
+    my $confirmation = Threads::DB::Confirmation->new(user_id => 123)->create;
     my $action =
       _build_action(captures => {token => $confirmation->get_column('token')});
 
@@ -47,9 +47,9 @@ subtest 'return 404 when user not found' => sub {
 subtest 'removes user' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo@bar.com')->create;
+    my $user = Threads::DB::User->new(email => 'foo@bar.com')->create;
     my $confirmation =
-      Toks::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+      Threads::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
     my $action =
       _build_action(captures => {token => $confirmation->get_column('token')});
 
@@ -66,9 +66,9 @@ subtest 'removes user' => sub {
 subtest 'logouts user' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo@bar.com')->create;
+    my $user = Threads::DB::User->new(email => 'foo@bar.com')->create;
     my $confirmation =
-      Toks::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+      Threads::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
 
     my $auth   = _mock_auth();
     my $action = _build_action(
@@ -86,49 +86,49 @@ subtest 'logouts user' => sub {
 subtest 'deletes user notifications' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo@bar.com')->create;
+    my $user = Threads::DB::User->new(email => 'foo@bar.com')->create;
     my $confirmation =
-      Toks::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+      Threads::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
     my $action =
       _build_action(captures => {token => $confirmation->get_column('token')});
 
-    Toks::DB::Notification->new(user_id => 123, reply_id => 1)->create;
-    Toks::DB::Notification->new(
+    Threads::DB::Notification->new(user_id => 123, reply_id => 1)->create;
+    Threads::DB::Notification->new(
         user_id  => $user->get_column('id'),
         reply_id => 1
     )->create;
 
     $action->run;
 
-    is(Toks::DB::Notification->table->count, 1);
+    is(Threads::DB::Notification->table->count, 1);
 };
 
 subtest 'deletes user subscriptions' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo@bar.com')->create;
+    my $user = Threads::DB::User->new(email => 'foo@bar.com')->create;
     my $confirmation =
-      Toks::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+      Threads::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
     my $action =
       _build_action(captures => {token => $confirmation->get_column('token')});
 
-    Toks::DB::Subscription->new(user_id => 123, thread_id => 1)->create;
-    Toks::DB::Subscription->new(
+    Threads::DB::Subscription->new(user_id => 123, thread_id => 1)->create;
+    Threads::DB::Subscription->new(
         user_id   => $user->get_column('id'),
         thread_id => 1
     )->create;
 
     $action->run;
 
-    is(Toks::DB::Subscription->table->count, 1);
+    is(Threads::DB::Subscription->table->count, 1);
 };
 
 subtest 'delete confirmation' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo@bar.com')->create;
+    my $user = Threads::DB::User->new(email => 'foo@bar.com')->create;
     my $confirmation =
-      Toks::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+      Threads::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
     my $action =
       _build_action(captures => {token => $confirmation->get_column('token')});
 
@@ -150,7 +150,7 @@ sub _build_action {
 
     my $env = TestRequest->to_env(%params);
 
-    my $action = Toks::Action::ConfirmDeregistration->new(env => $env);
+    my $action = Threads::Action::ConfirmDeregistration->new(env => $env);
     $action = Test::MonkeyMock->new($action);
     $action->mock(render => sub { '' });
 

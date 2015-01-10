@@ -7,11 +7,11 @@ use TestLib;
 use TestDB;
 use TestRequest;
 
-use Toks::DB::User;
-use Toks::DB::Thread;
-use Toks::DB::Reply;
-use Toks::DB::Notification;
-use Toks::Action::DeleteReply;
+use Threads::DB::User;
+use Threads::DB::Thread;
+use Threads::DB::Reply;
+use Threads::DB::Notification;
+use Threads::Action::DeleteReply;
 
 subtest 'returns 404 when unknown reply' => sub {
     TestDB->setup;
@@ -26,8 +26,8 @@ subtest 'returns 404 when unknown reply' => sub {
 subtest 'returns 404 when wrong user' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo', password => 'bar')->create;
-    my $reply = Toks::DB::Reply->new(thread_id => 1, user_id => 2)->create;
+    my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $reply = Threads::DB::Reply->new(thread_id => 1, user_id => 2)->create;
 
     my $action = _build_action(
         captures  => {id => $reply->get_column('id')},
@@ -42,9 +42,9 @@ subtest 'returns 404 when wrong user' => sub {
 subtest 'returns 404 when reply is not empty' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
     my $reply =
-      Toks::DB::Reply->new(thread_id => 1, user_id => $user->get_column('id'))
+      Threads::DB::Reply->new(thread_id => 1, user_id => $user->get_column('id'))
       ->create;
     $reply->create_related(
         'ansestors',
@@ -66,9 +66,9 @@ subtest 'returns 404 when reply is not empty' => sub {
 subtest 'deletes reply' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo', password => 'bar')->create;
-    my $thread = Toks::DB::Thread->new(user_id => 1)->create;
-    my $reply = Toks::DB::Reply->new(
+    my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $thread = Threads::DB::Thread->new(user_id => 1)->create;
+    my $reply = Threads::DB::Reply->new(
         thread_id => $thread->get_column('id'),
         user_id   => $user->get_column('id')
     )->create;
@@ -80,24 +80,24 @@ subtest 'deletes reply' => sub {
 
     $action->run;
 
-    ok !Toks::DB::Reply->find(first => 1);
+    ok !Threads::DB::Reply->find(first => 1);
 };
 
 subtest 'deletes reply notifications' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo', password => 'bar')->create;
-    my $thread = Toks::DB::Thread->new(user_id => 1)->create;
-    my $reply = Toks::DB::Reply->new(
+    my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $thread = Threads::DB::Thread->new(user_id => 1)->create;
+    my $reply = Threads::DB::Reply->new(
         thread_id => $thread->get_column('id'),
         user_id   => $user->get_column('id')
     )->create;
 
-    Toks::DB::Notification->new(
+    Threads::DB::Notification->new(
         user_id  => $user->get_column('id'),
         reply_id => $reply->get_column('id')
     )->create;
-    Toks::DB::Notification->new(
+    Threads::DB::Notification->new(
         user_id  => $user->get_column('id'),
         reply_id => 999
     )->create;
@@ -109,15 +109,15 @@ subtest 'deletes reply notifications' => sub {
 
     $action->run;
 
-    is(Toks::DB::Notification->table->count, 1);
+    is(Threads::DB::Notification->table->count, 1);
 };
 
 subtest 'updates thread reply counter' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo', password => 'bar')->create;
-    my $thread = Toks::DB::Thread->new(user_id => 1, replies_count => 10)->create;
-    my $reply = Toks::DB::Reply->new(
+    my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $thread = Threads::DB::Thread->new(user_id => 1, replies_count => 10)->create;
+    my $reply = Threads::DB::Reply->new(
         thread_id => $thread->get_column('id'),
         user_id   => $user->get_column('id')
     )->create;
@@ -137,9 +137,9 @@ subtest 'updates thread reply counter' => sub {
 subtest 'redirects' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo', password => 'bar')->create;
-    my $thread = Toks::DB::Thread->new(user_id => 1)->create;
-    my $reply = Toks::DB::Reply->new(
+    my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $thread = Threads::DB::Thread->new(user_id => 1)->create;
+    my $reply = Threads::DB::Reply->new(
         thread_id => $thread->get_column('id'),
         user_id   => $user->get_column('id')
     )->create;
@@ -163,7 +163,7 @@ sub _build_action {
 
     my $env = $params{env} || TestRequest->to_env(%params);
 
-    my $action = Toks::Action::DeleteReply->new(env => $env);
+    my $action = Threads::Action::DeleteReply->new(env => $env);
     $action = Test::MonkeyMock->new($action);
 
     return $action;

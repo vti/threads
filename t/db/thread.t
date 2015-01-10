@@ -7,7 +7,7 @@ use Test::Fatal;
 use TestDB;
 use TestLib;
 
-use Toks::DB::Thread;
+use Threads::DB::Thread;
 
 subtest 'creates simple slug' => sub {
     TestDB->setup;
@@ -66,5 +66,5 @@ subtest 'removes leading and trailing dashes' => sub {
 done_testing;
 
 sub _build_thread {
-    Toks::DB::Thread->new(user_id => 1, content => 'foo', @_);
+    Threads::DB::Thread->new(user_id => 1, content => 'foo', @_);
 }

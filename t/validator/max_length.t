@@ -4,7 +4,7 @@ use warnings;
 use Test::More;
 use TestLib;
 
-use Toks::Validator::MaxLength;
+use Threads::Validator::MaxLength;
 
 subtest 'return 0 when invalid' => sub {
     my $rule = _build_rule();
@@ -21,7 +21,7 @@ subtest 'return 1 when valid' => sub {
 };
 
 sub _build_rule {
-    Toks::Validator::MaxLength->new;
+    Threads::Validator::MaxLength->new;
 }
 
 done_testing;

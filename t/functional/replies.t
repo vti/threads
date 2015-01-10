@@ -6,8 +6,8 @@ use Test::WWW::Mechanize::PSGI;
 use TestLib;
 use TestDB;
 
-use Toks;
-use Toks::DB::User;
+use Threads;
+use Threads::DB::User;
 
 subtest 'shows 404 when unknown thread' => sub {
     TestDB->setup;
@@ -46,7 +46,7 @@ subtest 'shows 404 when unknown thread' => sub {
 #};
 
 sub _build_loggedin_ua {
-    Toks::DB::User->new(
+    Threads::DB::User->new(
         email    => 'foo@bar.com',
         password => 'silly',
         status   => 'active'
@@ -63,7 +63,7 @@ sub _build_loggedin_ua {
 }
 
 sub _build_ua {
-    my $app = Toks->new;
+    my $app = Threads->new;
     return Test::WWW::Mechanize::PSGI->new(app => $app->to_app);
 }
 

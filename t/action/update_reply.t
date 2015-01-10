@@ -8,10 +8,10 @@ use TestDB;
 use TestRequest;
 
 use HTTP::Request::Common;
-use Toks::DB::User;
-use Toks::DB::Thread;
-use Toks::DB::Reply;
-use Toks::Action::UpdateReply;
+use Threads::DB::User;
+use Threads::DB::Thread;
+use Threads::DB::Reply;
+use Threads::Action::UpdateReply;
 
 subtest 'returns 404 when unknown reply' => sub {
     TestDB->setup;
@@ -26,8 +26,8 @@ subtest 'returns 404 when unknown reply' => sub {
 subtest 'returns 404 when wrong user' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo', password => 'bar')->create;
-    my $reply = Toks::DB::Reply->new(thread_id => 123, user_id => 999)->create;
+    my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $reply = Threads::DB::Reply->new(thread_id => 123, user_id => 999)->create;
 
     my $action = _build_action(
         req       => POST('/' => {}),
@@ -43,8 +43,8 @@ subtest 'returns 404 when wrong user' => sub {
 subtest 'returns 404 when has ansestors' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo', password => 'bar')->create;
-    my $reply = Toks::DB::Reply->new(thread_id => 123, user_id => $user->get_column('id'))->create;
+    my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $reply = Threads::DB::Reply->new(thread_id => 123, user_id => $user->get_column('id'))->create;
     $reply->create_related('ansestors', thread_id => 123, user_id => 123);
 
     my $action = _build_action(
@@ -61,9 +61,9 @@ subtest 'returns 404 when has ansestors' => sub {
 subtest 'shows errors' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
     my $reply =
-      Toks::DB::Reply->new(thread_id => 1, user_id => $user->get_column('id'))
+      Threads::DB::Reply->new(thread_id => 1, user_id => $user->get_column('id'))
       ->create;
 
     my $action = _build_action(
@@ -81,10 +81,10 @@ subtest 'updates reply with correct params' => sub {
     TestDB->setup;
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $thread =
-      Toks::DB::Thread->new(user_id => $user->get_column('id'))->create;
-    my $reply = Toks::DB::Reply->new(
+      Threads::DB::Thread->new(user_id => $user->get_column('id'))->create;
+    my $reply = Threads::DB::Reply->new(
         user_id   => $user->get_column('id'),
         thread_id => $thread->get_column('id'),
         title     => 'foo',
@@ -108,10 +108,10 @@ subtest 'redirects after update' => sub {
     TestDB->setup;
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $thread =
-      Toks::DB::Thread->new(user_id => $user->get_column('id'))->create;
-    my $reply = Toks::DB::Reply->new(
+      Threads::DB::Thread->new(user_id => $user->get_column('id'))->create;
+    my $reply = Threads::DB::Reply->new(
         user_id   => $user->get_column('id'),
         thread_id => $thread->get_column('id'),
         title     => 'foo',
@@ -140,7 +140,7 @@ sub _build_action {
 
     my $env = $params{env} || TestRequest->to_env(%params);
 
-    my $action = Toks::Action::UpdateReply->new(env => $env);
+    my $action = Threads::Action::UpdateReply->new(env => $env);
     $action = Test::MonkeyMock->new($action);
 
     return $action;

@@ -5,7 +5,7 @@ use utf8;
 use Test::More;
 use TestLib;
 
-use Toks::Helper::Markup;
+use Threads::Helper::Markup;
 
 subtest 'renders empty markdown' => sub {
     my $helper = _build_helper();
@@ -83,7 +83,7 @@ subtest 'perl specific' => sub {
 my $env = {};
 
 sub _build_helper {
-    Toks::Helper::Markup->new(env => $env);
+    Threads::Helper::Markup->new(env => $env);
 }
 
 done_testing;

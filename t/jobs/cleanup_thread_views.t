@@ -6,8 +6,8 @@ use Test::Fatal;
 use TestLib;
 use TestDB;
 
-use Toks::DB::View;
-use Toks::Job::CleanupThreadViews;
+use Threads::DB::View;
+use Threads::Job::CleanupThreadViews;
 
 subtest 'not delete todays views' => sub {
     TestDB->setup;
@@ -17,7 +17,7 @@ subtest 'not delete todays views' => sub {
     my $job = _build_job();
     $job->run;
 
-    is(Toks::DB::View->table->count, 1);
+    is(Threads::DB::View->table->count, 1);
 };
 
 subtest 'delete old views' => sub {
@@ -28,7 +28,7 @@ subtest 'delete old views' => sub {
     my $job = _build_job();
     $job->run;
 
-    is(Toks::DB::View->table->count, 0);
+    is(Threads::DB::View->table->count, 0);
 };
 
 subtest 'do not delete when dry-run' => sub {
@@ -39,17 +39,17 @@ subtest 'do not delete when dry-run' => sub {
     my $job = _build_job(dry_run => 1);
     $job->run;
 
-    is(Toks::DB::View->table->count, 1);
+    is(Threads::DB::View->table->count, 1);
 };
 
 sub _create_view {
-    Toks::DB::View->new(user_id => 1, thread_id => 1, @_)->create;
+    Threads::DB::View->new(user_id => 1, thread_id => 1, @_)->create;
 }
 
 sub _build_job {
     my (%params) = @_;
 
-    return Toks::Job::CleanupThreadViews->new(%params);
+    return Threads::Job::CleanupThreadViews->new(%params);
 }
 
 done_testing;

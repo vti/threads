@@ -8,14 +8,14 @@ use TestDB;
 use TestRequest;
 use HTTP::Request::Common;
 
-use Toks::DB::User;
-use Toks::Action::ChangePassword;
+use Threads::DB::User;
+use Threads::Action::ChangePassword;
 
 subtest 'validation error when wrong old password' => sub {
     TestDB->setup;
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'silly');
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'silly');
 
     my $action = _build_action(
         req => POST(
@@ -37,7 +37,7 @@ subtest 'validation error when new passwords do not match' => sub {
     TestDB->setup;
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
     my $action = _build_action(
         req => POST(
             '/' => {
@@ -58,7 +58,7 @@ subtest 'change user password' => sub {
     TestDB->setup;
 
     my $user =
-      Toks::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
     my $action = _build_action(
         req => POST(
             '/' => {
@@ -82,7 +82,7 @@ sub _build_action {
 
     my $env = TestRequest->to_env(%params);
 
-    my $action = Toks::Action::ChangePassword->new(env => $env);
+    my $action = Threads::Action::ChangePassword->new(env => $env);
     $action = Test::MonkeyMock->new($action);
     $action->mock(render => sub { '' });
 

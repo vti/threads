@@ -6,7 +6,7 @@ use Test::Fatal;
 use TestDB;
 use TestLib;
 
-use Toks::DB::Reply;
+use Threads::DB::Reply;
 
 subtest 'creates top reply' => sub {
     TestDB->setup;
@@ -98,5 +98,5 @@ subtest 'selects in right order' => sub {
 done_testing;
 
 sub _build_reply {
-    Toks::DB::Reply->new(thread_id => 1, user_id => 1, content => 'foo', @_);
+    Threads::DB::Reply->new(thread_id => 1, user_id => 1, content => 'foo', @_);
 }

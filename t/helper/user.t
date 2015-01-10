@@ -4,7 +4,7 @@ use warnings;
 use Test::More;
 use TestLib;
 
-use Toks::Helper::User;
+use Threads::Helper::User;
 
 subtest 'returns name when available' => sub {
     my $helper = _build_helper();
@@ -33,7 +33,7 @@ subtest 'returns deleted when user deleted' => sub {
 my $env = {};
 
 sub _build_helper {
-    Toks::Helper::User->new(env => $env);
+    Threads::Helper::User->new(env => $env);
 }
 
 done_testing;

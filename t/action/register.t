@@ -7,9 +7,9 @@ use TestDB;
 use TestRequest;
 
 use HTTP::Request::Common;
-use Toks::DB::User;
-use Toks::DB::Confirmation;
-use Toks::Action::Register;
+use Threads::DB::User;
+use Threads::DB::Confirmation;
+use Threads::Action::Register;
 
 subtest 'returns nothing on GET' => sub {
     my $action = _build_action();
@@ -41,7 +41,7 @@ subtest 'set template error when invalid email' => sub {
 subtest 'set template error when email exists' => sub {
     TestDB->setup;
 
-    Toks::DB::User->new(email => 'foo@bar.com')->create;
+    Threads::DB::User->new(email => 'foo@bar.com')->create;
 
     my $action =
       _build_action(
@@ -64,7 +64,7 @@ subtest 'create user with correct params' => sub {
 
     $action->run;
 
-    my $user = Toks::DB::User->find(first => 1);
+    my $user = Threads::DB::User->find(first => 1);
 
     ok $user;
     is $user->get_column('status'),     'new';
@@ -83,7 +83,7 @@ subtest 'create user with name from email' => sub {
 
     $action->run;
 
-    my $user = Toks::DB::User->find(first => 1);
+    my $user = Threads::DB::User->find(first => 1);
 
     is $user->get_column('name'), 'foo';
 };
@@ -91,7 +91,7 @@ subtest 'create user with name from email' => sub {
 subtest 'create user with empty name when exists' => sub {
     TestDB->setup;
 
-    Toks::DB::User->new(email => 'foo2@bar.com', name => 'foo')->create;
+    Threads::DB::User->new(email => 'foo2@bar.com', name => 'foo')->create;
 
     my $action = _build_action(
         req => POST('/' => {email => 'foo@bar.com', password => 'bar'}),
@@ -101,7 +101,7 @@ subtest 'create user with empty name when exists' => sub {
     $action->run;
 
     my $user =
-      Toks::DB::User->find(first => 1, where => [email => 'foo@bar.com']);
+      Threads::DB::User->find(first => 1, where => [email => 'foo@bar.com']);
 
     is $user->get_column('name'), '';
 };
@@ -115,11 +115,11 @@ subtest 'create confirmation token with correct params' => sub {
 
     $action->run;
 
-    my $confirmation = Toks::DB::Confirmation->find(first => 1);
+    my $confirmation = Threads::DB::Confirmation->find(first => 1);
 
     ok $confirmation;
     is $confirmation->get_column('user_id'),
-      Toks::DB::User->find(first => 1)->get_column('id');
+      Threads::DB::User->find(first => 1)->get_column('id');
     like $confirmation->get_column('token'), qr/^[a-z0-9]+$/i;
 };
 
@@ -157,7 +157,7 @@ sub _build_action {
     my $env    = $params{env}    || TestRequest->to_env(%params);
     my $mailer = $params{mailer} || _mock_mailer();
 
-    my $action = Toks::Action::Register->new(env => $env);
+    my $action = Threads::Action::Register->new(env => $env);
     $action = Test::MonkeyMock->new($action);
     $action->mock(render => sub { '' });
     $action->mock(mailer => sub { $mailer });

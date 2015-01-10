@@ -7,7 +7,7 @@ use TestLib;
 use TestMail;
 use TestDB;
 
-use Toks;
+use Threads;
 
 subtest 'show registration page' => sub {
     TestDB->setup;
@@ -137,7 +137,7 @@ subtest 'activate user' => sub {
 subtest 'forbidden when logged in' => sub {
     TestDB->setup;
 
-    Toks::DB::User->new(
+    Threads::DB::User->new(
         email    => 'foo@bar.com',
         password => 'password',
         status   => 'active'
@@ -157,7 +157,7 @@ subtest 'forbidden when logged in' => sub {
 };
 
 sub _build_ua {
-    my $app = Toks->new;
+    my $app = Threads->new;
     return Test::WWW::Mechanize::PSGI->new(app => $app->to_app);
 }
 

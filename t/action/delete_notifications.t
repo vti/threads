@@ -8,29 +8,29 @@ use TestDB;
 use TestRequest;
 
 use HTTP::Request::Common;
-use Toks::DB::User;
-use Toks::DB::Notification;
-use Toks::Action::DeleteNotifications;
+use Threads::DB::User;
+use Threads::DB::Notification;
+use Threads::Action::DeleteNotifications;
 
 subtest 'deletes all notifications' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
-    Toks::DB::Notification->new(user_id => $user->get_column('id'), reply_id => 1)->create;
-    Toks::DB::Notification->new(user_id => 123, reply_id => 1)->create;
+    my $user = Threads::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
+    Threads::DB::Notification->new(user_id => $user->get_column('id'), reply_id => 1)->create;
+    Threads::DB::Notification->new(user_id => 123, reply_id => 1)->create;
 
     my $action = _build_action(req => POST('/' => {}), captures => {}, 'tu.user' => $user);
 
     $action->run;
 
-    is(Toks::DB::Notification->table->count, 1);
+    is(Threads::DB::Notification->table->count, 1);
 };
 
 subtest 'returns redirect' => sub {
     TestDB->setup;
 
-    my $user = Toks::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
-    Toks::DB::Notification->new(user_id => $user->get_column('id'), reply_id => 1)->create;
+    my $user = Threads::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
+    Threads::DB::Notification->new(user_id => $user->get_column('id'), reply_id => 1)->create;
 
     my $action = _build_action(req => POST('/' => {}), captures => {}, 'tu.user' => $user);
 
@@ -44,7 +44,7 @@ sub _build_action {
 
     my $env = $params{env} || TestRequest->to_env(%params);
 
-    my $action = Toks::Action::DeleteNotifications->new(env => $env);
+    my $action = Threads::Action::DeleteNotifications->new(env => $env);
     $action = Test::MonkeyMock->new($action);
 
     return $action;

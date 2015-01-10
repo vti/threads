@@ -5,7 +5,7 @@ use utf8;
 use Test::More;
 use TestLib;
 
-use Toks::Helper::Truncate;
+use Threads::Helper::Truncate;
 
 subtest 'truncates less than' => sub {
     my $helper = _build_helper();
@@ -38,7 +38,7 @@ subtest 'truncates correctly unicode' => sub {
 my $env = {};
 
 sub _build_helper {
-    Toks::Helper::Truncate->new(env => $env);
+    Threads::Helper::Truncate->new(env => $env);
 }
 
 done_testing;

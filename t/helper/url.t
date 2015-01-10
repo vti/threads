@@ -5,7 +5,7 @@ use Test::More;
 use Test::MonkeyMock;
 use TestLib;
 
-use Toks::Helper::Url;
+use Threads::Helper::Url;
 
 subtest 'returns url' => sub {
     my $helper = _build_helper();
@@ -70,7 +70,7 @@ sub _build_helper {
     $services->mock(service => sub { $params{$_[1]} });
 
     my $env = $params{env} || {};
-    Toks::Helper::Url->new(env => $env, services => $services);
+    Threads::Helper::Url->new(env => $env, services => $services);
 }
 
 done_testing;

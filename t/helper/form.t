@@ -6,7 +6,7 @@ use TestLib;
 use TestRequest;
 
 use Hash::MultiValue;
-use Toks::Helper::Form;
+use Threads::Helper::Form;
 
 subtest 'builds simple input' => sub {
     my $helper = _build_helper();
@@ -291,7 +291,7 @@ sub _build_helper {
     $env = $params{env} || TestRequest->to_env(%params);
     $env->{'tu.displayer.vars'} = $vars;
 
-    return Toks::Helper::Form->new(env => $env);
+    return Threads::Helper::Form->new(env => $env);
 }
 
 done_testing;

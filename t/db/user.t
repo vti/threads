@@ -6,8 +6,8 @@ use Test::More;
 use Test::MonkeyMock;
 use TestDB;
 
-use Toks::DB::Nonce;
-use Toks::DB::User;
+use Threads::DB::Nonce;
+use Threads::DB::User;
 
 subtest 'return undef when no user_id in session' => sub {
     TestDB->setup;
@@ -28,10 +28,10 @@ subtest 'return undef when unknown nonce' => sub {
 subtest 'return undef when user not active' => sub {
     TestDB->setup;
 
-    my $existing_user = Toks::DB::User->new(email => 'foo@bar.com')->create;
+    my $existing_user = Threads::DB::User->new(email => 'foo@bar.com')->create;
 
     my $nonce =
-      Toks::DB::Nonce->new(user_id => $existing_user->get_column('id'))->create;
+      Threads::DB::Nonce->new(user_id => $existing_user->get_column('id'))->create;
 
     my $user = _build_user();
 
@@ -45,10 +45,10 @@ subtest 'return user when found' => sub {
     TestDB->setup;
 
     my $existing_user =
-      Toks::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
 
     my $nonce =
-      Toks::DB::Nonce->new(user_id => $existing_user->get_column('id'))->create;
+      Threads::DB::Nonce->new(user_id => $existing_user->get_column('id'))->create;
 
     my $user = _build_user();
 
@@ -63,10 +63,10 @@ subtest 'deletes old nonce' => sub {
     TestDB->setup;
 
     my $existing_user =
-      Toks::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
 
     my $nonce =
-      Toks::DB::Nonce->new(user_id => $existing_user->get_column('id'))->create;
+      Threads::DB::Nonce->new(user_id => $existing_user->get_column('id'))->create;
 
     my $user = _build_user();
 
@@ -80,10 +80,10 @@ subtest 'creates new nonce' => sub {
     TestDB->setup;
 
     my $existing_user =
-      Toks::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
+      Threads::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
 
     my $nonce =
-      Toks::DB::Nonce->new(user_id => $existing_user->get_column('id'))->create;
+      Threads::DB::Nonce->new(user_id => $existing_user->get_column('id'))->create;
 
     my $user = _build_user();
 
@@ -96,17 +96,17 @@ subtest 'creates new nonce' => sub {
 subtest 'hashes password' => sub {
     TestDB->setup;
 
-    isnt(Toks::DB::User->new->hash_password('foo'), 'foo');
+    isnt(Threads::DB::User->new->hash_password('foo'), 'foo');
 };
 
 subtest 'hashes unicode password' => sub {
     TestDB->setup;
 
-    isnt(Toks::DB::User->new->hash_password('привет'), 'привет');
+    isnt(Threads::DB::User->new->hash_password('привет'), 'привет');
 };
 
 sub _build_user {
-    Toks::DB::User->new(@_);
+    Threads::DB::User->new(@_);
 }
 
 done_testing;

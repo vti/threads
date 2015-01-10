@@ -5,7 +5,7 @@ use Test::More;
 use TestLib;
 use TestRequest;
 
-use Toks::Helper::Pager;
+use Threads::Helper::Pager;
 
 subtest 'builds pager when zeros' => sub {
     my $helper = _build_helper(params => {page_size => 10, page => 1});
@@ -84,7 +84,7 @@ sub _build_helper {
     $env = $params{env} || TestRequest->to_env(%params);
     $env->{'tu.displayer.vars'} = {params => $params{params} || {}};
 
-    Toks::Helper::Pager->new(env => $env);
+    Threads::Helper::Pager->new(env => $env);
 }
 
 done_testing;
