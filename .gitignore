@@ -1,2 +1,4 @@
 db.db
 util/deploy.sh.rc
+config/config.dev.yml
+config/config.yml
