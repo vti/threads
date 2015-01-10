@@ -14,6 +14,9 @@
         <i class="fa fa-folder"></i>
         <strong><%= $helpers->thread->count %></strong>
 
+        <i class="fa fa-comment"></i>
+        <strong><%= $helpers->reply->count %></strong>
+
         <i class="fa fa-user"></i>
         <strong><%= $helpers->user->count %></strong>
     </div>

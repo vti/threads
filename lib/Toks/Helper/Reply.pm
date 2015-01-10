@@ -20,4 +20,11 @@ sub find_by_thread {
     return map { $_->to_hash } @replies;
 }
 
+sub count {
+    my $self = shift;
+    my ($thread) = @_;
+
+    return Toks::DB::Reply->table->count;
+}
+
 1;
