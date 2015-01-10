@@ -41,13 +41,15 @@
                 <a href="<%= $helpers->url->index %>"><%= loc('Threads') %></a> |
                 % if (var('user')) {
                 <a href="<%= $helpers->url->create_thread %>">+ <%= loc('Create thread') %></a> |
-                <a href="<%= $helpers->url->list_subscriptions %>"><%= loc('Subscriptions') %></a> |
                 % my $notification_count = $helpers->notification->count;
-                <a href="<%= $helpers->url->list_notifications %>"<%= ' class="status-bg-notice"' if $notification_count %>><%= loc('Notifications') %> (<%= $notification_count %>)</a> |
-                <a href="<%= $helpers->url->settings %>"><%= loc('Settings') %></a> |
 
+                <i class="fa fa-user"></i> <a href="<%= $helpers->url->profile %>"><%= $helpers->user->display_name(var('user')) %></a>
+                % if ($notification_count) {
+                <a href="<%= $helpers->url->list_notifications %>" class="no-underline status-bg-notice" title="<%= loc('Notifications') %>">( <%= $notification_count %> )</a>
+                % }
+                |
                 <form class="form-inline" method="post" action="<%= $helpers->url->logout %>" id="logout">
-                    <button class="link" type="submit"><%= loc('Logout') %></button> (<%= $helpers->user->display_name(var('user')) %>)
+                    <button class="link" type="submit"><%= loc('Logout') %></button>
                 </form>
 
                 % } else {

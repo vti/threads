@@ -250,6 +250,10 @@ button.link {
     text-decoration:none
 }
 
+a.no-underline, a.no-underline:hover{
+    text-decoration:none
+}
+
 .thread-controls {
 }
 

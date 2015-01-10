@@ -56,6 +56,7 @@ sub _add_routes {
     $routes->add_route('/login', name => 'login');
 
     $routes->add_route('/settings',        name => 'settings');
+    $routes->add_route('/profile',         name => 'profile');
     $routes->add_route('/change-password', name => 'change_password');
 
     $routes->add_route('/request-password-reset',

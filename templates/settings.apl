@@ -17,12 +17,4 @@
 
     </form>
 
-    <div style="padding-top:2em">
-        <a href="<%= $helpers->url->change_password %>"><%= loc('Change password') %></a>
-    </div>
-
-    <div style="padding-top:2em">
-        <a href="<%= $helpers->url->deregister %>" class="status-danger"><%= loc('Remove account') %></a>
-    </div>
-
 </div>

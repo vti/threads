@@ -17,7 +17,7 @@
         <i class="fa fa-comment"></i>
         <strong><%= $helpers->reply->count %></strong>
 
-        <i class="fa fa-user"></i>
+        <i class="fa fa-users"></i>
         <strong><%= $helpers->user->count %></strong>
     </div>
 

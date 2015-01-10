@@ -25,7 +25,7 @@ subtest 'show deregistration page' => sub {
 
     my $ua = _login();
 
-    $ua->follow_link(text => 'Settings');
+    $ua->get('/profile');
     $ua->follow_link(text => 'Remove account');
 
     $ua->content_contains('Deregistration');
@@ -36,7 +36,7 @@ subtest 'show deregistration confirmation needed page' => sub {
 
     my $ua = _login();
 
-    $ua->follow_link(text => 'Settings');
+    $ua->get('/profile');
     $ua->follow_link(text => 'Remove account');
 
     $ua->submit_form(fields => {}, form_id => 'deregister');
@@ -49,7 +49,7 @@ subtest 'send activation email' => sub {
 
     my $ua = _login();
 
-    $ua->follow_link(text => 'Settings');
+    $ua->get('/profile');
     $ua->follow_link(text => 'Remove account');
 
     $ua->submit_form(fields => {}, form_id => 'deregister');
@@ -76,7 +76,7 @@ subtest 'show confirmation success page' => sub {
 
     my $ua = _login();
 
-    $ua->follow_link(text => 'Settings');
+    $ua->get('/profile');
     $ua->follow_link(text => 'Remove account');
 
     $ua->submit_form(fields => {}, form_id => 'deregister');
@@ -95,7 +95,7 @@ subtest 'remove account' => sub {
 
     my $ua = _login();
 
-    $ua->follow_link(text => 'Settings');
+    $ua->get('/profile');
     $ua->follow_link(text => 'Remove account');
 
     $ua->submit_form(fields => {}, form_id => 'deregister');
