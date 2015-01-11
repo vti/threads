@@ -5,6 +5,7 @@ use warnings;
 
 use parent 'Tu::Action';
 
+use Threads::ObjectACL;
 use Threads::DB::User;
 use Threads::DB::Thread;
 use Threads::DB::Subscription;
@@ -20,10 +21,8 @@ sub run {
     my $user = $self->scope->user;
 
     return $self->throw_not_found
-      unless $user->get_column('id') == $thread->get_column('user_id');
-
-    return $self->throw_not_found
-      if $thread->count_related('replies');
+      unless Threads::ObjectACL->new->is_allowed($user, $thread,
+        'delete_thread');
 
     Threads::DB::Subscription->table->delete(
         where => [thread_id => $thread->get_column('id')]);

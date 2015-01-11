@@ -5,7 +5,7 @@
     <h1><%= loc('Profile') %></h1>
 
     <p>
-        <a href="<%= $helpers->url->index %>?user_id=<%= var('user')->{id} %>"><%= loc('Threads') %></a><br >
+        <a href="<%= $helpers->url->index %>?user_id=<%= $helpers->acl->user->{id} %>"><%= loc('Threads') %></a><br >
         <a href="<%= $helpers->url->list_subscriptions %>"><%= loc('Subscriptions') %></a>
     </p>
 

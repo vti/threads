@@ -39,11 +39,11 @@
                 % }
 
                 <a href="<%= $helpers->url->index %>"><%= loc('Threads') %></a> |
-                % if (var('user')) {
+                % if ($helpers->acl->is_user) {
                 <a href="<%= $helpers->url->create_thread %>">+ <%= loc('Create thread') %></a> |
                 % my $notification_count = $helpers->notification->count;
 
-                <i class="fa fa-user"></i> <a href="<%= $helpers->url->profile %>"><%= $helpers->user->display_name(var('user')) %></a>
+                <i class="fa fa-user"></i> <a href="<%= $helpers->url->profile %>"><%= $helpers->user->display_name($helpers->acl->user) %></a>
                 % if ($notification_count) {
                 <a href="<%= $helpers->url->list_notifications %>" class="no-underline status-bg-notice" title="<%= loc('Notifications') %>">( <%= $notification_count %> )</a>
                 % }

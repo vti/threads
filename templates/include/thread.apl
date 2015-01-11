@@ -3,7 +3,7 @@
         <div class="thread-counters">
         <div class="thread-counters-replies"><%= $thread->{replies_count} %></div>
         <div><i class="fa fa-eye"></i> <%= $thread->{views_count} %></div>
-        % if (var('user')) {
+        % if ($helpers->acl->is_user) {
         <form class="form-inline ajax" action="<%= $helpers->url->toggle_subscription(id => $thread->{id}) %>">
             % my $is_sub = $helpers->subscription->is_subscribed($thread);
             % my $current_class = $is_sub ? 'fa-bell' : 'fa-bell-slash';

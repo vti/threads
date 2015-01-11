@@ -5,6 +5,7 @@ use warnings;
 
 use parent 'Tu::Action';
 
+use Threads::ObjectACL;
 use Threads::DB::User;
 use Threads::DB::Reply;
 use Threads::DB::Notification;
@@ -20,10 +21,7 @@ sub run {
     my $user = $self->scope->user;
 
     return $self->throw_not_found
-      unless $user->get_column('id') == $reply->get_column('user_id');
-
-    return $self->throw_not_found
-      if $reply->count_related('ansestors');
+      unless Threads::ObjectACL->new->is_allowed($user, $reply, 'delete_reply');
 
     my $thread = $reply->related('thread');
 

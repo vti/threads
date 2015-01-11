@@ -5,6 +5,7 @@ use warnings;
 
 use parent 'Threads::Action::FormBase';
 
+use Threads::ObjectACL;
 use Threads::DB::Thread;
 
 sub build_validator {
@@ -34,7 +35,8 @@ sub run {
     my $user = $self->scope->user;
 
     return $self->throw_not_found
-      unless $user->get_column('id') == $thread->get_column('user_id');
+      unless Threads::ObjectACL->new->is_allowed($user, $thread,
+        'update_thread');
 
     $self->{thread} = $thread;
 

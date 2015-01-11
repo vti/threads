@@ -1,19 +1,19 @@
         <div class="reply-controls">
-            % if (var('user')) {
+            % if ($helpers->acl->is_user) {
             <button class="quick-reply-button"><i class="fa fa-reply"></i> <%= loc('reply') %></button>
             % }
 
-            % if ($helpers->acl->is_allowed('update_reply', $reply)) {
+            % if ($helpers->acl->is_allowed($reply, 'update_reply')) {
             <button class="quick-edit-button"><i class="fa fa-edit"></i> <%= loc('edit') %></button>
             % }
-            % if ($helpers->acl->is_allowed('delete_reply', $reply)) {
+            % if ($helpers->acl->is_allowed($reply, 'delete_reply')) {
             <form class="form-inline" method="POST" action="<%= $helpers->url->delete_reply(id => $reply->{id}) %>">
             <button type="submit"><i class="fa fa-remove"></i> <%= loc('delete') %></button>
             </form>
             % }
 
             % if (0) {
-            % if (var('user') && var('user')->{id} != $reply->{user_id}) {
+            % if ($helpers->acl->is_user && !$helpers->acl->is_author($reply)) {
             % my $is_flagged = $helpers->reply->is_flagged($reply);
             % my $current_class = $is_flagged ? 'fa-flag' : 'fa-flag-o';
 

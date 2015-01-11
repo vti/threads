@@ -5,7 +5,7 @@
 
     %== $helpers->displayer->render('include/thread', thread => $thread, view => 1);
 
-    % if (var('user')) {
+    % if ($helpers->acl->is_user) {
     %== $helpers->displayer->render('include/thread-controls', thread => $thread);
     % }
 
@@ -16,7 +16,7 @@
 
             <div class="reply-thank">
 
-            % if (!var('user') || $helpers->reply->is_author($reply)) {
+            % if ($helpers->acl->is_anon || $helpers->acl->is_author($reply)) {
                 <button disabled="disabled">
                 <span class="quick-thank-counter"><%= $reply->{thanks_count} ? $reply->{thanks_counter} : '' %></span>
                 <i class="fa fa-thumbs-o-up"></i>
@@ -61,7 +61,7 @@
     % }
     </div>
 
-    % if (!var('user')) {
+    % if ($helpers->acl->is_anon) {
     <div class="not-user-notice">
         <%== loc('To reply to this thread login or register') %>.
 
