@@ -21,17 +21,6 @@ sub find_by_thread {
     return map { $_->to_hash } @replies;
 }
 
-sub is_author {
-    my $self = shift;
-    my ($reply) = @_;
-
-    my $user = $self->scope->user;
-
-    return 1 if $user && $user->id == $reply->{user_id};
-
-    return 0;
-}
-
 sub is_thanked {
     my $self = shift;
     my ($reply) = @_;

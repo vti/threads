@@ -5,6 +5,7 @@ use warnings;
 
 use parent 'Tu::Action';
 
+use Threads::ObjectACL;
 use Threads::DB::User;
 use Threads::DB::Reply;
 use Threads::DB::Thank;
@@ -19,11 +20,10 @@ sub run {
     my $user = $self->scope->user;
 
     my $count =
-      Threads::DB::Thank->table->count(
-        where => [reply_id => $reply->id]);
+      Threads::DB::Thank->table->count(where => [reply_id => $reply->id]);
 
     return $self->throw_not_found
-      if $user->id == $reply->user_id;
+      if Threads::ObjectACL->new->is_author($user, $reply);
 
     my $thank = Threads::DB::Thank->find(
         first => 1,
@@ -55,7 +55,8 @@ sub run {
     $reply->thanks_count($count);
     $reply->update;
 
-    return {count => $count == 0 ? '': $count, state => $state}, type => 'json';
+    return {count => $count == 0 ? '' : $count, state => $state},
+      type => 'json';
 }
 
 1;

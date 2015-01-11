@@ -5,6 +5,7 @@ use warnings;
 
 use parent 'Tu::Action';
 
+use Threads::ObjectACL;
 use Threads::DB::User;
 use Threads::DB::Reply;
 use Threads::DB::Report;
@@ -19,7 +20,7 @@ sub run {
     my $user = $self->scope->user;
 
     return $self->throw_not_found
-      if $user->id == $reply->user_id;
+      if Threads::ObjectACL->new->is_author($user, $reply);
 
     my $report = Threads::DB::Report->find(
         first => 1,
