@@ -255,9 +255,8 @@ msgid "Unknown credentials"
 msgstr "Неизвестные данные"
 
 #: lib/Threads/Job/SendEmailNotifications.pm:48
-#, fuzzy
 msgid "Unread notifications: "
-msgstr "Email-уведомления"
+msgstr "Непрочитанные уведомления: "
 
 #: templates/settings.apl:16 templates/update_thread.apl:16
 msgid "Update"
@@ -276,9 +275,8 @@ msgid "User exists"
 msgstr "Пользователь существует"
 
 #: templates/include/admin_nav.apl:1
-#, fuzzy
 msgid "Users"
-msgstr "Пользователь существует"
+msgstr "Пользователи"
 
 #: templates/layout.apl:73
 msgid "Written by"
