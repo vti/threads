@@ -80,9 +80,9 @@ sub submit {
 
     my $reply = Threads::DB::Reply->new(
         %$params,
-        thread_id => $thread->get_column('id'),
-        user_id   => $user->get_column('id'),
-        $parent ? (parent_id => $parent->get_column('id')) : ()
+        thread_id => $thread->id,
+        user_id   => $user->id,
+        $parent ? (parent_id => $parent->id) : ()
     )->create;
 
     $thread->replies_count($thread->count_related('replies'));
@@ -91,35 +91,35 @@ sub submit {
 
     my @subscriptions = Threads::DB::Subscription->find(
         where => [
-            user_id   => {'!=' => $user->get_column('id')},
-            thread_id => $thread->get_column('id'),
+            user_id   => {'!=' => $user->id},
+            thread_id => $thread->id,
         ]
     );
 
     foreach my $subscription (@subscriptions) {
         Threads::DB::Notification->new(
-            user_id  => $subscription->get_column('user_id'),
-            reply_id => $reply->get_column('id')
+            user_id  => $subscription->user_id,
+            reply_id => $reply->id
         )->create;
     }
 
-    if ($parent && $parent->get_column('user_id') != $user->get_column('id')) {
+    if ($parent && $parent->user_id != $user->id) {
         Threads::DB::Notification->new(
-            user_id  => $parent->related('user')->get_column('id'),
-            reply_id => $reply->get_column('id')
+            user_id  => $parent->related('user')->id,
+            reply_id => $reply->id
         )->load_or_create;
     }
 
     my $redirect = $self->url_for(
         'view_thread',
-        id   => $thread->get_column('id'),
-        slug => $thread->get_column('slug')
+        id   => $thread->id,
+        slug => $thread->slug
     );
 
     return {redirect => $redirect . '?t='
           . time
           . '#reply-'
-          . $reply->get_column('id')
+          . $reply->id
     }, type => 'json';
 }
 

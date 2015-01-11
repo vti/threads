@@ -31,7 +31,7 @@ sub validate {
         return;
     }
 
-    if ($user->get_column('status') ne 'active') {
+    if ($user->status ne 'active') {
         $validator->add_error(email => $self->loc('Account not activated'));
         return;
     }
@@ -48,10 +48,10 @@ sub submit {
     my $user = $self->{user};
 
     Threads::DB::Confirmation->table->delete(
-        where => [user_id => $user->get_column('id')]);
+        where => [user_id => $user->id]);
 
     my $confirmation = Threads::DB::Confirmation->new(
-        user_id => $user->get_column('id'),
+        user_id => $user->id,
         type    => 'reset_password'
     )->create;
 
@@ -60,7 +60,7 @@ sub submit {
         layout => undef,
         vars   => {
             email => $params->{email},
-            token => to_hex $confirmation->get_column('token')
+            token => to_hex $confirmation->token
         }
     );
 

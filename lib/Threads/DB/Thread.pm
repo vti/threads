@@ -41,11 +41,11 @@ __PACKAGE__->meta(
 sub create {
     my $self = shift;
 
-    if (!$self->get_column('slug')) {
-        $self->slug($self->_slug($self->get_column('title')));
+    if (!$self->slug) {
+        $self->slug($self->_slug($self->title));
     }
 
-    if (!$self->get_column('last_activity')) {
+    if (!$self->last_activity) {
         $self->last_activity(time);
     }
 
@@ -55,7 +55,7 @@ sub create {
 sub update {
     my $self = shift;
 
-    $self->slug($self->_slug($self->get_column('title')));
+    $self->slug($self->_slug($self->title));
 
     return $self->SUPER::update;
 }

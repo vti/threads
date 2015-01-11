@@ -22,8 +22,8 @@ sub run {
     my $subscription = Threads::DB::Subscription->find(
         first => 1,
         where => [
-            user_id   => $user->get_column('id'),
-            thread_id => $thread->get_column('id')
+            user_id   => $user->id,
+            thread_id => $thread->id
         ]
     );
 
@@ -34,8 +34,8 @@ sub run {
     }
     else {
         Threads::DB::Subscription->new(
-            user_id   => $user->get_column('id'),
-            thread_id => $thread->get_column('id')
+            user_id   => $user->id,
+            thread_id => $thread->id
         )->create;
 
         return {state => 1}, type => 'json';

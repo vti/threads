@@ -17,7 +17,7 @@ sub run {
 
     Threads::DB::Notification->table->delete(
         where => [
-            user_id => $user->get_column('id'),
+            user_id => $user->id,
             $id ? (id => $id) : ()
         ]
     );

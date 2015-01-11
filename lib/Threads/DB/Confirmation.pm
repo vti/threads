@@ -45,7 +45,7 @@ sub find_fresh_by_token {
 sub create {
     my $self = shift;
 
-    if (!$self->get_column('token')) {
+    if (!$self->token) {
         $self->token(gentoken(16));
     }
 

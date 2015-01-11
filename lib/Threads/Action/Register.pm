@@ -48,7 +48,7 @@ sub submit {
     my $user = Threads::DB::User->new(%$params, name => $name)->create;
 
     my $confirmation = Threads::DB::Confirmation->new(
-        user_id => $user->get_column('id'),
+        user_id => $user->id,
         type    => 'register'
     )->create;
 
@@ -57,7 +57,7 @@ sub submit {
         layout => undef,
         vars   => {
             email => $params->{email},
-            token => to_hex $confirmation->get_column('token')
+            token => to_hex $confirmation->token
         }
     );
 

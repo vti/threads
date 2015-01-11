@@ -38,17 +38,17 @@ sub validate {
         return;
     }
 
-    if ($user->get_column('status') eq 'new') {
+    if ($user->status eq 'new') {
         $validator->add_error(email => $self->loc('Account not activated'));
         return;
     }
 
-    if ($user->get_column('status') eq 'blocked') {
+    if ($user->status eq 'blocked') {
         $validator->add_error(email => $self->loc('Account blocked'));
         return;
     }
 
-    if ($user->get_column('status') ne 'active') {
+    if ($user->status ne 'active') {
         $validator->add_error(email => $self->loc('Account not active'));
         return;
     }
@@ -67,7 +67,7 @@ sub submit {
     my $nonce =
       Threads::DB::Nonce->new(user_id => $user->id)->create;
 
-    $self->scope->auth->login($self->env, {id => $nonce->get_column('id')});
+    $self->scope->auth->login($self->env, {id => $nonce->id});
 
     Threads::DB::Confirmation->table->delete(
         where => [user_id => $user->id, type => 'reset_password']);

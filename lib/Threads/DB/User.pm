@@ -40,14 +40,14 @@ sub load_auth {
     return
       unless my $nonce = Threads::DB::Nonce->new(id => $options->{id})->load;
 
-    my $user = $self->new(id => $nonce->get_column('user_id'))->load;
-    return unless $user && $user->get_column('status') eq 'active';
+    my $user = $self->new(id => $nonce->user_id)->load;
+    return unless $user && $user->status eq 'active';
 
     $nonce->delete;
 
     my $new_nonce =
-      Threads::DB::Nonce->new(user_id => $user->get_column('id'))->create;
-    $options->{id} = $new_nonce->get_column('id');
+      Threads::DB::Nonce->new(user_id => $user->id)->create;
+    $options->{id} = $new_nonce->id;
 
     return $user;
 }
@@ -70,9 +70,9 @@ sub check_password {
     my $self = shift;
     my ($password) = @_;
 
-    my $salt = $self->get_column('salt');
+    my $salt = $self->salt;
 
-    return $self->get_column('password') eq
+    return $self->password eq
       $self->hash_password($password, $salt);
 }
 
@@ -80,7 +80,7 @@ sub create {
     my $self = shift;
 
     my $salt = gentoken(64);
-    my $hashed_password = $self->hash_password($self->get_column('password'), $salt);
+    my $hashed_password = $self->hash_password($self->password, $salt);
 
     $self->password($hashed_password);
     $self->salt($salt);

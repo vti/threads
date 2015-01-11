@@ -33,7 +33,7 @@ sub run {
     $self->throw_not_found unless $confirmation;
 
     my $user =
-      Threads::DB::User->new(id => $confirmation->get_column('user_id'))->load;
+      Threads::DB::User->new(id => $confirmation->user_id)->load;
 
     $self->throw_not_found unless $user;
 

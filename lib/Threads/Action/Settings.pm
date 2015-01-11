@@ -31,7 +31,7 @@ sub validate {
         my $exists = Threads::DB::User->find(
             first => 1,
             where => [
-                id   => {'!=' => $user->get_column('id')},
+                id   => {'!=' => $user->id},
                 name => $params->{name}
             ]
         );

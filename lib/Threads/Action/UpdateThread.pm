@@ -57,8 +57,8 @@ sub submit {
 
     return $self->redirect(
         'view_thread',
-        id   => $thread->get_column('id'),
-        slug => $thread->get_column('slug')
+        id   => $thread->id,
+        slug => $thread->slug
     );
 }
 

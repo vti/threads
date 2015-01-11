@@ -19,7 +19,7 @@ sub run {
 
     foreach my $user (@inactive_users) {
         if ($self->_is_verbose) {
-            print 'Deleting ' . $user->get_column('id'), "\n";
+            print 'Deleting ' . $user->id, "\n";
         }
 
         $user->delete unless $self->{dry_run};

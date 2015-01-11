@@ -25,7 +25,7 @@ sub run {
         'delete_thread');
 
     Threads::DB::Subscription->table->delete(
-        where => [thread_id => $thread->get_column('id')]);
+        where => [thread_id => $thread->id]);
 
     $thread->delete;
 

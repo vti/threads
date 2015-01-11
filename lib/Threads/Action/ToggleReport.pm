@@ -19,7 +19,7 @@ sub run {
     my $user = $self->scope->user;
 
     return $self->throw_not_found
-      if $user->id == $reply->get_column('user_id');
+      if $user->id == $reply->user_id;
 
     my $report = Threads::DB::Report->find(
         first => 1,

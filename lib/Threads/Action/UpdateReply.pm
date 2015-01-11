@@ -61,14 +61,14 @@ sub submit {
 
     my $redirect = $self->url_for(
         'view_thread',
-        id   => $thread->get_column('id'),
-        slug => $thread->get_column('slug')
+        id   => $thread->id,
+        slug => $thread->slug
     );
 
     return {redirect => $redirect . '?t='
           . time
           . '#reply-'
-          . $reply->get_column('id')
+          . $reply->id
     }, type => 'json';
 }
 

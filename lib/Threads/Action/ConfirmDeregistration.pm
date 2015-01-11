@@ -22,10 +22,10 @@ sub run {
 
     $self->throw_not_found
       unless my $user =
-      Threads::DB::User->new(id => $confirmation->get_column('user_id'))->load;
+      Threads::DB::User->new(id => $confirmation->user_id)->load;
 
     $user->set_columns(
-        email    => $user->get_column('id'),
+        email    => $user->id,
         name     => '',
         password => '',
         status   => 'deleted'
@@ -37,9 +37,9 @@ sub run {
     $confirmation->delete;
 
     Threads::DB::Notification->table->delete(
-        where => [user_id => $user->get_column('id')]);
+        where => [user_id => $user->id]);
     Threads::DB::Subscription->table->delete(
-        where => [user_id => $user->get_column('id')]);
+        where => [user_id => $user->id]);
 
     return $self->render('deregistration_confirmation_success');
 }

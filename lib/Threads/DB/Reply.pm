@@ -64,7 +64,7 @@ sub create {
 
             $rgt = $parent->column('lft');
 
-            $self->thread_id($parent->get_column('thread_id'));
+            $self->thread_id($parent->thread_id);
         }
     }
 
@@ -102,8 +102,8 @@ sub create {
 sub delete {
     my $self = shift;
 
-    my $lft   = $self->get_column('lft');
-    my $rgt   = $self->get_column('rgt');
+    my $lft   = $self->lft;
+    my $rgt   = $self->rgt;
     my $width = $rgt - $lft + 1;
 
     $self->table->delete(

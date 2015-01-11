@@ -51,18 +51,18 @@ sub submit {
     my $user = $self->scope->user;
 
     my $thread =
-      Threads::DB::Thread->new(%$params, user_id => $user->get_column('id'))
+      Threads::DB::Thread->new(%$params, user_id => $user->id)
       ->create;
 
     Threads::DB::Subscription->new(
-        user_id   => $user->get_column('id'),
-        thread_id => $thread->get_column('id')
+        user_id   => $user->id,
+        thread_id => $thread->id
     )->create;
 
     return $self->redirect(
         'view_thread',
-        id   => $thread->get_column('id'),
-        slug => $thread->get_column('slug')
+        id   => $thread->id,
+        slug => $thread->slug
     );
 }
 

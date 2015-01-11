@@ -30,7 +30,7 @@ sub run {
             first => 1,
             where => [
                 thread_id => $thread_id,
-                user_id   => $user->get_column('id'),
+                user_id   => $user->id,
                 \"strftime('%Y-%m-%d', datetime(created,'unixepoch')) = '$today'"
             ]
         );
@@ -52,7 +52,7 @@ sub run {
         $view = Threads::DB::View->new(
             thread_id => $thread_id,
             $user
-            ? (user_id => $user->get_column('id'))
+            ? (user_id => $user->id)
             : (),
             hash => $hash
         )->create;

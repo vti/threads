@@ -18,7 +18,7 @@ sub run {
     my $user = $self->env->{'tu.user'};
 
     my $confirmation = Threads::DB::Confirmation->new(
-        user_id => $user->get_column('id'),
+        user_id => $user->id,
         type    => 'deregister'
     )->create;
 
@@ -26,14 +26,14 @@ sub run {
         'email/deregistration_confirmation_required',
         layout => undef,
         vars   => {
-            email => $user->get_column('email'),
-            token => to_hex $confirmation->get_column('token')
+            email => $user->email,
+            token => to_hex $confirmation->token
         }
     );
 
     $self->mailer->send(
         headers => [
-            To      => $user->get_column('email'),
+            To      => $user->email,
             Subject => $self->loc('Deregistration confirmation')
         ],
         body => $email
@@ -41,7 +41,7 @@ sub run {
 
     return $self->render(
         'deregistration_confirmation_needed',
-        vars => {email => $user->get_column('email')}
+        vars => {email => $user->email}
     );
 }
 

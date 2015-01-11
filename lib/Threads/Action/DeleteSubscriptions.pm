@@ -15,7 +15,7 @@ sub run {
 
     Threads::DB::Subscription->table->delete(
         where => [
-            user_id => $user->get_column('id'),
+            user_id => $user->id,
         ]
     );
 

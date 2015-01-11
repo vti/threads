@@ -24,7 +24,7 @@ sub check {
         my $count = $db->table->count(
             where => [
                 created => {'>=' => time - $time},
-                user_id => $user->get_column('id')
+                user_id => $user->id
             ]
         );
 

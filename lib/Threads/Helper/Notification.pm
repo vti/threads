@@ -14,7 +14,7 @@ sub count {
 
     return Threads::DB::Notification->table->count(
         where => [
-            user_id    => $user->get_column('id'),
+            user_id    => $user->id,
             'reply.id' => {'!=' => ''}
         ]
     );
@@ -29,7 +29,7 @@ sub find {
 
     my @notifications = Threads::DB::Notification->find(
         where => [
-            user_id    => $user->get_column('id'),
+            user_id    => $user->id,
             'reply.id' => {'!=' => ''}
         ],
         page      => $page,

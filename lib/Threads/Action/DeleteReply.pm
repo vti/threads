@@ -26,7 +26,7 @@ sub run {
     my $thread = $reply->related('thread');
 
     Threads::DB::Notification->table->delete(
-        where => [reply_id => $reply->get_column('id')]);
+        where => [reply_id => $reply->id]);
 
     $reply->delete;
 
@@ -35,8 +35,8 @@ sub run {
 
     return $self->redirect(
         'view_thread',
-        id   => $thread->get_column('id'),
-        slug => $thread->get_column('slug')
+        id   => $thread->id,
+        slug => $thread->slug
     );
 }
 

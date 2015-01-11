@@ -45,9 +45,9 @@ $user->update;
 
 if ($verbose) {
     print sprintf "User id=%d email=%s name=%s %s\n",
-      $user->get_column('id'),
-      $user->get_column('email'),
-      $user->get_column('name'),
+      $user->id,
+      $user->email,
+      $user->name,
       $unblock ? 'unblocked' : 'blocked';
 }
 

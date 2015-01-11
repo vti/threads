@@ -18,7 +18,7 @@ sub is_subscribed {
       if Threads::DB::Subscription->find(
         first => 1,
         where =>
-          [thread_id => $thread->{id}, user_id => $user->get_column('id')]
+          [thread_id => $thread->{id}, user_id => $user->id]
       );
 
     return 0;
@@ -31,7 +31,7 @@ sub find {
 
     my @subscriptions = Threads::DB::Subscription->find(
         where => [
-            user_id     => $user->get_column('id'),
+            user_id     => $user->id,
             'thread.id' => {'!=' => ''}
         ],
         with => ['thread', 'thread.user']
@@ -47,7 +47,7 @@ sub count {
 
     return Threads::DB::Subscription->table->count(
         where => [
-            user_id     => $user->get_column('id'),
+            user_id     => $user->id,
             'thread.id' => {'!=' => ''}
         ]
     );

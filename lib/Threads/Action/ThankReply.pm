@@ -20,16 +20,16 @@ sub run {
 
     my $count =
       Threads::DB::Thank->table->count(
-        where => [reply_id => $reply->get_column('id')]);
+        where => [reply_id => $reply->id]);
 
     return $self->throw_not_found
-      if $user->get_column('id') == $reply->get_column('user_id');
+      if $user->id == $reply->user_id;
 
     my $thank = Threads::DB::Thank->find(
         first => 1,
         where => [
-            user_id  => $user->get_column('id'),
-            reply_id => $reply->get_column('id')
+            user_id  => $user->id,
+            reply_id => $reply->id
         ]
     );
 
@@ -43,8 +43,8 @@ sub run {
     }
     else {
         Threads::DB::Thank->new(
-            user_id  => $user->get_column('id'),
-            reply_id => $reply->get_column('id')
+            user_id  => $user->id,
+            reply_id => $reply->id
         )->create;
 
         $count++;
