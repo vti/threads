@@ -10,10 +10,11 @@
                     % }
                 </div>
                 <div class="reply-date">
-                    <a href="<%= $helpers->url->view_thread(id => $thread->{id}, slug => $thread->{slug}) %>#reply-<%= $reply->{id} %>"><%= $helpers->date->format($reply->{created}) %></a>
+                    <%= $helpers->date->format($reply->{created}) %>
                     % if ($reply->{updated}) {
                         <%= loc('upd.') %> <%= $helpers->date->format($reply->{updated}) %>
                     % }
+                    <a href="<%= $helpers->url->view_thread(id => $thread->{id}, slug => $thread->{slug}) %>#reply-<%= $reply->{id} %>">#</a>
                 </div>
             </div>
 
