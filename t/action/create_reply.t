@@ -326,6 +326,42 @@ subtest 'not notify parent reply user when same user' => sub {
     is(Threads::DB::Notification->table->count, 0);
 };
 
+subtest 'deletes notifications to parent reply' => sub {
+    TestDB->setup;
+
+    my $thread_author =
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $thread =
+      Threads::DB::Thread->new(user_id => $thread_author->id)
+      ->create;
+
+    my $other_user = TestDB->create('User', email => 'foo2@bar.com');
+
+    my $parent_reply = Threads::DB::Reply->new(
+        thread_id => $thread->id,
+        user_id   => $other_user->id
+    )->create;
+
+    my $user =
+      Threads::DB::User->new(email => 'foo3@bar.com', password => 'bar')->create;
+
+    TestDB->create('Notification', user_id => $user->id, reply_id => $parent_reply->id);
+
+    my $action = _build_action(
+        req =>
+          POST('/?to=' . $parent_reply->id => {content => 'bar'}),
+        captures  => {id => $thread->id},
+        'tu.user' => $user
+    );
+
+    $action->run;
+
+    ok !TestDB->build('Notification')->find(
+        first => 1,
+        where => [user_id => $user->id, reply_id => $parent_reply->id]
+    );
+};
+
 sub _mock_services {
     my (%params) = @_;
 

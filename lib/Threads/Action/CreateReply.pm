@@ -89,6 +89,30 @@ sub submit {
     $thread->last_activity(time);
     $thread->update;
 
+    $self->_notify_thread_subscribers($thread, $reply);
+
+    if ($parent && $parent->user_id != $user->id) {
+        $self->_notify_parent_reply_author($parent, $reply);
+    }
+
+    $self->_delete_thread_notifications($thread);
+
+    my $redirect = $self->url_for(
+        'view_thread',
+        id   => $thread->id,
+        slug => $thread->slug
+    );
+
+    return {redirect => $redirect . '?t=' . time . '#reply-' . $reply->id},
+      type => 'json';
+}
+
+sub _notify_thread_subscribers {
+    my $self = shift;
+    my ($thread, $reply) = @_;
+
+    my $user = $self->scope->user;
+
     my @subscriptions = Threads::DB::Subscription->find(
         where => [
             user_id   => {'!=' => $user->id},
@@ -103,24 +127,27 @@ sub submit {
         )->create;
     }
 
-    if ($parent && $parent->user_id != $user->id) {
-        Threads::DB::Notification->new(
-            user_id  => $parent->related('user')->id,
-            reply_id => $reply->id
-        )->load_or_create;
-    }
+}
 
-    my $redirect = $self->url_for(
-        'view_thread',
-        id   => $thread->id,
-        slug => $thread->slug
-    );
+sub _notify_parent_reply_author {
+    my $self = shift;
+    my ($parent, $reply) = @_;
 
-    return {redirect => $redirect . '?t='
-          . time
-          . '#reply-'
-          . $reply->id
-    }, type => 'json';
+    Threads::DB::Notification->new(
+        user_id  => $parent->related('user')->id,
+        reply_id => $reply->id
+    )->load_or_create;
+}
+
+sub _delete_thread_notifications {
+    my $self = shift;
+    my ($thread) = @_;
+
+    my $user = $self->scope->user;
+
+    my @replies_ids = map { $_->id } $thread->find_related('replies');
+    Threads::DB::Notification->table->delete(
+        where => [user_id => $user->id, reply_id => \@replies_ids]);
 }
 
 1;
