@@ -28,11 +28,6 @@
                     <%= loc('upd.') %> <%= $helpers->date->format($thread->{updated}) %>
                 % }
             </div>
-            <div class="thread-tags">
-            % foreach my $tag (@{$thread->{tags}}) {
-                <a href="<%= $helpers->url->index %>?tag=<%= $tag->{title} %>"><span class="thread-tag"><%= $tag->{title} %></span></a>
-            % }
-            </div>
         </div>
 
         <div class="clear"></div>
@@ -46,5 +41,11 @@
             <%== $thread_content %>
         </div>
         % }
+
+        <div class="thread-tags">
+        % foreach my $tag (@{$thread->{tags}}) {
+            <a href="<%= $helpers->url->index %>?tag=<%= $tag->{title} %>"><span class="thread-tag"><%= $tag->{title} %></span></a>
+        % }
+        </div>
 
     </div>
