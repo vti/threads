@@ -10,6 +10,7 @@
     <form method="POST" id="update-thread">
 
     <%== $helpers->form->input('title', label => loc('Title'), default => $thread->{title}) %>
+    <%== $helpers->form->input('tags', label => loc('Tags'), default => $thread->{tags_list}) %>
     <%== $helpers->form->textarea('content', label => loc('Content'), default => $thread->{content}) %>
 
     <input type="submit" value="<%= loc('Update') %>" />

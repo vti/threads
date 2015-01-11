@@ -62,6 +62,8 @@ sub run {
         Threads::DB::View->table->count(where => [thread_id => $thread_id]));
     $thread->update;
 
+    $thread->related('tags');
+
     $self->set_var(thread => $thread->to_hash);
 
     return;

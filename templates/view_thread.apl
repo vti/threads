@@ -9,6 +9,18 @@
     %== $helpers->displayer->render('include/thread-controls', thread => $thread);
     % }
 
+    <div class="thread-similar">
+    % my @similar = $helpers->thread->similar($thread);
+    % if (@similar) {
+        <strong><%= loc('Similar threads') %></strong>
+    <ul>
+    % foreach my $similar_thread (@similar) {
+        <li><a href=""><%= $similar_thread->{title} %></a></li>
+    % }
+    </ul>
+    % }
+    </div>
+
     <div class="replies">
     % foreach my $reply ($helpers->reply->find_by_thread($thread)) {
         <div class="grid-container grid-parent">

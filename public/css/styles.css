@@ -267,6 +267,35 @@ a.no-underline, a.no-underline:hover{
     word-wrap: break-word;
 }
 
+.thread-tags {
+    margin-top:0.2em;
+}
+
+.thread-tag {
+    border:1px solid #ddd;
+    padding:0.2em;
+    padding-left:0.5em;
+    padding-right:0.5em;
+
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+     border-radius: 5px;
+}
+
+.thread-tags a, .thread-tags a:hover {
+    text-decoration:none;
+    color:#111;
+}
+
+.thread-tag:hover {
+    background:#eee;
+}
+
+.thread-similar {
+    padding-top:2em;
+}
+
 .replies {
     padding-top:2em;
 }

@@ -17,10 +17,12 @@ sub build_validator {
 
     $validator->add_field('title');
     $validator->add_field('content');
+    $validator->add_optional_field('tags');
 
     $validator->add_rule('title',   'Readable');
     $validator->add_rule('title',   'MaxLength', 255);
     $validator->add_rule('content', 'MaxLength', 5 * 1024);
+    $validator->add_rule('tags',    'Tags');
 
     return $validator;
 }
@@ -58,6 +60,12 @@ sub submit {
         user_id   => $user->id,
         thread_id => $thread->id
     )->create;
+
+    if ($params->{tags}) {
+        my @tags = grep { $_ ne '' && /\w/ } split /\s*,\s*/, $params->{tags};
+
+        $thread->create_related('tags', title => $_) for @tags;
+    }
 
     return $self->redirect(
         'view_thread',

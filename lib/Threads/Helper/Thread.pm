@@ -5,6 +5,8 @@ use warnings;
 
 use parent 'Tu::Helper';
 
+use List::Util qw(first);
+use Threads::DB::Tag;
 use Threads::DB::Thread;
 
 sub is_author {
@@ -20,6 +22,7 @@ sub find {
     my $self = shift;
 
     my $by        = $self->param('by')        || '';
+    my $tag       = $self->param('tag')       || '';
     my $page      = $self->param('page')      || 1;
     my $page_size = $self->param('page_size') || 10;
 
@@ -39,7 +42,23 @@ sub find {
         with      => 'user'
     );
 
-    return map { $_->to_hash } @threads;
+    @threads = map { $_->to_hash } @threads;
+
+    my @ids  = map { $_->{id} } @threads;
+    my @tags = map { $_->to_hash }
+      Threads::DB::Tag->find(where => ['map_thread_tag.thread_id' => \@ids]);
+
+    foreach my $thread (@threads) {
+        $thread->{tags} = [];
+
+        foreach my $tag (@tags) {
+            push @{$thread->{tags}}, $tag
+              if first { $_->{thread_id} == $thread->{id} }
+            @{$tag->{map_thread_tag}};
+        }
+    }
+
+    return @threads;
 }
 
 sub count {
@@ -48,11 +67,37 @@ sub count {
     return Threads::DB::Thread->table->count(where => $self->_prepare_where);
 }
 
+sub similar {
+    my $self = shift;
+    my ($thread) = @_;
+
+    my @tags =
+      Threads::DB::Tag->find(
+        where => ['map_thread_tag.thread_id' => $thread->{id}]);
+    return () unless @tags;
+
+    return map { $_->to_hash } Threads::DB::Thread->find(
+        where => [
+            id        => {'!=' => $thread->{id}},
+            'tags.id' => [map  { $_->id } @tags]
+        ],
+        group_by => 'id',
+        limit    => 5
+    );
+}
+
 sub _prepare_where {
     my $self = shift;
 
+    my @where;
+
     my $user_id = $self->param('user_id');
-    return [$user_id ? (user_id => $user_id) : ()],;
+    push @where, user_id => $user_id if $user_id;
+
+    my $tag = $self->param('tag');
+    push @where, 'tags.title' => $tag if $tag;
+
+    return \@where;
 }
 
 1;

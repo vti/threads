@@ -9,6 +9,7 @@ use TestRequest;
 use HTTP::Request::Common;
 use Threads::DB::User;
 use Threads::DB::Thread;
+use Threads::DB::Tag;
 use Threads::DB::Subscription;
 use Threads::Action::CreateThread;
 
@@ -76,6 +77,30 @@ subtest 'creates thread with correct params' => sub {
     is $thread->content, 'bar';
     isnt $thread->last_activity, 0;
     like $thread->last_activity, qr/^\d+$/;
+};
+
+subtest 'creates thread with tags' => sub {
+    TestDB->setup;
+
+    my $user =
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+
+    my $action = _build_action(
+        req => POST(
+            '/' =>
+              {title => 'Title', content => 'bar', tags => 'foo,bar,baz'}
+        ),
+        'tu.user' => $user
+    );
+
+    $action->run;
+
+    my @tags = Threads::DB::Tag->find(order_by => ['title' => 'ASC']);
+
+    is @tags, 3;
+    is $tags[0]->title, 'bar';
+    is $tags[1]->title, 'baz';
+    is $tags[2]->title, 'foo';
 };
 
 subtest 'redirects to thread view' => sub {

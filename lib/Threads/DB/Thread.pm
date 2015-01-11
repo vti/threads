@@ -34,7 +34,18 @@ __PACKAGE__->meta(
             type  => 'one to many',
             class => 'Threads::DB::Reply',
             map   => {id => 'thread_id'}
-        }
+        },
+        map_thread_tag => {
+            type  => 'one to many',
+            class => 'Threads::DB::MapThreadTag',
+            map   => {id => 'thread_id'}
+        },
+        tags => {
+            type      => 'many to many',
+            map_class => 'Threads::DB::MapThreadTag',
+            map_from  => 'thread',
+            map_to    => 'tag'
+        },
     }
 );
 
@@ -58,6 +69,18 @@ sub update {
     $self->slug($self->_slug($self->title));
 
     return $self->SUPER::update;
+}
+
+sub to_hash {
+    my $self = shift;
+
+    my $hash = $self->SUPER::to_hash;
+
+    if ($self->is_related_loaded('tags')) {
+        $hash->{tags_list} = join ', ', map {$_->title} $self->related('tags');
+    }
+
+    return $hash;
 }
 
 sub _slug {

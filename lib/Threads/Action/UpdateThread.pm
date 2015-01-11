@@ -15,11 +15,14 @@ sub build_validator {
 
     $validator->add_field('title');
     $validator->add_field('content');
+    $validator->add_optional_field('tags');
 
     $validator->add_rule('title', 'Readable');
     $validator->add_rule('title', 'MaxLength', 255);
 
     $validator->add_rule('content', 'MaxLength', 5 * 1024);
+
+    $validator->add_rule('tags', 'Tags');
 
     return $validator;
 }
@@ -40,6 +43,8 @@ sub run {
 
     $self->{thread} = $thread;
 
+    $thread->related('tags');
+
     $self->set_var(thread => $thread->to_hash);
 
     return $self->SUPER::run;
@@ -54,6 +59,15 @@ sub submit {
     $thread->updated(time);
     $thread->last_activity(time);
     $thread->update;
+
+    if ($params->{tags}) {
+        my @tags = grep { $_ ne '' && /\w/ } split /\s*,\s*/, $params->{tags};
+
+        if (@tags) {
+            $thread->delete_related('tags');
+            $thread->create_related('tags', title => $_) for @tags;
+        }
+    }
 
     return $self->redirect(
         'view_thread',

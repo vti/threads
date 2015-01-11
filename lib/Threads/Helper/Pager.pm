@@ -32,6 +32,8 @@ sub build {
 
     my @query;
     foreach my $query_param (@$query_params) {
+        next unless defined $self->param($query_param);
+
         push @query,
           URI::Escape::uri_escape($query_param) . '='
           . URI::Escape::uri_escape($self->param($query_param));
