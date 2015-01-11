@@ -30,6 +30,15 @@ sub is_user {
     return $user ? 1 : 0;
 }
 
+sub is_admin {
+    my $self = shift;
+
+    my $user = $self->scope->user;
+    return 0 unless $user && $user->role eq 'admin';
+
+    return 1;
+}
+
 sub is_author {
     my $self = shift;
     my ($object) = @_;

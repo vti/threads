@@ -136,6 +136,11 @@ sub _add_routes {
         '/admin',
         name   => 'admin_index',
     );
+
+    $routes->add_route(
+        '/admin/users',
+        name   => 'admin_list_users',
+    );
 }
 
 sub _add_acl {

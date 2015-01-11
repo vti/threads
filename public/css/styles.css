@@ -369,6 +369,10 @@ a.markup-help-button {
     color:#FF4136
 }
 
+.status-bg-danger {
+    background:#FF4136
+}
+
 .not-user-notice {
     margin-top:2em;
     padding-top:1em;

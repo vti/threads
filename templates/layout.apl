@@ -41,6 +41,9 @@
                 <a href="<%= $helpers->url->index %>"><%= loc('Threads') %></a> |
                 % if ($helpers->acl->is_user) {
                 <a href="<%= $helpers->url->create_thread %>">+ <%= loc('Create thread') %></a> |
+                % if ($helpers->acl->is_admin) {
+                <a href="<%= $helpers->url->admin_index %>" class="status-bg-danger"><%= loc('Admin') %></a> |
+                % }
                 % my $notification_count = $helpers->notification->count;
 
                 <i class="fa fa-user"></i> <a href="<%= $helpers->url->profile %>"><%= $helpers->user->display_name($helpers->acl->user) %></a>

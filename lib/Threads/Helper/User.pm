@@ -33,4 +33,11 @@ sub count {
     return Threads::DB::User->table->count(where => [status => 'active']);
 }
 
+sub find {
+    my $self = shift;
+    my (%params) = @_;
+
+    return map { $_->to_hash } Threads::DB::User->find;
+}
+
 1;
