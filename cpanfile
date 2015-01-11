@@ -6,7 +6,7 @@ requires 'HTML::Truncate';
 requires 'I18N::AcceptLanguage';
 requires 'JSON';
 requires 'Locale::Maketext::Extract::Run';
-requires 'Math::Random::Secure';
+requires 'Math::Random::ISAAC';
 requires 'Net::Domain::TLD';
 requires 'ObjectDB';
 requires 'Plack';

@@ -7,15 +7,36 @@ use parent 'Exporter';
 
 our @EXPORT_OK = qw(gentoken to_hex from_hex);
 
-use Math::Random::Secure;
+use Time::HiRes qw(gettimeofday);
+use Math::Random::ISAAC;
 
 sub gentoken {
     my ($len) = @_;
 
     $len ||= 32;
 
-    return join '',
-      map { pack 'C', Math::Random::Secure::irand(256) } 1 .. $len;
+    my $seed;
+
+    if (-e '/dev/urandom') {
+        if (open my $fh, '<', '/dev/urandom') {
+            read $fh, $seed, 4;
+            close $fh;
+
+            $seed = unpack 'L', $seed;
+        }
+    }
+
+    if (!defined $seed) {
+        my ($seconds, $microseconds) = gettimeofday();
+
+        $microseconds .= '0' while length $microseconds < 6;
+
+        $seed = $seconds . $microseconds;
+    }
+
+    my $rng = Math::Random::ISAAC->new($seed);
+
+    return join '', map { pack 'L', $rng->irand } 1 .. $len / 4;
 }
 
 sub to_hex ($) {
