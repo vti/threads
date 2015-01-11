@@ -11,6 +11,7 @@ use HTTP::Request::Common;
 use Threads::DB::User;
 use Threads::DB::Confirmation;
 use Threads::Action::ResetPassword;
+use Threads::Util qw(to_hex);
 
 subtest 'return 404 when no confirmation token' => sub {
     TestDB->setup;
@@ -35,9 +36,30 @@ subtest 'return 404 when confirmation not found' => sub {
 subtest 'return 404 when user not found' => sub {
     TestDB->setup;
 
-    my $confirmation = Threads::DB::Confirmation->new(user_id => 123)->create;
+    my $confirmation =
+      Threads::DB::Confirmation->new(user_id => 123, type => 'reset_password')
+      ->create;
     my $action =
-      _build_action(captures => {token => $confirmation->get_column('token')});
+      _build_action(
+        captures => {token => to_hex $confirmation->get_column('token')});
+
+    my $e = exception { $action->run };
+    isa_ok($e, 'Tu::X::HTTP');
+    is $e->code, '404';
+};
+
+subtest 'return 404 when expired token' => sub {
+    TestDB->setup;
+
+    my $user         = TestDB->create('User');
+    my $confirmation = Threads::DB::Confirmation->new(
+        user_id => $user->get_column('id'),
+        created => 123,
+        type    => 'reset_password'
+    )->create;
+    my $action =
+      _build_action(
+        captures => {token => to_hex $confirmation->get_column('token')});
 
     my $e = exception { $action->run };
     isa_ok($e, 'Tu::X::HTTP');
@@ -47,55 +69,28 @@ subtest 'return 404 when user not found' => sub {
 subtest 'show reset password page' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo@bar.com')->create;
-    my $confirmation =
-      Threads::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+    my $user         = TestDB->create('User');
+    my $confirmation = Threads::DB::Confirmation->new(
+        user_id => $user->get_column('id'),
+        type    => 'reset_password'
+    )->create;
     my $action =
-      _build_action(captures => {token => $confirmation->get_column('token')});
+      _build_action(
+        captures => {token => to_hex $confirmation->get_column('token')});
 
     ok !$action->run;
-};
-
-subtest 'return 404 when confirmation not found' => sub {
-    TestDB->setup;
-
-    my $action = _build_action(
-        captures => {token => 123},
-        req      => POST(
-            '/' => {
-                new_password              => 'foo',
-                new_password_confirmation => 'foo'
-            }
-        )
-    );
-
-    my $e = exception { $action->run };
-    isa_ok($e, 'Tu::X::HTTP');
-    is $e->code, '404';
-};
-
-subtest 'return 404 when user not found' => sub {
-    TestDB->setup;
-
-    my $confirmation = Threads::DB::Confirmation->new(user_id => 123)->create;
-    my $action = _build_action(
-        captures => {token   => $confirmation->get_column('token')},
-        req      => POST('/' => {})
-    );
-
-    my $e = exception { $action->run };
-    isa_ok($e, 'Tu::X::HTTP');
-    is $e->code, '404';
 };
 
 subtest 'show validation errors' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo@bar.com')->create;
-    my $confirmation =
-      Threads::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+    my $user         = TestDB->create('User');
+    my $confirmation = Threads::DB::Confirmation->new(
+        user_id => $user->get_column('id'),
+        type    => 'reset_password'
+    )->create;
     my $action = _build_action(
-        captures => {token   => $confirmation->get_column('token')},
+        captures => {token   => to_hex $confirmation->get_column('token')},
         req      => POST('/' => {})
     );
 
@@ -108,11 +103,13 @@ subtest 'show validation errors' => sub {
 subtest 'show validation errors when password do not match' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo@bar.com')->create;
-    my $confirmation =
-      Threads::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+    my $user         = TestDB->create('User');
+    my $confirmation = Threads::DB::Confirmation->new(
+        user_id => $user->get_column('id'),
+        type    => 'reset_password'
+    )->create;
     my $action = _build_action(
-        captures => {token => $confirmation->get_column('token')},
+        captures => {token => to_hex $confirmation->get_column('token')},
         req      => POST(
             '/' => {
                 new_password              => 'foo',
@@ -131,11 +128,13 @@ subtest 'show validation errors when password do not match' => sub {
 subtest 'change user password' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo@bar.com')->create;
-    my $confirmation =
-      Threads::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+    my $user         = TestDB->create('User');
+    my $confirmation = Threads::DB::Confirmation->new(
+        user_id => $user->get_column('id'),
+        type    => 'reset_password'
+    )->create;
     my $action = _build_action(
-        captures => {token => $confirmation->get_column('token')},
+        captures => {token => to_hex $confirmation->get_column('token')},
         req      => POST(
             '/' => {new_password => 'foo', new_password_confirmation => 'foo'}
         )
@@ -148,14 +147,16 @@ subtest 'change user password' => sub {
     ok $user->check_password('foo');
 };
 
-subtest 'delete confirmation' => sub {
+subtest 'deletes confirmation' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo@bar.com')->create;
-    my $confirmation =
-      Threads::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+    my $user         = TestDB->create('User');
+    my $confirmation = Threads::DB::Confirmation->new(
+        user_id => $user->get_column('id'),
+        type    => 'reset_password'
+    )->create;
     my $action = _build_action(
-        captures => {token => $confirmation->get_column('token')},
+        captures => {token => to_hex $confirmation->get_column('token')},
         req      => POST(
             '/' => {new_password => 'foo', new_password_confirmation => 'foo'}
         )
@@ -164,6 +165,30 @@ subtest 'delete confirmation' => sub {
     $action->run;
 
     ok !$confirmation->load;
+};
+
+subtest 'deletes other confirmations' => sub {
+    TestDB->setup;
+
+    my $user = TestDB->create('User');
+    Threads::DB::Confirmation->new(
+        user_id => $user->get_column('id'),
+        type    => 'reset_password'
+    )->create;
+    my $confirmation = Threads::DB::Confirmation->new(
+        user_id => $user->get_column('id'),
+        type    => 'reset_password'
+    )->create;
+    my $action = _build_action(
+        captures => {token => to_hex $confirmation->get_column('token')},
+        req      => POST(
+            '/' => {new_password => 'foo', new_password_confirmation => 'foo'}
+        )
+    );
+
+    $action->run;
+
+    is(Threads::DB::Confirmation->table->count, 0);
 };
 
 sub _build_action {

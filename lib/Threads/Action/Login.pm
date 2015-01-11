@@ -7,6 +7,7 @@ use parent 'Threads::Action::FormBase';
 
 use Threads::DB::User;
 use Threads::DB::Nonce;
+use Threads::DB::Confirmation;
 
 sub build_validator {
     my $self = shift;
@@ -61,10 +62,15 @@ sub submit {
     my $self = shift;
     my ($params) = @_;
 
+    my $user = $self->{user};
+
     my $nonce =
-      Threads::DB::Nonce->new(user_id => $self->{user}->get_column('id'))->create;
+      Threads::DB::Nonce->new(user_id => $user->id)->create;
 
     $self->scope->auth->login($self->env, {id => $nonce->get_column('id')});
+
+    Threads::DB::Confirmation->table->delete(
+        where => [user_id => $user->id, type => 'reset_password']);
 
     return $self->redirect('index');
 }

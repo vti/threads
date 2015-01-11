@@ -13,6 +13,7 @@ use Threads::DB::Confirmation;
 use Threads::DB::Notification;
 use Threads::DB::Subscription;
 use Threads::Action::ConfirmDeregistration;
+use Threads::Util qw(to_hex);
 
 subtest 'return 404 when confirmation token not found' => sub {
     my $action = _build_action(captures => {});
@@ -35,9 +36,30 @@ subtest 'return 404 when confirmation not found' => sub {
 subtest 'return 404 when user not found' => sub {
     TestDB->setup;
 
-    my $confirmation = Threads::DB::Confirmation->new(user_id => 123)->create;
+    my $confirmation =
+      Threads::DB::Confirmation->new(user_id => 123, type => 'deregister')
+      ->create;
     my $action =
-      _build_action(captures => {token => $confirmation->get_column('token')});
+      _build_action(
+        captures => {token => to_hex $confirmation->get_column('token')});
+
+    my $e = exception { $action->run };
+    isa_ok($e, 'Tu::X::HTTP');
+    is $e->code, '404';
+};
+
+subtest 'return 404 when expired token' => sub {
+    TestDB->setup;
+
+    my $user         = TestDB->create('User');
+    my $confirmation = Threads::DB::Confirmation->new(
+        user_id => $user->id,
+        created => 123,
+        type    => 'deregister'
+    )->create;
+    my $action =
+      _build_action(
+        captures => {token => to_hex $confirmation->get_column('token')});
 
     my $e = exception { $action->run };
     isa_ok($e, 'Tu::X::HTTP');
@@ -47,11 +69,14 @@ subtest 'return 404 when user not found' => sub {
 subtest 'removes user' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo@bar.com')->create;
-    my $confirmation =
-      Threads::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+    my $user         = TestDB->create('User');
+    my $confirmation = Threads::DB::Confirmation->new(
+        user_id => $user->get_column('id'),
+        type    => 'deregister'
+    )->create;
     my $action =
-      _build_action(captures => {token => $confirmation->get_column('token')});
+      _build_action(
+        captures => {token => to_hex $confirmation->get_column('token')});
 
     $action->run;
 
@@ -66,13 +91,15 @@ subtest 'removes user' => sub {
 subtest 'logouts user' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo@bar.com')->create;
-    my $confirmation =
-      Threads::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+    my $user         = TestDB->create('User');
+    my $confirmation = Threads::DB::Confirmation->new(
+        user_id => $user->get_column('id'),
+        type    => 'deregister'
+    )->create;
 
     my $auth   = _mock_auth();
     my $action = _build_action(
-        captures  => {token => $confirmation->get_column('token')},
+        captures  => {token => to_hex $confirmation->get_column('token')},
         'tu.auth' => $auth
     );
 
@@ -86,11 +113,14 @@ subtest 'logouts user' => sub {
 subtest 'deletes user notifications' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo@bar.com')->create;
-    my $confirmation =
-      Threads::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+    my $user         = TestDB->create('User');
+    my $confirmation = Threads::DB::Confirmation->new(
+        user_id => $user->get_column('id'),
+        type    => 'deregister'
+    )->create;
     my $action =
-      _build_action(captures => {token => $confirmation->get_column('token')});
+      _build_action(
+        captures => {token => to_hex $confirmation->get_column('token')});
 
     Threads::DB::Notification->new(user_id => 123, reply_id => 1)->create;
     Threads::DB::Notification->new(
@@ -106,11 +136,14 @@ subtest 'deletes user notifications' => sub {
 subtest 'deletes user subscriptions' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo@bar.com')->create;
-    my $confirmation =
-      Threads::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+    my $user         = TestDB->create('User');
+    my $confirmation = Threads::DB::Confirmation->new(
+        user_id => $user->get_column('id'),
+        type    => 'deregister'
+    )->create;
     my $action =
-      _build_action(captures => {token => $confirmation->get_column('token')});
+      _build_action(
+        captures => {token => to_hex $confirmation->get_column('token')});
 
     Threads::DB::Subscription->new(user_id => 123, thread_id => 1)->create;
     Threads::DB::Subscription->new(
@@ -126,11 +159,14 @@ subtest 'deletes user subscriptions' => sub {
 subtest 'delete confirmation' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo@bar.com')->create;
-    my $confirmation =
-      Threads::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+    my $user         = TestDB->create('User');
+    my $confirmation = Threads::DB::Confirmation->new(
+        user_id => $user->get_column('id'),
+        type    => 'deregister'
+    )->create;
     my $action =
-      _build_action(captures => {token => $confirmation->get_column('token')});
+      _build_action(
+        captures => {token => to_hex $confirmation->get_column('token')});
 
     $action->run;
 

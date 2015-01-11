@@ -26,14 +26,10 @@ sub run {
     my $self = shift;
 
     my $token = $self->captures->{token};
+    $self->throw_not_found unless $token;
 
-    my $confirmation = Threads::DB::Confirmation->find(
-        first => 1,
-        where => [
-            token => $token
-        ]
-    );
-
+    my $confirmation =
+      Threads::DB::Confirmation->find_fresh_by_token($token, 'reset_password');
     $self->throw_not_found unless $confirmation;
 
     my $user =
@@ -55,7 +51,8 @@ sub submit {
 
     $user->update_password($params->{new_password});
 
-    $self->{confirmation}->delete;
+    Threads::DB::Confirmation->table->delete(
+        where => [user_id => $user->id, type => 'reset_password']);
 
     return $self->render('password_reset_success');
 }

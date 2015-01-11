@@ -16,7 +16,7 @@ sub run {
 
     $self->throw_not_found
       unless my $confirmation =
-      Threads::DB::Confirmation->new(token => $token)->load;
+      Threads::DB::Confirmation->find_fresh_by_token($token, 'register');
 
     $self->throw_not_found
       unless my $user =

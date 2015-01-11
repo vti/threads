@@ -41,7 +41,7 @@ subtest 'set template error when invalid email' => sub {
 subtest 'set template error when email exists' => sub {
     TestDB->setup;
 
-    Threads::DB::User->new(email => 'foo@bar.com')->create;
+    TestDB->create('User');
 
     my $action =
       _build_action(
@@ -91,7 +91,7 @@ subtest 'create user with name from email' => sub {
 subtest 'create user with empty name when exists' => sub {
     TestDB->setup;
 
-    Threads::DB::User->new(email => 'foo2@bar.com', name => 'foo')->create;
+    TestDB->create('User', email => 'foo2@bar.com', name => 'foo');
 
     my $action = _build_action(
         req => POST('/' => {email => 'foo@bar.com', password => 'bar'}),
@@ -120,10 +120,11 @@ subtest 'create confirmation token with correct params' => sub {
     ok $confirmation;
     is $confirmation->get_column('user_id'),
       Threads::DB::User->find(first => 1)->get_column('id');
-    like $confirmation->get_column('token'), qr/^[a-z0-9]+$/i;
+    isnt $confirmation->get_column('token'), '';
+    is $confirmation->get_column('type'), 'register';
 };
 
-subtest 'send email' => sub {
+subtest 'sends email' => sub {
     TestDB->setup;
 
     my $mailer = _mock_mailer();
@@ -134,6 +135,11 @@ subtest 'send email' => sub {
     );
 
     $action->run;
+
+    my ($template, %params) = $action->mocked_call_args('render');
+    is $template, 'email/confirmation_required';
+    is $params{vars}{email},   'foo@bar.com';
+    like $params{vars}{token}, qr/^[a-f0-9]+$/;
 
     my (%mail) = $mailer->mocked_call_args('send');
     is_deeply \%mail,

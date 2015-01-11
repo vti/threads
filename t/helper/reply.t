@@ -36,7 +36,7 @@ subtest 'returns false when user anonymous' => sub {
 subtest 'returns false when no thanks' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo@bar.com')->create;
+    my $user = TestDB->create('User');
     my $helper = _build_helper('tu.user' => $user);
 
     is $helper->is_thanked({id => 12, thanks_count => 1}), 0;
@@ -45,7 +45,7 @@ subtest 'returns false when no thanks' => sub {
 subtest 'returns true when thank found' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo@bar.com')->create;
+    my $user = TestDB->create('User');
     Threads::DB::Thank->new(user_id => $user->id, reply_id => 12)->create;
     my $helper = _build_helper('tu.user' => $user);
 

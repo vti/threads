@@ -14,8 +14,7 @@ use Threads::Action::ChangePassword;
 subtest 'validation error when wrong old password' => sub {
     TestDB->setup;
 
-    my $user =
-      Threads::DB::User->new(email => 'foo@bar.com', password => 'silly');
+    my $user = TestDB->create('User');
 
     my $action = _build_action(
         req => POST(
@@ -36,8 +35,7 @@ subtest 'validation error when wrong old password' => sub {
 subtest 'validation error when new passwords do not match' => sub {
     TestDB->setup;
 
-    my $user =
-      Threads::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
+    my $user = TestDB->create('User');
     my $action = _build_action(
         req => POST(
             '/' => {
@@ -57,8 +55,7 @@ subtest 'validation error when new passwords do not match' => sub {
 subtest 'change user password' => sub {
     TestDB->setup;
 
-    my $user =
-      Threads::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
+    my $user = TestDB->create('User');
     my $action = _build_action(
         req => POST(
             '/' => {

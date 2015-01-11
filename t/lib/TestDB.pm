@@ -5,6 +5,27 @@ use warnings;
 
 use Threads::DB;
 
+my %defaults = (
+    User => {
+        email    => 'foo@bar.com',
+        password => 'silly'
+    }
+);
+
+sub build {
+    my $class = shift;
+    my ($name, %params) = @_;
+
+    my $class_name = "Threads::DB::$name";
+    return $class_name->new(%{$defaults{$name} || {}}, %params);
+}
+
+sub create {
+    my $class = shift;
+
+    return $class->build(@_)->create;
+}
+
 sub setup {
     my $self = shift;
 

@@ -10,6 +10,7 @@ use TestRequest;
 use HTTP::Request::Common;
 use Threads::DB::User;
 use Threads::DB::Nonce;
+use Threads::DB::Confirmation;
 use Threads::Action::Login;
 
 subtest 'set template var errors' => sub {
@@ -173,6 +174,25 @@ subtest 'redirect to root' => sub {
     my $res = $action->run;
 
     is $res->code, 302;
+};
+
+subtest 'deletes any reset password tokens' => sub {
+    TestDB->setup;
+
+    my $user = TestDB->create('User', status => 'active');
+
+    Threads::DB::Confirmation->new(
+        user_id => $user->id,
+        type    => 'reset_password'
+    )->create;
+
+    my $action =
+      _build_action(
+        req => POST('/' => {email => 'foo@bar.com', password => 'silly'}));
+
+    $action->run;
+
+    is(Threads::DB::Confirmation->table->count, 0);
 };
 
 sub _build_action {

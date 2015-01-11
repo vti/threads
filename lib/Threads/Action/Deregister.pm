@@ -8,6 +8,7 @@ use parent 'Tu::Action';
 use Threads::DB::User;
 use Threads::DB::Confirmation;
 use Threads::Action::TranslateMixin 'loc';
+use Threads::Util qw(to_hex);
 
 sub run {
     my $self = shift;
@@ -16,15 +17,17 @@ sub run {
 
     my $user = $self->env->{'tu.user'};
 
-    my $confirmation =
-      Threads::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+    my $confirmation = Threads::DB::Confirmation->new(
+        user_id => $user->get_column('id'),
+        type    => 'deregister'
+    )->create;
 
     my $email = $self->render(
         'email/deregistration_confirmation_required',
         layout => undef,
         vars   => {
             email => $user->get_column('email'),
-            token => $confirmation->get_column('token')
+            token => to_hex $confirmation->get_column('token')
         }
     );
 

@@ -5,7 +5,8 @@ use warnings;
 
 use parent 'Threads::DB';
 
-use Digest::MD5 ();
+use Carp qw(croak);
+use Threads::Util qw(gentoken from_hex);
 
 __PACKAGE__->meta(
     table   => 'confirmations',
@@ -14,6 +15,7 @@ __PACKAGE__->meta(
           id
           user_id
           token
+          type
           created
           /
     ],
@@ -22,24 +24,31 @@ __PACKAGE__->meta(
     unique_keys    => ['token'],
 );
 
+sub find_fresh_by_token {
+    my $self = shift;
+    my ($token, $type) = @_;
+
+    croak 'token required' unless $token;
+    croak 'type required'  unless $type;
+
+    return Threads::DB::Confirmation->find(
+        first => 1,
+        where => [
+            token   => from_hex $token,
+            type    => $type,
+            created => {'>=' => time - 15 * 60}
+        ]
+    );
+}
+
 sub create {
     my $self = shift;
 
     if (!$self->get_column('token')) {
-        my $token = $self->generate_token;
-
-        $self->set_column(token => $token);
+        $self->set_column(token => gentoken(16));
     }
 
     return $self->SUPER::create;
-}
-
-sub generate_token {
-    my $self = shift;
-
-    my $token = time . rand(100);
-
-    return Digest::MD5::md5_hex($token);
 }
 
 1;

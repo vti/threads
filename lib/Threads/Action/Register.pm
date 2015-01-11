@@ -7,6 +7,7 @@ use parent 'Threads::Action::FormBase';
 
 use Threads::DB::User;
 use Threads::DB::Confirmation;
+use Threads::Util qw(to_hex);
 
 sub build_validator {
     my $self = shift;
@@ -46,15 +47,17 @@ sub submit {
 
     my $user = Threads::DB::User->new(%$params, name => $name)->create;
 
-    my $confirmation =
-      Threads::DB::Confirmation->new(user_id => $user->get_column('id'))->create;
+    my $confirmation = Threads::DB::Confirmation->new(
+        user_id => $user->get_column('id'),
+        type    => 'register'
+    )->create;
 
     my $email = $self->render(
         'email/confirmation_required',
         layout => undef,
         vars   => {
             email => $params->{email},
-            token => $confirmation->get_column('token')
+            token => to_hex $confirmation->get_column('token')
         }
     );
 

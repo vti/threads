@@ -6,8 +6,10 @@ use warnings;
 use parent 'Threads::DB';
 
 use Encode ();
-use Digest::MD5 ();
+use Carp qw(croak);
+use Digest::SHA ();
 use Threads::DB::Nonce;
+use Threads::Util qw(gentoken);
 
 __PACKAGE__->meta(
     table   => 'users',
@@ -16,12 +18,11 @@ __PACKAGE__->meta(
           id
           email
           password
+          salt
           name
           status
           created
           email_notifications
-          notify_when_replied
-          auto_subscribe
           /
     ],
     primary_key    => 'id',
@@ -35,14 +36,16 @@ sub load_auth {
     my $self = shift;
     my ($options) = @_;
 
-    return unless my $nonce = Threads::DB::Nonce->new(id => $options->{id})->load;
+    return
+      unless my $nonce = Threads::DB::Nonce->new(id => $options->{id})->load;
 
     my $user = $self->new(id => $nonce->get_column('user_id'))->load;
     return unless $user && $user->get_column('status') eq 'active';
 
     $nonce->delete;
 
-    my $new_nonce = Threads::DB::Nonce->new(user_id => $user->get_column('id'))->create;
+    my $new_nonce =
+      Threads::DB::Nonce->new(user_id => $user->get_column('id'))->create;
     $options->{id} = $new_nonce->get_column('id');
 
     return $user;
@@ -50,11 +53,14 @@ sub load_auth {
 
 sub hash_password {
     my $self = shift;
-    my ($password) = @_;
+    my ($password, $salt) = @_;
+
+    croak 'password required' unless defined $password;
+    croak 'salt required'     unless defined $salt;
 
     $password = Encode::encode('UTF-8', $password);
 
-    $password = Digest::MD5::md5_hex($password || '');
+    $password = Digest::SHA::sha256_hex($password . $salt);
 
     return Encode::decode('UTF-8', $password);
 }
@@ -63,14 +69,19 @@ sub check_password {
     my $self = shift;
     my ($password) = @_;
 
-    return $self->get_column('password') eq $self->hash_password($password);
+    my $salt = $self->get_column('salt');
+
+    return $self->get_column('password') eq
+      $self->hash_password($password, $salt);
 }
 
 sub create {
     my $self = shift;
 
+    my $salt = gentoken(64);
     $self->set_column(
-        password => $self->hash_password($self->get_column('password')));
+        password => $self->hash_password($self->get_column('password'), $salt));
+    $self->set_column(salt => $salt);
 
     return $self->SUPER::create;
 }
@@ -79,7 +90,9 @@ sub update_password {
     my $self = shift;
     my ($new_password) = @_;
 
-    $self->set_column(password => $self->hash_password($new_password));
+    my $salt = gentoken(64);
+    $self->set_column(password => $self->hash_password($new_password, $salt));
+    $self->set_column(salt => $salt);
 
     return $self->save;
 }

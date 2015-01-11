@@ -53,9 +53,7 @@ subtest 'do not delete when dry-run' => sub {
     is(Threads::DB::User->table->count, 1);
 };
 
-sub _create_user {
-    Threads::DB::User->new(email => int(rand(100)), @_)->create;
-}
+sub _create_user { TestDB->create('User', email => int(rand(100)), @_) }
 
 sub _build_job {
     my (%params) = @_;

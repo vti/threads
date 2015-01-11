@@ -52,7 +52,7 @@ subtest 'set template error when email does not exist' => sub {
 subtest 'set template error when user not activated' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo@bar.com')->create;
+    my $user = TestDB->create('User');
 
     my $action = _build_action(req => POST('/' => {email => 'foo@bar.com'}));
 
@@ -63,11 +63,10 @@ subtest 'set template error when user not activated' => sub {
     is $env->{'tu.displayer.vars'}->{errors}->{email}, 'Account not activated';
 };
 
-subtest 'create confirmation token with correct params' => sub {
+subtest 'creates confirmation token with correct params' => sub {
     TestDB->setup;
 
-    my $user =
-      Threads::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
+    my $user = TestDB->create('User', status => 'active');
 
     my $action = _build_action(req => POST('/' => {email => 'foo@bar.com'}));
 
@@ -78,16 +77,29 @@ subtest 'create confirmation token with correct params' => sub {
     ok $confirmation;
     is $confirmation->get_column('user_id'),
       Threads::DB::User->find(first => 1)->get_column('id');
-    like $confirmation->get_column('token'), qr/^[a-z0-9]+$/i;
+    isnt $confirmation->get_column('token'), '';
+    is $confirmation->get_column('type'), 'reset_password';
 };
 
-subtest 'send email' => sub {
+subtest 'deletes any previous tokens' => sub {
+    TestDB->setup;
+
+    my $user = TestDB->create('User', status => 'active');
+    TestDB->create('Confirmation', user_id => $user->id);
+
+    my $action = _build_action(req => POST('/' => {email => 'foo@bar.com'}));
+
+    $action->run;
+
+    is(Threads::DB::Confirmation->table->count, 1);
+};
+
+subtest 'sends email' => sub {
     TestDB->setup;
 
     my $mailer = _mock_mailer();
 
-    my $user =
-      Threads::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
+    my $user = TestDB->create('User', status => 'active');
 
     my $action = _build_action(
         req    => POST('/' => {email => 'foo@bar.com'}),
@@ -95,6 +107,11 @@ subtest 'send email' => sub {
     );
 
     $action->run;
+
+    my ($template, %params) = $action->mocked_call_args('render');
+    is $template, 'email/password_reset';
+    is $params{vars}{email},   'foo@bar.com';
+    like $params{vars}{token}, qr/^[a-f0-9]+$/;
 
     my (%mail) = $mailer->mocked_call_args('send');
     is_deeply \%mail,

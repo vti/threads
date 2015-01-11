@@ -50,7 +50,7 @@ subtest 'show validation errors when unkown user' => sub {
 subtest 'show validation errors when not activated user' => sub {
     TestDB->setup;
 
-    Threads::DB::User->new(email => 'foo@bar.com')->create;
+    TestDB->create('User', email => 'foo@bar.com');
 
     my $ua = _build_ua();
 
@@ -65,7 +65,7 @@ subtest 'show validation errors when not activated user' => sub {
 subtest 'show confirmation needed page' => sub {
     TestDB->setup;
 
-    Threads::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
+    TestDB->create('User', email => 'foo@bar.com', status => 'active');
 
     my $ua = _build_ua();
 
@@ -81,7 +81,7 @@ subtest 'send confirmation email' => sub {
     TestDB->setup;
     TestMail->setup;
 
-    Threads::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
+    TestDB->create('User', email => 'foo@bar.com', status => 'active');
 
     my $ua = _build_ua();
 
@@ -107,11 +107,38 @@ subtest '404 when wrong confirmation token' => sub {
     is $res->code, 404;
 };
 
+subtest 'invalidates reset password on successful login' => sub {
+    TestDB->setup;
+    TestMail->setup;
+
+    TestDB->create('User', email => 'foo@bar.com', status => 'active');
+
+    my $ua = _build_ua();
+
+    $ua->get('/');
+    $ua->follow_link(text => 'Login');
+    $ua->follow_link(text => 'Reset password');
+
+    $ua->submit_form(fields => {email => 'foo@bar.com'});
+
+    my (undef, $message) = TestMail->get_last_message;
+
+    my ($confirmation_link) = $message =~ m/(http:.*?)\n/ms;
+
+    $ua->get_ok('/login');
+    $ua->submit_form(fields => {email => 'foo@bar.com', password => 'silly'});
+    $ua->post_ok('/logout');
+
+    my $e = $ua->get($confirmation_link);
+
+    is $e->code, 404;
+};
+
 subtest 'show password reset page' => sub {
     TestDB->setup;
     TestMail->setup;
 
-    Threads::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
+    TestDB->create('User', email => 'foo@bar.com', status => 'active');
 
     my $ua = _build_ua();
 
@@ -133,7 +160,7 @@ subtest 'show validation errors' => sub {
     TestDB->setup;
     TestMail->setup;
 
-    Threads::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
+    TestDB->create('User', email => 'foo@bar.com', status => 'active');
 
     my $ua = _build_ua();
 
@@ -157,7 +184,7 @@ subtest 'show validation errors when password do not match' => sub {
     TestDB->setup;
     TestMail->setup;
 
-    Threads::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
+    TestDB->create('User', email => 'foo@bar.com', status => 'active');
 
     my $ua = _build_ua();
 
@@ -182,7 +209,7 @@ subtest 'show success page' => sub {
     TestDB->setup;
     TestMail->setup;
 
-    Threads::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
+    TestDB->create('User', email => 'foo@bar.com', status => 'active');
 
     my $ua = _build_ua();
 
@@ -207,7 +234,7 @@ subtest 'change user password' => sub {
     TestDB->setup;
     TestMail->setup;
 
-    Threads::DB::User->new(email => 'foo@bar.com', status => 'active')->create;
+    TestDB->create('User', email => 'foo@bar.com', status => 'active');
 
     my $ua = _build_ua();
 

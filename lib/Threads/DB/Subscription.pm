@@ -5,8 +5,6 @@ use warnings;
 
 use parent 'Threads::DB';
 
-use Digest::MD5 ();
-
 __PACKAGE__->meta(
     table   => 'subscriptions',
     columns => [

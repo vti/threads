@@ -32,7 +32,8 @@ subtest 'create confirmation token with correct params' => sub {
     ok $confirmation;
     is $confirmation->get_column('user_id'),
       Threads::DB::User->find(first => 1)->get_column('id');
-    like $confirmation->get_column('token'), qr/^[a-z0-9]+$/i;
+    isnt $confirmation->get_column('token'), '';
+    is $confirmation->get_column('type'), 'deregister';
 };
 
 subtest 'send email' => sub {
@@ -50,6 +51,11 @@ subtest 'send email' => sub {
     );
 
     $action->run;
+
+    my ($template, %params) = $action->mocked_call_args('render');
+    is $template, 'email/deregistration_confirmation_required';
+    is $params{vars}{email},   'foo@bar.com';
+    like $params{vars}{token}, qr/^[a-f0-9]+$/;
 
     my (%mail) = $mailer->mocked_call_args('send');
     is_deeply \%mail,
