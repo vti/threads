@@ -16,6 +16,7 @@ __PACKAGE__->meta(
     primary_key    => 'id',
     auto_increment => 'id',
     unique_keys    => ['domain'],
+    generate_columns_methods => 1,
 );
 
 1;

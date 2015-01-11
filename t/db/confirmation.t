@@ -12,7 +12,7 @@ subtest 'creates with token' => sub {
 
     my $confirmation = TestDB->create('Confirmation', user_id => 1);
 
-    isnt $confirmation->get_column('token'), '';
+    isnt $confirmation->token, '';
 };
 
 subtest 'finds fresh token' => sub {
@@ -21,7 +21,7 @@ subtest 'finds fresh token' => sub {
     my $confirmation =
       TestDB->create('Confirmation', user_id => 1, type => 'register');
 
-    ok $confirmation->find_fresh_by_token(to_hex $confirmation->get_column('token'),
+    ok $confirmation->find_fresh_by_token(to_hex $confirmation->token,
         'register');
 };
 
@@ -35,7 +35,7 @@ subtest 'not finds old token' => sub {
         type    => 'register'
     );
 
-    ok !$confirmation->find_fresh_by_token($confirmation->get_column('token'),
+    ok !$confirmation->find_fresh_by_token($confirmation->token,
         'register');
 };
 

@@ -155,7 +155,7 @@ subtest 'creates nonce' => sub {
     my $nonce = Threads::DB::Nonce->find(first => 1);
 
     ok $nonce;
-    is $nonce->get_column('user_id'), $user->get_column('id');
+    is $nonce->user_id, $user->id;
 };
 
 subtest 'redirect to root' => sub {

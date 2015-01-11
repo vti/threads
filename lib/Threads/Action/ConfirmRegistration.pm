@@ -22,7 +22,7 @@ sub run {
       unless my $user =
       Threads::DB::User->new(id => $confirmation->get_column('user_id'))->load;
 
-    $user->set_column(status => 'active');
+    $user->status('active');
     $user->save;
 
     $confirmation->delete;

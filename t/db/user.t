@@ -30,12 +30,12 @@ subtest 'return undef when user not active' => sub {
     my $existing_user = TestDB->create('User');
 
     my $nonce =
-      Threads::DB::Nonce->new(user_id => $existing_user->get_column('id'))->create;
+      Threads::DB::Nonce->new(user_id => $existing_user->id)->create;
 
     my $user = TestDB->build('User');
 
     my $loaded_user =
-      $user->load_auth({id => $nonce->get_column('id')});
+      $user->load_auth({id => $nonce->id});
 
     ok !$loaded_user;
 };
@@ -46,15 +46,15 @@ subtest 'return user when found' => sub {
     my $existing_user = TestDB->create('User', status => 'active');
 
     my $nonce =
-      Threads::DB::Nonce->new(user_id => $existing_user->get_column('id'))->create;
+      Threads::DB::Nonce->new(user_id => $existing_user->id)->create;
 
     my $user = TestDB->build('User');
 
     my $loaded_user =
-      $user->load_auth({id => $nonce->get_column('id')});
+      $user->load_auth({id => $nonce->id});
 
     ok $loaded_user;
-    is $loaded_user->get_column('id'), $existing_user->get_column('id');
+    is $loaded_user->id, $existing_user->id;
 };
 
 subtest 'deletes old nonce' => sub {
@@ -63,11 +63,11 @@ subtest 'deletes old nonce' => sub {
     my $existing_user = TestDB->create('User', status => 'active');
 
     my $nonce =
-      Threads::DB::Nonce->new(user_id => $existing_user->get_column('id'))->create;
+      Threads::DB::Nonce->new(user_id => $existing_user->id)->create;
 
     my $user = TestDB->build('User');
 
-    my $options = {id => $nonce->get_column('id')};
+    my $options = {id => $nonce->id};
     $user->load_auth($options);
 
     ok !$nonce->load;
@@ -79,14 +79,14 @@ subtest 'creates new nonce' => sub {
     my $existing_user = TestDB->create('User', status => 'active');
 
     my $nonce =
-      Threads::DB::Nonce->new(user_id => $existing_user->get_column('id'))->create;
+      Threads::DB::Nonce->new(user_id => $existing_user->id)->create;
 
     my $user = TestDB->build('User');
 
-    my $options = {id => $nonce->get_column('id')};
+    my $options = {id => $nonce->id};
     $user->load_auth($options);
 
-    isnt $options->{id}, $nonce->get_column('id');
+    isnt $options->{id}, $nonce->id;
 };
 
 subtest 'hashes password' => sub {
@@ -106,8 +106,8 @@ subtest 'hashes password on create' => sub {
 
     my $user = TestDB->create('User', password => 'bar');
 
-    isnt $user->get_column('password'), 'bar';
-    isnt $user->get_column('salt'), '';
+    isnt $user->password, 'bar';
+    isnt $user->salt, '';
 };
 
 subtest 'checks password' => sub {
@@ -135,9 +135,9 @@ subtest 'changes salt on update' => sub {
 
     my $user = TestDB->create('User', password => 'old');
 
-    my $old_salt = $user->get_column('salt');
+    my $old_salt = $user->salt;
     $user->update_password('new');
-    my $new_salt = $user->get_column('salt');
+    my $new_salt = $user->salt;
 
     isnt $old_salt, $new_salt;
 };

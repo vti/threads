@@ -17,6 +17,7 @@ __PACKAGE__->meta(
     ],
     primary_key    => 'id',
     auto_increment => 'id',
+    generate_columns_methods => 1,
     relationships => {
         thread => {
             type  => 'many to one',

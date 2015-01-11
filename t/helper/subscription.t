@@ -29,7 +29,7 @@ subtest 'returns true when subscribed' => sub {
       Threads::DB::User->new(email => 'foo@bar.com', password => 'password')
       ->create;
     Threads::DB::Subscription->new(
-        user_id   => $user->get_column('id'),
+        user_id   => $user->id,
         thread_id => 123
     )->create;
     my $helper = _build_helper('tu.user' => $user);

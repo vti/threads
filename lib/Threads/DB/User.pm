@@ -28,6 +28,7 @@ __PACKAGE__->meta(
     primary_key    => 'id',
     auto_increment => 'id',
     unique_keys    => ['email'],
+    generate_columns_methods => 1,
 );
 
 sub role { 'user' }
@@ -79,9 +80,10 @@ sub create {
     my $self = shift;
 
     my $salt = gentoken(64);
-    $self->set_column(
-        password => $self->hash_password($self->get_column('password'), $salt));
-    $self->set_column(salt => $salt);
+    my $hashed_password = $self->hash_password($self->get_column('password'), $salt);
+
+    $self->password($hashed_password);
+    $self->salt($salt);
 
     return $self->SUPER::create;
 }
@@ -91,8 +93,8 @@ sub update_password {
     my ($new_password) = @_;
 
     my $salt = gentoken(64);
-    $self->set_column(password => $self->hash_password($new_password, $salt));
-    $self->set_column(salt => $salt);
+    $self->password($self->hash_password($new_password, $salt));
+    $self->salt($salt);
 
     return $self->save;
 }

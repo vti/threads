@@ -61,8 +61,8 @@ subtest 'creates report' => sub {
     my $report = Threads::DB::Report->find(first => 1);
 
     ok $report;
-    is $report->get_column('user_id'),  $user->id;
-    is $report->get_column('reply_id'), $reply->id;
+    is $report->user_id,  $user->id;
+    is $report->reply_id, $reply->id;
 };
 
 subtest 'updates reports count when created' => sub {
@@ -82,7 +82,7 @@ subtest 'updates reports count when created' => sub {
 
     $reply->load;
 
-    is $reply->get_column('reports_count'), 1;
+    is $reply->reports_count, 1;
 };
 
 subtest 'deletes report when exists' => sub {
@@ -126,7 +126,7 @@ subtest 'updates reports count when deleted' => sub {
 
     $reply->load;
 
-    is $reply->get_column('reports_count'), 0;
+    is $reply->reports_count, 0;
 };
 
 subtest 'returns current count and state' => sub {

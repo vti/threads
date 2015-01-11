@@ -75,10 +75,10 @@ subtest 'creates confirmation token with correct params' => sub {
     my $confirmation = Threads::DB::Confirmation->find(first => 1);
 
     ok $confirmation;
-    is $confirmation->get_column('user_id'),
-      Threads::DB::User->find(first => 1)->get_column('id');
-    isnt $confirmation->get_column('token'), '';
-    is $confirmation->get_column('type'), 'reset_password';
+    is $confirmation->user_id,
+      Threads::DB::User->find(first => 1)->id;
+    isnt $confirmation->token, '';
+    is $confirmation->type, 'reset_password';
 };
 
 subtest 'deletes any previous tokens' => sub {

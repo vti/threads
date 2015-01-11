@@ -30,7 +30,7 @@ subtest 'returns 404 when wrong user' => sub {
     my $reply = Threads::DB::Reply->new(thread_id => 1, user_id => 2)->create;
 
     my $action = _build_action(
-        captures  => {id => $reply->get_column('id')},
+        captures  => {id => $reply->id},
         'tu.user' => $user
     );
 
@@ -44,7 +44,7 @@ subtest 'returns 404 when reply is not empty' => sub {
 
     my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
     my $reply =
-      Threads::DB::Reply->new(thread_id => 1, user_id => $user->get_column('id'))
+      Threads::DB::Reply->new(thread_id => 1, user_id => $user->id)
       ->create;
     $reply->create_related(
         'ansestors',
@@ -54,7 +54,7 @@ subtest 'returns 404 when reply is not empty' => sub {
     );
 
     my $action = _build_action(
-        captures  => {id => $reply->get_column('id')},
+        captures  => {id => $reply->id},
         'tu.user' => $user
     );
 
@@ -69,12 +69,12 @@ subtest 'deletes reply' => sub {
     my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
     my $thread = Threads::DB::Thread->new(user_id => 1)->create;
     my $reply = Threads::DB::Reply->new(
-        thread_id => $thread->get_column('id'),
-        user_id   => $user->get_column('id')
+        thread_id => $thread->id,
+        user_id   => $user->id
     )->create;
 
     my $action = _build_action(
-        captures  => {id => $reply->get_column('id')},
+        captures  => {id => $reply->id},
         'tu.user' => $user
     );
 
@@ -89,21 +89,21 @@ subtest 'deletes reply notifications' => sub {
     my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
     my $thread = Threads::DB::Thread->new(user_id => 1)->create;
     my $reply = Threads::DB::Reply->new(
-        thread_id => $thread->get_column('id'),
-        user_id   => $user->get_column('id')
+        thread_id => $thread->id,
+        user_id   => $user->id
     )->create;
 
     Threads::DB::Notification->new(
-        user_id  => $user->get_column('id'),
-        reply_id => $reply->get_column('id')
+        user_id  => $user->id,
+        reply_id => $reply->id
     )->create;
     Threads::DB::Notification->new(
-        user_id  => $user->get_column('id'),
+        user_id  => $user->id,
         reply_id => 999
     )->create;
 
     my $action = _build_action(
-        captures  => {id => $reply->get_column('id')},
+        captures  => {id => $reply->id},
         'tu.user' => $user
     );
 
@@ -118,12 +118,12 @@ subtest 'updates thread reply counter' => sub {
     my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
     my $thread = Threads::DB::Thread->new(user_id => 1, replies_count => 10)->create;
     my $reply = Threads::DB::Reply->new(
-        thread_id => $thread->get_column('id'),
-        user_id   => $user->get_column('id')
+        thread_id => $thread->id,
+        user_id   => $user->id
     )->create;
 
     my $action = _build_action(
-        captures  => {id => $reply->get_column('id')},
+        captures  => {id => $reply->id},
         'tu.user' => $user
     );
 
@@ -131,7 +131,7 @@ subtest 'updates thread reply counter' => sub {
 
     $thread->load;
 
-    is $thread->get_column('replies_count'), 0;
+    is $thread->replies_count, 0;
 };
 
 subtest 'redirects' => sub {
@@ -140,12 +140,12 @@ subtest 'redirects' => sub {
     my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
     my $thread = Threads::DB::Thread->new(user_id => 1)->create;
     my $reply = Threads::DB::Reply->new(
-        thread_id => $thread->get_column('id'),
-        user_id   => $user->get_column('id')
+        thread_id => $thread->id,
+        user_id   => $user->id
     )->create;
 
     my $action = _build_action(
-        captures  => {id => $reply->get_column('id')},
+        captures  => {id => $reply->id},
         'tu.user' => $user
     );
 

@@ -26,7 +26,7 @@ subtest 'update settings' => sub {
 
     $user->load;
 
-    is $user->get_column('name'), 'foo';
+    is $user->name, 'foo';
 };
 
 subtest 'show validation error when name exists' => sub {

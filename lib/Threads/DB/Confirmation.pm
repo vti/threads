@@ -22,6 +22,7 @@ __PACKAGE__->meta(
     primary_key    => 'id',
     auto_increment => 'id',
     unique_keys    => ['token'],
+    generate_columns_methods => 1,
 );
 
 sub find_fresh_by_token {
@@ -45,7 +46,7 @@ sub create {
     my $self = shift;
 
     if (!$self->get_column('token')) {
-        $self->set_column(token => gentoken(16));
+        $self->token(gentoken(16));
     }
 
     return $self->SUPER::create;

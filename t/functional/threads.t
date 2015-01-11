@@ -62,7 +62,7 @@ subtest 'shows 404 when updating foreigner thread' => sub {
 
     my $ua = _build_loggedin_ua();
 
-    my $res = $ua->post('/threads/' . $thread->get_column('id') . '/update');
+    my $res = $ua->post('/threads/' . $thread->id . '/update');
 
     is $res->code, 404;
 };
@@ -74,9 +74,9 @@ subtest 'shows validation errors on update' => sub {
 
     my $user = Threads::DB::User->find(first => 1);
     my $thread =
-      Threads::DB::Thread->new(user_id => $user->get_column('id'))->create;
+      Threads::DB::Thread->new(user_id => $user->id)->create;
 
-    $ua->get('/threads/' . $thread->get_column('id') . '/update');
+    $ua->get('/threads/' . $thread->id . '/update');
     $ua->submit_form(fields => {}, form_id => 'update-thread');
 
     like $ua->content, qr/Required/;
@@ -89,9 +89,9 @@ subtest 'shows validation errors on update' => sub {
 #
 #    my $user = Threads::DB::User->find(first => 1);
 #    my $thread =
-#      Threads::DB::Thread->new(user_id => $user->get_column('id'))->create;
+#      Threads::DB::Thread->new(user_id => $user->id)->create;
 #
-#    $ua->get('/threads/' . $thread->get_column('id') . '/update');
+#    $ua->get('/threads/' . $thread->id . '/update');
 #    $ua->submit_form(fields => {title => 'bar', content => 'baz'});
 #
 #    like $ua->content, qr/bar/;
@@ -114,7 +114,7 @@ subtest 'shows 404 when deleting foreigner thread' => sub {
 
     my $ua = _build_loggedin_ua();
 
-    my $res = $ua->post('/threads/' . $thread->get_column('id') . '/delete');
+    my $res = $ua->post('/threads/' . $thread->id . '/delete');
 
     is $res->code, 404;
 };
@@ -126,9 +126,9 @@ subtest 'redirects after deletion' => sub {
     my $user = Threads::DB::User->find(first => 1);
 
     my $thread =
-      Threads::DB::Thread->new(user_id => $user->get_column('id'))->create;
+      Threads::DB::Thread->new(user_id => $user->id)->create;
 
-    $ua->post('/threads/' . $thread->get_column('id') . '/delete');
+    $ua->post('/threads/' . $thread->id . '/delete');
 
     like $ua->content, qr/Sort/;
 };

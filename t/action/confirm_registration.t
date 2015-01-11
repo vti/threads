@@ -36,7 +36,7 @@ subtest 'return 404 when user not found' => sub {
     my $confirmation = Threads::DB::Confirmation->new(user_id => 123)->create;
     my $action =
       _build_action(
-        captures => {token => to_hex $confirmation->get_column('token')});
+        captures => {token => to_hex $confirmation->token});
 
     my $e = exception { $action->run };
     isa_ok($e, 'Tu::X::HTTP');
@@ -48,13 +48,13 @@ subtest 'return 404 when confirmation token too old' => sub {
 
     my $user         = TestDB->create('User');
     my $confirmation = Threads::DB::Confirmation->new(
-        user_id => $user->get_column('id'),
+        user_id => $user->id,
         created => 123,
         type    => 'register'
     )->create;
     my $action =
       _build_action(
-        captures => {token => to_hex $confirmation->get_column('token')});
+        captures => {token => to_hex $confirmation->token});
 
     my $e = exception { $action->run };
     isa_ok($e, 'Tu::X::HTTP');
@@ -66,18 +66,18 @@ subtest 'change user status' => sub {
 
     my $user         = TestDB->create('User');
     my $confirmation = Threads::DB::Confirmation->new(
-        user_id => $user->get_column('id'),
+        user_id => $user->id,
         type    => 'register'
     )->create;
     my $action =
       _build_action(
-        captures => {token => to_hex $confirmation->get_column('token')});
+        captures => {token => to_hex $confirmation->token});
 
     $action->run;
 
     $user->load;
 
-    is $user->get_column('status'), 'active';
+    is $user->status, 'active';
 };
 
 subtest 'deletes confirmation' => sub {
@@ -85,12 +85,12 @@ subtest 'deletes confirmation' => sub {
 
     my $user         = TestDB->create('User');
     my $confirmation = Threads::DB::Confirmation->new(
-        user_id => $user->get_column('id'),
+        user_id => $user->id,
         type    => 'register'
     )->create;
     my $action =
       _build_action(
-        captures => {token => to_hex $confirmation->get_column('token')});
+        captures => {token => to_hex $confirmation->token});
 
     $action->run;
 

@@ -58,8 +58,7 @@ sub run {
         )->create;
     }
 
-    $thread->set_column(views_count =>
-          Threads::DB::View->table->count(where => [thread_id => $thread_id]));
+    $thread->views_count(          Threads::DB::View->table->count(where => [thread_id => $thread_id]));
     $thread->update;
 
     $self->set_var(thread => $thread->to_hash);

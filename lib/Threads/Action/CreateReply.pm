@@ -85,8 +85,8 @@ sub submit {
         $parent ? (parent_id => $parent->get_column('id')) : ()
     )->create;
 
-    $thread->set_column(replies_count => $thread->count_related('replies'));
-    $thread->set_column(last_activity => time);
+    $thread->replies_count($thread->count_related('replies'));
+    $thread->last_activity(time);
     $thread->update;
 
     my @subscriptions = Threads::DB::Subscription->find(

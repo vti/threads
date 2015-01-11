@@ -49,8 +49,8 @@ sub submit {
 
     my $thread = $self->{thread};
     $thread->set_columns(%$params);
-    $thread->set_column(updated       => time);
-    $thread->set_column(last_activity => time);
+    $thread->updated(time);
+    $thread->last_activity(time);
     $thread->update;
 
     return $self->redirect(

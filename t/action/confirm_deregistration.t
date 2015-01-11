@@ -41,7 +41,7 @@ subtest 'return 404 when user not found' => sub {
       ->create;
     my $action =
       _build_action(
-        captures => {token => to_hex $confirmation->get_column('token')});
+        captures => {token => to_hex $confirmation->token});
 
     my $e = exception { $action->run };
     isa_ok($e, 'Tu::X::HTTP');
@@ -59,7 +59,7 @@ subtest 'return 404 when expired token' => sub {
     )->create;
     my $action =
       _build_action(
-        captures => {token => to_hex $confirmation->get_column('token')});
+        captures => {token => to_hex $confirmation->token});
 
     my $e = exception { $action->run };
     isa_ok($e, 'Tu::X::HTTP');
@@ -71,21 +71,21 @@ subtest 'removes user' => sub {
 
     my $user         = TestDB->create('User');
     my $confirmation = Threads::DB::Confirmation->new(
-        user_id => $user->get_column('id'),
+        user_id => $user->id,
         type    => 'deregister'
     )->create;
     my $action =
       _build_action(
-        captures => {token => to_hex $confirmation->get_column('token')});
+        captures => {token => to_hex $confirmation->token});
 
     $action->run;
 
     $user->load;
 
-    is $user->get_column('email'),    $user->get_column('id');
-    is $user->get_column('password'), '';
-    is $user->get_column('name'),     '';
-    is $user->get_column('status'),   'deleted';
+    is $user->email,    $user->id;
+    is $user->password, '';
+    is $user->name,     '';
+    is $user->status,   'deleted';
 };
 
 subtest 'logouts user' => sub {
@@ -93,13 +93,13 @@ subtest 'logouts user' => sub {
 
     my $user         = TestDB->create('User');
     my $confirmation = Threads::DB::Confirmation->new(
-        user_id => $user->get_column('id'),
+        user_id => $user->id,
         type    => 'deregister'
     )->create;
 
     my $auth   = _mock_auth();
     my $action = _build_action(
-        captures  => {token => to_hex $confirmation->get_column('token')},
+        captures  => {token => to_hex $confirmation->token},
         'tu.auth' => $auth
     );
 
@@ -115,16 +115,16 @@ subtest 'deletes user notifications' => sub {
 
     my $user         = TestDB->create('User');
     my $confirmation = Threads::DB::Confirmation->new(
-        user_id => $user->get_column('id'),
+        user_id => $user->id,
         type    => 'deregister'
     )->create;
     my $action =
       _build_action(
-        captures => {token => to_hex $confirmation->get_column('token')});
+        captures => {token => to_hex $confirmation->token});
 
     Threads::DB::Notification->new(user_id => 123, reply_id => 1)->create;
     Threads::DB::Notification->new(
-        user_id  => $user->get_column('id'),
+        user_id  => $user->id,
         reply_id => 1
     )->create;
 
@@ -138,16 +138,16 @@ subtest 'deletes user subscriptions' => sub {
 
     my $user         = TestDB->create('User');
     my $confirmation = Threads::DB::Confirmation->new(
-        user_id => $user->get_column('id'),
+        user_id => $user->id,
         type    => 'deregister'
     )->create;
     my $action =
       _build_action(
-        captures => {token => to_hex $confirmation->get_column('token')});
+        captures => {token => to_hex $confirmation->token});
 
     Threads::DB::Subscription->new(user_id => 123, thread_id => 1)->create;
     Threads::DB::Subscription->new(
-        user_id   => $user->get_column('id'),
+        user_id   => $user->id,
         thread_id => 1
     )->create;
 
@@ -161,12 +161,12 @@ subtest 'delete confirmation' => sub {
 
     my $user         = TestDB->create('User');
     my $confirmation = Threads::DB::Confirmation->new(
-        user_id => $user->get_column('id'),
+        user_id => $user->id,
         type    => 'deregister'
     )->create;
     my $action =
       _build_action(
-        captures => {token => to_hex $confirmation->get_column('token')});
+        captures => {token => to_hex $confirmation->token});
 
     $action->run;
 

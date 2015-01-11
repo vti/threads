@@ -16,7 +16,7 @@ subtest 'calls logout' => sub {
 
     my $auth = Test::MonkeyMock->new;
     $auth->mock(logout => sub { });
-    $auth->mock(session => sub { { id => $nonce->get_column('id') } });
+    $auth->mock(session => sub { { id => $nonce->id } });
 
     my $env = TestRequest->to_env('tu.auth' => $auth);
 
@@ -34,7 +34,7 @@ subtest 'deletes nonce' => sub {
 
     my $auth = Test::MonkeyMock->new;
     $auth->mock(logout => sub { });
-    $auth->mock(session => sub { { id => $nonce->get_column('id') } });
+    $auth->mock(session => sub { { id => $nonce->id } });
 
     my $env = TestRequest->to_env('tu.auth' => $auth);
 

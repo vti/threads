@@ -15,10 +15,10 @@ subtest 'creates top reply' => sub {
 
     $reply = $reply->load;
 
-    is $reply->get_column('parent_id'), 0;
-    is $reply->get_column('level'),     0;
-    is $reply->get_column('lft'),       2;
-    is $reply->get_column('rgt'),       3;
+    is $reply->parent_id, 0;
+    is $reply->level,     0;
+    is $reply->lft,       2;
+    is $reply->rgt,       3;
 };
 
 subtest 'creates second top reply' => sub {
@@ -29,10 +29,10 @@ subtest 'creates second top reply' => sub {
     my $reply = _build_reply(content => 2)->create;
     $reply = $reply->load;
 
-    is $reply->get_column('parent_id'), 0;
-    is $reply->get_column('level'),     0;
-    is $reply->get_column('lft'),       4;
-    is $reply->get_column('rgt'),       5;
+    is $reply->parent_id, 0;
+    is $reply->level,     0;
+    is $reply->lft,       4;
+    is $reply->rgt,       5;
 };
 
 subtest 'creates subreplies' => sub {
@@ -42,10 +42,10 @@ subtest 'creates subreplies' => sub {
 
     my @children = $reply->create_related('ansestors', user_id => 1, content => 'child');
 
-    is $children[0]->get_column('parent_id'), $reply->get_column('id');
-    is $children[0]->get_column('level'),     1;
-    is $children[0]->get_column('lft'),       3;
-    is $children[0]->get_column('rgt'),       4;
+    is $children[0]->parent_id, $reply->id;
+    is $children[0]->level,     1;
+    is $children[0]->lft,       3;
+    is $children[0]->rgt,       4;
 };
 
 subtest 'deletes subreplies' => sub {
@@ -58,10 +58,10 @@ subtest 'deletes subreplies' => sub {
 
     $reply->load;
 
-    is $reply->get_column('parent_id'), 0;
-    is $reply->get_column('level'),     0;
-    is $reply->get_column('lft'),       2;
-    is $reply->get_column('rgt'),       3;
+    is $reply->parent_id, 0;
+    is $reply->level,     0;
+    is $reply->lft,       2;
+    is $reply->rgt,       3;
 };
 
 subtest 'creates deeper subreplies' => sub {
@@ -73,11 +73,11 @@ subtest 'creates deeper subreplies' => sub {
     my @grandchildren =
       $children[0]->create_related('ansestors', user_id => 1, content => 'child of child');
 
-    is $grandchildren[0]->get_column('parent_id'),
-      $children[0]->get_column('id');
-    is $grandchildren[0]->get_column('level'), 2;
-    is $grandchildren[0]->get_column('lft'),   4;
-    is $grandchildren[0]->get_column('rgt'),   5;
+    is $grandchildren[0]->parent_id,
+      $children[0]->id;
+    is $grandchildren[0]->level, 2;
+    is $grandchildren[0]->lft,   4;
+    is $grandchildren[0]->rgt,   5;
 };
 
 subtest 'selects in right order' => sub {
@@ -90,9 +90,9 @@ subtest 'selects in right order' => sub {
 
     my @replies = _build_reply()->find(order_by => [lft => 'ASC']);
 
-    is $replies[0]->get_column('content'), 'top';
-    is $replies[1]->get_column('content'), 'child';
-    is $replies[2]->get_column('content'), 'top2';
+    is $replies[0]->content, 'top';
+    is $replies[1]->content, 'child';
+    is $replies[2]->content, 'top2';
 };
 
 done_testing;

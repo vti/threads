@@ -18,12 +18,13 @@ __PACKAGE__->meta(
     ],
     primary_key    => 'id',
     auto_increment => 'id',
+    generate_columns_methods => 1,
 );
 
 sub create {
     my $self = shift;
 
-    $self->set_column(id => $self->_generate_id);
+    $self->id($self->_generate_id);
 
     return $self->SUPER::create;
 }

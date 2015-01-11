@@ -67,10 +67,10 @@ subtest 'create user with correct params' => sub {
     my $user = Threads::DB::User->find(first => 1);
 
     ok $user;
-    is $user->get_column('status'),     'new';
-    is $user->get_column('email'),      'foo@bar.com';
-    isnt $user->get_column('password'), 'bar';
-    like $user->get_column('created'),  qr/^\d+$/;
+    is $user->status,     'new';
+    is $user->email,      'foo@bar.com';
+    isnt $user->password, 'bar';
+    like $user->created,  qr/^\d+$/;
 };
 
 subtest 'create user with name from email' => sub {
@@ -85,7 +85,7 @@ subtest 'create user with name from email' => sub {
 
     my $user = Threads::DB::User->find(first => 1);
 
-    is $user->get_column('name'), 'foo';
+    is $user->name, 'foo';
 };
 
 subtest 'create user with empty name when exists' => sub {
@@ -103,7 +103,7 @@ subtest 'create user with empty name when exists' => sub {
     my $user =
       Threads::DB::User->find(first => 1, where => [email => 'foo@bar.com']);
 
-    is $user->get_column('name'), '';
+    is $user->name, '';
 };
 
 subtest 'create confirmation token with correct params' => sub {
@@ -118,10 +118,10 @@ subtest 'create confirmation token with correct params' => sub {
     my $confirmation = Threads::DB::Confirmation->find(first => 1);
 
     ok $confirmation;
-    is $confirmation->get_column('user_id'),
-      Threads::DB::User->find(first => 1)->get_column('id');
-    isnt $confirmation->get_column('token'), '';
-    is $confirmation->get_column('type'), 'register';
+    is $confirmation->user_id,
+      Threads::DB::User->find(first => 1)->id;
+    isnt $confirmation->token, '';
+    is $confirmation->type, 'register';
 };
 
 subtest 'sends email' => sub {

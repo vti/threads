@@ -16,7 +16,7 @@ subtest 'creates simple slug' => sub {
 
     $thread = $thread->load;
 
-    is $thread->get_column('slug'), 'foo';
+    is $thread->slug, 'foo';
 };
 
 subtest 'updates slug' => sub {
@@ -25,12 +25,12 @@ subtest 'updates slug' => sub {
     my $thread = _build_thread(title => 'Foo')->create;
 
     $thread = $thread->load;
-    $thread->set_column(title => 'Bar');
+    $thread->title('Bar');
     $thread->update;
 
     $thread = $thread->load;
 
-    is $thread->get_column('slug'), 'bar';
+    is $thread->slug, 'bar';
 };
 
 subtest 'creates slug from unicode' => sub {
@@ -40,7 +40,7 @@ subtest 'creates slug from unicode' => sub {
 
     $thread = $thread->load;
 
-    is $thread->get_column('slug'), 'привет-это-мы';
+    is $thread->slug, 'привет-это-мы';
 };
 
 subtest 'removes double dashes' => sub {
@@ -50,7 +50,7 @@ subtest 'removes double dashes' => sub {
 
     $thread = $thread->load;
 
-    is $thread->get_column('slug'), 'привет-это-мы';
+    is $thread->slug, 'привет-это-мы';
 };
 
 subtest 'removes leading and trailing dashes' => sub {
@@ -60,7 +60,7 @@ subtest 'removes leading and trailing dashes' => sub {
 
     $thread = $thread->load;
 
-    is $thread->get_column('slug'), 'привет-это-мы';
+    is $thread->slug, 'привет-это-мы';
 };
 
 done_testing;

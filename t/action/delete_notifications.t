@@ -16,7 +16,7 @@ subtest 'deletes all notifications' => sub {
     TestDB->setup;
 
     my $user = Threads::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
-    Threads::DB::Notification->new(user_id => $user->get_column('id'), reply_id => 1)->create;
+    Threads::DB::Notification->new(user_id => $user->id, reply_id => 1)->create;
     Threads::DB::Notification->new(user_id => 123, reply_id => 1)->create;
 
     my $action = _build_action(req => POST('/' => {}), captures => {}, 'tu.user' => $user);
@@ -30,7 +30,7 @@ subtest 'returns redirect' => sub {
     TestDB->setup;
 
     my $user = Threads::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
-    Threads::DB::Notification->new(user_id => $user->get_column('id'), reply_id => 1)->create;
+    Threads::DB::Notification->new(user_id => $user->id, reply_id => 1)->create;
 
     my $action = _build_action(req => POST('/' => {}), captures => {}, 'tu.user' => $user);
 

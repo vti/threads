@@ -31,7 +31,7 @@ subtest 'returns 404 when wrong user' => sub {
 
     my $action = _build_action(
         req       => POST('/' => {}),
-        captures  => {id      => $reply->get_column('id')},
+        captures  => {id      => $reply->id},
         'tu.user' => $user
     );
 
@@ -44,12 +44,12 @@ subtest 'returns 404 when has ansestors' => sub {
     TestDB->setup;
 
     my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
-    my $reply = Threads::DB::Reply->new(thread_id => 123, user_id => $user->get_column('id'))->create;
+    my $reply = Threads::DB::Reply->new(thread_id => 123, user_id => $user->id)->create;
     $reply->create_related('ansestors', thread_id => 123, user_id => 123);
 
     my $action = _build_action(
         req       => POST('/' => {}),
-        captures  => {id      => $reply->get_column('id')},
+        captures  => {id      => $reply->id},
         'tu.user' => $user
     );
 
@@ -63,12 +63,12 @@ subtest 'shows errors' => sub {
 
     my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
     my $reply =
-      Threads::DB::Reply->new(thread_id => 1, user_id => $user->get_column('id'))
+      Threads::DB::Reply->new(thread_id => 1, user_id => $user->id)
       ->create;
 
     my $action = _build_action(
         req       => POST('/' => {}),
-        captures  => {id      => $reply->get_column('id')},
+        captures  => {id      => $reply->id},
         'tu.user' => $user
     );
 
@@ -83,17 +83,17 @@ subtest 'updates reply with correct params' => sub {
     my $user =
       Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $thread =
-      Threads::DB::Thread->new(user_id => $user->get_column('id'))->create;
+      Threads::DB::Thread->new(user_id => $user->id)->create;
     my $reply = Threads::DB::Reply->new(
-        user_id   => $user->get_column('id'),
-        thread_id => $thread->get_column('id'),
+        user_id   => $user->id,
+        thread_id => $thread->id,
         title     => 'foo',
         content   => 'bar'
     )->create;
 
     my $action = _build_action(
         req       => POST('/' => {content => 'foo'}),
-        captures  => {id      => $reply->get_column('id')},
+        captures  => {id      => $reply->id},
         'tu.user' => $user
     );
 
@@ -101,7 +101,7 @@ subtest 'updates reply with correct params' => sub {
 
     $reply->load;
 
-    is $reply->get_column('content'), 'foo';
+    is $reply->content, 'foo';
 };
 
 subtest 'redirects after update' => sub {
@@ -110,17 +110,17 @@ subtest 'redirects after update' => sub {
     my $user =
       Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $thread =
-      Threads::DB::Thread->new(user_id => $user->get_column('id'))->create;
+      Threads::DB::Thread->new(user_id => $user->id)->create;
     my $reply = Threads::DB::Reply->new(
-        user_id   => $user->get_column('id'),
-        thread_id => $thread->get_column('id'),
+        user_id   => $user->id,
+        thread_id => $thread->id,
         title     => 'foo',
         content   => 'bar'
     )->create;
 
     my $action = _build_action(
         req => POST('/' => {title => 'bar', content => 'foo'}),
-        captures  => {id => $reply->get_column('id')},
+        captures  => {id => $reply->id},
         'tu.user' => $user
     );
 

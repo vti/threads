@@ -52,7 +52,7 @@ sub run {
         $state = 1;
     }
 
-    $reply->set_column(thanks_count => $count);
+    $reply->thanks_count($count);
     $reply->update;
 
     return {count => $count == 0 ? '': $count, state => $state}, type => 'json';

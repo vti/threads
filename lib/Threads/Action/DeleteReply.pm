@@ -32,8 +32,7 @@ sub run {
 
     $reply->delete;
 
-    $thread->set_column(
-        replies_count => $thread->count_related('replies'));
+    $thread->replies_count($thread->count_related('replies'));
     $thread->update;
 
     return $self->redirect(

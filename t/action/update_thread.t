@@ -30,7 +30,7 @@ subtest 'returns 404 when wrong user' => sub {
 
     my $action = _build_action(
         req       => POST('/' => {}),
-        captures  => {id      => $thread->get_column('id')},
+        captures  => {id      => $thread->id},
         'tu.user' => $user
     );
 
@@ -44,11 +44,11 @@ subtest 'set template var errors' => sub {
 
     my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
     my $thread =
-      Threads::DB::Thread->new(user_id => $user->get_column('id'))->create;
+      Threads::DB::Thread->new(user_id => $user->id)->create;
 
     my $action = _build_action(
         req       => POST('/' => {}),
-        captures  => {id      => $thread->get_column('id')},
+        captures  => {id      => $thread->id},
         'tu.user' => $user
     );
 
@@ -63,14 +63,14 @@ subtest 'updates thread with correct params' => sub {
     my $user =
       Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $thread = Threads::DB::Thread->new(
-        user_id => $user->get_column('id'),
+        user_id => $user->id,
         title   => 'foo',
         content => 'bar'
     )->create;
 
     my $action = _build_action(
         req => POST('/' => {title => 'bar', content => 'foo'}),
-        captures  => {id => $thread->get_column('id')},
+        captures  => {id => $thread->id},
         'tu.user' => $user
     );
 
@@ -78,9 +78,9 @@ subtest 'updates thread with correct params' => sub {
 
     $thread->load;
 
-    is $thread->get_column('title'),     'bar';
-    is $thread->get_column('content'),   'foo';
-    isnt $thread->get_column('updated'), 0;
+    is $thread->title,     'bar';
+    is $thread->content,   'foo';
+    isnt $thread->updated, 0;
 };
 
 subtest 'updates last_activity' => sub {
@@ -89,7 +89,7 @@ subtest 'updates last_activity' => sub {
     my $user =
       Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $thread = Threads::DB::Thread->new(
-        user_id       => $user->get_column('id'),
+        user_id       => $user->id,
         title         => 'foo',
         content       => 'bar',
         last_activity => 123
@@ -97,7 +97,7 @@ subtest 'updates last_activity' => sub {
 
     my $action = _build_action(
         req => POST('/' => {title => 'bar', content => 'foo'}),
-        captures  => {id => $thread->get_column('id')},
+        captures  => {id => $thread->id},
         'tu.user' => $user
     );
 
@@ -105,7 +105,7 @@ subtest 'updates last_activity' => sub {
 
     $thread->load;
 
-    isnt $thread->get_column('last_activity'), 123;
+    isnt $thread->last_activity, 123;
 };
 
 subtest 'redirects after update' => sub {
@@ -114,14 +114,14 @@ subtest 'redirects after update' => sub {
     my $user =
       Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $thread = Threads::DB::Thread->new(
-        user_id => $user->get_column('id'),
+        user_id => $user->id,
         title   => 'foo',
         content => 'bar'
     )->create;
 
     my $action = _build_action(
         req => POST('/' => {title => 'bar', content => 'foo'}),
-        captures  => {id => $thread->get_column('id')},
+        captures  => {id => $thread->id},
         'tu.user' => $user
     );
 

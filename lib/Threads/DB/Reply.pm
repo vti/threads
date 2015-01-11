@@ -24,6 +24,7 @@ __PACKAGE__->meta(
     ],
     primary_key    => 'id',
     auto_increment => 'id',
+    generate_columns_methods => 1,
     relationships  => {
         thread => {
             type  => 'many to one',
@@ -63,7 +64,7 @@ sub create {
 
             $rgt = $parent->column('lft');
 
-            $self->set_column(thread_id => $parent->get_column('thread_id'));
+            $self->thread_id($parent->get_column('thread_id'));
         }
     }
 

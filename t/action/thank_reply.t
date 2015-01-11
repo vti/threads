@@ -33,7 +33,7 @@ subtest 'creates thank log' => sub {
 
     my $action = _build_action(
         req       => POST('/' => {}),
-        captures  => {id      => $reply->get_column('id')},
+        captures  => {id      => $reply->id},
         'tu.user' => $user
     );
 
@@ -42,8 +42,8 @@ subtest 'creates thank log' => sub {
     my $thank = Threads::DB::Thank->find(first => 1);
 
     ok $thank;
-    is $thank->get_column('user_id'),  $user->get_column('id');
-    is $thank->get_column('reply_id'), $reply->get_column('id');
+    is $thank->user_id,  $user->id;
+    is $thank->reply_id, $reply->id;
 };
 
 subtest 'returns current count' => sub {
@@ -55,13 +55,13 @@ subtest 'returns current count' => sub {
     for (67 .. 70) {
         Threads::DB::Thank->new(
             user_id  => $_,
-            reply_id => $reply->get_column('id')
+            reply_id => $reply->id
         )->create;
     }
 
     my $action = _build_action(
         req       => POST('/' => {}),
-        captures  => {id      => $reply->get_column('id')},
+        captures  => {id      => $reply->id},
         'tu.user' => $user
     );
 
@@ -79,13 +79,13 @@ subtest 'updates reply thank count' => sub {
     for (67 .. 70) {
         Threads::DB::Thank->new(
             user_id  => $_,
-            reply_id => $reply->get_column('id')
+            reply_id => $reply->id
         )->create;
     }
 
     my $action = _build_action(
         req       => POST('/' => {}),
-        captures  => {id      => $reply->get_column('id')},
+        captures  => {id      => $reply->id},
         'tu.user' => $user
     );
 
@@ -93,7 +93,7 @@ subtest 'updates reply thank count' => sub {
 
     $reply->load;
 
-    is $reply->get_column('thanks_count'), 5;
+    is $reply->thanks_count, 5;
 };
 
 subtest 'toggles when exists' => sub {
@@ -105,13 +105,13 @@ subtest 'toggles when exists' => sub {
       Threads::DB::Reply->new(thread_id => 1, user_id => 33)
       ->create;
     Threads::DB::Thank->new(
-        user_id  => $user->get_column('id'),
-        reply_id => $reply->get_column('id')
+        user_id  => $user->id,
+        reply_id => $reply->id
     )->create;
 
     my $action = _build_action(
         req       => POST('/' => {}),
-        captures  => {id      => $reply->get_column('id')},
+        captures  => {id      => $reply->id},
         'tu.user' => $user
     );
 
@@ -120,7 +120,7 @@ subtest 'toggles when exists' => sub {
     $reply->load;
 
     is(Threads::DB::Thank->table->count, 0);
-    is $reply->get_column('thanks_count'), 0;
+    is $reply->thanks_count, 0;
 };
 
 subtest 'not found when same user' => sub {
@@ -129,12 +129,12 @@ subtest 'not found when same user' => sub {
     my $user =
       Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
     my $reply =
-      Threads::DB::Reply->new(thread_id => 1, user_id => $user->get_column('id'))
+      Threads::DB::Reply->new(thread_id => 1, user_id => $user->id)
       ->create;
 
     my $action = _build_action(
         req       => POST('/' => {}),
-        captures  => {id      => $reply->get_column('id')},
+        captures  => {id      => $reply->id},
         'tu.user' => $user
     );
 

@@ -30,7 +30,7 @@ subtest 'returns 404 when wrong user' => sub {
     my $thread = Threads::DB::Thread->new(user_id => 2)->create;
 
     my $action = _build_action(
-        captures  => {id => $thread->get_column('id')},
+        captures  => {id => $thread->id},
         'tu.user' => $user
     );
 
@@ -43,14 +43,14 @@ subtest 'returns 404 when thread is not empty' => sub {
     TestDB->setup;
 
     my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
-    my $thread = Threads::DB::Thread->new(user_id => $user->get_column('id'))->create;
+    my $thread = Threads::DB::Thread->new(user_id => $user->id)->create;
     Threads::DB::Reply->new(
-        user_id   => $user->get_column('id'),
-        thread_id => $thread->get_column('id')
+        user_id   => $user->id,
+        thread_id => $thread->id
     )->create;
 
     my $action = _build_action(
-        captures  => {id => $thread->get_column('id')},
+        captures  => {id => $thread->id},
         'tu.user' => $user
     );
 
@@ -63,10 +63,10 @@ subtest 'deletes thread' => sub {
     TestDB->setup;
 
     my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
-    my $thread = Threads::DB::Thread->new(user_id => $user->get_column('id'))->create;
+    my $thread = Threads::DB::Thread->new(user_id => $user->id)->create;
 
     my $action = _build_action(
-        captures  => {id => $thread->get_column('id')},
+        captures  => {id => $thread->id},
         'tu.user' => $user
     );
 
@@ -79,20 +79,20 @@ subtest 'deletes thread subscriptions' => sub {
     TestDB->setup;
 
     my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
-    my $thread = Threads::DB::Thread->new(user_id => $user->get_column('id'))->create;
+    my $thread = Threads::DB::Thread->new(user_id => $user->id)->create;
 
     Threads::DB::Subscription->new(
-        user_id   => $user->get_column('id'),
-        thread_id => $thread->get_column('id')
+        user_id   => $user->id,
+        thread_id => $thread->id
     )->create;
 
     Threads::DB::Subscription->new(
-        user_id   => $user->get_column('id'),
+        user_id   => $user->id,
         thread_id => 999
     )->create;
 
     my $action = _build_action(
-        captures  => {id => $thread->get_column('id')},
+        captures  => {id => $thread->id},
         'tu.user' => $user
     );
 
@@ -105,10 +105,10 @@ subtest 'redirects' => sub {
     TestDB->setup;
 
     my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
-    my $thread = Threads::DB::Thread->new(user_id => $user->get_column('id'))->create;
+    my $thread = Threads::DB::Thread->new(user_id => $user->id)->create;
 
     my $action = _build_action(
-        captures  => {id => $thread->get_column('id')},
+        captures  => {id => $thread->id},
         'tu.user' => $user
     );
 

@@ -18,6 +18,7 @@ __PACKAGE__->meta(
     primary_key    => 'id',
     auto_increment => 'id',
     unique_keys => [qw/user_id reply_id/],
+    generate_columns_methods => 1,
     relationships => {
         reply => {
             type  => 'many to one',

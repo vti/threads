@@ -40,7 +40,7 @@ my $user = Threads::DB::User->find(
 
 die 'Unknown user' unless $user;
 
-$user->set_column(status => $unblock ? 'active' : 'blocked');
+$user->status($unblock ? 'active' : 'blocked');
 $user->update;
 
 if ($verbose) {

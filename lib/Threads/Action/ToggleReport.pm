@@ -43,7 +43,7 @@ sub run {
     }
 
     my $count = Threads::DB::Report->table->count(where => [reply_id => $reply->id]);
-    $reply->set_column(reports_count => $count);
+    $reply->reports_count($count);
     $reply->update;
 
     return {count => $count, state => $state}, type => 'json';

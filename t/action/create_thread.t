@@ -70,12 +70,12 @@ subtest 'creates thread with correct params' => sub {
     my $thread = Threads::DB::Thread->find(first => 1);
 
     ok $thread;
-    is $thread->get_column('user_id'), $user->get_column('id');
-    is $thread->get_column('slug'),    'this-is-a-title-with-symbols';
-    is $thread->get_column('title'),   'This is a title, with ?# symbols';
-    is $thread->get_column('content'), 'bar';
-    isnt $thread->get_column('last_activity'), 0;
-    like $thread->get_column('last_activity'), qr/^\d+$/;
+    is $thread->user_id, $user->id;
+    is $thread->slug,    'this-is-a-title-with-symbols';
+    is $thread->title,   'This is a title, with ?# symbols';
+    is $thread->content, 'bar';
+    isnt $thread->last_activity, 0;
+    like $thread->last_activity, qr/^\d+$/;
 };
 
 subtest 'redirects to thread view' => sub {
@@ -117,8 +117,8 @@ subtest 'creates subscription' => sub {
     my $subscription = Threads::DB::Subscription->find(first => 1);
 
     ok $subscription;
-    is $subscription->get_column('user_id'),   $user->get_column('id');
-    is $subscription->get_column('thread_id'), $thread->get_column('id');
+    is $subscription->user_id,   $user->id;
+    is $subscription->thread_id, $thread->id;
 };
 
 sub _mock_services {

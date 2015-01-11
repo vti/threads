@@ -26,7 +26,7 @@ subtest 'returns nothing on success' => sub {
 
     my $thread = Threads::DB::Thread->new(user_id => 1)->create;
 
-    my $action = _build_action(captures => {id => $thread->get_column('id')});
+    my $action = _build_action(captures => {id => $thread->id});
 
     $action->run;
 
@@ -38,12 +38,12 @@ subtest 'increments view count' => sub {
 
     my $thread = Threads::DB::Thread->new(user_id => 1)->create;
 
-    my $action = _build_action(captures => {id => $thread->get_column('id')});
+    my $action = _build_action(captures => {id => $thread->id});
 
     $action->run;
 
     $thread->load;
-    is $thread->get_column('views_count'), 1;
+    is $thread->views_count, 1;
 };
 
 subtest 'not increments view count when same user' => sub {
@@ -54,19 +54,19 @@ subtest 'not increments view count when same user' => sub {
       Threads::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
 
     my $action = _build_action(
-        captures  => {id => $thread->get_column('id')},
+        captures  => {id => $thread->id},
         'tu.user' => $user
     );
     $action->run;
 
     $action = _build_action(
-        captures  => {id => $thread->get_column('id')},
+        captures  => {id => $thread->id},
         'tu.user' => $user
     );
     $action->run;
 
     $thread->load;
-    is $thread->get_column('views_count'), 1;
+    is $thread->views_count, 1;
 };
 
 subtest 'increments view count when same user but another day' => sub {
@@ -77,7 +77,7 @@ subtest 'increments view count when same user but another day' => sub {
       Threads::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
 
     my $action = _build_action(
-        captures  => {id => $thread->get_column('id')},
+        captures  => {id => $thread->id},
         'tu.user' => $user
     );
     $action->run;
@@ -85,13 +85,13 @@ subtest 'increments view count when same user but another day' => sub {
     Threads::DB::View->table->update(set => [created => '123']);
 
     $action = _build_action(
-        captures  => {id => $thread->get_column('id')},
+        captures  => {id => $thread->id},
         'tu.user' => $user
     );
     $action->run;
 
     $thread->load;
-    is $thread->get_column('views_count'), 2;
+    is $thread->views_count, 2;
 };
 
 subtest 'increments view count when another user agent' => sub {
@@ -103,18 +103,18 @@ subtest 'increments view count when another user agent' => sub {
 
     my $action = _build_action(
         req => GET('/', 'User-Agent' => 'one'),
-        captures => {id => $thread->get_column('id')}
+        captures => {id => $thread->id}
     );
     $action->run;
 
     $action = _build_action(
         req => GET('/', 'User-Agent' => 'two'),
-        captures => {id => $thread->get_column('id')}
+        captures => {id => $thread->id}
     );
     $action->run;
 
     $thread->load;
-    is $thread->get_column('views_count'), 2;
+    is $thread->views_count, 2;
 };
 
 sub _build_action {

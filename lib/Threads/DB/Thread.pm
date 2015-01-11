@@ -23,6 +23,7 @@ __PACKAGE__->meta(
     ],
     primary_key    => 'id',
     auto_increment => 'id',
+    generate_columns_methods => 1,
     relationships  => {
         user => {
             type  => 'many to one',
@@ -41,11 +42,11 @@ sub create {
     my $self = shift;
 
     if (!$self->get_column('slug')) {
-        $self->set_column(slug => $self->_slug($self->get_column('title')));
+        $self->slug($self->_slug($self->get_column('title')));
     }
 
     if (!$self->get_column('last_activity')) {
-        $self->set_column(last_activity => time);
+        $self->last_activity(time);
     }
 
     return $self->SUPER::create;
@@ -54,7 +55,7 @@ sub create {
 sub update {
     my $self = shift;
 
-    $self->set_column(slug => $self->_slug($self->get_column('title')));
+    $self->slug($self->_slug($self->get_column('title')));
 
     return $self->SUPER::update;
 }
