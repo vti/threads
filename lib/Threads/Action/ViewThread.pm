@@ -25,7 +25,7 @@ sub run {
 
     my $today = gmtime->strftime('%Y-%m-%d');
 
-    if ($user && $user->role eq 'user') {
+    if ($user) {
         $view = Threads::DB::View->find(
             first => 1,
             where => [
@@ -51,14 +51,15 @@ sub run {
     if (!$view) {
         $view = Threads::DB::View->new(
             thread_id => $thread_id,
-            ($user && $user->role eq 'user')
+            $user
             ? (user_id => $user->get_column('id'))
             : (),
             hash => $hash
         )->create;
     }
 
-    $thread->views_count(          Threads::DB::View->table->count(where => [thread_id => $thread_id]));
+    $thread->views_count(
+        Threads::DB::View->table->count(where => [thread_id => $thread_id]));
     $thread->update;
 
     $self->set_var(thread => $thread->to_hash);

@@ -12,7 +12,7 @@ sub is_subscribed {
     my ($thread) = @_;
 
     my $user = $self->scope->user;
-    return 0 unless $user->role eq 'user';
+    return 0 unless $user;
 
     return 1
       if Threads::DB::Subscription->find(

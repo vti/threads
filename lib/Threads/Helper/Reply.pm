@@ -27,8 +27,7 @@ sub is_author {
 
     my $user = $self->scope->user;
 
-    return 1
-      if $user && $user->role eq 'user' && $user->id == $reply->{user_id};
+    return 1 if $user && $user->id == $reply->{user_id};
 
     return 0;
 }
@@ -42,7 +41,6 @@ sub is_thanked {
     return
          $reply->{thanks_count} > 0
       && $user
-      && $user->role eq 'user'
       && Threads::DB::Thank->find(
         first => 1,
         where => [
@@ -61,7 +59,6 @@ sub is_flagged {
     return
          $reply->{reports_count} > 0
       && $user
-      && $user->role eq 'user'
       && Threads::DB::Report->find(
         first => 1,
         where => [
