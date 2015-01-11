@@ -4,18 +4,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Threads/Action/Login.pm:46
+#: lib/Threads/Action/Login.pm:47
 msgid "Account blocked"
 msgstr "Аккаунт заблокирован"
 
-#: lib/Threads/Action/Login.pm:41
-#: lib/Threads/Action/RequestPasswordReset.pm:34
+#: lib/Threads/Action/Login.pm:42
+#: lib/Threads/Action/RequestPasswordReset.pm:35
 msgid "Account not activated"
 msgstr "Аккаунт не активирован"
 
-#: lib/Threads/Action/Login.pm:51
+#: lib/Threads/Action/Login.pm:52
 msgid "Account not active"
 msgstr "Аккаунт не активен"
+
+#: templates/layout.apl:45
+msgid "Admin"
+msgstr "Админ"
 
 #: templates/login.apl:1 templates/login.apl:5
 msgid "Authorization"
@@ -25,11 +29,11 @@ msgstr "Авторизация"
 msgid "Change password"
 msgstr "Изменить пароль"
 
-#: templates/create_thread.apl:13 templates/update_thread.apl:13
+#: templates/create_thread.apl:14 templates/update_thread.apl:14
 msgid "Content"
 msgstr "Содержимое"
 
-#: templates/create_thread.apl:15
+#: templates/create_thread.apl:16
 msgid "Create new thread"
 msgstr "Создать новую тему"
 
@@ -38,7 +42,7 @@ msgstr "Создать новую тему"
 msgid "Create thread"
 msgstr "Создать тему"
 
-#: lib/Threads/Action/CreateThread.pm:40
+#: lib/Threads/Action/CreateThread.pm:42
 msgid "Creating threads too often"
 msgstr "Слишком часто создаете темы"
 
@@ -50,7 +54,7 @@ msgstr "Текущий пароль"
 msgid "Deregistration"
 msgstr "Удаление аккаунта"
 
-#: lib/Threads/Action/Deregister.pm:34
+#: lib/Threads/Action/Deregister.pm:37
 msgid "Deregistration confirmation"
 msgstr "Подтверждение удаления аккаунта"
 
@@ -78,12 +82,12 @@ msgstr "Неправильный email"
 msgid "Invalid password"
 msgstr "Неправильный пароль"
 
-#: templates/activation_success.apl:5 templates/layout.apl:56
-#: templates/login.apl:13 templates/view_thread.apl:69
+#: templates/activation_success.apl:5 templates/layout.apl:59
+#: templates/login.apl:13 templates/view_thread.apl:80
 msgid "Login"
 msgstr "Вход"
 
-#: templates/layout.apl:52
+#: templates/layout.apl:55
 msgid "Logout"
 msgstr "Выход"
 
@@ -103,7 +107,7 @@ msgstr "Новый пароль"
 msgid "Not readable"
 msgstr "Не читаемо"
 
-#: templates/layout.apl:48 templates/list_notifications.apl:2
+#: templates/layout.apl:51 templates/list_notifications.apl:2
 #: templates/list_notifications.apl:6
 msgid "Notifications"
 msgstr "Уведомления"
@@ -126,7 +130,7 @@ msgstr "Пароль изменен."
 msgid "Password mismatch"
 msgstr "Пароли не совпадают"
 
-#: lib/Threads/Action/RequestPasswordReset.pm:64
+#: lib/Threads/Action/RequestPasswordReset.pm:70
 #: templates/request_password_reset.apl:3
 msgid "Password reset"
 msgstr "Сброс пароля"
@@ -148,7 +152,7 @@ msgstr "Зарегистрироваться"
 msgid "Registration"
 msgstr "Регистрация"
 
-#: lib/Threads/Action/Register.pm:64
+#: lib/Threads/Action/Register.pm:67
 msgid "Registration confirmation"
 msgstr "Подтверждение регистрации"
 
@@ -198,9 +202,13 @@ msgstr "Отправить"
 msgid "Settings"
 msgstr "Настройки"
 
-#: templates/layout.apl:56 templates/view_thread.apl:69
+#: templates/layout.apl:59 templates/view_thread.apl:80
 msgid "Sign up"
 msgstr "Регистрация"
+
+#: templates/view_thread.apl:15
+msgid "Similar threads"
+msgstr "Похожие темы"
 
 #: templates/index.apl:7
 msgid "Sort"
@@ -210,6 +218,10 @@ msgstr "Сортировать"
 #: templates/profile.apl:9
 msgid "Subscriptions"
 msgstr "Подписки"
+
+#: templates/create_thread.apl:13 templates/update_thread.apl:13
+msgid "Tags"
+msgstr "Метки"
 
 #: templates/activation_needed.apl:3
 msgid ""
@@ -226,7 +238,7 @@ msgstr "Темы"
 msgid "Title"
 msgstr "Заголовок"
 
-#: templates/view_thread.apl:66
+#: templates/view_thread.apl:77
 msgid "To reply to this thread login or register"
 msgstr "Чтобы ответить, залогиньтесь или зарегистрируйтесь"
 
@@ -238,11 +250,11 @@ msgstr "Слишком длинно"
 msgid "Too short"
 msgstr "Слишком коротко"
 
-#: lib/Threads/Action/Login.pm:31 lib/Threads/Action/Login.pm:36
+#: lib/Threads/Action/Login.pm:32 lib/Threads/Action/Login.pm:37
 msgid "Unknown credentials"
 msgstr "Неизвестные данные"
 
-#: templates/settings.apl:16 templates/update_thread.apl:15
+#: templates/settings.apl:16 templates/update_thread.apl:16
 msgid "Update"
 msgstr "Обновить"
 
@@ -250,15 +262,20 @@ msgstr "Обновить"
 msgid "Update thread"
 msgstr "Обновить тему"
 
-#: lib/Threads/Action/RequestPasswordReset.pm:29
+#: lib/Threads/Action/RequestPasswordReset.pm:30
 msgid "User does not exist"
 msgstr "Пользователь не существует"
 
-#: lib/Threads/Action/Register.pm:30
+#: lib/Threads/Action/Register.pm:31
 msgid "User exists"
 msgstr "Пользователь существует"
 
-#: templates/layout.apl:70
+#: templates/include/admin_nav.apl:1
+#, fuzzy
+msgid "Users"
+msgstr "Пользователь существует"
+
+#: templates/layout.apl:73
 msgid "Written by"
 msgstr "Написано"
 
@@ -332,11 +349,11 @@ msgid "markup"
 msgstr "формат"
 
 #: templates/include/quick-edit-form.apl:6
-#: templates/include/quick-reply-form.apl:10 templates/view_thread.apl:69
+#: templates/include/quick-reply-form.apl:10 templates/view_thread.apl:80
 msgid "or"
 msgstr "или"
 
-#: templates/layout.apl:70
+#: templates/layout.apl:73
 msgid "powered by"
 msgstr "работает на"
 
@@ -356,7 +373,7 @@ msgstr ""
 msgid "subscribe"
 msgstr "подписаться"
 
-#: templates/view_thread.apl:29
+#: templates/view_thread.apl:41
 msgid "thank you"
 msgstr ""
 
@@ -364,6 +381,6 @@ msgstr ""
 msgid "unsubscribe"
 msgstr "отписаться"
 
-#: templates/include/thread.apl:28
+#: templates/include/reply-meta.apl:15 templates/include/thread.apl:28
 msgid "upd."
 msgstr "обн."

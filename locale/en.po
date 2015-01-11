@@ -4,17 +4,21 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Threads/Action/Login.pm:46
+#: lib/Threads/Action/Login.pm:47
 msgid "Account blocked"
 msgstr ""
 
-#: lib/Threads/Action/Login.pm:41
-#: lib/Threads/Action/RequestPasswordReset.pm:34
+#: lib/Threads/Action/Login.pm:42
+#: lib/Threads/Action/RequestPasswordReset.pm:35
 msgid "Account not activated"
 msgstr ""
 
-#: lib/Threads/Action/Login.pm:51
+#: lib/Threads/Action/Login.pm:52
 msgid "Account not active"
+msgstr ""
+
+#: templates/layout.apl:45
+msgid "Admin"
 msgstr ""
 
 #: templates/login.apl:1 templates/login.apl:5
@@ -25,11 +29,11 @@ msgstr ""
 msgid "Change password"
 msgstr ""
 
-#: templates/create_thread.apl:13 templates/update_thread.apl:13
+#: templates/create_thread.apl:14 templates/update_thread.apl:14
 msgid "Content"
 msgstr ""
 
-#: templates/create_thread.apl:15
+#: templates/create_thread.apl:16
 msgid "Create new thread"
 msgstr ""
 
@@ -38,7 +42,7 @@ msgstr ""
 msgid "Create thread"
 msgstr ""
 
-#: lib/Threads/Action/CreateThread.pm:40
+#: lib/Threads/Action/CreateThread.pm:42
 msgid "Creating threads too often"
 msgstr ""
 
@@ -50,7 +54,7 @@ msgstr ""
 msgid "Deregistration"
 msgstr ""
 
-#: lib/Threads/Action/Deregister.pm:34
+#: lib/Threads/Action/Deregister.pm:37
 msgid "Deregistration confirmation"
 msgstr ""
 
@@ -78,12 +82,12 @@ msgstr ""
 msgid "Invalid password"
 msgstr ""
 
-#: templates/activation_success.apl:5 templates/layout.apl:56
-#: templates/login.apl:13 templates/view_thread.apl:69
+#: templates/activation_success.apl:5 templates/layout.apl:59
+#: templates/login.apl:13 templates/view_thread.apl:80
 msgid "Login"
 msgstr ""
 
-#: templates/layout.apl:52
+#: templates/layout.apl:55
 msgid "Logout"
 msgstr ""
 
@@ -103,7 +107,7 @@ msgstr ""
 msgid "Not readable"
 msgstr ""
 
-#: templates/layout.apl:48 templates/list_notifications.apl:2
+#: templates/layout.apl:51 templates/list_notifications.apl:2
 #: templates/list_notifications.apl:6
 msgid "Notifications"
 msgstr ""
@@ -126,7 +130,7 @@ msgstr ""
 msgid "Password mismatch"
 msgstr ""
 
-#: lib/Threads/Action/RequestPasswordReset.pm:64
+#: lib/Threads/Action/RequestPasswordReset.pm:70
 #: templates/request_password_reset.apl:3
 msgid "Password reset"
 msgstr ""
@@ -148,7 +152,7 @@ msgstr ""
 msgid "Registration"
 msgstr ""
 
-#: lib/Threads/Action/Register.pm:64
+#: lib/Threads/Action/Register.pm:67
 msgid "Registration confirmation"
 msgstr ""
 
@@ -198,8 +202,12 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: templates/layout.apl:56 templates/view_thread.apl:69
+#: templates/layout.apl:59 templates/view_thread.apl:80
 msgid "Sign up"
+msgstr ""
+
+#: templates/view_thread.apl:15
+msgid "Similar threads"
 msgstr ""
 
 #: templates/index.apl:7
@@ -209,6 +217,10 @@ msgstr ""
 #: templates/list_subscriptions.apl:2 templates/list_subscriptions.apl:6
 #: templates/profile.apl:9
 msgid "Subscriptions"
+msgstr ""
+
+#: templates/create_thread.apl:13 templates/update_thread.apl:13
+msgid "Tags"
 msgstr ""
 
 #: templates/activation_needed.apl:3
@@ -224,7 +236,7 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: templates/view_thread.apl:66
+#: templates/view_thread.apl:77
 msgid "To reply to this thread login or register"
 msgstr ""
 
@@ -236,11 +248,11 @@ msgstr ""
 msgid "Too short"
 msgstr ""
 
-#: lib/Threads/Action/Login.pm:31 lib/Threads/Action/Login.pm:36
+#: lib/Threads/Action/Login.pm:32 lib/Threads/Action/Login.pm:37
 msgid "Unknown credentials"
 msgstr ""
 
-#: templates/settings.apl:16 templates/update_thread.apl:15
+#: templates/settings.apl:16 templates/update_thread.apl:16
 msgid "Update"
 msgstr ""
 
@@ -248,15 +260,19 @@ msgstr ""
 msgid "Update thread"
 msgstr ""
 
-#: lib/Threads/Action/RequestPasswordReset.pm:29
+#: lib/Threads/Action/RequestPasswordReset.pm:30
 msgid "User does not exist"
 msgstr ""
 
-#: lib/Threads/Action/Register.pm:30
+#: lib/Threads/Action/Register.pm:31
 msgid "User exists"
 msgstr ""
 
-#: templates/layout.apl:70
+#: templates/include/admin_nav.apl:1
+msgid "Users"
+msgstr ""
+
+#: templates/layout.apl:73
 msgid "Written by"
 msgstr ""
 
@@ -324,11 +340,11 @@ msgid "markup"
 msgstr ""
 
 #: templates/include/quick-edit-form.apl:6
-#: templates/include/quick-reply-form.apl:10 templates/view_thread.apl:69
+#: templates/include/quick-reply-form.apl:10 templates/view_thread.apl:80
 msgid "or"
 msgstr ""
 
-#: templates/layout.apl:70
+#: templates/layout.apl:73
 msgid "powered by"
 msgstr ""
 
@@ -348,7 +364,7 @@ msgstr ""
 msgid "subscribe"
 msgstr ""
 
-#: templates/view_thread.apl:29
+#: templates/view_thread.apl:41
 msgid "thank you"
 msgstr ""
 
@@ -356,6 +372,6 @@ msgstr ""
 msgid "unsubscribe"
 msgstr ""
 
-#: templates/include/thread.apl:28
+#: templates/include/reply-meta.apl:15 templates/include/thread.apl:28
 msgid "upd."
 msgstr ""
