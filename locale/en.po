@@ -252,6 +252,10 @@ msgstr ""
 msgid "Unknown credentials"
 msgstr ""
 
+#: lib/Threads/Job/SendEmailNotifications.pm:48
+msgid "Unread notifications: "
+msgstr ""
+
 #: templates/settings.apl:16 templates/update_thread.apl:16
 msgid "Update"
 msgstr ""
@@ -274,6 +278,10 @@ msgstr ""
 
 #: templates/layout.apl:73
 msgid "Written by"
+msgstr ""
+
+#: templates/email/notifications_digest.apl:1
+msgid "You have got unread notifications. Check the link below:"
 msgstr ""
 
 #. ($email)

@@ -13,6 +13,7 @@ __PACKAGE__->meta(
           created
           user_id
           reply_id
+          is_sent
           /
     ],
     primary_key    => 'id',

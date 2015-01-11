@@ -21,6 +21,7 @@ sub new {
 
 sub run { ... }
 
+sub _config     { $_[0]->{config} }
 sub _is_verbose { $_[0]->{verbose} || $_[0]->{dry_run} }
 sub _is_dry_run { $_[0]->{dry_run} }
 

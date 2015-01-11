@@ -254,6 +254,11 @@ msgstr "Слишком коротко"
 msgid "Unknown credentials"
 msgstr "Неизвестные данные"
 
+#: lib/Threads/Job/SendEmailNotifications.pm:48
+#, fuzzy
+msgid "Unread notifications: "
+msgstr "Email-уведомления"
+
 #: templates/settings.apl:16 templates/update_thread.apl:16
 msgid "Update"
 msgstr "Обновить"
@@ -278,6 +283,10 @@ msgstr "Пользователь существует"
 #: templates/layout.apl:73
 msgid "Written by"
 msgstr "Написано"
+
+#: templates/email/notifications_digest.apl:1
+msgid "You have got unread notifications. Check the link below:"
+msgstr "У вас непрочитанные уведомления. Нажмите на ссылку:"
 
 #. ($email)
 #: templates/email/deregistration_confirmation_required.apl:2
@@ -375,7 +384,7 @@ msgstr "подписаться"
 
 #: templates/view_thread.apl:41
 msgid "thank you"
-msgstr ""
+msgstr "спасибо"
 
 #: templates/include/thread.apl:11
 msgid "unsubscribe"
