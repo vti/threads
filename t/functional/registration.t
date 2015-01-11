@@ -134,7 +134,7 @@ subtest 'activate user' => sub {
     $ua->content_contains('Sort');
 };
 
-subtest 'forbidden when logged in' => sub {
+subtest 'not found when logged in' => sub {
     TestDB->setup;
 
     Threads::DB::User->new(
@@ -153,7 +153,7 @@ subtest 'forbidden when logged in' => sub {
 
     my $res = $ua->get('/register');
 
-    is $res->code, 403;
+    is $res->code, 404;
 };
 
 sub _build_ua {

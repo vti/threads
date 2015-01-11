@@ -23,6 +23,7 @@ __PACKAGE__->meta(
           status
           created
           email_notifications
+          role
           /
     ],
     primary_key    => 'id',
@@ -30,8 +31,6 @@ __PACKAGE__->meta(
     unique_keys    => ['email'],
     generate_columns_methods => 1,
 );
-
-sub role { 'user' }
 
 sub load_auth {
     my $self = shift;
@@ -43,13 +42,25 @@ sub load_auth {
     my $user = $self->new(id => $nonce->user_id)->load;
     return unless $user && $user->status eq 'active';
 
-    $nonce->delete;
-
-    my $new_nonce =
-      Threads::DB::Nonce->new(user_id => $user->id)->create;
-    $options->{id} = $new_nonce->id;
-
     return $user;
+}
+
+sub finalize_auth {
+    my $self = shift;
+    my ($options) = @_;
+
+    my $nonce = Threads::DB::Nonce->new(id => $options->{id})->load;
+
+    if ($nonce) {
+        my $user_id = $nonce->user_id;
+        $nonce->delete;
+
+        my $new_nonce =
+          Threads::DB::Nonce->new(user_id => $user_id)->create;
+        $options->{id} = $new_nonce->id;
+    }
+
+    return;
 }
 
 sub hash_password {

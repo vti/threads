@@ -8,14 +8,14 @@ use TestDB;
 
 use Threads;
 
-subtest 'show forbidden when not logged in' => sub {
+subtest 'show not found when not logged in' => sub {
     TestDB->setup;
 
     my $ua = _build_ua();
 
     my $res = $ua->get('/change-password');
 
-    is $res->code, 403;
+    is $res->code, 404;
 };
 
 subtest 'show change password page' => sub {

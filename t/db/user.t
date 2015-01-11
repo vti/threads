@@ -68,7 +68,7 @@ subtest 'deletes old nonce' => sub {
     my $user = TestDB->build('User');
 
     my $options = {id => $nonce->id};
-    $user->load_auth($options);
+    $user->finalize_auth($options);
 
     ok !$nonce->load;
 };
@@ -84,7 +84,7 @@ subtest 'creates new nonce' => sub {
     my $user = TestDB->build('User');
 
     my $options = {id => $nonce->id};
-    $user->load_auth($options);
+    $user->finalize_auth($options);
 
     isnt $options->{id}, $nonce->id;
 };

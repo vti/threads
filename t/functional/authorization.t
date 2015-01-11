@@ -146,11 +146,11 @@ subtest 'redirect to root' => sub {
     $ua->content_contains('Sort');
 };
 
-subtest 'logout is forbidden when not logged in' => sub {
+subtest 'logout is not found when not logged in' => sub {
     my $ua = _build_ua();
 
     my $res = $ua->post('/logout');
-    is $res->code, 403;
+    is $res->code, 404;
 };
 
 subtest 'logout' => sub {

@@ -10,14 +10,14 @@ use TestDB;
 use Threads;
 use Threads::DB::User;
 
-subtest 'forbidden when not logged in' => sub {
+subtest 'not found when not logged in' => sub {
     TestDB->setup;
 
     my $ua = _build_ua();
 
     my $res = $ua->get('/deregister');
 
-    is $res->code, 403;
+    is $res->code, 404;
 };
 
 subtest 'show deregistration page' => sub {

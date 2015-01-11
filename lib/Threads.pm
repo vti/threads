@@ -131,6 +131,11 @@ sub _add_routes {
         '/delete-notifications',
         name   => 'delete_notifications',
     );
+
+    $routes->add_route(
+        '/admin',
+        name   => 'admin_index',
+    );
 }
 
 sub _add_acl {
@@ -154,6 +159,9 @@ sub _add_acl {
 
     $acl->deny('user', 'login');
     $acl->deny('user', 'register');
+
+    $acl->add_role('admin', 'user');
+    $acl->deny('user', qr/^admin_/);
 }
 
 1;
