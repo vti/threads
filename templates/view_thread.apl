@@ -45,10 +45,9 @@
 
         % my $padding = $reply->{level} * 10 + 10;
         % $padding = 100 if $padding > 100;
-        <div class="reply" style="padding-left:<%= $padding %>px">
+        <div class="reply" style="margin-left:<%= $padding %>px">
 
             %== $helpers->displayer->render('include/reply-meta', reply => $reply, thread => $thread);
-
             <div class="reply-content">
                 <%== $helpers->markup->render($reply->{content}) %>
             </div>

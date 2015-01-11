@@ -272,15 +272,10 @@ a.no-underline, a.no-underline:hover{
 }
 
 .reply {
-    /*margin-top:10px;*/
-    margin-bottom:10px;
-    /*padding-top:10px;*/
 }
 
 .reply-thank {
     text-align:right;
-    /*margin-top:10px;*/
-    /*padding-top:10px;*/
 }
 
 .reply-gravatar {
@@ -300,6 +295,20 @@ a.no-underline, a.no-underline:hover{
     max-width:700px;
     padding-top:10px;
     word-wrap: break-word;
+}
+
+.reply-content p:last-child {
+    margin-bottom:5px;
+}
+
+.reply-controls {
+}
+
+.reply-over {
+}
+
+.reply-highlighted {
+    background:#eee;
 }
 
 .quick-reply {
@@ -378,4 +387,10 @@ a.markup-help-button {
     padding-top:1em;
     border-top:1px solid #eee;
     max-width:500px;
+}
+
+@media screen and (min-width: 768px) {
+    .invisible-on-desktop {
+        visibility:hidden;
+    }
 }

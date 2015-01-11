@@ -16,6 +16,7 @@
                     % }
                     <a href="<%= $helpers->url->view_thread(id => $thread->{id}, slug => $thread->{slug}) %>#reply-<%= $reply->{id} %>">#</a>
                 </div>
+                <div class="clear"></div>
             </div>
 
 

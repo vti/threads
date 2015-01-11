@@ -1,4 +1,4 @@
-        <div class="reply-controls">
+        <div class="reply-controls invisible-on-desktop">
             % if ($helpers->acl->is_user) {
             <button class="quick-reply-button"><i class="fa fa-reply"></i> <%= loc('reply') %></button>
             % }

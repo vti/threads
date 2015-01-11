@@ -86,9 +86,9 @@
             if (match && match.length) {
                 var el = $('a[name=' + match[0] + ']').parent().parent().parent();
 
-                el.css('backgroundColor', '#eee');
+                el.addClass('reply-highlighted');
                 setTimeout(function() {
-                    el.css('backgroundColor', 'white');
+                    el.removeClass('reply-highlighted');
                 }, 500);
             }
         }
@@ -156,11 +156,11 @@
     });
 
     $('.reply').mouseover(function() {
-        //$(this).find('.reply-controls').css('visibility', 'visible');
+        $(this).find('.reply-controls').removeClass('invisible-on-desktop').parent().addClass('reply-over');
     });
 
     $('.reply').mouseout(function() {
-        //$(this).find('.reply-controls').css('visibility', 'hidden');
+        $(this).find('.reply-controls').addClass('invisible-on-desktop').parent().removeClass('reply-over');
     });
 
 })();
