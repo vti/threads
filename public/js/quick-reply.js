@@ -9,6 +9,7 @@
         var form = $(this).parent().find('.quick-reply-form');
 
         if (!form.css('display') || form.css('display') == 'none') {
+            form.addClass('visible');
             form.show();
 
             var textarea = form.find('textarea');
@@ -26,11 +27,12 @@
               if ((e.keyCode == 10 || e.keyCode == 13) && e.ctrlKey) {
                   e.preventDefault();
 
-                  $(this).parent().parent().submit();
+                  $(this).closest('form').submit();
               }
             });
         }
         else {
+            form.removeClass('visible');
             form.find('textarea').off('keydown');
             form.hide();
         }
@@ -42,6 +44,7 @@
         var form = $(this).parent().find('.quick-edit-form');
 
         if (!form.css('display') || form.css('display') == 'none') {
+            form.addClass('visible');
             form.show();
             form.find('textarea').focus();
 
@@ -49,11 +52,12 @@
               if ((e.keyCode == 10 || e.keyCode == 13) && e.ctrlKey) {
                   e.preventDefault();
 
-                  $(this).parent().parent().submit();
+                  $(this).closest('form').submit();
               }
             });
         }
         else {
+            form.removeClass('visible');
             form.find('textarea').off('keydown');
             form.hide();
         }
@@ -84,7 +88,7 @@
             var match = re.exec(hash);
 
             if (match && match.length) {
-                var el = $('a[name=' + match[0] + ']').parent().parent().parent();
+                var el = $('a[name=' + match[0] + ']').closest('.reply');
 
                 el.addClass('reply-highlighted');
                 setTimeout(function() {
@@ -160,7 +164,9 @@
     });
 
     $('.reply').mouseout(function() {
-        $(this).find('.reply-controls').addClass('invisible-on-desktop').parent().removeClass('reply-over');
+        if (!$(this).find('.visible').length) {
+            $(this).find('.reply-controls').addClass('invisible-on-desktop').parent().removeClass('reply-over');
+        }
     });
 
 })();
