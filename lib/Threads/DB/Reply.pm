@@ -11,6 +11,7 @@ __PACKAGE__->meta(
         qw/
           id
           created
+          updated
           user_id
           thread_id
           parent_id

@@ -9,7 +9,12 @@
                         → <span class="<%= $helpers->thread->is_author($thread, $reply->{parent}->{user}) ? 'status-bg-highlight' : ''%>"><%== $helpers->user->display_name($reply->{parent}->{user}) %></span>
                     % }
                 </div>
-                <div class="reply-date"><a href="<%= $helpers->url->view_thread(id => $thread->{id}, slug => $thread->{slug}) %>#reply-<%= $reply->{id} %>"><%= $helpers->date->format($reply->{created}) %></a></div>
+                <div class="reply-date">
+                    <a href="<%= $helpers->url->view_thread(id => $thread->{id}, slug => $thread->{slug}) %>#reply-<%= $reply->{id} %>"><%= $helpers->date->format($reply->{created}) %></a>
+                    % if ($reply->{updated}) {
+                        <%= loc('upd.') %> <%= $helpers->date->format($reply->{updated}) %>
+                    % }
+                </div>
             </div>
 
 

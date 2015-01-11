@@ -54,7 +54,7 @@ sub submit {
     my ($params) = @_;
 
     my $reply = $self->{reply};
-    $reply->set_columns(%$params);
+    $reply->set_columns(%$params, updated => time);
     $reply->update;
 
     my $thread = $reply->related('thread');

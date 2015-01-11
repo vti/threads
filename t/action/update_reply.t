@@ -102,6 +102,7 @@ subtest 'updates reply with correct params' => sub {
     $reply->load;
 
     is $reply->content, 'foo';
+    isnt $reply->updated, 0;
 };
 
 subtest 'redirects after update' => sub {
