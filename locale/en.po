@@ -74,6 +74,10 @@ msgstr ""
 msgid "Good luck!"
 msgstr ""
 
+#: lib/Threads/Action/Register.pm:59
+msgid "Invalid captcha"
+msgstr ""
+
 #: lib/Threads/Action/FormBase.pm:19
 msgid "Invalid email"
 msgstr ""
@@ -144,7 +148,7 @@ msgstr ""
 msgid "Profile"
 msgstr ""
 
-#: templates/register.apl:12
+#: templates/register.apl:16
 msgid "Register"
 msgstr ""
 
@@ -152,7 +156,7 @@ msgstr ""
 msgid "Registration"
 msgstr ""
 
-#: lib/Threads/Action/Register.pm:67
+#: lib/Threads/Action/Register.pm:96
 msgid "Registration confirmation"
 msgstr ""
 
@@ -268,16 +272,12 @@ msgstr ""
 msgid "User does not exist"
 msgstr ""
 
-#: lib/Threads/Action/Register.pm:31
+#: lib/Threads/Action/Register.pm:50
 msgid "User exists"
 msgstr ""
 
 #: templates/include/admin_nav.apl:1
 msgid "Users"
-msgstr ""
-
-#: templates/layout.apl:73
-msgid "Written by"
 msgstr ""
 
 #: lib/Threads/Action/FormBase.pm:24
