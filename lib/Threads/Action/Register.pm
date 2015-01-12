@@ -5,6 +5,7 @@ use warnings;
 
 use parent 'Threads::Action::FormBase';
 
+use Plack::Session;
 use Threads::DB::User;
 use Threads::DB::Confirmation;
 use Threads::Util qw(to_hex);
@@ -20,7 +21,25 @@ sub build_validator {
     $validator->add_rule('email', 'Email');
     $validator->add_rule('email', 'NotDisposableEmail');
 
+    $validator->add_field('captcha') if $self->_has_captcha;
+
     return $validator;
+}
+
+sub show {
+    my $self = shift;
+
+    $self->_generate_captcha if $self->_has_captcha;
+
+    return;
+}
+
+sub show_errors {
+    my $self = shift;
+
+    $self->_generate_captcha if $self->_has_captcha;
+
+    return;
 }
 
 sub validate {
@@ -30,6 +49,16 @@ sub validate {
     if (Threads::DB::User->new(email => $params->{email})->load) {
         $validator->add_error(email => $self->loc('User exists'));
         return;
+    }
+
+    if ($self->_has_captcha) {
+        my $session         = Plack::Session->new($self->env);
+        my $expected_answer = $session->get('captcha');
+
+        if (!$expected_answer || $expected_answer ne $params->{captcha}) {
+            $validator->add_error(captcha => $self->loc('Invalid captcha'));
+            return;
+        }
     }
 
     return 1;
@@ -77,6 +106,20 @@ sub mailer {
     my $self = shift;
 
     return $self->service('mailer');
+}
+
+sub _has_captcha { shift->service('config')->{captcha} ? 1 : 0 }
+
+sub _generate_captcha {
+    my $self = shift;
+
+    my $captchas = $self->service('config')->{captcha};
+
+    my $captcha = $captchas->[int(rand(@$captchas))];
+
+    my $session = Plack::Session->new($self->env);
+    $session->set(captcha => $captcha->{answer});
+    $self->set_var(captcha => {text => $captcha->{text}});
 }
 
 1;

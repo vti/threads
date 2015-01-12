@@ -118,10 +118,9 @@ subtest 'create confirmation token with correct params' => sub {
     my $confirmation = Threads::DB::Confirmation->find(first => 1);
 
     ok $confirmation;
-    is $confirmation->user_id,
-      Threads::DB::User->find(first => 1)->id;
+    is $confirmation->user_id, Threads::DB::User->find(first => 1)->id;
     isnt $confirmation->token, '';
-    is $confirmation->type, 'register';
+    is $confirmation->type,    'register';
 };
 
 subtest 'sends email' => sub {
@@ -157,13 +156,27 @@ sub _mock_mailer {
     return $mailer;
 }
 
+sub _mock_services {
+    my (%params) = @_;
+
+    my $services = Test::MonkeyMock->new;
+    $services->mock(
+        service => sub { {} },
+        when    => sub { $_[1] eq 'config' }
+    );
+
+    return $services;
+}
+
 sub _build_action {
     my (%params) = @_;
 
-    my $env    = $params{env}    || TestRequest->to_env(%params);
-    my $mailer = $params{mailer} || _mock_mailer();
+    my $env      = $params{env}      || TestRequest->to_env(%params);
+    my $mailer   = $params{mailer}   || _mock_mailer();
+    my $services = $params{services} || _mock_services();
 
-    my $action = Threads::Action::Register->new(env => $env);
+    my $action =
+      Threads::Action::Register->new(env => $env, services => $services);
     $action = Test::MonkeyMock->new($action);
     $action->mock(render => sub { '' });
     $action->mock(mailer => sub { $mailer });

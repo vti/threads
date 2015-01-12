@@ -9,6 +9,10 @@
     <%== $helpers->form->input('email', label => 'E-mail') %>
     <%== $helpers->form->password('password', label => loc('Password')) %>
 
+    % if (my $captcha = var('captcha')) {
+        <%== $helpers->form->input('captcha', label => $captcha->{text}) %>
+    % }
+
     <input type="submit" value="<%= loc('Register') %>" />
 
     </form>
