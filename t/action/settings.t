@@ -29,6 +29,25 @@ subtest 'update settings' => sub {
     is $user->name, 'foo';
 };
 
+subtest 'update settings with checkbox' => sub {
+    TestDB->setup;
+
+    my $user =
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
+    my $action = _build_action(
+        req => POST(
+            '/' => {name => 'foo', email_notifications => 'on'}
+        ),
+        'tu.user' => $user
+    );
+
+    $action->run;
+
+    $user->load;
+
+    is $user->email_notifications, '1';
+};
+
 subtest 'show validation error when name exists' => sub {
     TestDB->setup;
 

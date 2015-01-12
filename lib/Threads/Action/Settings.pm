@@ -51,6 +51,8 @@ sub submit {
 
     my $user = $self->env->{'tu.user'};
 
+    $params->{email_notifications} = 1 if $params->{email_notifications};
+
     $user->set_columns(%$params);
     $user->update;
 
