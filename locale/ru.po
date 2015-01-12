@@ -58,7 +58,7 @@ msgstr "Удаление аккаунта"
 msgid "Deregistration confirmation"
 msgstr "Подтверждение удаления аккаунта"
 
-#: lib/Threads/Action/FormBase.pm:25
+#: lib/Threads/Action/FormBase.pm:26
 msgid "Disposable emails are not allowed"
 msgstr "Одноразовые email-адреса не приветствуются"
 
@@ -281,6 +281,10 @@ msgstr "Пользователи"
 #: templates/layout.apl:73
 msgid "Written by"
 msgstr "Написано"
+
+#: lib/Threads/Action/FormBase.pm:24
+msgid "Wrong tags"
+msgstr "Неправильные метки"
 
 #: templates/email/notifications_digest.apl:1
 msgid "You have got unread notifications. Check the link below:"

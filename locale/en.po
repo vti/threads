@@ -58,7 +58,7 @@ msgstr ""
 msgid "Deregistration confirmation"
 msgstr ""
 
-#: lib/Threads/Action/FormBase.pm:25
+#: lib/Threads/Action/FormBase.pm:26
 msgid "Disposable emails are not allowed"
 msgstr ""
 
@@ -278,6 +278,10 @@ msgstr ""
 
 #: templates/layout.apl:73
 msgid "Written by"
+msgstr ""
+
+#: lib/Threads/Action/FormBase.pm:24
+msgid "Wrong tags"
 msgstr ""
 
 #: templates/email/notifications_digest.apl:1

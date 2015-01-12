@@ -21,6 +21,7 @@ sub build_validator {
             READABLE  => $self->loc('Not readable'),
             MINLENGTH => $self->loc('Too short'),
             MAXLENGTH => $self->loc('Too long'),
+            TAGS      => $self->loc('Wrong tags'),
             NOTDISPOSABLEEMAIL =>
               $self->loc('Disposable emails are not allowed'),
         },
