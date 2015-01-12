@@ -55,7 +55,7 @@
         </div>
         <div class="grid-95 mobile-grid-80 grid-parent">
 
-        % my $padding = $reply->{level} * 10 + 10;
+        % my $padding = $reply->{level} * 40 + 10;
         % $padding = 100 if $padding > 100;
         <div class="reply" style="margin-left:<%= $padding %>px">
 
