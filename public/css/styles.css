@@ -308,6 +308,11 @@ a.no-underline, a.no-underline:hover{
   position:relative;
 }
 
+ul.tree{
+    padding-left:0;
+    margin-left:0;
+}
+
 .tree ul ul {
   margin-left:20px;
 }
@@ -380,7 +385,7 @@ a.no-underline, a.no-underline:hover{
 }
 
 .reply-controls {
-    padding-bottom:0.5em;
+    padding-bottom:1.5em;
 }
 
 .reply-over {
