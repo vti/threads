@@ -1,0 +1,43 @@
+---
+base_url: 'http://yourwebsite.com'
+meta:
+    title: 'My forum'
+    description: 'The best forum on earth!'
+pagers:
+    threads: 10
+    subscriptions: 10
+    notifications: 10
+limits:
+    threads:
+        60: 2
+        3600: 5
+        86400: 10
+    replies:
+        60: 2
+        3600: 5
+        86400: 20
+session:
+    secret: '123'
+captcha:
+    - text: '2 + 2 = ?'
+      answer: '4'
+    - text: '6 * 3 = ?'
+      answer: '18'
+database:
+    dsn: 'dbi:SQLite:db.db'
+    attrs:
+        RaiseError: 1
+        sqlite_unicode: 1
+i18n:
+    default_language: 'en'
+    languages:
+        - 'en'
+mailer:
+    subject_prefix: '[Threads]'
+    headers:
+        - 'From'
+        - 'foo@bar.com'
+    transport:
+        name: 'sendmail'
+        path: '/usr/sbin/sendmail'
+
