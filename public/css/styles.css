@@ -296,15 +296,64 @@ a.no-underline, a.no-underline:hover{
     padding-top:2em;
 }
 
-.replies {
-    padding-top:2em;
+.tree,
+.tree ul {
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+
+.tree ul {
+  margin-left:20px;
+  position:relative;
+}
+
+.tree ul ul {
+  margin-left:20px;
+}
+
+.tree ul:before {
+  content:"";
+  display:block;
+  width:0;
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  border-left:1px solid #ddd;
+}
+
+.tree li {
+  margin:0;
+  padding:0 1.5em;
+  position:relative;
+}
+
+.tree ul li:before {
+  content:"";
+  display:block;
+  width:10px;
+  height:0;
+  border-top:1px solid #ddd;
+  margin-top:-1px;
+  position:absolute;
+  top:20px;
+  left:0;
+}
+
+.tree ul li:last-child:before {
+  background:white;
+  height:auto;
+  top:20px;
+  bottom:0;
 }
 
 .reply {
 }
 
 .reply-thank {
-    text-align:right;
+    float:left;
+    padding-right:0.5em;
 }
 
 .reply-gravatar {
@@ -331,6 +380,7 @@ a.no-underline, a.no-underline:hover{
 }
 
 .reply-controls {
+    padding-bottom:0.5em;
 }
 
 .reply-over {
