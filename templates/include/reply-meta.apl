@@ -11,7 +11,7 @@
                 </div>
                 <div class="reply-date">
                     <%= $helpers->date->format($reply->{created}) %>
-                    % if ($reply->{updated}) {
+                    % if ($helpers->date->is_distant_update($reply)) {
                         <%= loc('upd.') %> <%= $helpers->date->format($reply->{updated}) %>
                     % }
                     <a href="<%= $helpers->url->view_thread(id => $thread->{id}, slug => $thread->{slug}) %>#reply-<%= $reply->{id} %>">#</a>

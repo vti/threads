@@ -24,7 +24,7 @@
             </div>
             <div class="thread-date">
                 <%= $helpers->date->format($thread->{created}) %>
-                % if ($thread->{updated}) {
+                % if ($helpers->date->is_distant_update($thread)) {
                     <%= loc('upd.') %> <%= $helpers->date->format($thread->{updated}) %>
                 % }
             </div>
