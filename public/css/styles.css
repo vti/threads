@@ -184,7 +184,10 @@ textarea.error {
 button.link {
     background : 0;
     border : 0;
+    border-style : none;
     margin : 0;
+    outline: 0;
+    outline-style : none;
     padding : 0;
     tab-size:8;
     transform : none;
@@ -195,6 +198,14 @@ button.link {
     color: #0074D9;
     text-decoration: underline;
     font-weight:normal;
+}
+
+.reply-thank button.link {
+    text-decoration: none;
+    color:#111;
+}
+
+.reply-thank button.link:focus {
 }
 
 .form-input {
@@ -356,11 +367,6 @@ ul.tree{
 .reply {
 }
 
-.reply-thank {
-    float:left;
-    padding-right:0.5em;
-}
-
 .reply-gravatar {
     float:left;
     margin-right:0.5em;
@@ -382,6 +388,12 @@ ul.tree{
 
 .reply-content p:last-child {
     margin-bottom:5px;
+}
+
+.reply-thank {
+    float:left;
+    padding-right:0.5em;
+    padding-bottom:1.5em;
 }
 
 .reply-controls {
@@ -471,6 +483,11 @@ a.markup-help-button {
     padding-top:1em;
     border-top:1px solid #eee;
     max-width:500px;
+}
+
+.opacity {
+    opacity: 0.3;
+    filter: alpha(opacity=30); /* For IE8 and earlier */
 }
 
 @media screen and (min-width: 768px) {

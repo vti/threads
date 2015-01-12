@@ -50,6 +50,8 @@
             %== $helpers->displayer->render('include/reply-thank', thread => $thread, reply => $reply);
 
             %== $helpers->displayer->render('include/reply-controls', thread => $thread, reply => $reply);
+
+            <div class="clear"></div>
         </div>
 
         </li>
