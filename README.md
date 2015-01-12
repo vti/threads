@@ -1,7 +1,7 @@
 # Threads
 
-This is a modern fresh looking forum, primarily written for the russian Perl
-magazine <http://pragmaticperl.com>.
+This is a modern fresh looking forum, primarily written for the Perl
+magazine <http://pragmaticperl.com> (in Russian).
 
 ## Live
 
