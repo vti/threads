@@ -70,7 +70,7 @@
     <div id="footer">
         <div class="grid-container">
             <div class="grid-100 mobile-grid-100">
-                <%= loc('Written by') %> <a href="http://twitter.com/vtivti">@vti</a>, <%= loc('powered by') %> <a href="http://perl.org">Perl</a>
+                <a href="http://github.com/vti/threads">Threads</a>, <%= loc('powered by') %> <a href="http://perl.org">Perl</a>
             </div>
         </div>
     </div>
