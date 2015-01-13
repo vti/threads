@@ -10,7 +10,7 @@
     <form method="POST" id="create-thread">
 
     <%== $helpers->form->input('title', label => loc('Title')) %>
-    <%== $helpers->form->input('tags', label => loc('Tags')) %>
+    <%== $helpers->form->input('tags', label => loc('Tags'), help => loc('Comma separated')) %>
     <%== $helpers->form->textarea('content', label => loc('Content')) %>
 
     <input type="submit" value="<%= loc('Create new thread') %>" />

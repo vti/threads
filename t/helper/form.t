@@ -29,6 +29,17 @@ subtest 'builds input with label' => sub {
 EOT
 };
 
+subtest 'builds input with help' => sub {
+    my $helper = _build_helper();
+
+    is $helper->input('username', help => 'Any characters will do'), <<'EOT';
+<div class="form-input">
+    <input type="text" name="username" />
+    <div class="form-help">Any characters will do</div>
+</div>
+EOT
+};
+
 subtest 'builds input with label marked required' => sub {
     my $helper = _build_helper();
 

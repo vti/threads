@@ -212,6 +212,10 @@ button.link {
     padding-bottom:0.5em;
 }
 
+.form-help {
+    color:#999;
+}
+
 .form-inline {
     padding:0;
     margin:0;

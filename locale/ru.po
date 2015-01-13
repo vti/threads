@@ -29,6 +29,10 @@ msgstr "Авторизация"
 msgid "Change password"
 msgstr "Изменить пароль"
 
+#: templates/create_thread.apl:13 templates/update_thread.apl:13
+msgid "Comma separated"
+msgstr "Через запятую"
+
 #: templates/create_thread.apl:14 templates/update_thread.apl:14
 msgid "Content"
 msgstr "Содержимое"
@@ -87,7 +91,7 @@ msgid "Invalid password"
 msgstr "Неправильный пароль"
 
 #: templates/activation_success.apl:5 templates/layout.apl:59
-#: templates/login.apl:13 templates/view_thread.apl:80
+#: templates/login.apl:13 templates/view_thread.apl:69
 msgid "Login"
 msgstr "Вход"
 
@@ -206,7 +210,7 @@ msgstr "Отправить"
 msgid "Settings"
 msgstr "Настройки"
 
-#: templates/layout.apl:59 templates/view_thread.apl:80
+#: templates/layout.apl:59 templates/view_thread.apl:69
 msgid "Sign up"
 msgstr "Регистрация"
 
@@ -242,7 +246,7 @@ msgstr "Темы"
 msgid "Title"
 msgstr "Заголовок"
 
-#: templates/view_thread.apl:77
+#: templates/view_thread.apl:66
 msgid "To reply to this thread login or register"
 msgstr "Чтобы ответить, залогиньтесь или зарегистрируйтесь"
 
@@ -360,7 +364,7 @@ msgid "markup"
 msgstr "формат"
 
 #: templates/include/quick-edit-form.apl:6
-#: templates/include/quick-reply-form.apl:10 templates/view_thread.apl:80
+#: templates/include/quick-reply-form.apl:10 templates/view_thread.apl:69
 msgid "or"
 msgstr "или"
 
@@ -384,7 +388,7 @@ msgstr ""
 msgid "subscribe"
 msgstr "подписаться"
 
-#: templates/view_thread.apl:41
+#: templates/include/reply-thank.apl:14
 msgid "thank you"
 msgstr "спасибо"
 

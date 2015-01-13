@@ -31,6 +31,7 @@ sub input {
 
     my $type     = delete $params{type}     || 'text';
     my $label    = delete $params{label}    || '';
+    my $help     = delete $params{help}    || '';
     my $required = delete $params{required} || 0;
     my $default  = delete $params{default}  || '';
 
@@ -52,6 +53,7 @@ sub input {
         $attrs{value} = $value if defined $value && $value ne '';
     }
 
+    my $help_tag = $self->_build_help($help);
     my $error = $self->_build_error($name);
 
     my $attrs = join ' ', map { qq/$_="$attrs{$_}"/ } sort keys %attrs;
@@ -59,7 +61,7 @@ sub input {
 
     return <<"";
 <div class="form-input">
-    $label<input type="$type" name="$name"$attrs />$error
+    $label<input type="$type" name="$name"$attrs />$help_tag$error
 </div>
 
 }
@@ -166,6 +168,15 @@ sub _build_error {
     }
 
     return '';
+}
+
+sub _build_help {
+    my $self = shift;
+    my ($help) = @_;
+
+    return '' unless $help;
+
+    return sprintf qq{\n    <div class="form-help">%s</div>}, $help;
 }
 
 sub _build_label {
