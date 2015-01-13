@@ -33,11 +33,12 @@ msgstr "Изменить пароль"
 msgid "Comma separated"
 msgstr "Через запятую"
 
-#: templates/create_thread.apl:14 templates/update_thread.apl:14
+#: templates/create_thread.apl:19 templates/include/quick-reply-form.apl:8
+#: templates/update_thread.apl:19
 msgid "Content"
 msgstr "Содержимое"
 
-#: templates/create_thread.apl:16
+#: templates/create_thread.apl:40
 msgid "Create new thread"
 msgstr "Создать новую тему"
 
@@ -91,7 +92,7 @@ msgid "Invalid password"
 msgstr "Неправильный пароль"
 
 #: templates/activation_success.apl:5 templates/layout.apl:59
-#: templates/login.apl:13 templates/view_thread.apl:69
+#: templates/login.apl:14 templates/view_thread.apl:69
 msgid "Login"
 msgstr "Вход"
 
@@ -148,11 +149,16 @@ msgstr "Сброс пароля"
 msgid "Please check your email for a confirmation link."
 msgstr "Пожалуйста, проверьте свою почту на наличие письма с подтверждением."
 
+#: templates/create_thread.apl:24 templates/include/quick-reply-form.apl:13
+#: templates/update_thread.apl:24
+msgid "Preview"
+msgstr "Предпросмотр"
+
 #: templates/profile.apl:1 templates/profile.apl:5
 msgid "Profile"
 msgstr "Профиль"
 
-#: templates/register.apl:16
+#: templates/register.apl:17
 msgid "Register"
 msgstr "Зарегистрироваться"
 
@@ -188,12 +194,12 @@ msgstr "Обязательно"
 msgid "Reset"
 msgstr "Сбросить"
 
-#: templates/login.apl:11 templates/request_password_reset.apl:9
+#: templates/login.apl:11 templates/request_password_reset.apl:10
 #: templates/reset_password.apl:3
 msgid "Reset password"
 msgstr "Сбросить пароль"
 
-#: templates/change_password.apl:11
+#: templates/change_password.apl:12
 msgid "Save"
 msgstr "Сохранить"
 
@@ -202,7 +208,7 @@ msgid "See you soon!"
 msgstr "Скоро увидимся!"
 
 #: templates/include/quick-edit-form.apl:6
-#: templates/include/quick-reply-form.apl:10
+#: templates/include/quick-reply-form.apl:32
 msgid "Send"
 msgstr "Отправить"
 
@@ -266,7 +272,7 @@ msgstr "Неизвестные данные"
 msgid "Unread notifications: "
 msgstr "Непрочитанные уведомления: "
 
-#: templates/settings.apl:16 templates/update_thread.apl:16
+#: templates/settings.apl:17 templates/update_thread.apl:40
 msgid "Update"
 msgstr "Обновить"
 
@@ -364,7 +370,7 @@ msgid "markup"
 msgstr "формат"
 
 #: templates/include/quick-edit-form.apl:6
-#: templates/include/quick-reply-form.apl:10 templates/view_thread.apl:69
+#: templates/include/quick-reply-form.apl:32 templates/view_thread.apl:69
 msgid "or"
 msgstr "или"
 

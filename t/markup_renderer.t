@@ -5,72 +5,72 @@ use utf8;
 use Test::More;
 use TestLib;
 
-use Threads::Helper::Markup;
+use Threads::MarkupRenderer;
 
 subtest 'renders empty markdown' => sub {
-    my $helper = _build_helper();
+    my $helper = _build_renderer();
 
     is $helper->render(''), '<p></p>';
 };
 
 subtest 'renders paragraph' => sub {
-    my $helper = _build_helper();
+    my $helper = _build_renderer();
 
     is $helper->render('foo'), '<p>foo</p>';
 };
 
 subtest 'renders unicode' => sub {
-    my $helper = _build_helper();
+    my $helper = _build_renderer();
 
     is $helper->render('_привет_'), '<p><em>привет</em></p>';
 };
 
 subtest 'renders paragraph with single newlines' => sub {
-    my $helper = _build_helper();
+    my $helper = _build_renderer();
 
     is $helper->render("foo\nbar"), "<p>foo\nbar</p>";
 };
 
 subtest 'renders paragraphs' => sub {
-    my $helper = _build_helper();
+    my $helper = _build_renderer();
 
     is $helper->render("foo\n\nbar"), "<p>foo</p><p>bar</p>";
 };
 
 subtest 'renders code' => sub {
-    my $helper = _build_helper();
+    my $helper = _build_renderer();
 
     is $helper->render(qq{```\nmy \$foo = "bar"\n```}),
 qq{<p><pre class="markup perl"><code>my \$foo = &quot;bar&quot;</code></pre></p>};
 };
 
 subtest 'renders em' => sub {
-    my $helper = _build_helper();
+    my $helper = _build_renderer();
 
     is $helper->render('_italic_'), '<p><em>italic</em></p>';
 };
 
 subtest 'renders strong' => sub {
-    my $helper = _build_helper();
+    my $helper = _build_renderer();
 
     is $helper->render('**italic**'), '<p><strong>italic</strong></p>';
 };
 
 subtest 'renders link' => sub {
-    my $helper = _build_helper();
+    my $helper = _build_renderer();
 
     is $helper->render('[title](http://href)'),
       '<p><a href="http://href" rel="nofollow">title</a></p>';
 };
 
 subtest 'forbids html' => sub {
-    my $helper = _build_helper();
+    my $helper = _build_renderer();
 
     is $helper->render('<a>'), '<p>&lt;a&gt;</p>';
 };
 
 subtest 'perl specific' => sub {
-    my $helper = _build_helper();
+    my $helper = _build_renderer();
 
     is $helper->render('module:Foo'),
       '<p><a href="http://metacpan.org/module/Foo" rel="nofollow">Foo</a></p>';
@@ -80,10 +80,6 @@ subtest 'perl specific' => sub {
       '<p><a href="http://metacpan.org/release/Foo" rel="nofollow">Foo</a></p>';
 };
 
-my $env = {};
-
-sub _build_helper {
-    Threads::Helper::Markup->new(env => $env);
-}
+sub _build_renderer { Threads::MarkupRenderer->new }
 
 done_testing;

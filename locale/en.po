@@ -33,11 +33,12 @@ msgstr ""
 msgid "Comma separated"
 msgstr ""
 
-#: templates/create_thread.apl:14 templates/update_thread.apl:14
+#: templates/create_thread.apl:19 templates/include/quick-reply-form.apl:8
+#: templates/update_thread.apl:19
 msgid "Content"
 msgstr ""
 
-#: templates/create_thread.apl:16
+#: templates/create_thread.apl:40
 msgid "Create new thread"
 msgstr ""
 
@@ -91,7 +92,7 @@ msgid "Invalid password"
 msgstr ""
 
 #: templates/activation_success.apl:5 templates/layout.apl:59
-#: templates/login.apl:13 templates/view_thread.apl:69
+#: templates/login.apl:14 templates/view_thread.apl:69
 msgid "Login"
 msgstr ""
 
@@ -148,11 +149,16 @@ msgstr ""
 msgid "Please check your email for a confirmation link."
 msgstr ""
 
+#: templates/create_thread.apl:24 templates/include/quick-reply-form.apl:13
+#: templates/update_thread.apl:24
+msgid "Preview"
+msgstr ""
+
 #: templates/profile.apl:1 templates/profile.apl:5
 msgid "Profile"
 msgstr ""
 
-#: templates/register.apl:16
+#: templates/register.apl:17
 msgid "Register"
 msgstr ""
 
@@ -188,12 +194,12 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-#: templates/login.apl:11 templates/request_password_reset.apl:9
+#: templates/login.apl:11 templates/request_password_reset.apl:10
 #: templates/reset_password.apl:3
 msgid "Reset password"
 msgstr ""
 
-#: templates/change_password.apl:11
+#: templates/change_password.apl:12
 msgid "Save"
 msgstr ""
 
@@ -202,7 +208,7 @@ msgid "See you soon!"
 msgstr ""
 
 #: templates/include/quick-edit-form.apl:6
-#: templates/include/quick-reply-form.apl:10
+#: templates/include/quick-reply-form.apl:32
 msgid "Send"
 msgstr ""
 
@@ -264,7 +270,7 @@ msgstr ""
 msgid "Unread notifications: "
 msgstr ""
 
-#: templates/settings.apl:16 templates/update_thread.apl:16
+#: templates/settings.apl:17 templates/update_thread.apl:40
 msgid "Update"
 msgstr ""
 
@@ -356,7 +362,7 @@ msgid "markup"
 msgstr ""
 
 #: templates/include/quick-edit-form.apl:6
-#: templates/include/quick-reply-form.apl:10 templates/view_thread.apl:69
+#: templates/include/quick-reply-form.apl:32 templates/view_thread.apl:69
 msgid "or"
 msgstr ""
 

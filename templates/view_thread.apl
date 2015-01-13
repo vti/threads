@@ -26,18 +26,18 @@
     % my $level = 0;
     % foreach my $reply ($helpers->reply->find_by_thread($thread)) {
         % if ($reply->{level} > $level) {
-            <li>
-                <ul>
-                    <li>
+            <li class="tree-el">
+                <ul class="tree-el">
+                    <li class="tree-el">
         % } elsif ($reply->{level} < $level) {
             % for (1 .. $level - $reply->{level}) {
             </ul>
             </li>
             % }
 
-            <li>
+            <li class="tree-el">
         % } else {
-            <li>
+            <li class="tree-el">
         % }
 
         <div class="reply">
