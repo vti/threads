@@ -13,7 +13,9 @@
 
     <%== $helpers->form->input('email_notifications', type => 'checkbox', label => loc('Email notifications'), default => $user->{email_notifications}) %>
 
-    <input type="submit" value="<%= loc('Update') %>" />
+    <div class="form-submit">
+        <input type="submit" value="<%= loc('Update') %>" />
+    </div>
 
     </form>
 

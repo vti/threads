@@ -8,7 +8,9 @@
     <%== $helpers->form->password('new_password', label => loc('New password')) %>
     <%== $helpers->form->password('new_password_confirmation', label => loc('Repeat new password')) %>
 
-    <input type="submit" value="<%= loc('Save') %>" />
+    <div class="form-submit">
+        <input type="submit" value="<%= loc('Save') %>" />
+    </div>
 
     </form>
 

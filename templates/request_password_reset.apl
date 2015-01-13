@@ -6,7 +6,9 @@
 
     <%== $helpers->form->input('email', label => 'E-mail') %>
 
-    <input type="submit" value="<%= loc('Reset password') %>" />
+    <div class="form-submit">
+        <input type="submit" value="<%= loc('Reset password') %>" />
+    </div>
 
     </form>
 

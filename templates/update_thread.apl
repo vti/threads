@@ -13,9 +13,10 @@
     <%== $helpers->form->input('tags', label => loc('Tags'), help => loc('Comma separated'), default => $thread->{tags_list}) %>
     <%== $helpers->form->textarea('content', label => loc('Content'), default => $thread->{content}) %>
 
-    <input type="submit" value="<%= loc('Update') %>" />
-
-    %== $helpers->displayer->render('include/markup-help-button');
+    <div class="form-submit">
+        <input type="submit" value="<%= loc('Update') %>" />
+        %== $helpers->displayer->render('include/markup-help-button');
+    </div>
 
     </form>
 

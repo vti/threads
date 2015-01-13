@@ -10,7 +10,10 @@
     <%== $helpers->form->password('password', label => loc('Password')) %>
     <div class="form-input"><a href="<%= $helpers->url->request_password_reset %>"><%= loc('Reset password') %></a></div>
 
-    <input type="submit" value="<%= loc('Login') %>" />
+    <div class="form-submit">
+        <input type="submit" value="<%= loc('Login') %>" />
+    </div>
+
     </form>
 
 </div>
