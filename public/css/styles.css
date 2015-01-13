@@ -416,10 +416,12 @@ ul.tabs-content li.active {
 
 .reply-author {
     font-weight:bold;
+    white-space: nowrap;
 }
 
 .reply-date {
     color:#999;
+    white-space: nowrap;
 }
 
 .reply-content {

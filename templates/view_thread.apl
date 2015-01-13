@@ -25,6 +25,7 @@
     <ul class="tree">
     % my $level = 0;
     % foreach my $reply ($helpers->reply->find_by_thread($thread)) {
+        % $reply->{level} = 3 if $reply->{level} > 3;
         % if ($reply->{level} > $level) {
             <li class="tree-el">
                 <ul class="tree-el">
