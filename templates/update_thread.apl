@@ -1,6 +1,9 @@
 % $helpers->assets->require('/autosize/jquery.autosize.min.js');
 % $helpers->assets->require('/js/autosize.js');
 % $helpers->assets->require('/js/quick-reply.js');
+% $helpers->assets->require('/tagsinput/jquery.tagsinput.css');
+% $helpers->assets->require('/tagsinput/jquery.tagsinput.js');
+% $helpers->assets->require('/js/tags.js');
 % $helpers->meta->set(title => loc('Update thread'));
 
 <div class="grid-100">
@@ -9,7 +12,7 @@
 
     <form method="POST" id="update-thread">
 
-    <%== $helpers->form->input('title', label => loc('Title'), default => $thread->{title}) %>
+    <%== $helpers->form->input('title', label => loc('Title'), default => $thread->{title}, class => 'input_xlarge') %>
     <%== $helpers->form->input('tags', label => loc('Tags'), help => loc('Comma separated'), default => $thread->{tags_list}) %>
 
     <div class="tabs-outer">

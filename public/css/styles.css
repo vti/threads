@@ -193,6 +193,7 @@ button.link {
     transform : none;
     transition : none;
     vertical-align : baseline;
+    z-index:auto;
 
     cursor: pointer;
     color: #0074D9;
@@ -541,6 +542,12 @@ a.markup-help-button {
     filter: alpha(opacity=30); /* For IE8 and earlier */
 }
 
+.glow {
+  -webkit-box-shadow: #0066ff 0 0 5px 0;
+  -moz-box-shadow: #0066ff 0 0 5px 0;
+  box-shadow: #0066ff 0 0 5px 0;
+  z-index: 1;
+}
 @media screen and (min-width: 768px) {
     .invisible-on-desktop {
         visibility:hidden;
