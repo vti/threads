@@ -13,6 +13,7 @@ subtest 'return 0 when invalid' => sub {
     is $rule->is_valid(',,,---'), 0;
     is $rule->is_valid('hi!'), 0;
     is $rule->is_valid('1,2,3,4,5,6,7,8,9,10,11'), 0;
+    is $rule->is_valid('1' x 100), 0;
 };
 
 subtest 'return 1 when valid' => sub {

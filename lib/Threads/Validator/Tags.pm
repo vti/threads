@@ -13,7 +13,7 @@ sub is_valid {
 
     my @tags = grep { $_ ne '' && /\w/ } split /,/, $value;
 
-    return 0 unless @tags && @tags <= 10;
+    return 0 unless @tags && @tags <= 10 && !grep { length > 32 } @tags;
 
     return 1;
 }
