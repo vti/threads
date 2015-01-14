@@ -95,6 +95,7 @@ sub _add_routes {
         name   => 'create_reply',
         method => 'POST'
     );
+    $routes->add_route('/tags/autocomplete', name => 'autocomplete_tags');
     $routes->add_route(
         '/replies/:id/update',
         name   => 'update_reply',

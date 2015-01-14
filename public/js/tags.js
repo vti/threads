@@ -2,8 +2,10 @@
 
     $(document).ready(function() {
         $('input[name=tags]').tagsInput({
+            autocomplete_url:'/tags/autocomplete',
             width:'243px',
             height:'auto',
+            maxChars: 32,
             defaultText:''
         });
 

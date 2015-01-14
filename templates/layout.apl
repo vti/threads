@@ -74,7 +74,7 @@
             </div>
         </div>
     </div>
-    <script src="/unsemantic/js/jquery.js"></script>
+    <script src="/js/jquery.js"></script>
     <script src="/formalize/js/jquery.formalize.min.js"></script>
     <script src="/codemirror/codemirror.js"></script>
     <script src="/codemirror/perl.js"></script>
