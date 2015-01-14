@@ -332,6 +332,11 @@ ul.tree {
     margin-left:0;
 }
 
+ul.tree > li.tree-el {
+    padding-left:0;
+    margin-left:0;
+}
+
 .tree ul.tree-el ul.tree-el {
   margin-left:20px;
 }
@@ -349,7 +354,7 @@ ul.tree {
 
 .tree li.tree-el {
   margin:0;
-  padding:0 1.5em;
+  padding-left:20px;
   position:relative;
 }
 
