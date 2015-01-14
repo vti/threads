@@ -23,8 +23,8 @@
   <link rel="stylesheet" href="/formalize/css/formalize.css" />
   <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" />
   <link rel="stylesheet" href="/codemirror/codemirror.css" />
+% $helpers->assets->require('/css/styles.css');
 %== $helpers->assets->include(type => 'css');
-<link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
     <div id="wrapper">
