@@ -63,7 +63,8 @@ subtest 'deletes old nonce' => sub {
     my $existing_user = TestDB->create('User', status => 'active');
 
     my $nonce =
-      Threads::DB::Nonce->new(user_id => $existing_user->id)->create;
+      Threads::DB::Nonce->new(user_id => $existing_user->id, created => 123)
+      ->create;
 
     my $user = TestDB->build('User');
 
@@ -79,7 +80,8 @@ subtest 'creates new nonce' => sub {
     my $existing_user = TestDB->create('User', status => 'active');
 
     my $nonce =
-      Threads::DB::Nonce->new(user_id => $existing_user->id)->create;
+      Threads::DB::Nonce->new(user_id => $existing_user->id, created => 123)
+      ->create;
 
     my $user = TestDB->build('User');
 
@@ -87,6 +89,22 @@ subtest 'creates new nonce' => sub {
     $user->finalize_auth($options);
 
     isnt $options->{id}, $nonce->id;
+};
+
+subtest 'not creates new nonce within timeout' => sub {
+    TestDB->setup;
+
+    my $existing_user = TestDB->create('User', status => 'active');
+
+    my $nonce =
+      Threads::DB::Nonce->new(user_id => $existing_user->id)->create;
+
+    my $user = TestDB->build('User');
+
+    my $options = {id => $nonce->id};
+    $user->finalize_auth($options);
+
+    is $options->{id}, $nonce->id;
 };
 
 subtest 'hashes password' => sub {

@@ -51,7 +51,7 @@ sub finalize_auth {
 
     my $nonce = Threads::DB::Nonce->new(id => $options->{id})->load;
 
-    if ($nonce) {
+    if ($nonce && time - $nonce->created > 1) {
         my $user_id = $nonce->user_id;
         $nonce->delete;
 
