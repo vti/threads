@@ -21,6 +21,10 @@ msgstr "Аккаунт не активен"
 msgid "Admin"
 msgstr "Админ"
 
+#: templates/list_notifications.apl:13
+msgid "Are you sure?"
+msgstr "Вы уверены?"
+
 #: templates/login.apl:1 templates/login.apl:5
 msgid "Authorization"
 msgstr "Авторизация"
@@ -29,20 +33,20 @@ msgstr "Авторизация"
 msgid "Change password"
 msgstr "Изменить пароль"
 
-#: templates/create_thread.apl:13 templates/update_thread.apl:13
+#: templates/create_thread.apl:18 templates/update_thread.apl:16
 msgid "Comma separated"
 msgstr "Через запятую"
 
-#: templates/create_thread.apl:19 templates/include/quick-reply-form.apl:8
-#: templates/update_thread.apl:19
+#: templates/create_thread.apl:24 templates/include/quick-edit-form.apl:8
+#: templates/include/quick-reply-form.apl:8 templates/update_thread.apl:22
 msgid "Content"
 msgstr "Содержимое"
 
-#: templates/create_thread.apl:40
+#: templates/create_thread.apl:45
 msgid "Create new thread"
 msgstr "Создать новую тему"
 
-#: templates/create_thread.apl:4 templates/create_thread.apl:8
+#: templates/create_thread.apl:13 templates/create_thread.apl:9
 #: templates/layout.apl:43
 msgid "Create thread"
 msgstr "Создать тему"
@@ -92,7 +96,7 @@ msgid "Invalid password"
 msgstr "Неправильный пароль"
 
 #: templates/activation_success.apl:5 templates/layout.apl:59
-#: templates/login.apl:14 templates/view_thread.apl:69
+#: templates/login.apl:14 templates/view_thread.apl:70
 msgid "Login"
 msgstr "Вход"
 
@@ -149,8 +153,8 @@ msgstr "Сброс пароля"
 msgid "Please check your email for a confirmation link."
 msgstr "Пожалуйста, проверьте свою почту на наличие письма с подтверждением."
 
-#: templates/create_thread.apl:24 templates/include/quick-reply-form.apl:13
-#: templates/update_thread.apl:24
+#: templates/create_thread.apl:29 templates/include/quick-edit-form.apl:13
+#: templates/include/quick-reply-form.apl:13 templates/update_thread.apl:27
 msgid "Preview"
 msgstr "Предпросмотр"
 
@@ -199,7 +203,7 @@ msgstr "Сбросить"
 msgid "Reset password"
 msgstr "Сбросить пароль"
 
-#: templates/change_password.apl:12
+#: templates/change_password.apl:12 templates/include/quick-edit-form.apl:28
 msgid "Save"
 msgstr "Сохранить"
 
@@ -207,7 +211,6 @@ msgstr "Сохранить"
 msgid "See you soon!"
 msgstr "Скоро увидимся!"
 
-#: templates/include/quick-edit-form.apl:6
 #: templates/include/quick-reply-form.apl:32
 msgid "Send"
 msgstr "Отправить"
@@ -216,7 +219,7 @@ msgstr "Отправить"
 msgid "Settings"
 msgstr "Настройки"
 
-#: templates/layout.apl:59 templates/view_thread.apl:69
+#: templates/layout.apl:59 templates/view_thread.apl:70
 msgid "Sign up"
 msgstr "Регистрация"
 
@@ -233,7 +236,7 @@ msgstr "Сортировать"
 msgid "Subscriptions"
 msgstr "Подписки"
 
-#: templates/create_thread.apl:13 templates/update_thread.apl:13
+#: templates/create_thread.apl:18 templates/update_thread.apl:16
 msgid "Tags"
 msgstr "Метки"
 
@@ -248,11 +251,11 @@ msgstr ""
 msgid "Threads"
 msgstr "Темы"
 
-#: templates/create_thread.apl:12 templates/update_thread.apl:12
+#: templates/create_thread.apl:17 templates/update_thread.apl:15
 msgid "Title"
 msgstr "Заголовок"
 
-#: templates/view_thread.apl:66
+#: templates/view_thread.apl:67
 msgid "To reply to this thread login or register"
 msgstr "Чтобы ответить, залогиньтесь или зарегистрируйтесь"
 
@@ -272,11 +275,11 @@ msgstr "Неизвестные данные"
 msgid "Unread notifications: "
 msgstr "Непрочитанные уведомления: "
 
-#: templates/settings.apl:17 templates/update_thread.apl:40
+#: templates/settings.apl:17 templates/update_thread.apl:43
 msgid "Update"
 msgstr "Обновить"
 
-#: templates/update_thread.apl:4 templates/update_thread.apl:8
+#: templates/update_thread.apl:11 templates/update_thread.apl:7
 msgid "Update thread"
 msgstr "Обновить тему"
 
@@ -369,8 +372,8 @@ msgstr "отметить все как прочитанное"
 msgid "markup"
 msgstr "формат"
 
-#: templates/include/quick-edit-form.apl:6
-#: templates/include/quick-reply-form.apl:32 templates/view_thread.apl:69
+#: templates/include/quick-edit-form.apl:28
+#: templates/include/quick-reply-form.apl:32 templates/view_thread.apl:70
 msgid "or"
 msgstr "или"
 
@@ -402,7 +405,7 @@ msgstr "спасибо"
 msgid "unsubscribe"
 msgstr "отписаться"
 
-#: templates/include/reply-meta.apl:15 templates/include/thread.apl:28
+#: templates/include/reply-meta.apl:15 templates/include/thread.apl:29
 msgid "upd."
 msgstr "обн."
 

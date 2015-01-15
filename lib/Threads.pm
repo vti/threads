@@ -144,6 +144,12 @@ sub _add_routes {
         '/admin/users',
         name   => 'admin_list_users',
     );
+
+    $routes->add_route(
+        '/admin/users/:id/toggle-blocked',
+        name   => 'admin_toggle_blocked',
+        method => 'POST'
+    );
 }
 
 sub _add_acl {
