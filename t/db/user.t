@@ -40,6 +40,40 @@ subtest 'return undef when user not active' => sub {
     ok !$loaded_user;
 };
 
+subtest 'return undef when not the latest nonce' => sub {
+    TestDB->setup;
+
+    my $existing_user = TestDB->create('User', status => 'active');
+
+    my $nonce =
+      Threads::DB::Nonce->new(user_id => $existing_user->id, created => 123)->create;
+    Threads::DB::Nonce->new(user_id => $existing_user->id)->create;
+
+    my $user = TestDB->build('User');
+
+    my $loaded_user =
+      $user->load_auth({id => $nonce->id});
+
+    ok !$loaded_user;
+};
+
+subtest 'allow old nonce for window time' => sub {
+    TestDB->setup;
+
+    my $existing_user = TestDB->create('User', status => 'active');
+
+    my $nonce =
+      Threads::DB::Nonce->new(user_id => $existing_user->id)->create;
+    Threads::DB::Nonce->new(user_id => $existing_user->id)->create;
+
+    my $user = TestDB->build('User');
+
+    my $loaded_user =
+      $user->load_auth({id => $nonce->id});
+
+    ok $loaded_user;
+};
+
 subtest 'return user when found' => sub {
     TestDB->setup;
 
@@ -57,11 +91,13 @@ subtest 'return user when found' => sub {
     is $loaded_user->id, $existing_user->id;
 };
 
-subtest 'deletes old nonce' => sub {
+subtest 'deletes old nonces older then timeout' => sub {
     TestDB->setup;
 
     my $existing_user = TestDB->create('User', status => 'active');
 
+    Threads::DB::Nonce->new(user_id => $existing_user->id, created => 123)
+      ->create;
     my $nonce =
       Threads::DB::Nonce->new(user_id => $existing_user->id, created => 123)
       ->create;
@@ -71,7 +107,26 @@ subtest 'deletes old nonce' => sub {
     my $options = {id => $nonce->id};
     $user->finalize_auth($options);
 
-    ok !$nonce->load;
+    is(Threads::DB::Nonce->table->count, 1);
+};
+
+subtest 'allows old nonce to exist for window time' => sub {
+    TestDB->setup;
+
+    my $existing_user = TestDB->create('User', status => 'active');
+
+    Threads::DB::Nonce->new(user_id => $existing_user->id)
+      ->create;
+    my $nonce =
+      Threads::DB::Nonce->new(user_id => $existing_user->id)
+      ->create;
+
+    my $user = TestDB->build('User');
+
+    my $options = {id => $nonce->id};
+    $user->finalize_auth($options);
+
+    is(Threads::DB::Nonce->table->count, 2);
 };
 
 subtest 'creates new nonce' => sub {

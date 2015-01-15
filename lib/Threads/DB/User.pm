@@ -39,6 +39,16 @@ sub load_auth {
     return
       unless my $nonce = Threads::DB::Nonce->new(id => $options->{id})->load;
 
+    my $latest_nonce = Threads::DB::Nonce->find(
+        first    => 1,
+        where    => [user_id => $nonce->user_id],
+        order_by => [id => 'DESC']
+    );
+
+    if (time - $nonce->created > 1 && $nonce->id ne $latest_nonce->id) {
+        return;
+    }
+
     my $user = $self->new(id => $nonce->user_id)->load;
     return unless $user && $user->status eq 'active';
 
@@ -51,13 +61,23 @@ sub finalize_auth {
 
     my $nonce = Threads::DB::Nonce->new(id => $options->{id})->load;
 
-    if ($nonce && time - $nonce->created > 1) {
-        my $user_id = $nonce->user_id;
-        $nonce->delete;
+    if ($nonce) {
+        Threads::DB::Nonce->table->delete(
+            where => [
+                user_id => $nonce->user_id,
+                id      => {'!=' => $nonce->id},
+                created => {'<' => time - 1}
+            ]
+        );
 
-        my $new_nonce =
-          Threads::DB::Nonce->new(user_id => $user_id)->create;
-        $options->{id} = $new_nonce->id;
+        if (time - $nonce->created > 1) {
+            my $user_id = $nonce->user_id;
+            $nonce->delete;
+
+            my $new_nonce =
+              Threads::DB::Nonce->new(user_id => $user_id)->create;
+            $options->{id} = $new_nonce->id;
+        }
     }
 
     return;
