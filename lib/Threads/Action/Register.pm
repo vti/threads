@@ -46,11 +46,6 @@ sub validate {
     my $self = shift;
     my ($validator, $params) = @_;
 
-    if (Threads::DB::User->new(email => $params->{email})->load) {
-        $validator->add_error(email => $self->loc('User exists'));
-        return;
-    }
-
     if ($self->_has_captcha) {
         my $session         = Plack::Session->new($self->env);
         my $expected_answer = $session->get('captcha');
@@ -59,6 +54,11 @@ sub validate {
             $validator->add_error(captcha => $self->loc('Invalid captcha'));
             return;
         }
+    }
+
+    if (Threads::DB::User->new(email => $params->{email})->load) {
+        $validator->add_error(email => $self->loc('User exists'));
+        return;
     }
 
     return 1;
