@@ -45,7 +45,7 @@ sub load_auth {
         order_by => [id => 'DESC']
     );
 
-    if (time - $nonce->created > 1 && $nonce->id ne $latest_nonce->id) {
+    if (time - $nonce->created > 2 && $nonce->id ne $latest_nonce->id) {
         return;
     }
 
@@ -66,11 +66,11 @@ sub finalize_auth {
             where => [
                 user_id => $nonce->user_id,
                 id      => {'!=' => $nonce->id},
-                created => {'<' => time - 1}
+                created => {'<' => time - 2}
             ]
         );
 
-        if (time - $nonce->created > 1) {
+        if (time - $nonce->created > 2) {
             my $user_id = $nonce->user_id;
             $nonce->delete;
 
