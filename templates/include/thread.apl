@@ -24,8 +24,14 @@
             </div>
             <div class="thread-date">
                 <%= $helpers->date->format($thread->{created}) %>
-                % if ($helpers->date->is_distant_update($thread)) {
+                % my $has_editor = $thread->{editor}->{id} != $thread->{user}->{id};
+                % if ($helpers->date->is_distant_update($thread) || $has_editor) {
                     <%= loc('upd.') %> <%= $helpers->date->format($thread->{updated}) %>
+
+                    % if ($has_editor) {
+                        %== $helpers->gravatar->img($thread->{editor}, 20);
+                        <strong><%== $helpers->user->display_name($thread->{editor}) %></strong>
+                    % }
                 % }
             </div>
         </div>

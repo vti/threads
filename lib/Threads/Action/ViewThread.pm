@@ -17,7 +17,8 @@ sub run {
 
     return $self->throw_not_found
       unless my $thread =
-      Threads::DB::Thread->new(id => $thread_id)->load(with => 'user');
+      Threads::DB::Thread->new(id => $thread_id)
+      ->load(with => ['user', 'editor']);
 
     my $user = $self->scope->user;
 

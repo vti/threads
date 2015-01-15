@@ -8,7 +8,8 @@ use Threads::DB;
 my %defaults = (
     User => {
         email    => 'foo@bar.com',
-        password => 'silly'
+        password => 'silly',
+        role     => 'user'
     }
 );
 

@@ -54,10 +54,13 @@ sub submit {
     my $self = shift;
     my ($params) = @_;
 
+    my $user = $self->scope->user;
+
     my $thread = $self->{thread};
     $thread->set_columns(%$params);
     $thread->updated(time);
     $thread->last_activity(time);
+    $thread->editor_id($user->id);
     $thread->update;
 
     if ($params->{tags}) {

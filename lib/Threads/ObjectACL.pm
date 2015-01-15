@@ -37,7 +37,7 @@ sub is_allowed {
 
     $object = $object->to_hash if blessed $object;
 
-    return 0 unless $user->id == $object->{user_id};
+    return 0 unless $user->id == $object->{user_id} || $user->role eq 'admin';
 
     if ($action eq 'update_thread') {
         return 1;

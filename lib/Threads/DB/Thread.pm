@@ -13,6 +13,7 @@ __PACKAGE__->meta(
           user_id
           created
           updated
+          editor_id
           last_activity
           slug
           title
@@ -29,6 +30,11 @@ __PACKAGE__->meta(
             type  => 'many to one',
             class => 'Threads::DB::User',
             map   => {user_id => 'id'}
+        },
+        editor => {
+            type  => 'many to one',
+            class => 'Threads::DB::User',
+            map   => {editor_id => 'id'}
         },
         replies => {
             type  => 'one to many',

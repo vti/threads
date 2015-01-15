@@ -1,0 +1,1 @@
+ALTER TABLE `threads` ADD COLUMN `editor_id` INT NOT NULL DEFAULT 0;

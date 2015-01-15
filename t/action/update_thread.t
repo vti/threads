@@ -26,7 +26,7 @@ subtest 'returns 404 when unknown thread' => sub {
 subtest 'returns 404 when wrong user' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $user = TestDB->create('User');
     my $thread = Threads::DB::Thread->new(user_id => 999)->create;
 
     my $action = _build_action(
@@ -43,9 +43,8 @@ subtest 'returns 404 when wrong user' => sub {
 subtest 'set template var errors' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
-    my $thread =
-      Threads::DB::Thread->new(user_id => $user->id)->create;
+    my $user = TestDB->create('User');
+    my $thread = Threads::DB::Thread->new(user_id => $user->id)->create;
 
     my $action = _build_action(
         req       => POST('/' => {}),
@@ -61,8 +60,7 @@ subtest 'set template var errors' => sub {
 subtest 'updates thread with correct params' => sub {
     TestDB->setup;
 
-    my $user =
-      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $user   = TestDB->create('User');
     my $thread = Threads::DB::Thread->new(
         user_id => $user->id,
         title   => 'foo',
@@ -70,8 +68,8 @@ subtest 'updates thread with correct params' => sub {
     )->create;
 
     my $action = _build_action(
-        req => POST('/' => {title => 'bar', content => 'foo'}),
-        captures  => {id => $thread->id},
+        req       => POST('/' => {title => 'bar', content => 'foo'}),
+        captures  => {id      => $thread->id},
         'tu.user' => $user
     );
 
@@ -84,11 +82,12 @@ subtest 'updates thread with correct params' => sub {
     isnt $thread->updated, 0;
 };
 
-subtest 'updates thread tags' => sub {
+subtest 'updates editor id when other user' => sub {
     TestDB->setup;
 
-    my $user =
-      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $user = TestDB->create('User');
+    my $admin =
+      TestDB->create('User', email => 'admin@admin.com', role => 'admin');
     my $thread = Threads::DB::Thread->new(
         user_id => $user->id,
         title   => 'foo',
@@ -96,7 +95,31 @@ subtest 'updates thread tags' => sub {
     )->create;
 
     my $action = _build_action(
-        req => POST('/' => {title => 'bar', content => 'foo', tags => 'new,tags'}),
+        req       => POST('/' => {title => 'bar', content => 'foo'}),
+        captures  => {id      => $thread->id},
+        'tu.user' => $admin
+    );
+
+    $action->run;
+
+    $thread->load;
+
+    is $thread->editor_id, $admin->id;
+};
+
+subtest 'updates thread tags' => sub {
+    TestDB->setup;
+
+    my $user   = TestDB->create('User');
+    my $thread = Threads::DB::Thread->new(
+        user_id => $user->id,
+        title   => 'foo',
+        content => 'bar'
+    )->create;
+
+    my $action = _build_action(
+        req =>
+          POST('/' => {title => 'bar', content => 'foo', tags => 'new,tags'}),
         captures  => {id => $thread->id},
         'tu.user' => $user
     );
@@ -113,8 +136,7 @@ subtest 'updates thread tags' => sub {
 subtest 'updates last_activity' => sub {
     TestDB->setup;
 
-    my $user =
-      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $user   = TestDB->create('User');
     my $thread = Threads::DB::Thread->new(
         user_id       => $user->id,
         title         => 'foo',
@@ -123,8 +145,8 @@ subtest 'updates last_activity' => sub {
     )->create;
 
     my $action = _build_action(
-        req => POST('/' => {title => 'bar', content => 'foo'}),
-        captures  => {id => $thread->id},
+        req       => POST('/' => {title => 'bar', content => 'foo'}),
+        captures  => {id      => $thread->id},
         'tu.user' => $user
     );
 
@@ -138,8 +160,7 @@ subtest 'updates last_activity' => sub {
 subtest 'redirects after update' => sub {
     TestDB->setup;
 
-    my $user =
-      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $user   = TestDB->create('User');
     my $thread = Threads::DB::Thread->new(
         user_id => $user->id,
         title   => 'foo',
@@ -147,8 +168,8 @@ subtest 'redirects after update' => sub {
     )->create;
 
     my $action = _build_action(
-        req => POST('/' => {title => 'bar', content => 'foo'}),
-        captures  => {id => $thread->id},
+        req       => POST('/' => {title => 'bar', content => 'foo'}),
+        captures  => {id      => $thread->id},
         'tu.user' => $user
     );
 

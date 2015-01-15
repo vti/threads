@@ -39,7 +39,7 @@ sub find {
         order_by  => [@sort_by],
         page      => $page,
         page_size => $page_size,
-        with      => 'user'
+        with      => ['user', 'editor']
     );
 
     @threads = map { $_->to_hash } @threads;
