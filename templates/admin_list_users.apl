@@ -2,7 +2,7 @@
 
 %== $helpers->displayer->render('include/admin_nav');
 
-    % my @users = $helpers->user->find;
+    % my @users = $helpers->admin_user->find;
 
     <table>
     % foreach my $user (@users) {
@@ -16,5 +16,7 @@
         </tr>
     % }
     </table>
+
+    %== $helpers->displayer->render('include/pager', base_url => $helpers->url->admin_list_users, total => $helpers->admin_user->count);
 
 </div>

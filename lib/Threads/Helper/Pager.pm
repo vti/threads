@@ -14,8 +14,8 @@ sub build {
     my $query_params = $params{query_params};
     my $base_url     = $params{base_url};
     my $total        = $params{total};
-    my $page_size    = $self->param('page_size');
-    my $current_page = $self->param('page');
+    my $page_size    = $self->param('page_size') || 10;
+    my $current_page = $self->param('page') || 1;
 
     return {} if $total <= $page_size;
 
