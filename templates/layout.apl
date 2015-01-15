@@ -56,7 +56,7 @@
                 </form>
 
                 % } else {
-                <a href="<%= $helpers->url->register %>"><%= loc('Sign up') %></a> | <a href="<%= $helpers->url->login %>"><%= loc('Login') %></a>
+                <a href="<%= $helpers->url->register %>" rel="nofollow"><%= loc('Sign up') %></a> | <a href="<%= $helpers->url->login %>" rel="nofollow"><%= loc('Login') %></a>
                 % }
                 <hr />
             </div>
