@@ -26,7 +26,7 @@ subtest 'returns 404 when unknown reply' => sub {
 subtest 'returns 404 when wrong user' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $user = TestDB->create('User');
     my $reply = Threads::DB::Reply->new(thread_id => 123, user_id => 999)->create;
 
     my $action = _build_action(
@@ -43,7 +43,7 @@ subtest 'returns 404 when wrong user' => sub {
 subtest 'returns 404 when has ansestors' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $user = TestDB->create('User');
     my $reply = Threads::DB::Reply->new(thread_id => 123, user_id => $user->id)->create;
     $reply->create_related('ansestors', thread_id => 123, user_id => 123);
 
@@ -61,7 +61,7 @@ subtest 'returns 404 when has ansestors' => sub {
 subtest 'shows errors' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $user = TestDB->create('User');
     my $reply =
       Threads::DB::Reply->new(thread_id => 1, user_id => $user->id)
       ->create;
@@ -80,8 +80,7 @@ subtest 'shows errors' => sub {
 subtest 'updates reply with correct params' => sub {
     TestDB->setup;
 
-    my $user =
-      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $user = TestDB->create('User');
     my $thread =
       Threads::DB::Thread->new(user_id => $user->id)->create;
     my $reply = Threads::DB::Reply->new(
@@ -108,8 +107,7 @@ subtest 'updates reply with correct params' => sub {
 subtest 'redirects after update' => sub {
     TestDB->setup;
 
-    my $user =
-      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $user = TestDB->create('User');
     my $thread =
       Threads::DB::Thread->new(user_id => $user->id)->create;
     my $reply = Threads::DB::Reply->new(

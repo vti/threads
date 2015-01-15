@@ -26,7 +26,7 @@ subtest 'returns 404 when unknown thread' => sub {
 subtest 'returns 404 when wrong user' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $user = TestDB->create('User');
     my $thread = Threads::DB::Thread->new(user_id => 2)->create;
 
     my $action = _build_action(
@@ -42,7 +42,7 @@ subtest 'returns 404 when wrong user' => sub {
 subtest 'returns 404 when thread is not empty' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $user = TestDB->create('User');
     my $thread = Threads::DB::Thread->new(user_id => $user->id)->create;
     Threads::DB::Reply->new(
         user_id   => $user->id,
@@ -62,7 +62,7 @@ subtest 'returns 404 when thread is not empty' => sub {
 subtest 'deletes thread' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $user = TestDB->create('User');
     my $thread = Threads::DB::Thread->new(user_id => $user->id)->create;
 
     my $action = _build_action(
@@ -78,7 +78,7 @@ subtest 'deletes thread' => sub {
 subtest 'deletes thread subscriptions' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $user = TestDB->create('User');
     my $thread = Threads::DB::Thread->new(user_id => $user->id)->create;
 
     Threads::DB::Subscription->new(
@@ -104,7 +104,7 @@ subtest 'deletes thread subscriptions' => sub {
 subtest 'redirects' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $user = TestDB->create('User');
     my $thread = Threads::DB::Thread->new(user_id => $user->id)->create;
 
     my $action = _build_action(

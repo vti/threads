@@ -134,11 +134,7 @@ subtest 'redirects after deletion' => sub {
 };
 
 sub _build_loggedin_ua {
-    Threads::DB::User->new(
-        email    => 'foo@bar.com',
-        password => 'silly',
-        status   => 'active'
-    )->create;
+    TestDB->create('User', status => 'active');
 
     my $ua = _build_ua();
 

@@ -26,7 +26,7 @@ subtest 'returns 404 when unknown reply' => sub {
 subtest 'returns 404 when wrong user' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $user = TestDB->create('User');
     my $reply = Threads::DB::Reply->new(thread_id => 1, user_id => 2)->create;
 
     my $action = _build_action(
@@ -42,7 +42,7 @@ subtest 'returns 404 when wrong user' => sub {
 subtest 'returns 404 when reply is not empty' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $user = TestDB->create('User');
     my $reply =
       Threads::DB::Reply->new(thread_id => 1, user_id => $user->id)
       ->create;
@@ -66,7 +66,7 @@ subtest 'returns 404 when reply is not empty' => sub {
 subtest 'deletes reply' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $user = TestDB->create('User');
     my $thread = Threads::DB::Thread->new(user_id => 1)->create;
     my $reply = Threads::DB::Reply->new(
         thread_id => $thread->id,
@@ -86,7 +86,7 @@ subtest 'deletes reply' => sub {
 subtest 'deletes reply notifications' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $user = TestDB->create('User');
     my $thread = Threads::DB::Thread->new(user_id => 1)->create;
     my $reply = Threads::DB::Reply->new(
         thread_id => $thread->id,
@@ -115,7 +115,7 @@ subtest 'deletes reply notifications' => sub {
 subtest 'updates thread reply counter' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $user = TestDB->create('User');
     my $thread = Threads::DB::Thread->new(user_id => 1, replies_count => 10)->create;
     my $reply = Threads::DB::Reply->new(
         thread_id => $thread->id,
@@ -137,7 +137,7 @@ subtest 'updates thread reply counter' => sub {
 subtest 'redirects' => sub {
     TestDB->setup;
 
-    my $user = Threads::DB::User->new(email => 'foo', password => 'bar')->create;
+    my $user = TestDB->create('User');
     my $thread = Threads::DB::Thread->new(user_id => 1)->create;
     my $reply = Threads::DB::Reply->new(
         thread_id => $thread->id,

@@ -24,7 +24,7 @@
             </div>
             <div class="thread-date">
                 <%= $helpers->date->format($thread->{created}) %>
-                % my $has_editor = $thread->{editor}->{id} != $thread->{user}->{id};
+                % my $has_editor = $thread->{editor} && $thread->{editor}->{id} != $thread->{user}->{id};
                 % if ($helpers->date->is_distant_update($thread) || $has_editor) {
                     <%= loc('upd.') %> <%= $helpers->date->format($thread->{updated}) %>
 
