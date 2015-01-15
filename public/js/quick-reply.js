@@ -135,21 +135,23 @@
                         form.find(arr[0]).html(data[arr[1]]);
                     });
 
-                    form.find('input[name=replace-class]').each(function() {
-                        var value = $(this).attr('value');
-                        var arr = value.split('=');
+                    form.find('[data-switch-class]').each(function() {
+                        var values = $(this).data('switch-class').split(',');
 
-                        var classes = arr[1].split(',');
+                        var from = data.state ? values[1] : values[0];
+                        var to = data.state ? values[0] : values[1];
 
-                        var from = classes[0];
-                        var to = classes[1];
+                        $(this).removeClass(from).addClass(to);
+                    });
 
-                        if (data.state) {
-                            from = classes[1];
-                            to = classes[0];
-                        }
+                    form.find('[data-switch-attr]').each(function() {
+                        var arr = $(this).data('switch-attr').split('=');
+                        var attr = arr[0];
+                        var values = arr[1].split(',');
 
-                        form.find(arr[0]).removeClass(from).addClass(to);
+                        var to = data.state ? values[0] : values[1];
+
+                        $(this).attr(attr, to);
                     });
                 }
             },

@@ -7,12 +7,10 @@
         <form class="form-inline ajax" action="<%= $helpers->url->toggle_subscription(id => $thread->{id}) %>">
             % my $is_sub = $helpers->subscription->is_subscribed($thread);
             % my $current_class = $is_sub ? 'fa-bell' : 'fa-bell-slash';
-            <input type="hidden" name="replace-class" value=".quick-subscribe-button i=fa-bell,fa-bell-slash" />
-            <button class="quick-subscribe-button"><i class="fa <%= $current_class %>" title="<%= $is_sub ? loc('unsubscribe') : loc('subscribe') %>"></i></button>
+            <button class="quick-subscribe-button" data-switch-attr="title=<%= loc('unsubscribe') %>,<%= loc('subscribe') %>" title="<%= $is_sub ? loc('unsubscribe') : loc('subscribe') %>"><i class="fa <%= $current_class %>" data-switch-class="fa-bell,fa-bell-slash"></i></button>
         </form>
         % }
         </div>
-
 
         <div class="thread-header">
             <h1 class="thread-title">

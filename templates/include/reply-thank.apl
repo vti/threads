@@ -10,14 +10,13 @@
             % my $is_thanked = $helpers->reply->is_thanked($reply);
             <form class="form-inline ajax" method="POST" action="<%= $helpers->url->thank_reply(id => $reply->{id}) %>">
             <input type="hidden" name="update" value=".quick-thank-counter=count" />
-            <input type="hidden" name="replace-class" value=".quick-thank-button i=fa-star,fa-star-o" />
             <button class="link quick-thank-button" title="<%= loc('thank you') %>">
                 <span class="quick-thank-counter">
                 % if ($reply->{thanks_count}) {
                 <%= $reply->{thanks_count} %>
                 % }
                 </span>
-                <i class="fa fa-star<%= $is_thanked ? '' : '-o' %>"></i>
+                <i class="fa fa-star<%= $is_thanked ? '' : '-o' %>" data-switch-class="fa-star,fa-star-o"></i>
             </button>
             </form>
             % }
