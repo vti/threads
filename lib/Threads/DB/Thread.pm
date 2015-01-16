@@ -5,6 +5,8 @@ use warnings;
 
 use parent 'Threads::DB';
 
+use Text::Unidecode ();
+
 __PACKAGE__->meta(
     table   => 'threads',
     columns => [
@@ -16,6 +18,7 @@ __PACKAGE__->meta(
           editor_id
           last_activity
           slug
+          slug_ascii
           title
           content
           replies_count
@@ -60,6 +63,7 @@ sub create {
 
     if (!$self->slug) {
         $self->slug($self->_slug($self->title));
+        $self->slug_ascii(Text::Unidecode::unidecode($self->slug));
     }
 
     if (!$self->last_activity) {

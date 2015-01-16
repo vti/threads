@@ -43,6 +43,16 @@ subtest 'creates slug from unicode' => sub {
     is $thread->slug, 'привет-это-мы';
 };
 
+subtest 'creates ascii slug from unicode' => sub {
+    TestDB->setup;
+
+    my $thread = _build_thread(title => 'Привет, это мы!')->create;
+
+    $thread = $thread->load;
+
+    is $thread->slug_ascii, 'privet-eto-my';
+};
+
 subtest 'removes double dashes' => sub {
     TestDB->setup;
 

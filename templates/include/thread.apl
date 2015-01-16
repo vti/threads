@@ -15,6 +15,7 @@
         <div class="thread-header">
             <h1 class="thread-title">
                 <a href="<%= $helpers->url->view_thread(id => $thread->{id}, slug => $thread->{slug}) %>"><%= $thread->{title} %></a>
+                <a href="<%= $helpers->url->view_thread(id => $thread->{id}, slug => $thread->{slug_ascii}) %>"><sup><i style="font-size:80%" class="fa fa-bookmark"></i></sup></a>
             </h1>
             <div class="thread-meta">
                 %== $helpers->gravatar->img($thread->{user}, 20);

@@ -16,6 +16,7 @@ requires 'Routes::Tiny';
 requires 'String::CamelCase';
 requires 'Text::APL';
 requires 'YAML::Tiny';
+requires 'Text::Unidecode';
 
 requires 'Test::More';
 requires 'Test::WWW::Mechanize::PSGI';
