@@ -72,12 +72,12 @@ subtest 'forbids html' => sub {
 subtest 'perl specific' => sub {
     my $helper = _build_renderer();
 
-    is $helper->render('module:Foo'),
-      '<p><a href="http://metacpan.org/module/Foo" rel="nofollow">Foo</a></p>';
+    is $helper->render('module:Foo::Bar'),
+      '<p><a href="http://metacpan.org/module/Foo::Bar" rel="nofollow">Foo::Bar</a></p>';
     is $helper->render('author:VTI'),
       '<p><a href="http://metacpan.org/author/VTI" rel="nofollow">VTI</a></p>';
-    is $helper->render('release:Foo'),
-      '<p><a href="http://metacpan.org/release/Foo" rel="nofollow">Foo</a></p>';
+    is $helper->render('release:Foo_Baz'),
+      '<p><a href="http://metacpan.org/release/Foo_Baz" rel="nofollow">Foo_Baz</a></p>';
 };
 
 sub _build_renderer { Threads::MarkupRenderer->new }
