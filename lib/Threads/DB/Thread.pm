@@ -77,6 +77,7 @@ sub update {
     my $self = shift;
 
     $self->slug($self->_slug($self->title));
+    $self->slug_ascii(Text::Unidecode::unidecode($self->slug));
 
     return $self->SUPER::update;
 }
