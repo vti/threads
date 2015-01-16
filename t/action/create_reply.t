@@ -48,9 +48,9 @@ subtest 'shows errors' => sub {
         captures => {id      => $thread->id}
     );
 
-    my ($json) = $action->run;
+    my $res = $action->run;
 
-    ok $json->{errors};
+    like $res->body, qr/errors/;
 };
 
 subtest 'shows errors when limits' => sub {
@@ -186,12 +186,12 @@ subtest 'redirects to thread view' => sub {
     );
     $action->mock('url_for');
 
-    my ($json) = $action->run;
+    my ($res) = $action->run;
 
     my ($name) = $action->mocked_call_args('url_for');
     is $name, 'view_thread';
 
-    ok $json->{redirect};
+    like $res->body, qr/redirect/;
 };
 
 subtest 'does not notify thread author when same replier' => sub {

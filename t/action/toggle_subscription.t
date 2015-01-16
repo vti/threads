@@ -2,11 +2,11 @@ use strict;
 use warnings;
 
 use Test::More;
-use Test::Fatal;
 use TestLib;
 use TestDB;
 use TestRequest;
 
+use JSON qw(decode_json);
 use HTTP::Request::Common;
 use Threads::DB::User;
 use Threads::DB::Thread;
@@ -18,9 +18,9 @@ subtest 'returns 404 when unknown thread' => sub {
 
     my $action = _build_action(req => POST('/' => {}), captures => {});
 
-    my $e = exception { $action->run };
+    my $res = $action->run;
 
-    is $e->code, 404;
+    is $res->code, 404;
 };
 
 subtest 'creates subscription' => sub {
@@ -83,9 +83,9 @@ subtest 'returns state when subscription created' => sub {
         'tu.user' => $user
     );
 
-    my ($json) = $action->run;
+    my $res = $action->run;
 
-    is $json->{state}, 1;
+    is decode_json($res->body)->{state}, 1;
 };
 
 subtest 'removes subscription' => sub {
@@ -131,9 +131,9 @@ subtest 'returns state when subscription deleted' => sub {
         'tu.user' => $user
     );
 
-    my ($json) = $action->run;
+    my $res = $action->run;
 
-    is $json->{state}, 0;
+    is decode_json($res->body)->{state}, 0;
 };
 
 sub _build_action {

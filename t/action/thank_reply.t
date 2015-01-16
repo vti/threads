@@ -7,6 +7,7 @@ use TestLib;
 use TestDB;
 use TestRequest;
 
+use JSON qw(decode_json);
 use HTTP::Request::Common;
 use Threads::DB::User;
 use Threads::DB::Thread;
@@ -19,9 +20,9 @@ subtest 'returns 404 when unknown reply' => sub {
 
     my $action = _build_action(req => POST('/' => {}), captures => {});
 
-    my $e = exception { $action->run };
+    my $res = $action->run;
 
-    is $e->code, 404;
+    is $res->code, 404;
 };
 
 subtest 'creates thank log' => sub {
@@ -65,9 +66,49 @@ subtest 'returns current count' => sub {
         'tu.user' => $user
     );
 
-    my ($json) = $action->run;
+    my $res = $action->run;
 
-    is $json->{count}, 5;
+    is decode_json($res->body)->{count}, 5;
+};
+
+subtest 'returns current true state' => sub {
+    TestDB->setup;
+
+    my $user =
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $reply = Threads::DB::Reply->new(thread_id => 1, user_id => 999)->create;
+
+    my $action = _build_action(
+        req       => POST('/' => {}),
+        captures  => {id      => $reply->id},
+        'tu.user' => $user
+    );
+
+    my $res = $action->run;
+
+    is decode_json($res->body)->{state}, 1;
+};
+
+subtest 'returns current false state' => sub {
+    TestDB->setup;
+
+    my $user =
+      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $reply = Threads::DB::Reply->new(thread_id => 1, user_id => 999)->create;
+    Threads::DB::Thank->new(
+        user_id  => $user->id,
+        reply_id => $reply->id
+    )->create;
+
+    my $action = _build_action(
+        req       => POST('/' => {}),
+        captures  => {id      => $reply->id},
+        'tu.user' => $user
+    );
+
+    my $res = $action->run;
+
+    is decode_json($res->body)->{state}, 0;
 };
 
 subtest 'updates reply thank count' => sub {
@@ -138,7 +179,9 @@ subtest 'not found when same user' => sub {
         'tu.user' => $user
     );
 
-    ok exception { $action->run };
+    my $res = $action->run;
+
+    is $res->code, 404;
 
     is(Threads::DB::Thank->table->count, 0);
 };

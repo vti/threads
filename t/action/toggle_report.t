@@ -2,11 +2,11 @@ use strict;
 use warnings;
 
 use Test::More;
-use Test::Fatal;
 use TestLib;
 use TestDB;
 use TestRequest;
 
+use JSON qw(decode_json);
 use HTTP::Request::Common;
 use Threads::DB::User;
 use Threads::DB::Reply;
@@ -18,9 +18,9 @@ subtest 'returns 404 when unknown reply' => sub {
 
     my $action = _build_action(req => POST('/' => {}), captures => {});
 
-    my $e = exception { $action->run };
+    my $res = $action->run;
 
-    is $e->code, 404;
+    is $res->code, 404;
 };
 
 subtest 'not creates report when same user' => sub {
@@ -36,7 +36,9 @@ subtest 'not creates report when same user' => sub {
         'tu.user' => $user
     );
 
-    ok exception {$action->run};
+    my $res = $action->run;
+
+    is $res->code, 404;
 
     my $report = Threads::DB::Report->find(first => 1);
 
@@ -142,9 +144,9 @@ subtest 'returns current count and state' => sub {
         'tu.user' => $user
     );
 
-    my ($json) = $action->run;
+    my $res = $action->run;
 
-    is_deeply $json, {count => 1, state => 1};
+    is_deeply decode_json $res->body, {count => 1, state => 1};
 };
 
 sub _build_action {

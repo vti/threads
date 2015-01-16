@@ -27,7 +27,7 @@ sub validate {
     my $self = shift;
     my ($validator, $params) = @_;
 
-    my $user = $self->env->{'tu.user'} or croak 'No user';
+    my $user = $self->scope->user;
 
     if (!$user->check_password($params->{old_password})) {
         $validator->add_error(old_password => $self->loc('Invalid password'));
@@ -41,7 +41,7 @@ sub submit {
     my $self = shift;
     my ($params) = @_;
 
-    my $user = $self->env->{'tu.user'};
+    my $user = $self->scope->user;
 
     $user->update_password($params->{new_password});
 

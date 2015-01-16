@@ -3,7 +3,7 @@ package Threads::Action::ToggleSubscription;
 use strict;
 use warnings;
 
-use parent 'Tu::Action';
+use parent 'Threads::Action';
 
 use Threads::DB::User;
 use Threads::DB::Reply;
@@ -14,7 +14,7 @@ sub run {
     my $self = shift;
 
     my $thread_id = $self->captures->{id};
-    return $self->throw_not_found
+    return $self->new_json_response(404)
       unless my $thread = Threads::DB::Thread->new(id => $thread_id)->load;
 
     my $user = $self->scope->user;
@@ -27,10 +27,11 @@ sub run {
         ]
     );
 
+    my $state;
     if ($subscription) {
         $subscription->delete;
 
-        return {state => 0}, type => 'json';
+        $state = 0;
     }
     else {
         Threads::DB::Subscription->new(
@@ -38,8 +39,10 @@ sub run {
             thread_id => $thread->id
         )->create;
 
-        return {state => 1}, type => 'json';
+        $state = 1;
     }
+
+    return $self->new_json_response(200, {state => $state});
 }
 
 1;

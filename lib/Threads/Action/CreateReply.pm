@@ -5,6 +5,7 @@ use warnings;
 
 use parent 'Threads::Action::FormBase';
 
+use Threads::Action::JSONMixin 'new_json_response';
 use Threads::LimitChecker;
 use Threads::DB::User;
 use Threads::DB::Thread;
@@ -30,7 +31,7 @@ sub show_errors {
 
     my $errors = $self->vars->{errors};
 
-    return {errors => $errors}, type => 'json';
+    return $self->new_json_response(200, {errors => $errors});
 }
 
 sub validate {
@@ -97,14 +98,15 @@ sub submit {
 
     $self->_delete_thread_notifications($thread);
 
-    my $redirect = $self->url_for(
+    my $url = $self->url_for(
         'view_thread',
         id   => $thread->id,
         slug => $thread->slug
     );
+    $url->query_form(t => time);
+    $url->fragment('reply-' . $reply->id);
 
-    return {redirect => $redirect . '?t=' . time . '#reply-' . $reply->id},
-      type => 'json';
+    return $self->new_json_response(200, {redirect => "$url"});
 }
 
 sub _notify_thread_subscribers {

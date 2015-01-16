@@ -2,11 +2,11 @@ use strict;
 use warnings;
 
 use Test::More;
-use Test::Fatal;
 use TestLib;
 use TestDB;
 use TestRequest;
 
+use JSON qw(decode_json);
 use HTTP::Request::Common;
 use Threads::DB::User;
 use Threads::DB::Thread;
@@ -18,9 +18,9 @@ subtest 'returns 404 when unknown reply' => sub {
 
     my $action = _build_action(captures => {});
 
-    my $e = exception { $action->run };
+    my $res = $action->run;
 
-    is $e->code, 404;
+    is $res->code, 404;
 };
 
 subtest 'returns 404 when wrong user' => sub {
@@ -35,9 +35,9 @@ subtest 'returns 404 when wrong user' => sub {
         'tu.user' => $user
     );
 
-    my $e = exception { $action->run };
+    my $res = $action->run;
 
-    is $e->code, 404;
+    is $res->code, 404;
 };
 
 subtest 'returns 404 when has ansestors' => sub {
@@ -53,9 +53,9 @@ subtest 'returns 404 when has ansestors' => sub {
         'tu.user' => $user
     );
 
-    my $e = exception { $action->run };
+    my $res = $action->run;
 
-    is $e->code, 404;
+    is $res->code, 404;
 };
 
 subtest 'shows errors' => sub {
@@ -72,9 +72,9 @@ subtest 'shows errors' => sub {
         'tu.user' => $user
     );
 
-    my ($json) = $action->run;
+    my $res = $action->run;
 
-    ok $json->{errors};
+    ok decode_json($res->body)->{errors};
 };
 
 subtest 'updates reply with correct params' => sub {
@@ -125,13 +125,13 @@ subtest 'redirects after update' => sub {
 
     $action->mock('url_for');
 
-    my ($json) = $action->run;
+    my $res = $action->run;
 
     my ($name) = $action->mocked_call_args('url_for');
 
     is $name, 'view_thread';
 
-    ok $json->{redirect};
+    ok decode_json($res->body)->{redirect};
 };
 
 sub _build_action {

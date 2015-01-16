@@ -26,7 +26,7 @@ sub show_errors {
 
     my $errors = $self->vars->{errors};
 
-    return {errors => $errors}, type => 'json';
+    return $self->new_json_response(200, {errors => $errors});
 }
 
 sub run {
@@ -34,12 +34,12 @@ sub run {
 
     my $reply_id = $self->captures->{id};
 
-    return $self->throw_not_found
+    return $self->new_json_response(404)
       unless my $reply = Threads::DB::Reply->new(id => $reply_id)->load;
 
     my $user = $self->scope->user;
 
-    return $self->throw_not_found
+    return $self->new_json_response(404)
       unless Threads::ObjectACL->new->is_allowed($user, $reply, 'update_reply');
 
     $self->{reply} = $reply;
@@ -59,17 +59,15 @@ sub submit {
 
     my $thread = $reply->related('thread');
 
-    my $redirect = $self->url_for(
+    my $url = $self->url_for(
         'view_thread',
         id   => $thread->id,
         slug => $thread->slug
     );
+    $url->query_form(t => time);
+    $url->fragment('reply-' . $reply->id);
 
-    return {redirect => $redirect . '?t='
-          . time
-          . '#reply-'
-          . $reply->id
-    }, type => 'json';
+    return $self->new_json_response(200, {redirect => "$url"});
 }
 
 1;

@@ -3,9 +3,8 @@ package Threads::Action::DeleteNotifications;
 use strict;
 use warnings;
 
-use parent 'Tu::Action';
+use parent 'Threads::Action';
 
-use Threads::DB::User;
 use Threads::DB::Notification;
 
 sub run {
@@ -22,8 +21,9 @@ sub run {
         ]
     );
 
-    return {redirect => $self->url_for('list_notifications') . ''},
-      type => 'json';
+    my $url = $self->url_for('list_notifications');
+
+    return $self->new_json_response(200, {redirect => "$url"});
 }
 
 1;

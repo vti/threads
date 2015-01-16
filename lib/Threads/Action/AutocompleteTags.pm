@@ -3,7 +3,7 @@ package Threads::Action::AutocompleteTags;
 use strict;
 use warnings;
 
-use parent 'Tu::Action';
+use parent 'Threads::Action';
 
 use Threads::DB::Tag;
 
@@ -11,7 +11,7 @@ sub run {
     my $self = shift;
 
     my $q = $self->req->param('term') || '';
-    return [], type => 'json' unless $q;
+    return $self->new_json_response(200, []) unless $q;
 
     my @tags = Threads::DB::Tag->find(
         '+columns' =>
@@ -23,8 +23,8 @@ sub run {
         limit    => 10
     );
 
-    return [map { $_->title } grep { $_->get_column('count') > 0 } @tags],
-      type => 'json';
+    return $self->new_json_response(200,
+        [map { $_->title } grep { $_->get_column('count') > 0 } @tags]);
 }
 
 1;

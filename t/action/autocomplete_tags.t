@@ -7,6 +7,7 @@ use TestLib;
 use TestRequest;
 use TestDB;
 
+use JSON qw(decode_json);
 use HTTP::Request::Common;
 use Threads::DB::Thread;
 use Threads::Action::AutocompleteTags;
@@ -14,9 +15,9 @@ use Threads::Action::AutocompleteTags;
 subtest 'returns empty array when no tags' => sub {
     my $action = _build_action(req => GET('/'));
 
-    my ($json) = $action->run;
+    my $res = $action->run;
 
-    is_deeply $json, [];
+    is_deeply decode_json $res->body, [];
 };
 
 subtest 'returns actions sorted by popularity' => sub {
@@ -45,9 +46,9 @@ subtest 'returns actions sorted by popularity' => sub {
 
     my $action = _build_action(req => GET('/?term=r'));
 
-    my ($json) = $action->run;
+    my $res = $action->run;
 
-    is_deeply $json, [qw/z-popular rare/];
+    is_deeply decode_json $res->body, [qw/z-popular rare/];
 };
 
 subtest 'not includes zero tags' => sub {
@@ -63,9 +64,9 @@ subtest 'not includes zero tags' => sub {
 
     my $action = _build_action(req => GET('/?term=r'));
 
-    my ($json) = $action->run;
+    my $res = $action->run;
 
-    is_deeply $json, [qw/bar/];
+    is_deeply decode_json $res->body, [qw/bar/];
 };
 
 sub _build_action {

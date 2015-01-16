@@ -6,23 +6,17 @@ use Test::Fatal;
 use TestLib;
 use TestRequest;
 
+use JSON qw(decode_json);
 use HTTP::Request::Common;
 use Threads::Action::Preview;
-
-subtest 'not found when not POST' => sub {
-    my $action = _build_action(req => GET('/'));
-
-    my $e = exception { $action->run };
-
-    is $e->code, 404;
-};
 
 subtest 'renders content' => sub {
     my $action = _build_action(req => POST('/' => {content => '**bold**'}));
 
-    my ($json) = $action->run;
+    my $res = $action->run;
 
-    is $json->{content}, '<p><strong>bold</strong></p>';
+    is_deeply decode_json $res->body,
+      {content => '<p><strong>bold</strong></p>'};
 };
 
 sub _build_action {

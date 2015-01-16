@@ -3,7 +3,7 @@ package Threads::Action::FormBase;
 use strict;
 use warnings;
 
-use parent 'Tu::Action';
+use parent 'Threads::Action';
 
 use Tu::Validator;
 use Tu::Action::FormMixin 'validate_or_submit';

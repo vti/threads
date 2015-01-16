@@ -7,6 +7,7 @@ use TestLib;
 use TestDB;
 use TestRequest;
 
+use JSON qw(decode_json);
 use HTTP::Request::Common;
 use Threads::DB::User;
 use Threads::DB::Subscription;
@@ -34,9 +35,9 @@ subtest 'returns redirect' => sub {
 
     my $action = _build_action(req => POST('/' => {}), captures => {}, 'tu.user' => $user);
 
-    my ($json) = $action->run;
+    my $res = $action->run;
 
-    ok $json->{redirect};
+    ok decode_json($res->body)->{redirect};
 };
 
 sub _build_action {

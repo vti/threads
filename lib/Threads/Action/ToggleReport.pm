@@ -3,7 +3,7 @@ package Threads::Action::ToggleReport;
 use strict;
 use warnings;
 
-use parent 'Tu::Action';
+use parent 'Threads::Action';
 
 use Threads::ObjectACL;
 use Threads::DB::User;
@@ -14,12 +14,12 @@ sub run {
     my $self = shift;
 
     my $reply_id = $self->captures->{id};
-    return $self->throw_not_found
+    return $self->new_json_response(404)
       unless my $reply = Threads::DB::Reply->new(id => $reply_id)->load;
 
     my $user = $self->scope->user;
 
-    return $self->throw_not_found
+    return $self->new_json_response(404)
       if Threads::ObjectACL->new->is_author($user, $reply);
 
     my $report = Threads::DB::Report->find(
@@ -43,11 +43,12 @@ sub run {
         $state = 1;
     }
 
-    my $count = Threads::DB::Report->table->count(where => [reply_id => $reply->id]);
+    my $count =
+      Threads::DB::Report->table->count(where => [reply_id => $reply->id]);
     $reply->reports_count($count);
     $reply->update;
 
-    return {count => $count, state => $state}, type => 'json';
+    return $self->new_json_response(200, {count => $count, state => $state});
 }
 
 1;
