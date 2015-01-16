@@ -15,7 +15,7 @@
         <strong><%= loc('Similar threads') %></strong>
     <ul>
     % foreach my $similar_thread (@similar) {
-        <li><a href=""><%= $similar_thread->{title} %></a></li>
+        <li><a href="<%= $helpers->url->view_thread(id => $similar_thread->{id}, slug => $similar_thread->{slug}) %>"><%= $similar_thread->{title} %></a></li>
     % }
     </ul>
     % }
