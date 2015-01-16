@@ -63,6 +63,16 @@ subtest 'removes double dashes' => sub {
     is $thread->slug, 'привет-это-мы';
 };
 
+subtest 'replaces double colon with single dash' => sub {
+    TestDB->setup;
+
+    my $thread = _build_thread(title => 'Text::Caml')->create;
+
+    $thread = $thread->load;
+
+    is $thread->slug, 'text-caml';
+};
+
 subtest 'removes leading and trailing dashes' => sub {
     TestDB->setup;
 

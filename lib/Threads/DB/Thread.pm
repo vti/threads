@@ -99,6 +99,7 @@ sub _slug {
 
     my $slug = lc($title // '');
 
+    $slug =~ s{::}{-}g;
     $slug =~ s{\s+}{-}g;
     $slug =~ s{[^[:alnum:]\-]}{}g;
     $slug =~ s{-+}{-}g;
