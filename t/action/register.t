@@ -22,9 +22,7 @@ subtest 'set template var errors' => sub {
 
     $action->run;
 
-    my $env = $action->env;
-
-    ok $env->{'tu.displayer.vars'}->{errors};
+    ok $action->vars->{errors};
 };
 
 subtest 'set template error when invalid email' => sub {
@@ -33,9 +31,7 @@ subtest 'set template error when invalid email' => sub {
 
     $action->run;
 
-    my $env = $action->env;
-
-    is $env->{'tu.displayer.vars'}->{errors}->{email}, 'Invalid email';
+    is $action->vars->{errors}->{email}, 'Invalid email';
 };
 
 subtest 'set template error when email exists' => sub {
@@ -49,9 +45,7 @@ subtest 'set template error when email exists' => sub {
 
     $action->run;
 
-    my $env = $action->env;
-
-    is $env->{'tu.displayer.vars'}->{errors}->{email}, 'User exists';
+    is $action->vars->{errors}->{email}, 'User exists';
 };
 
 subtest 'create user with correct params' => sub {

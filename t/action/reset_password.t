@@ -96,8 +96,7 @@ subtest 'show validation errors' => sub {
 
     $action->run;
 
-    my $env = $action->env;
-    ok $env->{'tu.displayer.vars'}->{errors};
+    ok $action->vars->{errors};
 };
 
 subtest 'show validation errors when password do not match' => sub {
@@ -120,8 +119,7 @@ subtest 'show validation errors when password do not match' => sub {
 
     $action->run;
 
-    my $env = $action->env;
-    is_deeply $env->{'tu.displayer.vars'}->{errors},
+    is_deeply $action->vars->{errors},
       {new_password => 'Password mismatch'};
 };
 

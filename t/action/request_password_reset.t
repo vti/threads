@@ -22,9 +22,7 @@ subtest 'set template var errors' => sub {
 
     $action->run;
 
-    my $env = $action->env;
-
-    ok $env->{'tu.displayer.vars'}->{errors};
+    ok $action->vars->{errors};
 };
 
 subtest 'set template error when invalid email' => sub {
@@ -32,9 +30,7 @@ subtest 'set template error when invalid email' => sub {
 
     $action->run;
 
-    my $env = $action->env;
-
-    is $env->{'tu.displayer.vars'}->{errors}->{email}, 'Invalid email';
+    is $action->vars->{errors}->{email}, 'Invalid email';
 };
 
 subtest 'set template error when email does not exist' => sub {
@@ -44,9 +40,7 @@ subtest 'set template error when email does not exist' => sub {
 
     $action->run;
 
-    my $env = $action->env;
-
-    is $env->{'tu.displayer.vars'}->{errors}->{email}, 'User does not exist';
+    is $action->vars->{errors}->{email}, 'User does not exist';
 };
 
 subtest 'set template error when user not activated' => sub {
@@ -58,9 +52,7 @@ subtest 'set template error when user not activated' => sub {
 
     $action->run;
 
-    my $env = $action->env;
-
-    is $env->{'tu.displayer.vars'}->{errors}->{email}, 'Account not activated';
+    is $action->vars->{errors}->{email}, 'Account not activated';
 };
 
 subtest 'creates confirmation token with correct params' => sub {
