@@ -5,18 +5,18 @@
     <h1><%= loc('Profile') %></h1>
 
     <p>
-        <a href="<%= $helpers->url->index %>?user_id=<%= $helpers->acl->user->{id} %>"><%= loc('Threads') %></a><br >
-        <a href="<%= $helpers->url->list_subscriptions %>"><%= loc('Subscriptions') %></a><br />
-        <a href="<%= $helpers->url->list_notifications %>"><%= loc('Notifications') %></a>
+        <i class="fa fa-folder"></i> <a href="<%= $helpers->url->index %>?user_id=<%= $helpers->acl->user->{id} %>"><%= loc('Threads') %></a><br >
+        <i class="fa fa-bell"></i> <a href="<%= $helpers->url->list_subscriptions %>"><%= loc('Subscriptions') %></a><br />
+        <i class="fa fa-envelope"></i> <a href="<%= $helpers->url->list_notifications %>"><%= loc('Notifications') %></a>
     </p>
 
     <p>
-        <a href="<%= $helpers->url->settings %>"><%= loc('Settings') %></a><br />
-        <a href="<%= $helpers->url->change_password %>"><%= loc('Change password') %></a>
+        <i class="fa fa-gears"></i> <a href="<%= $helpers->url->settings %>"><%= loc('Settings') %></a><br />
+        <i class="fa fa-key"></i> <a href="<%= $helpers->url->change_password %>"><%= loc('Change password') %></a>
     </p>
 
     <p>
-        <a href="<%= $helpers->url->deregister %>" class="status-danger"><%= loc('Remove account') %></a>
+        <i class="fa fa-trash"></i> <a href="<%= $helpers->url->deregister %>" class="status-danger"><%= loc('Remove account') %></a>
     </p>
 
 </div>
