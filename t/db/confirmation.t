@@ -39,6 +39,26 @@ subtest 'not finds old token' => sub {
         'register');
 };
 
+subtest 'finds fresh token by user id' => sub {
+    TestDB->setup;
+
+    my $confirmation =
+      TestDB->create('Confirmation', user_id => 1, type => 'register');
+
+    ok $confirmation->find_fresh_by_user_id(1, 'register');
+};
+
+subtest 'checks if confirmation is expired' => sub {
+    TestDB->setup;
+
+    my $confirmation =
+      TestDB->create('Confirmation', user_id => 1, type => 'register');
+
+    $confirmation = $confirmation->find_by_token(to_hex $confirmation->token, 'register');
+
+    ok !$confirmation->is_expired;
+};
+
 subtest 'not finds unknown token' => sub {
     TestDB->setup;
 

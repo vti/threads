@@ -88,6 +88,28 @@ subtest 'show 404 when wrong confirmation token' => sub {
     is $res->code, 404;
 };
 
+subtest 'show link to resend when old confirmation token' => sub {
+    TestDB->setup;
+    TestMail->setup;
+
+    my $ua = _build_ua();
+
+    $ua->get('/');
+    $ua->follow_link(text => 'Sign up');
+
+    $ua->submit_form(
+        fields => {email => 'foo@bar.com', password => 'password'});
+
+    my (undef, $message) = TestMail->get_last_message;
+
+    my ($activation_link) = $message =~ m/(http:.*?)\n/ms;
+
+    Threads::DB::Confirmation->table->update(set => {created => 123});
+
+    $ua->get_ok($activation_link);
+    $ua->content_contains('resend');
+};
+
 subtest 'show activation success page' => sub {
     TestDB->setup;
     TestMail->setup;
@@ -154,6 +176,60 @@ subtest 'not found when logged in' => sub {
     my $res = $ua->get('/register');
 
     is $res->code, 404;
+};
+
+subtest 'not resend activation email when token not expired' => sub {
+    TestDB->setup;
+    TestMail->setup;
+
+    my $ua = _build_ua();
+
+    $ua->get('/');
+    $ua->follow_link(text => 'Sign up');
+
+    $ua->submit_form(
+        fields => {email => 'foo@bar.com', password => 'password'});
+
+    $ua->get('/');
+    $ua->follow_link(text => 'Login');
+    $ua->follow_link(text => 'Resend registration confirmation');
+
+    $ua->submit_form(
+        fields => {email => 'foo@bar.com', password => 'password'});
+
+    $ua->content_contains('later');
+};
+
+subtest 'resend activation email when token expired' => sub {
+    TestDB->setup;
+    TestMail->setup;
+
+    my $ua = _build_ua();
+
+    $ua->get('/');
+    $ua->follow_link(text => 'Sign up');
+
+    $ua->submit_form(
+        fields => {email => 'foo@bar.com', password => 'password'});
+
+    Threads::DB::Confirmation->table->delete;
+
+    $ua->get('/');
+    $ua->follow_link(text => 'Login');
+    $ua->follow_link(text => 'Resend registration confirmation');
+
+    TestMail->setup;
+
+    $ua->submit_form(
+        fields => {email => 'foo@bar.com', password => 'password'});
+
+    $ua->content_contains('check');
+
+    my (undef, $message) = TestMail->get_last_message;
+
+    my ($activation_link) = $message =~ m/(http:.*?)\n/ms;
+
+    $ua->get_ok($activation_link);
 };
 
 sub _build_ua {

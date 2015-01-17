@@ -43,7 +43,7 @@ subtest 'return 404 when user not found' => sub {
     is $e->code, '404';
 };
 
-subtest 'return 404 when confirmation token too old' => sub {
+subtest 'render template when confirmation token too old' => sub {
     TestDB->setup;
 
     my $user         = TestDB->create('User');
@@ -56,9 +56,11 @@ subtest 'return 404 when confirmation token too old' => sub {
       _build_action(
         captures => {token => to_hex $confirmation->token});
 
-    my $e = exception { $action->run };
-    isa_ok($e, 'Tu::X::HTTP');
-    is $e->code, '404';
+    $action->run;
+
+    my ($template) = $action->mocked_call_args('render');
+
+    is $template, 'activation_failure';
 };
 
 subtest 'change user status' => sub {

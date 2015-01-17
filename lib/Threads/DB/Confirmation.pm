@@ -19,9 +19,9 @@ __PACKAGE__->meta(
           created
           /
     ],
-    primary_key    => 'id',
-    auto_increment => 'id',
-    unique_keys    => ['token'],
+    primary_key              => 'id',
+    auto_increment           => 'id',
+    unique_keys              => ['token'],
     generate_columns_methods => 1,
 );
 
@@ -37,6 +37,45 @@ sub find_fresh_by_token {
         where => [
             token   => from_hex $token,
             type    => $type,
+            created => {'>=' => time - $self->_expiration_timeout}
+        ]
+    );
+}
+
+sub is_expired {
+    my $self = shift;
+
+    return $self->created < time - $self->_expiration_timeout;
+}
+
+sub find_by_token {
+    my $self = shift;
+    my ($token, $type) = @_;
+
+    croak 'token required' unless $token;
+    croak 'type required'  unless $type;
+
+    return Threads::DB::Confirmation->find(
+        first => 1,
+        where => [
+            token => from_hex $token,
+            type  => $type,
+        ]
+    );
+}
+
+sub find_fresh_by_user_id {
+    my $self = shift;
+    my ($user_id, $type) = @_;
+
+    croak 'user_id required' unless $user_id;
+    croak 'type required'    unless $type;
+
+    return Threads::DB::Confirmation->find(
+        first => 1,
+        where => [
+            user_id => $user_id,
+            type    => $type,
             created => {'>=' => time - 15 * 60}
         ]
     );
@@ -51,5 +90,7 @@ sub create {
 
     return $self->SUPER::create;
 }
+
+sub _expiration_timeout { 45 * 60 }
 
 1;

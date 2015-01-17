@@ -9,6 +9,7 @@
     <%== $helpers->form->input('email', label => 'E-mail') %>
     <%== $helpers->form->password('password', label => loc('Password')) %>
     <div class="form-input"><a href="<%= $helpers->url->request_password_reset %>"><%= loc('Reset password') %></a></div>
+    <div class="form-input"><a href="<%= $helpers->url->resend_registration_confirmation %>"><%= loc('Resend registration confirmation') %></a></div>
 
     <div class="form-submit">
         <input type="submit" value="<%= loc('Login') %>" />

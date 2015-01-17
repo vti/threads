@@ -8,6 +8,10 @@ msgstr ""
 msgid "Account blocked"
 msgstr "Аккаунт заблокирован"
 
+#: lib/Threads/Action/ResendRegistrationConfirmation.pm:43
+msgid "Account does not need activation"
+msgstr "Аккаунт не требует активации"
+
 #: lib/Threads/Action/Login.pm:42
 #: lib/Threads/Action/RequestPasswordReset.pm:35
 msgid "Account not activated"
@@ -21,7 +25,7 @@ msgstr "Аккаунт не активен"
 msgid "Admin"
 msgstr "Админ"
 
-#: templates/list_notifications.apl:13
+#: templates/admin_list_users.apl:20 templates/list_notifications.apl:13
 msgid "Are you sure?"
 msgstr "Вы уверены?"
 
@@ -83,7 +87,7 @@ msgstr "Форум"
 msgid "Good luck!"
 msgstr "Удачи!"
 
-#: lib/Threads/Action/Register.pm:59
+#: lib/Threads/Action/Register.pm:54
 msgid "Invalid captcha"
 msgstr "Неправильный ответ"
 
@@ -96,7 +100,7 @@ msgid "Invalid password"
 msgstr "Неправильный пароль"
 
 #: templates/activation_success.apl:5 templates/layout.apl:59
-#: templates/login.apl:14 templates/view_thread.apl:70
+#: templates/login.apl:15 templates/view_thread.apl:70
 msgid "Login"
 msgstr "Вход"
 
@@ -125,6 +129,11 @@ msgstr "Не читаемо"
 msgid "Notifications"
 msgstr "Уведомления"
 
+#: lib/Threads/Action/ResendRegistrationConfirmation.pm:50
+msgid "Old confirmation not expired. Try later"
+msgstr ""
+"Время действия старого письма-подтверждения еще не истекло. Попробуйте позже"
+
 #: templates/email/confirmation_required.apl:7
 #: templates/email/deregistration_confirmation_required.apl:7
 #: templates/email/password_reset.apl:7
@@ -132,6 +141,7 @@ msgid "Otherwise just ignore this email."
 msgstr "Иначе проигнорируйте это письмо."
 
 #: templates/login.apl:10 templates/register.apl:10
+#: templates/resend_registration_confirmation.apl:10
 msgid "Password"
 msgstr "Пароль"
 
@@ -150,6 +160,7 @@ msgstr "Сброс пароля"
 
 #: templates/deregistration_confirmation_needed.apl:3
 #: templates/password_reset_confirmation_needed.apl:3
+#: templates/resend_registration_confirmation_success.apl:3
 msgid "Please check your email for a confirmation link."
 msgstr "Пожалуйста, проверьте свою почту на наличие письма с подтверждением."
 
@@ -171,6 +182,7 @@ msgid "Registration"
 msgstr "Регистрация"
 
 #: lib/Threads/Action/Register.pm:96
+#: lib/Threads/Action/ResendRegistrationConfirmation.pm:85
 msgid "Registration confirmation"
 msgstr "Подтверждение регистрации"
 
@@ -186,13 +198,23 @@ msgstr "Удалить аккаунт"
 msgid "Repeat new password"
 msgstr "Повторите новый пароль"
 
-#: lib/Threads/Action/CreateReply.pm:47
+#: lib/Threads/Action/CreateReply.pm:48
 msgid "Replying too often"
 msgstr "Слишком часто комментируете"
 
 #: lib/Threads/Action/FormBase.pm:18
 msgid "Required"
 msgstr "Обязательно"
+
+#: templates/resend_registration_confirmation.apl:13
+msgid "Resend"
+msgstr "Отправить"
+
+#: templates/activation_failure.apl:5 templates/login.apl:12
+#: templates/resend_registration_confirmation.apl:1
+#: templates/resend_registration_confirmation.apl:5
+msgid "Resend registration confirmation"
+msgstr "Переслать письмо-подтверждение"
 
 #: templates/reset_password.apl:10
 msgid "Reset"
@@ -208,6 +230,7 @@ msgid "Save"
 msgstr "Сохранить"
 
 #: templates/activation_needed.apl:5
+#: templates/resend_registration_confirmation_success.apl:5
 msgid "See you soon!"
 msgstr "Скоро увидимся!"
 
@@ -268,6 +291,8 @@ msgid "Too short"
 msgstr "Слишком коротко"
 
 #: lib/Threads/Action/Login.pm:32 lib/Threads/Action/Login.pm:37
+#: lib/Threads/Action/ResendRegistrationConfirmation.pm:32
+#: lib/Threads/Action/ResendRegistrationConfirmation.pm:37
 msgid "Unknown credentials"
 msgstr "Неизвестные данные"
 
@@ -287,7 +312,7 @@ msgstr "Обновить тему"
 msgid "User does not exist"
 msgstr "Пользователь не существует"
 
-#: lib/Threads/Action/Register.pm:50
+#: lib/Threads/Action/Register.pm:60
 msgid "User exists"
 msgstr "Пользователь существует"
 
@@ -334,6 +359,10 @@ msgstr ""
 msgid "Your account was successfully removed!"
 msgstr "Ваш аккаунт был успешно удален!"
 
+#: templates/activation_failure.apl:3
+msgid "Your confirmation token has expired"
+msgstr "Время действия токена истекло"
+
 #: templates/password_reset_success.apl:3
 msgid "Your password was successfully reset!"
 msgstr "Выш пароль был успешно сброшен!"
@@ -341,6 +370,10 @@ msgstr "Выш пароль был успешно сброшен!"
 #: templates/activation_success.apl:3
 msgid "Your registration was successfully activated!"
 msgstr "Ваша регистрация была успешно активирована!"
+
+#: templates/admin_list_users.apl:24
+msgid "ban"
+msgstr ""
 
 #: templates/index.apl:9
 msgid "by activity"
@@ -393,19 +426,23 @@ msgstr "ответить в тему"
 msgid "report"
 msgstr ""
 
-#: templates/include/thread.apl:11
+#: templates/include/thread.apl:10
 msgid "subscribe"
 msgstr "подписаться"
 
-#: templates/include/reply-thank.apl:14
+#: templates/include/reply-thank.apl:13
 msgid "thank you"
 msgstr "спасибо"
 
-#: templates/include/thread.apl:11
+#: templates/admin_list_users.apl:22
+msgid "unban"
+msgstr ""
+
+#: templates/include/thread.apl:10
 msgid "unsubscribe"
 msgstr "отписаться"
 
-#: templates/include/reply-meta.apl:15 templates/include/thread.apl:29
+#: templates/include/reply-meta.apl:15 templates/include/thread.apl:28
 msgid "upd."
 msgstr "обн."
 

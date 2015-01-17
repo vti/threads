@@ -16,7 +16,11 @@ sub run {
 
     $self->throw_not_found
       unless my $confirmation =
-      Threads::DB::Confirmation->find_fresh_by_token($token, 'register');
+      Threads::DB::Confirmation->find_by_token($token, 'register');
+
+    if ($confirmation->is_expired) {
+        return $self->render('activation_failure');
+    }
 
     $self->throw_not_found
       unless my $user =

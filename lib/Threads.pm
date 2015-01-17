@@ -45,6 +45,15 @@ sub _add_routes {
         method => 'GET'
     );
 
+    $routes->add_route(
+        '/resend-registration-confirmation',
+        name => 'resend_registration_confirmation'
+    );
+    $routes->add_route(
+        '/resend-registration-confirmation-success',
+        name => 'resend_registration_confirmation_success',
+    );
+
     $routes->add_route('/deregister', name => 'deregister');
 
     $routes->add_route(
@@ -163,6 +172,8 @@ sub _add_acl {
     $acl->allow('anonymous', 'index');
     $acl->allow('anonymous', 'register');
     $acl->allow('anonymous', 'confirm_registration');
+    $acl->allow('anonymous', 'resend_registration_confirmation');
+    $acl->allow('anonymous', 'resend_registration_confirmation_success');
     $acl->allow('anonymous', 'request_password_reset');
     $acl->allow('anonymous', 'reset_password');
     $acl->allow('anonymous', 'login');
