@@ -6,7 +6,8 @@
 
     <p>
         <a href="<%= $helpers->url->index %>?user_id=<%= $helpers->acl->user->{id} %>"><%= loc('Threads') %></a><br >
-        <a href="<%= $helpers->url->list_subscriptions %>"><%= loc('Subscriptions') %></a>
+        <a href="<%= $helpers->url->list_subscriptions %>"><%= loc('Subscriptions') %></a><br />
+        <a href="<%= $helpers->url->list_notifications %>"><%= loc('Notifications') %></a>
     </p>
 
     <p>

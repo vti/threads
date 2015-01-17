@@ -537,6 +537,15 @@ a.markup-help-button {
     max-width:500px;
 }
 
+.notification-count {
+    padding:0.2em 0.5em;
+    background:#FFDC00;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+     border-radius: 5px;
+}
+
 .opacity {
     opacity: 0.3;
     filter: alpha(opacity=30); /* For IE8 and earlier */

@@ -44,11 +44,11 @@
                 % if ($helpers->acl->is_admin) {
                 <a href="<%= $helpers->url->admin_index %>" class="status-bg-danger"><%= loc('Admin') %></a> |
                 % }
-                % my $notification_count = $helpers->notification->count;
 
                 <i class="fa fa-user"></i> <a href="<%= $helpers->url->profile %>"><%= $helpers->user->display_name($helpers->acl->user) %></a>
+                % my $notification_count = $helpers->notification->count;
                 % if ($notification_count) {
-                <a href="<%= $helpers->url->list_notifications %>" class="no-underline status-bg-notice" title="<%= loc('Notifications') %>">( <%= $notification_count %> )</a>
+                <a href="<%= $helpers->url->list_notifications %>" class="notification-count" title="<%= loc('Notifications') %>"><%= $notification_count %></a>
                 % }
                 |
                 <form class="form-inline" method="post" action="<%= $helpers->url->logout %>" id="logout">
