@@ -12,11 +12,13 @@ use Threads::DB::Notification;
 sub run {
     my $self = shift;
 
-    my $app = Threads->new;
+    my $app = $self->_build_app;
 
     my @users =
       Threads::DB::User->find(
         where => [status => 'active', email_notifications => 1]);
+
+    return unless @users;
 
     my $i18n = $app->service('i18n');
     my $i18n_handle =
@@ -25,6 +27,9 @@ sub run {
     my $displayer = $app->service('displayer');
 
     foreach my $user (@users) {
+        my $total_notifications =
+          Threads::DB::Notification->table->count(
+            where => [user_id => $user->id]);
         my @not_sent_notifications =
           Threads::DB::Notification->find(
             where => [user_id => $user->id, is_sent => 0]);
@@ -34,9 +39,8 @@ sub run {
                 'email/notifications_digest',
                 layout => undef,
                 vars   => {
-                    notifications => \@not_sent_notifications,
-                    loc           => sub { $i18n_handle->loc(@_) },
-                    url           => $self->_config->{base_url}
+                    loc => sub { $i18n_handle->loc(@_) },
+                    url => $self->_config->{base_url}
                       . $app->service('routes')
                       ->build_path('list_notifications')
                 }
@@ -46,7 +50,7 @@ sub run {
                 headers => [
                     To      => $user->email,
                     Subject => $i18n_handle->loc('Unread notifications: ')
-                      . scalar(@not_sent_notifications)
+                      . $total_notifications
                 ],
                 body => $email
             );
@@ -60,5 +64,7 @@ sub run {
 
     return $self;
 }
+
+sub _build_app { Threads->new }
 
 1;
