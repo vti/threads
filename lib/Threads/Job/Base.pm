@@ -2,22 +2,9 @@ package Threads::Job::Base;
 
 use strict;
 use warnings;
+use attrs 'dry_run', 'verbose', 'config' => sub { {} };
 
 binmode STDOUT, ':utf8';
-
-sub new {
-    my $class = shift;
-    my (%params) = @_;
-
-    my $self = {};
-    bless $self, $class;
-
-    $self->{dry_run} = $params{dry_run};
-    $self->{verbose} = $params{verbose};
-    $self->{config}  = $params{config} || {};
-
-    return $self;
-}
 
 sub run { ... }
 

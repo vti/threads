@@ -3,6 +3,7 @@ use warnings;
 use utf8;
 
 use Test::More;
+use TestLib;
 use TestDB;
 
 use Threads::ObjectACL;

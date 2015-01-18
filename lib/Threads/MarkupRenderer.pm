@@ -2,18 +2,10 @@ package Threads::MarkupRenderer;
 
 use strict;
 use warnings;
+use attrs;
 
 use Encode ();
 use Digest::MD5 qw(md5_hex);
-
-sub new {
-    my $class = shift;
-
-    my $self = {};
-    bless $self, $class;
-
-    return $self;
-}
 
 sub render {
     my $self = shift;

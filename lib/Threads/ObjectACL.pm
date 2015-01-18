@@ -2,19 +2,11 @@ package Threads::ObjectACL;
 
 use strict;
 use warnings;
+use attrs;
 
 use Scalar::Util qw(blessed);
 use Threads::DB::Thread;
 use Threads::DB::Reply;
-
-sub new {
-    my $class = shift;
-
-    my $self = {};
-    bless $self, $class;
-
-    return $self;
-}
 
 sub is_author {
     my $self = shift;

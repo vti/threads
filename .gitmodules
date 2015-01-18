@@ -7,3 +7,6 @@
 [submodule "contrib/object-db"]
 	path = contrib/object-db
 	url = http://github.com/vti/object-db
+[submodule "contrib/attrs"]
+	path = contrib/attrs
+	url = http://github.com/vti/attrs

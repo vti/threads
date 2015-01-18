@@ -123,32 +123,31 @@ sub _mock_displayer {
 sub _build_job {
     my (%params) = @_;
 
-    my $job = Threads::Job::SendEmailNotifications->new(
-        config => {base_url => 'http://example.com'},
-        %params
-    );
-    $job = Test::MonkeyMock->new($job);
+    my $i18n      = delete $params{i18n}      || _mock_i18n();
+    my $mailer    = delete $params{mailer}    || _mock_mailer();
+    my $routes    = delete $params{routes}    || _mock_routes();
+    my $displayer = delete $params{displayer} || _mock_displayer();
 
-    $params{i18n}      ||= _mock_i18n();
-    $params{mailer}    ||= _mock_mailer();
-    $params{routes}    ||= _mock_routes();
-    $params{displayer} ||= _mock_displayer();
+    my $job =
+      Threads::Job::SendEmailNotifications->new(
+        config => {base_url => 'http://example.com'});
+    $job = Test::MonkeyMock->new($job);
 
     my $app = Test::MonkeyMock->new;
     $app->mock(
-        service => sub { $params{i18n} },
+        service => sub { $i18n },
         when    => sub { $_[1] eq 'i18n' }
     );
     $app->mock(
-        service => sub { $params{mailer} },
+        service => sub { $mailer },
         when    => sub { $_[1] eq 'mailer' }
     );
     $app->mock(
-        service => sub { $params{routes} },
+        service => sub { $routes },
         when    => sub { $_[1] eq 'routes' }
     );
     $app->mock(
-        service => sub { $params{displayer} },
+        service => sub { $displayer },
         when    => sub { $_[1] eq 'displayer' }
     );
 

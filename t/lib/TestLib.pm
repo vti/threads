@@ -3,17 +3,14 @@ package TestLib;
 use strict;
 use warnings;
 
-use base 'Exporter';
+use File::Spec;
+use File::Basename qw(dirname);
 
 BEGIN {
-    use FindBin '$RealBin';
-    unshift @INC, "$_/lib" for glob "$RealBin/../../contrib/*";
-}
+    unshift @INC, "$_/lib"
+      for glob File::Spec->catfile(dirname(__FILE__), '../../contrib/*');
 
-sub import {
     $ENV{PLACK_ENV} = 'test';
-
-    __PACKAGE__->export_to_level(1, @_);
 }
 
 1;
