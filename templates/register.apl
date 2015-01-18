@@ -13,6 +13,8 @@
         <%== $helpers->form->input('captcha', label => $captcha->{text}) %>
     % }
 
+    <%== $helpers->form->input('website', style => 'display:none') %>
+
     <div class="form-submit">
         <input type="submit" value="<%= loc('Register') %>" />
     </div>

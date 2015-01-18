@@ -21,6 +21,8 @@ sub build_validator {
     $validator->add_rule('email', 'Email');
     $validator->add_rule('email', 'NotDisposableEmail');
 
+    $validator->add_optional_field('website');
+
     $validator->add_field('captcha') if $self->_has_captcha;
 
     return $validator;
@@ -54,6 +56,11 @@ sub validate {
             $validator->add_error(captcha => $self->loc('Invalid captcha'));
             return;
         }
+    }
+
+    if ($params->{website}) {
+        $validator->add_error(email => 'Robot?');
+        return;
     }
 
     if (Threads::DB::User->new(email => $params->{email})->load) {
