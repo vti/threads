@@ -8,8 +8,8 @@ use TestRequest;
 
 use HTTP::Request::Common;
 use Threads::DB::User;
-use Threads::DB::Confirmation;
 use Threads::Action::Register;
+use Threads::Action::Register::Captcha;
 
 subtest 'sets captcha to session on get' => sub {
     TestDB->setup;
@@ -72,36 +72,28 @@ sub _mock_services {
 
     my $services = Test::MonkeyMock->new;
     $services->mock(
-        service => sub { $params{config} || {
-                captcha => [
-                    {text => '1 + 1 = ?', answer => 2}
-                ]
-            } },
+        service => sub {
+            $params{config}
+              || {captcha => [{text => '1 + 1 = ?', answer => 2}]};
+        },
         when => sub { $_[1] eq 'config' }
     );
 
     return $services;
 }
 
-sub _mock_mailer {
-    my $mailer = Test::MonkeyMock->new;
-    $mailer->mock(send => sub { });
-
-    return $mailer;
-}
-
 sub _build_action {
     my (%params) = @_;
 
     my $env      = $params{env}      || TestRequest->to_env(%params);
-    my $mailer   = $params{mailer}   || _mock_mailer();
     my $services = $params{services} || _mock_services();
 
-    my $action =
-      Threads::Action::Register->new(env => $env, services => $services);
-    $action = Test::MonkeyMock->new($action);
-    $action->mock(render => sub { '' });
-    $action->mock(mailer => sub { $mailer });
+    my $action = Threads::Action::Register->new(
+        env      => $env,
+        services => $services
+    );
+
+    $action->observe(Threads::Action::Register::Captcha->new);
 
     return $action;
 }

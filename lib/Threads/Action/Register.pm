@@ -5,7 +5,7 @@ use warnings;
 
 use parent 'Threads::Action::FormBase';
 
-use Plack::Session;
+use Tu::ObservableMixin qw(observe notify);
 use Threads::DB::User;
 use Threads::DB::Confirmation;
 use Threads::Util qw(to_hex);
@@ -21,47 +21,17 @@ sub build_validator {
     $validator->add_rule('email', 'Email');
     $validator->add_rule('email', 'NotDisposableEmail');
 
-    $validator->add_optional_field('website');
-
-    $validator->add_field('captcha') if $self->_has_captcha;
+    $self->notify('AFTER:build_validator', $validator);
 
     return $validator;
 }
 
-sub show {
-    my $self = shift;
-
-    $self->_generate_captcha if $self->_has_captcha;
-
-    return;
-}
-
-sub show_errors {
-    my $self = shift;
-
-    $self->_generate_captcha if $self->_has_captcha;
-
-    return;
-}
+sub show        { $_[0]->notify('BEFORE:show');        return }
+sub show_errors { $_[0]->notify('BEFORE:show_errors'); return }
 
 sub validate {
     my $self = shift;
     my ($validator, $params) = @_;
-
-    if ($self->_has_captcha) {
-        my $session         = Plack::Session->new($self->env);
-        my $expected_answer = $session->get('captcha');
-
-        if (!$expected_answer || $expected_answer ne $params->{captcha}) {
-            $validator->add_error(captcha => $self->loc('Invalid captcha'));
-            return;
-        }
-    }
-
-    if ($params->{website}) {
-        $validator->add_error(email => 'Robot?');
-        return;
-    }
 
     if (Threads::DB::User->new(email => $params->{email})->load) {
         $validator->add_error(email => $self->loc('User exists'));
@@ -113,20 +83,6 @@ sub mailer {
     my $self = shift;
 
     return $self->service('mailer');
-}
-
-sub _has_captcha { shift->service('config')->{captcha} ? 1 : 0 }
-
-sub _generate_captcha {
-    my $self = shift;
-
-    my $captchas = $self->service('config')->{captcha};
-
-    my $captcha = $captchas->[int(rand(@$captchas))];
-
-    my $session = Plack::Session->new($self->env);
-    $session->set(captcha => $captcha->{answer});
-    $self->set_var(captcha => {text => $captcha->{text}});
 }
 
 1;

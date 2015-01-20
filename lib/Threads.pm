@@ -20,6 +20,8 @@ sub startup {
     $self->register_plugin('Mailer');
     $self->register_plugin('I18N');
 
+    $self->services->overwrite('action_factory', 'Tu::ActionFactory::Observable');
+
     $self->_add_routes;
     $self->_add_acl;
 
@@ -37,7 +39,11 @@ sub _add_routes {
         method => 'GET'
     );
 
-    $routes->add_route('/register', name => 'register');
+    $routes->add_route(
+        '/register',
+        name      => 'register',
+        arguments => {observers => ['register-captcha', 'register-fake_field']}
+    );
 
     $routes->add_route(
         '/confirm-registration/:token',

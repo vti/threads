@@ -24,12 +24,15 @@ sub build_validator {
             TAGS      => $self->loc('Wrong tags'),
             NOTDISPOSABLEEMAIL =>
               $self->loc('Disposable emails are not allowed'),
+            CAPTCHA => $self->loc('Invalid captcha'),
         },
         @_
     );
 }
 
-sub submit { }
+sub show        { }
+sub show_errors { }
+sub submit      { }
 
 sub run { shift->validate_or_submit }
 
