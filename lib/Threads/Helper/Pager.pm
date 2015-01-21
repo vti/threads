@@ -20,7 +20,7 @@ sub build {
     return {} if $total <= $page_size;
 
     my $first_page = $current_page == 1 ? 0 : 1;
-    my $prev_page  = $current_page == 1 ? 0 : 1;
+    my $prev_page  = $current_page == 1 ? 0 : $current_page - 1;
 
     my $last_page = $total / $page_size;
     if ($last_page != int($last_page)) {
