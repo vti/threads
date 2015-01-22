@@ -131,6 +131,10 @@ sub _add_routes {
         name   => 'toggle_report',
         method => 'POST'
     );
+    $routes->add_route(
+        '/replies/:id/read',
+        name   => 'read_reply',
+    );
 
     $routes->add_route(
         '/delete-subscriptions',

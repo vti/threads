@@ -7,6 +7,7 @@ use parent 'Tu::Helper';
 
 use Threads::DB::Reply;
 use Threads::DB::Thank;
+use Threads::DB::Notification;
 
 sub find_by_thread {
     my $self = shift;
@@ -18,7 +19,23 @@ sub find_by_thread {
         with     => [qw/user parent.user/]
     );
 
-    return map { $_->to_hash } @replies;
+    @replies = map { $_->to_hash } @replies;
+
+    if (my $user = $self->scope->user) {
+        my @notifications = Threads::DB::Notification->find(
+            where => [
+                user_id           => $user->id,
+                'reply.thread_id' => $thread->{id}
+            ]
+        );
+
+        my %ids = map { $_->reply_id => 1 } @notifications;
+        foreach my $reply (@replies) {
+            $reply->{unread} = 1 if exists $ids{$reply->{id}};
+        }
+    }
+
+    return @replies;
 }
 
 sub is_thanked {

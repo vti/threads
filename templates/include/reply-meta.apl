@@ -1,4 +1,4 @@
-            <div class="reply-meta">
+            <div class="reply-meta<%= " unread" if $reply->{unread} %>" data-read-reply="<%= $helpers->url->read_reply(id => $reply->{id}) %>">
                 <div class="reply-author">
                     <a name="reply-<%= $reply->{id} %>"></a>
                     <div class="reply-gravatar">

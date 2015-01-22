@@ -163,6 +163,17 @@
 
     $('.reply').mouseover(function() {
         $(this).find('.reply-controls').removeClass('invisible-on-desktop').parent().addClass('reply-over');
+
+        var unread = $(this).find('.unread');
+        if (unread.length) {
+            unread.removeClass('unread');
+
+            var action = unread.data('read-reply');
+
+            if (action) {
+                $.ajax({type: 'POST', url: action});
+            }
+        }
     });
 
     $('.reply').mouseout(function() {
