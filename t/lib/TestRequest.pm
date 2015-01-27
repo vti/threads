@@ -17,7 +17,7 @@ sub to_env {
     my $env =
       req_to_psgi $params{req} ? $params{req} : HTTP::Request->new(GET => '/');
 
-    $env->{'psgix.session'}         ||= {};
+    $env->{'psgix.session'}         ||= $params{'psgix.session'} || {};
     $env->{'psgix.session.options'} ||= {};
     $env->{'tu.displayer.vars'}     ||= $params{'tu.displayer.vars'} || {};
     $env->{'tu.auth'}               ||= $params{'tu.auth'};

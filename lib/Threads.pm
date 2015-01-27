@@ -42,7 +42,10 @@ sub _add_routes {
     $routes->add_route(
         '/register',
         name      => 'register',
-        arguments => {observers => ['register-captcha', 'register-fake_field']}
+        arguments => {
+            observers =>
+              ['register-captcha', 'register-fake_field', 'register-too_fast']
+        }
     );
 
     $routes->add_route(
