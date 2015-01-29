@@ -15,7 +15,7 @@ sub startup {
     my $services = $self->services;
 
     $services->register_group('Tu::ServiceContainer::Common',
-        action_factory => 'Tu::ActionFactory::Observable');
+        action_factory => 'Tu::ActionFactory');
 
     $self->services->register(acl => 'Tu::ACL', new => 1);
 
@@ -41,14 +41,7 @@ sub _add_routes {
         method => 'GET'
     );
 
-    $routes->add_route(
-        '/register',
-        name      => 'register',
-        arguments => {
-            observers =>
-              ['register-captcha', 'register-fake_field', 'register-too_fast']
-        }
-    );
+    $routes->add_route('/register', name => 'register',);
 
     $routes->add_route(
         '/confirm-registration/:token',

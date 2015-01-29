@@ -33,7 +33,7 @@ msgstr ""
 msgid "Authorization"
 msgstr ""
 
-#: templates/change_password.apl:3 templates/profile.apl:14
+#: templates/change_password.apl:3 templates/profile.apl:15
 msgid "Change password"
 msgstr ""
 
@@ -87,7 +87,7 @@ msgstr ""
 msgid "Good luck!"
 msgstr ""
 
-#: lib/Threads/Action/Register.pm:54
+#: lib/Threads/Action/Register.pm:37
 msgid "Invalid captcha"
 msgstr ""
 
@@ -125,7 +125,7 @@ msgid "Not readable"
 msgstr ""
 
 #: templates/layout.apl:51 templates/list_notifications.apl:2
-#: templates/list_notifications.apl:6
+#: templates/list_notifications.apl:6 templates/profile.apl:10
 msgid "Notifications"
 msgstr ""
 
@@ -172,7 +172,7 @@ msgstr ""
 msgid "Profile"
 msgstr ""
 
-#: templates/register.apl:17
+#: templates/register.apl:19
 msgid "Register"
 msgstr ""
 
@@ -180,12 +180,12 @@ msgstr ""
 msgid "Registration"
 msgstr ""
 
-#: lib/Threads/Action/Register.pm:96
+#: lib/Threads/Action/Register.pm:81
 #: lib/Threads/Action/ResendRegistrationConfirmation.pm:85
 msgid "Registration confirmation"
 msgstr ""
 
-#: templates/profile.apl:18
+#: templates/profile.apl:19
 msgid "Remove account"
 msgstr ""
 
@@ -237,7 +237,7 @@ msgstr ""
 msgid "Send"
 msgstr ""
 
-#: templates/profile.apl:13 templates/settings.apl:1 templates/settings.apl:5
+#: templates/profile.apl:14 templates/settings.apl:1 templates/settings.apl:5
 msgid "Settings"
 msgstr ""
 
@@ -256,6 +256,10 @@ msgstr ""
 #: templates/list_subscriptions.apl:2 templates/list_subscriptions.apl:6
 #: templates/profile.apl:9
 msgid "Subscriptions"
+msgstr ""
+
+#: lib/Threads/Action/Register.pm:41
+msgid "Suspicious activity"
 msgstr ""
 
 #: templates/create_thread.apl:18 templates/update_thread.apl:16
@@ -293,7 +297,7 @@ msgstr ""
 msgid "Unknown credentials"
 msgstr ""
 
-#: lib/Threads/Job/SendEmailNotifications.pm:48
+#: lib/Threads/Job/SendEmailNotifications.pm:52
 msgid "Unread notifications: "
 msgstr ""
 
@@ -309,7 +313,7 @@ msgstr ""
 msgid "User does not exist"
 msgstr ""
 
-#: lib/Threads/Action/Register.pm:60
+#: lib/Threads/Action/Register.pm:45
 msgid "User exists"
 msgstr ""
 

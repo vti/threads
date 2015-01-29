@@ -5,7 +5,6 @@ use warnings;
 
 use parent 'Threads::Action::FormBase';
 
-use Tu::ObservableMixin qw(observe notify);
 use Threads::DB::User;
 use Threads::DB::Confirmation;
 use Threads::Util qw(to_hex);
@@ -21,17 +20,27 @@ sub build_validator {
     $validator->add_rule('email', 'Email');
     $validator->add_rule('email', 'NotDisposableEmail');
 
-    $self->notify('AFTER:build_validator', $validator);
-
     return $validator;
 }
 
-sub show        { $_[0]->notify('BEFORE:show');        return }
-sub show_errors { $_[0]->notify('BEFORE:show_errors'); return }
+sub show        {}
+sub show_errors {}
 
 sub validate {
     my $self = shift;
     my ($validator, $params) = @_;
+
+    if ($self->env->{'antibot.detected'}) {
+        if ($self->env->{'antibot.textcaptcha.detected'}) {
+            $validator->add_error(
+                $self->env->{'antibot.textcaptcha.field_name'} =>
+                  $self->loc('Invalid captcha'));
+            return;
+        }
+
+        $validator->add_error(email => $self->loc('Suspicious activity'));
+        return;
+    }
 
     if (Threads::DB::User->new(email => $params->{email})->load) {
         $validator->add_error(email => $self->loc('User exists'));

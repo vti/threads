@@ -33,11 +33,25 @@ builder {
 
         enable 'HTTPExceptions';
 
-        enable '+Tu::Middleware::Defaults',          services => $app->services;
+        enable '+Tu::Middleware::Defaults',        services => $app->services;
+        enable '+Tu::Middleware::Session::Cookie', services => $app->services;
+        enable_if { $_[0]->{PATH_INFO} eq '/antibot.gif' } 'Antibot',
+          filters => ['Static'];
         enable '+Tu::Middleware::Static',            services => $app->services;
-        enable '+Tu::Middleware::Session::Cookie',   services => $app->services;
         enable '+Tu::Middleware::RequestDispatcher', services => $app->services;
         enable '+Tu::Middleware::I18N',              services => $app->services;
+
+        $ENV{PLACK_ENV} eq 'production'
+          && enable_if { $_[0]->{PATH_INFO} eq '/register' } 'Antibot',
+          filters => [
+            'TooFast',
+            'TooSlow',
+            ['FakeField', field_name => 'website'],
+            'Static',
+            ['TextCaptcha', variants => $app->service('config')->{captcha}]
+          ],
+          fall_through => 1;
+
         enable '+Tu::Middleware::User',
           services    => $app->services,
           user_loader => Threads::DB::User->new;

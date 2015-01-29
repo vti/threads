@@ -9,11 +9,11 @@
     <%== $helpers->form->input('email', label => 'E-mail') %>
     <%== $helpers->form->password('password', label => loc('Password')) %>
 
-    % if (my $captcha = var('captcha')) {
-        <%== $helpers->form->input('captcha', label => $captcha->{text}) %>
+    % if (my $captcha = $helpers->antibot->captcha) {
+        <%== $helpers->form->input($captcha->{field_name}, label => $captcha->{text}) %>
     % }
 
-    <%== $helpers->form->input('website', style => 'display:none') %>
+    %== $helpers->antibot->fake_field;
 
     <div class="form-submit">
         <input type="submit" value="<%= loc('Register') %>" />
@@ -22,3 +22,5 @@
     </form>
 
 </div>
+
+%== $helpers->antibot->static;

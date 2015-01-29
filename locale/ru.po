@@ -33,7 +33,7 @@ msgstr "Вы уверены?"
 msgid "Authorization"
 msgstr "Авторизация"
 
-#: templates/change_password.apl:3 templates/profile.apl:14
+#: templates/change_password.apl:3 templates/profile.apl:15
 msgid "Change password"
 msgstr "Изменить пароль"
 
@@ -87,7 +87,7 @@ msgstr "Форум"
 msgid "Good luck!"
 msgstr "Удачи!"
 
-#: lib/Threads/Action/Register.pm:54
+#: lib/Threads/Action/Register.pm:37
 msgid "Invalid captcha"
 msgstr "Неправильный ответ"
 
@@ -125,7 +125,7 @@ msgid "Not readable"
 msgstr "Не читаемо"
 
 #: templates/layout.apl:51 templates/list_notifications.apl:2
-#: templates/list_notifications.apl:6
+#: templates/list_notifications.apl:6 templates/profile.apl:10
 msgid "Notifications"
 msgstr "Уведомления"
 
@@ -173,7 +173,7 @@ msgstr "Предпросмотр"
 msgid "Profile"
 msgstr "Профиль"
 
-#: templates/register.apl:17
+#: templates/register.apl:19
 msgid "Register"
 msgstr "Зарегистрироваться"
 
@@ -181,12 +181,12 @@ msgstr "Зарегистрироваться"
 msgid "Registration"
 msgstr "Регистрация"
 
-#: lib/Threads/Action/Register.pm:96
+#: lib/Threads/Action/Register.pm:81
 #: lib/Threads/Action/ResendRegistrationConfirmation.pm:85
 msgid "Registration confirmation"
 msgstr "Подтверждение регистрации"
 
-#: templates/profile.apl:18
+#: templates/profile.apl:19
 msgid "Remove account"
 msgstr "Удаление аккаунта"
 
@@ -238,7 +238,7 @@ msgstr "Скоро увидимся!"
 msgid "Send"
 msgstr "Отправить"
 
-#: templates/profile.apl:13 templates/settings.apl:1 templates/settings.apl:5
+#: templates/profile.apl:14 templates/settings.apl:1 templates/settings.apl:5
 msgid "Settings"
 msgstr "Настройки"
 
@@ -258,6 +258,10 @@ msgstr "Сортировать"
 #: templates/profile.apl:9
 msgid "Subscriptions"
 msgstr "Подписки"
+
+#: lib/Threads/Action/Register.pm:41
+msgid "Suspicious activity"
+msgstr "Подозрительная активность"
 
 #: templates/create_thread.apl:18 templates/update_thread.apl:16
 msgid "Tags"
@@ -296,7 +300,7 @@ msgstr "Слишком коротко"
 msgid "Unknown credentials"
 msgstr "Неизвестные данные"
 
-#: lib/Threads/Job/SendEmailNotifications.pm:48
+#: lib/Threads/Job/SendEmailNotifications.pm:52
 msgid "Unread notifications: "
 msgstr "Непрочитанные уведомления: "
 
@@ -312,7 +316,7 @@ msgstr "Обновить тему"
 msgid "User does not exist"
 msgstr "Пользователь не существует"
 
-#: lib/Threads/Action/Register.pm:60
+#: lib/Threads/Action/Register.pm:45
 msgid "User exists"
 msgstr "Пользователь существует"
 

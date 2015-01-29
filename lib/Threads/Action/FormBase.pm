@@ -24,8 +24,6 @@ sub build_validator {
             TAGS      => $self->loc('Wrong tags'),
             NOTDISPOSABLEEMAIL =>
               $self->loc('Disposable emails are not allowed'),
-            CAPTCHA => $self->loc('Invalid captcha'),
-            TOOFAST => $self->loc('Too fast'),
         },
         @_
     );
