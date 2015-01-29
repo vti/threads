@@ -259,8 +259,9 @@ subtest 'change user password' => sub {
 };
 
 sub _build_ua {
-    my $app = Threads->new;
-    return Test::WWW::Mechanize::PSGI->new(app => $app->to_app);
+    my $app =
+      eval do { local $/; open my $fh, '<', 'app.psgi' or die $!; <$fh> };
+    return Test::WWW::Mechanize::PSGI->new(app => $app);
 }
 
 done_testing;

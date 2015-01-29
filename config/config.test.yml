@@ -10,3 +10,7 @@ mailer:
     transport:
         name: 'test'
         path: '/tmp/mailer.log'
+i18n:
+    default_language: 'en'
+    languages:
+        - 'en'

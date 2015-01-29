@@ -12,15 +12,17 @@ use Threads::DB::User;
 sub startup {
     my $self = shift;
 
-    $self->register_plugin('CommonServices');
-    $self->register_plugin('CommonMiddleware');
+    my $services = $self->services;
 
-    $self->register_plugin('ACL', user_loader => Threads::DB::User->new);
-    $self->register_plugin('ObjectDB');
-    $self->register_plugin('Mailer');
-    $self->register_plugin('I18N');
+    $services->register_group('Tu::ServiceContainer::Common',
+        action_factory => 'Tu::ActionFactory::Observable');
 
-    $self->services->overwrite('action_factory', 'Tu::ActionFactory::Observable');
+    $self->services->register(acl => 'Tu::ACL', new => 1);
+
+    $services->register_group('Tu::ServiceContainer::Mailer');
+    $services->register_group('Tu::ServiceContainer::I18N');
+
+    Threads::DB->init_db(%{$self->service('config')->{database}});
 
     $self->_add_routes;
     $self->_add_acl;

@@ -10,3 +10,6 @@
 [submodule "contrib/attrs"]
 	path = contrib/attrs
 	url = http://github.com/vti/attrs
+[submodule "contrib/antibot"]
+	path = contrib/antibot
+	url = http://github.com/vti/plack-middleware-antibot
