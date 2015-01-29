@@ -5,6 +5,7 @@ use Test::More;
 use Test::WWW::Mechanize::PSGI;
 use TestLib;
 use TestDB;
+use TestFunctional;
 
 use Threads;
 
@@ -143,10 +144,6 @@ sub _login {
     return $ua;
 }
 
-sub _build_ua {
-    my $app =
-      eval do { local $/; open my $fh, '<', 'app.psgi' or die $!; <$fh> };
-    return Test::WWW::Mechanize::PSGI->new(app => $app);
-}
+sub _build_ua { TestFunctional->build_ua }
 
 done_testing;

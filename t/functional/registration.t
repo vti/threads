@@ -6,6 +6,7 @@ use Test::WWW::Mechanize::PSGI;
 use TestLib;
 use TestMail;
 use TestDB;
+use TestFunctional;
 
 use Threads;
 
@@ -232,10 +233,6 @@ subtest 'resend activation email when token expired' => sub {
     $ua->get_ok($activation_link);
 };
 
-sub _build_ua {
-    my $app =
-      eval do { local $/; open my $fh, '<', 'app.psgi' or die $!; <$fh> };
-    return Test::WWW::Mechanize::PSGI->new(app => $app);
-}
+sub _build_ua { TestFunctional->build_ua }
 
 done_testing;
