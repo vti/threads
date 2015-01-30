@@ -63,7 +63,7 @@ sub create {
 
     if (!$self->slug) {
         $self->slug($self->_slug($self->title));
-        $self->slug_ascii(Text::Unidecode::unidecode($self->slug));
+        $self->slug_ascii($self->_slug(Text::Unidecode::unidecode($self->slug)));
     }
 
     if (!$self->last_activity) {
@@ -77,7 +77,7 @@ sub update {
     my $self = shift;
 
     $self->slug($self->_slug($self->title));
-    $self->slug_ascii(Text::Unidecode::unidecode($self->slug));
+    $self->slug_ascii($self->_slug(Text::Unidecode::unidecode($self->slug)));
 
     return $self->SUPER::update;
 }

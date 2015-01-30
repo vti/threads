@@ -53,6 +53,16 @@ subtest 'creates ascii slug from unicode' => sub {
     is $thread->slug_ascii, 'privet-eto-my';
 };
 
+subtest 'when creating ascii run slug too' => sub {
+    TestDB->setup;
+
+    my $thread = _build_thread(title => 'пожаловать')->create;
+
+    $thread = $thread->load;
+
+    is $thread->slug_ascii, 'pozhalovat';
+};
+
 subtest 'updates ascii slug too' => sub {
     TestDB->setup;
 
