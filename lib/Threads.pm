@@ -7,6 +7,7 @@ use parent 'Tu';
 
 our $VERSION = '0.01';
 
+use Plack::I18N;
 use Threads::DB::User;
 
 sub startup {
@@ -22,6 +23,14 @@ sub startup {
     $services->register_group('Tu::ServiceContainer::Mailer');
 
     Threads::DB->init_db(%{$self->service('config')->{database}});
+
+    my $i18n = Plack::I18N->new(
+        lexicon    => 'gettext',
+        i18n_class => 'Threads::I18N',
+        locale_dir => $self->service('home')->catfile('locale'),
+        %{$self->service('config')->{i18n} || {}}
+    );
+    $services->register(i18n => $i18n);
 
     $self->_add_routes;
     $self->_add_acl;

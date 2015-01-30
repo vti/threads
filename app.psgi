@@ -18,14 +18,6 @@ use Threads::DB::User;
 
 my $app = Threads->new;
 
-my $i18n = Plack::I18N->new(
-    lexicon    => 'gettext',
-    i18n_class => 'Threads::I18N',
-    locale_dir => $app->service('home')->catfile('locale'),
-    %{$app->service('config')->{i18n} || {}}
-);
-$app->services->register(i18n => $i18n);
-
 builder {
     mount '/favicon.ico' => Plack::App::File->new(
         file => $app->service('home')->catfile('public/favicon.ico'))->to_app;
@@ -48,7 +40,7 @@ builder {
           filters => ['Static'];
         enable '+Tu::Middleware::Static',            services => $app->services;
         enable '+Tu::Middleware::RequestDispatcher', services => $app->services;
-        enable 'I18N',                               i18n     => $i18n;
+        enable 'I18N', i18n => $app->service('i18n');
 
         enable sub {
             my $app = shift;
