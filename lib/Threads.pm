@@ -20,7 +20,6 @@ sub startup {
     $self->services->register(acl => 'Tu::ACL', new => 1);
 
     $services->register_group('Tu::ServiceContainer::Mailer');
-    $services->register_group('Tu::ServiceContainer::I18N');
 
     Threads::DB->init_db(%{$self->service('config')->{database}});
 

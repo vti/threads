@@ -10,7 +10,7 @@ our @EXPORT_OK = qw(loc);
 sub loc {
     my $self = shift;
 
-    my $handle = $self->env->{'tu.i18n.maketext'};
+    my $handle = $self->env->{'plack.i18n.handle'};
     return join ' ', @_ unless $handle;
 
     return $handle->loc(@_);

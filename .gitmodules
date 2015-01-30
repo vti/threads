@@ -13,3 +13,6 @@
 [submodule "contrib/antibot"]
 	path = contrib/antibot
 	url = http://github.com/vti/plack-middleware-antibot
+[submodule "contrib/plack-i18n"]
+	path = contrib/plack-i18n
+	url = http://github.com/vti/plack-i18n

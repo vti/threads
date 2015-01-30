@@ -12,10 +12,19 @@ BEGIN {
 
 use Plack::Builder;
 use Plack::App::File;
+use Plack::I18N;
 use Threads;
 use Threads::DB::User;
 
 my $app = Threads->new;
+
+my $i18n = Plack::I18N->new(
+    lexicon    => 'gettext',
+    i18n_class => 'Threads::I18N',
+    locale_dir => $app->service('home')->catfile('locale'),
+    %{$app->service('config')->{i18n} || {}}
+);
+$app->services->register(i18n => $i18n);
 
 builder {
     mount '/favicon.ico' => Plack::App::File->new(
@@ -39,7 +48,21 @@ builder {
           filters => ['Static'];
         enable '+Tu::Middleware::Static',            services => $app->services;
         enable '+Tu::Middleware::RequestDispatcher', services => $app->services;
-        enable '+Tu::Middleware::I18N',              services => $app->services;
+        enable 'I18N',                               i18n     => $i18n;
+
+        enable sub {
+            my $app = shift;
+
+            sub {
+                my ($env) = @_;
+
+                my $handle = $env->{'plack.i18n.handle'};
+                $env->{'tu.displayer.vars'}->{loc} =
+                  sub { $handle->maketext(@_) };
+
+                $app->($env);
+            };
+        };
 
         $ENV{PLACK_ENV} eq 'production'
           && enable_if { $_[0]->{PATH_INFO} eq '/register' } 'Antibot',

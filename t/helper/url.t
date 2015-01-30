@@ -40,7 +40,7 @@ subtest 'builds route with language' => sub {
     my $routes = _mock_routes();
     my $helper = _build_helper(
         routes => $routes,
-        env    => {'tu.i18n.language' => 'ru'}
+        env    => {'plack.i18n.language' => 'ru'}
     );
 
     my $url = $helper->root(foo => 'bar');

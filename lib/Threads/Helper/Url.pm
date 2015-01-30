@@ -19,7 +19,7 @@ sub AUTOLOAD {
 
     $method = (split /::/ => $method)[-1];
 
-    my $language = $self->{env}->{'tu.i18n.language'};
+    my $language = $self->{env}->{'plack.i18n.language'};
     my $i18n     = $self->{services}->service('i18n');
 
     my $url = $self->service('routes')->build_path($method, @_);
