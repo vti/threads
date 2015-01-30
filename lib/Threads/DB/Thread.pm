@@ -102,7 +102,7 @@ sub _slug {
 
     $slug =~ s{::}{-}g;
     $slug =~ s{\s+}{-}g;
-    $slug =~ s{[^[:alnum:]\-]}{}g;
+    $slug =~ s{[^[:alnum:]\-_]}{}g;
     $slug =~ s{-+}{-}g;
     $slug =~ s{^-}{};
     $slug =~ s{-$}{};

@@ -88,6 +88,16 @@ subtest 'replaces double colon with single dash' => sub {
     is $thread->slug, 'text-caml';
 };
 
+subtest 'leaves underscore' => sub {
+    TestDB->setup;
+
+    my $thread = _build_thread(title => 'foo_bar')->create;
+
+    $thread = $thread->load;
+
+    is $thread->slug, 'foo_bar';
+};
+
 subtest 'removes leading and trailing dashes' => sub {
     TestDB->setup;
 
