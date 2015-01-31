@@ -12,18 +12,6 @@ subtest 'returns name when available' => sub {
     is $helper->display_name({name => 'foo', status => 'active'}), 'foo';
 };
 
-subtest 'escapes name characters' => sub {
-    my $helper = _build_helper();
-
-    is $helper->display_name({name => '<foo', status => 'active'}), '&lt;foo';
-};
-
-subtest 'returns User<id> when name not available' => sub {
-    my $helper = _build_helper();
-
-    is $helper->display_name({id => 123, status => 'active'}), 'User123';
-};
-
 subtest 'returns deleted when user deleted' => sub {
     my $helper = _build_helper();
 

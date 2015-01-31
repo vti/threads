@@ -15,15 +15,7 @@ sub display_name {
 
     return '<strike>deleted</strike>' if $user->{status} eq 'deleted';
 
-    if (my $name = $user->{name}) {
-        $name =~ s{&}{&amp;}g;
-        $name =~ s{>}{&gt;}g;
-        $name =~ s{<}{&lt;}g;
-        $name =~ s{"}{&quot;}g;
-        return $name;
-    }
-
-    return 'User' . $user->{id};
+    return $user->{name};
 }
 
 sub count {
