@@ -13,12 +13,15 @@ sub run {
     my $week_ago = time - 7 * 24 * 3600;
 
     my $views_to_remove =
-      Threads::DB::View->table->count(where => [created => {'<=' => $week_ago}]);
+      Threads::DB::View->table->count(
+        where => [created => {'<=' => $week_ago}]);
 
     if ($views_to_remove) {
-        print 'Deleting ' . $views_to_remove . ' view(s)' . "\n";
+        print 'Deleting ' . $views_to_remove . ' view(s)' . "\n"
+          if $self->_is_verbose;
 
-        Threads::DB::View->table->delete(where => [created => {'<=' => $week_ago}])
+        Threads::DB::View->table->delete(
+            where => [created => {'<=' => $week_ago}])
           unless $self->{dry_run};
     }
     else {
