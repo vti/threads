@@ -18,7 +18,7 @@ sub build_validator {
     $validator->add_field('email');
     $validator->add_field('password');
 
-    $validator->add_rule('name', 'Regexp', qr/^[a-z0-9-]+$/i);
+    $validator->add_rule('name', 'Regexp', qr/^[a-z0-9-_]+$/i);
     $validator->add_rule('name', 'MaxLength', 32);
     $validator->add_rule('email', 'Email');
     $validator->add_rule('email', 'NotDisposableEmail');
