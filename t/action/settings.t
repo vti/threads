@@ -10,33 +10,13 @@ use HTTP::Request::Common;
 use Threads::DB::User;
 use Threads::Action::Settings;
 
-subtest 'update settings' => sub {
-    TestDB->setup;
-
-    my $user =
-      Threads::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
-    my $action = _build_action(
-        req => POST(
-            '/' => {name => 'foo'}
-        ),
-        'tu.user' => $user
-    );
-
-    $action->run;
-
-    $user->load;
-
-    is $user->name, 'foo';
-};
-
 subtest 'update settings with checkbox' => sub {
     TestDB->setup;
 
-    my $user =
-      Threads::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
+    my $user   = TestDB->create('User');
     my $action = _build_action(
         req => POST(
-            '/' => {name => 'foo', email_notifications => 'on'}
+            '/' => {email_notifications => 'on'}
         ),
         'tu.user' => $user
     );
@@ -48,54 +28,10 @@ subtest 'update settings with checkbox' => sub {
     is $user->email_notifications, '1';
 };
 
-subtest 'show validation error when name exists' => sub {
-    TestDB->setup;
-
-    Threads::DB::User->new(
-        email    => 'foo2@bar.com',
-        name     => 'exists',
-        password => 'silly'
-    )->create;
-
-    my $user =
-      Threads::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
-    my $action = _build_action(
-        req => POST(
-            '/' => {name => 'exists'}
-        ),
-        'tu.user' => $user
-    );
-
-    $action->run;
-
-    is $action->vars->{errors}->{name}, 'Name already exists';
-};
-
-subtest 'update settings with same name' => sub {
-    TestDB->setup;
-
-    my $user = Threads::DB::User->new(
-        email    => 'foo@bar.com',
-        name     => 'foo',
-        password => 'silly'
-    )->create;
-    my $action = _build_action(
-        req => POST(
-            '/' => {name => 'foo'}
-        ),
-        'tu.user' => $user
-    );
-
-    $action->run;
-
-    ok !$action->vars->{errors};
-};
-
 subtest 'redirects' => sub {
     TestDB->setup;
 
-    my $user =
-      Threads::DB::User->new(email => 'foo@bar.com', password => 'silly')->create;
+    my $user   = TestDB->create('User');
     my $action = _build_action(
         req => POST(
             '/' => {name => 'foo'}

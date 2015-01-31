@@ -14,9 +14,12 @@ sub build_validator {
 
     my $validator = $self->SUPER::build_validator;
 
+    $validator->add_field('name');
     $validator->add_field('email');
     $validator->add_field('password');
 
+    $validator->add_rule('name', 'Regexp', qr/^[a-z0-9-]+$/i);
+    $validator->add_rule('name', 'MaxLength', 32);
     $validator->add_rule('email', 'Email');
     $validator->add_rule('email', 'NotDisposableEmail');
 
@@ -42,6 +45,11 @@ sub validate {
         return;
     }
 
+    if (Threads::DB::User->new(name => $params->{name})->load) {
+        $validator->add_error(name => $self->loc('User exists'));
+        return;
+    }
+
     if (Threads::DB::User->new(email => $params->{email})->load) {
         $validator->add_error(email => $self->loc('User exists'));
         return;
@@ -54,13 +62,7 @@ sub submit {
     my $self = shift;
     my ($params) = @_;
 
-    my ($name) = split /\@/, $params->{email};
-
-    if (Threads::DB::User->find(first => 1, where => [name => $name])) {
-        $name = '';
-    }
-
-    my $user = Threads::DB::User->new(%$params, name => $name)->create;
+    my $user = Threads::DB::User->new(%$params)->create;
 
     my $confirmation = Threads::DB::Confirmation->new(
         user_id => $user->id,

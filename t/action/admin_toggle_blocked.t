@@ -39,9 +39,13 @@ subtest 'returns 404 when same user' => sub {
 subtest 'returns 404 when user has unexpected status' => sub {
     TestDB->setup;
 
-    my $user = TestDB->create('User');
-    my $blocked_user =
-      TestDB->create('User', email => 'blocked@bar.com', status => 'new');
+    my $user         = TestDB->create('User');
+    my $blocked_user = TestDB->create(
+        'User',
+        name   => 'blocked',
+        email  => 'blocked@bar.com',
+        status => 'new'
+    );
     my $action = _build_action(
         req       => POST('/' => {}),
         captures  => {id      => $blocked_user->id},
@@ -56,9 +60,13 @@ subtest 'returns 404 when user has unexpected status' => sub {
 subtest 'block user if not blocked' => sub {
     TestDB->setup;
 
-    my $user = TestDB->create('User');
-    my $blocked_user =
-      TestDB->create('User', email => 'blocked@bar.com', status => 'active');
+    my $user         = TestDB->create('User');
+    my $blocked_user = TestDB->create(
+        'User',
+        name   => 'blocked',
+        email  => 'blocked@bar.com',
+        status => 'active'
+    );
     my $action = _build_action(
         req       => POST('/' => {}),
         captures  => {id      => $blocked_user->id},
@@ -75,9 +83,13 @@ subtest 'block user if not blocked' => sub {
 subtest 'unblock user if blocked' => sub {
     TestDB->setup;
 
-    my $user = TestDB->create('User');
-    my $blocked_user =
-      TestDB->create('User', email => 'blocked@bar.com', status => 'blocked');
+    my $user         = TestDB->create('User');
+    my $blocked_user = TestDB->create(
+        'User',
+        name   => 'blocked',
+        email  => 'blocked@bar.com',
+        status => 'blocked'
+    );
     my $action = _build_action(
         req       => POST('/' => {}),
         captures  => {id      => $blocked_user->id},
@@ -94,9 +106,13 @@ subtest 'unblock user if blocked' => sub {
 subtest 'redirects' => sub {
     TestDB->setup;
 
-    my $user = TestDB->create('User');
-    my $blocked_user =
-      TestDB->create('User', email => 'blocked@bar.com', status => 'active');
+    my $user         = TestDB->create('User');
+    my $blocked_user = TestDB->create(
+        'User',
+        name   => 'blocked',
+        email  => 'blocked@bar.com',
+        status => 'active'
+    );
     my $action = _build_action(
         req       => POST('/' => {}),
         captures  => {id      => $blocked_user->id},

@@ -9,8 +9,6 @@
     <div><label>Email</label></div>
     <div class="form-input"><input value="<%= $user->{email} %>" disabled="disabled"/></div>
 
-    <%== $helpers->form->input('name', label => loc('Name'), default => $user->{name}) %>
-
     <%== $helpers->form->input('email_notifications', type => 'checkbox', label => loc('Email notifications'), default => $user->{email_notifications}) %>
 
     <div class="form-submit">

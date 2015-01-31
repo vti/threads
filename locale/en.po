@@ -75,7 +75,7 @@ msgstr ""
 msgid "Disposable emails are not allowed"
 msgstr ""
 
-#: templates/settings.apl:14
+#: templates/settings.apl:12
 msgid "Email notifications"
 msgstr ""
 
@@ -87,12 +87,16 @@ msgstr ""
 msgid "Good luck!"
 msgstr ""
 
-#: lib/Threads/Action/Register.pm:37
+#: lib/Threads/Action/Register.pm:40
 msgid "Invalid captcha"
 msgstr ""
 
 #: lib/Threads/Action/FormBase.pm:19
 msgid "Invalid email"
+msgstr ""
+
+#: lib/Threads/Action/FormBase.pm:27
+msgid "Invalid name"
 msgstr ""
 
 #: lib/Threads/Action/ChangePassword.pm:33
@@ -108,12 +112,8 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-#: templates/settings.apl:12
+#: templates/register.apl:9
 msgid "Name"
-msgstr ""
-
-#: lib/Threads/Action/Settings.pm:40
-msgid "Name already exists"
 msgstr ""
 
 #: templates/change_password.apl:8 templates/reset_password.apl:7
@@ -139,7 +139,7 @@ msgstr ""
 msgid "Otherwise just ignore this email."
 msgstr ""
 
-#: templates/login.apl:10 templates/register.apl:10
+#: templates/login.apl:10 templates/register.apl:11
 #: templates/resend_registration_confirmation.apl:10
 msgid "Password"
 msgstr ""
@@ -172,7 +172,7 @@ msgstr ""
 msgid "Profile"
 msgstr ""
 
-#: templates/register.apl:19
+#: templates/register.apl:20
 msgid "Register"
 msgstr ""
 
@@ -180,7 +180,7 @@ msgstr ""
 msgid "Registration"
 msgstr ""
 
-#: lib/Threads/Action/Register.pm:81
+#: lib/Threads/Action/Register.pm:84
 #: lib/Threads/Action/ResendRegistrationConfirmation.pm:85
 msgid "Registration confirmation"
 msgstr ""
@@ -258,7 +258,7 @@ msgstr ""
 msgid "Subscriptions"
 msgstr ""
 
-#: lib/Threads/Action/Register.pm:41
+#: lib/Threads/Action/Register.pm:44
 msgid "Suspicious activity"
 msgstr ""
 
@@ -301,7 +301,7 @@ msgstr ""
 msgid "Unread notifications: "
 msgstr ""
 
-#: templates/settings.apl:17 templates/update_thread.apl:43
+#: templates/settings.apl:15 templates/update_thread.apl:43
 msgid "Update"
 msgstr ""
 
@@ -313,7 +313,7 @@ msgstr ""
 msgid "User does not exist"
 msgstr ""
 
-#: lib/Threads/Action/Register.pm:45
+#: lib/Threads/Action/Register.pm:49 lib/Threads/Action/Register.pm:54
 msgid "User exists"
 msgstr ""
 

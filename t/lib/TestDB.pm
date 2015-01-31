@@ -7,6 +7,7 @@ use Threads::DB;
 
 my %defaults = (
     User => {
+        name     => 'foo',
         email    => 'foo@bar.com',
         password => 'silly',
         role     => 'user'

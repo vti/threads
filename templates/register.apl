@@ -6,6 +6,7 @@
 
     <form method="POST">
 
+    <%== $helpers->form->input('name', label => loc('Name')) %>
     <%== $helpers->form->input('email', label => 'E-mail') %>
     <%== $helpers->form->password('password', label => loc('Password')) %>
 

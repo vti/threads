@@ -41,8 +41,8 @@ subtest 'show activation needed page' => sub {
     $ua->get('/');
     $ua->follow_link(text => 'Sign up');
 
-    $ua->submit_form(
-        fields => {email => 'foo@bar.com', password => 'password'});
+    $ua->submit_form(fields =>
+          {name => 'foo', email => 'foo@bar.com', password => 'password'});
     $ua->content_contains('check your email');
 };
 
@@ -55,8 +55,8 @@ subtest 'registers with unicode password' => sub {
     $ua->get('/');
     $ua->follow_link(text => 'Sign up');
 
-    $ua->submit_form(
-        fields => {email => 'foo@bar.com', password => 'привет'});
+    $ua->submit_form(fields =>
+          {name => 'foo', email => 'foo@bar.com', password => 'привет'});
 
     $ua->content_contains('check your email');
 };
@@ -70,8 +70,8 @@ subtest 'send activation email' => sub {
     $ua->get('/');
     $ua->follow_link(text => 'Sign up');
 
-    $ua->submit_form(
-        fields => {email => 'foo@bar.com', password => 'password'});
+    $ua->submit_form(fields =>
+          {name => 'foo', email => 'foo@bar.com', password => 'password'});
 
     my ($headers, $message) = TestMail->get_last_message;
 
@@ -98,8 +98,8 @@ subtest 'show link to resend when old confirmation token' => sub {
     $ua->get('/');
     $ua->follow_link(text => 'Sign up');
 
-    $ua->submit_form(
-        fields => {email => 'foo@bar.com', password => 'password'});
+    $ua->submit_form(fields =>
+          {name => 'foo', email => 'foo@bar.com', password => 'password'});
 
     my (undef, $message) = TestMail->get_last_message;
 
@@ -120,8 +120,8 @@ subtest 'show activation success page' => sub {
     $ua->get('/');
     $ua->follow_link(text => 'Sign up');
 
-    $ua->submit_form(
-        fields => {email => 'foo@bar.com', password => 'password'});
+    $ua->submit_form(fields =>
+          {name => 'foo', email => 'foo@bar.com', password => 'password'});
 
     my (undef, $message) = TestMail->get_last_message;
 
@@ -140,8 +140,8 @@ subtest 'activate user' => sub {
     $ua->get('/');
     $ua->follow_link(text => 'Sign up');
 
-    $ua->submit_form(
-        fields => {email => 'foo@bar.com', password => 'password'});
+    $ua->submit_form(fields =>
+          {name => 'foo', email => 'foo@bar.com', password => 'password'});
 
     my (undef, $message) = TestMail->get_last_message;
 
@@ -171,8 +171,8 @@ subtest 'not found when logged in' => sub {
     $ua->get('/');
     $ua->follow_link(text => 'Login');
 
-    $ua->submit_form(
-        fields => {email => 'foo@bar.com', password => 'password'});
+    $ua->submit_form(fields =>
+          {name => 'foo', email => 'foo@bar.com', password => 'password'});
 
     my $res = $ua->get('/register');
 
@@ -188,8 +188,8 @@ subtest 'not resend activation email when token not expired' => sub {
     $ua->get('/');
     $ua->follow_link(text => 'Sign up');
 
-    $ua->submit_form(
-        fields => {email => 'foo@bar.com', password => 'password'});
+    $ua->submit_form(fields =>
+          {name => 'foo', email => 'foo@bar.com', password => 'password'});
 
     $ua->get('/');
     $ua->follow_link(text => 'Login');
@@ -210,8 +210,8 @@ subtest 'resend activation email when token expired' => sub {
     $ua->get('/');
     $ua->follow_link(text => 'Sign up');
 
-    $ua->submit_form(
-        fields => {email => 'foo@bar.com', password => 'password'});
+    $ua->submit_form(fields =>
+          {name => 'foo', email => 'foo@bar.com', password => 'password'});
 
     Threads::DB::Confirmation->table->delete;
 

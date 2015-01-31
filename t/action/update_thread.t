@@ -85,9 +85,13 @@ subtest 'updates thread with correct params' => sub {
 subtest 'updates editor id when other user' => sub {
     TestDB->setup;
 
-    my $user = TestDB->create('User');
-    my $admin =
-      TestDB->create('User', email => 'admin@admin.com', role => 'admin');
+    my $user  = TestDB->create('User');
+    my $admin = TestDB->create(
+        'User',
+        name  => 'admin',
+        email => 'admin@admin.com',
+        role  => 'admin'
+    );
     my $thread = Threads::DB::Thread->new(
         user_id => $user->id,
         title   => 'foo',

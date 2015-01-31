@@ -28,7 +28,7 @@ __PACKAGE__->meta(
     ],
     primary_key    => 'id',
     auto_increment => 'id',
-    unique_keys    => ['email'],
+    unique_keys    => ['name', 'email'],
     generate_columns_methods => 1,
 );
 

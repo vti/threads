@@ -56,17 +56,19 @@ subtest 'shows errors' => sub {
 subtest 'shows errors when limits' => sub {
     TestDB->setup;
 
-    my $user =
-      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
-    my $thread =
-      Threads::DB::Thread->new(user_id => $user->id)->create;
+    my $user = Threads::DB::User->new(
+        name     => 'foo',
+        email    => 'foo@bar.com',
+        password => 'bar'
+    )->create;
+    my $thread = Threads::DB::Thread->new(user_id => $user->id)->create;
 
     my $services = _mock_services(config => {limits => {replies => {60 => 5}}});
     my $action = _build_action(
         req       => POST('/' => {content => 'bar'}),
         captures  => {id      => $thread->id},
         'tu.user' => $user,
-        services => $services
+        services  => $services
     );
 
     $action->run for 1 .. 10;
@@ -78,10 +80,12 @@ subtest 'shows errors when limits' => sub {
 subtest 'creates reply with correct params' => sub {
     TestDB->setup;
 
-    my $user =
-      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
-    my $thread =
-      Threads::DB::Thread->new(user_id => $user->id)->create;
+    my $user = Threads::DB::User->new(
+        name     => 'foo',
+        email    => 'foo@bar.com',
+        password => 'bar'
+    )->create;
+    my $thread = Threads::DB::Thread->new(user_id => $user->id)->create;
 
     my $action = _build_action(
         req       => POST('/' => {content => 'bar'}),
@@ -102,10 +106,12 @@ subtest 'creates reply with correct params' => sub {
 subtest 'creates reply with correct params when parent present' => sub {
     TestDB->setup;
 
-    my $user =
-      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
-    my $thread =
-      Threads::DB::Thread->new(user_id => $user->id)->create;
+    my $user = Threads::DB::User->new(
+        name     => 'foo',
+        email    => 'foo@bar.com',
+        password => 'bar'
+    )->create;
+    my $thread = Threads::DB::Thread->new(user_id => $user->id)->create;
     my $parent = Threads::DB::Reply->new(
         user_id   => $user->id,
         thread_id => $thread->id
@@ -121,7 +127,8 @@ subtest 'creates reply with correct params when parent present' => sub {
 
     $action->run;
 
-    my $reply = Threads::DB::Reply->find(first => 1, order_by => [id => 'DESC']);
+    my $reply =
+      Threads::DB::Reply->find(first => 1, order_by => [id => 'DESC']);
 
     is $reply->parent_id, $parent->id;
 };
@@ -129,10 +136,12 @@ subtest 'creates reply with correct params when parent present' => sub {
 subtest 'updates replies_count in thread' => sub {
     TestDB->setup;
 
-    my $user =
-      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
-    my $thread =
-      Threads::DB::Thread->new(user_id => $user->id)->create;
+    my $user = Threads::DB::User->new(
+        name     => 'foo',
+        email    => 'foo@bar.com',
+        password => 'bar'
+    )->create;
+    my $thread = Threads::DB::Thread->new(user_id => $user->id)->create;
 
     my $action = _build_action(
         req       => POST('/' => {content => 'bar'}),
@@ -150,8 +159,11 @@ subtest 'updates replies_count in thread' => sub {
 subtest 'updates last_activity in thread' => sub {
     TestDB->setup;
 
-    my $user =
-      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $user = Threads::DB::User->new(
+        name     => 'foo',
+        email    => 'foo@bar.com',
+        password => 'bar'
+    )->create;
     my $thread = Threads::DB::Thread->new(
         user_id       => $user->id,
         last_activity => '123'
@@ -174,10 +186,12 @@ subtest 'updates last_activity in thread' => sub {
 subtest 'redirects to thread view' => sub {
     TestDB->setup;
 
-    my $user =
-      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
-    my $thread =
-      Threads::DB::Thread->new(user_id => $user->id)->create;
+    my $user = Threads::DB::User->new(
+        name     => 'foo',
+        email    => 'foo@bar.com',
+        password => 'bar'
+    )->create;
+    my $thread = Threads::DB::Thread->new(user_id => $user->id)->create;
 
     my $action = _build_action(
         req       => POST('/' => {content => 'bar'}),
@@ -197,10 +211,12 @@ subtest 'redirects to thread view' => sub {
 subtest 'does not notify thread author when same replier' => sub {
     TestDB->setup;
 
-    my $user =
-      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
-    my $thread =
-      Threads::DB::Thread->new(user_id => $user->id)->create;
+    my $user = Threads::DB::User->new(
+        name     => 'foo',
+        email    => 'foo@bar.com',
+        password => 'bar'
+    )->create;
+    my $thread = Threads::DB::Thread->new(user_id => $user->id)->create;
     Threads::DB::Subscription->new(
         user_id   => $user->id,
         thread_id => $thread->id
@@ -220,18 +236,23 @@ subtest 'does not notify thread author when same replier' => sub {
 subtest 'notify subscribed users' => sub {
     TestDB->setup;
 
-    my $thread_author =
-      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $thread_author = Threads::DB::User->new(
+        name     => 'thread_author',
+        email    => 'foo@bar.com',
+        password => 'bar'
+    )->create;
     my $thread =
-      Threads::DB::Thread->new(user_id => $thread_author->id)
-      ->create;
+      Threads::DB::Thread->new(user_id => $thread_author->id)->create;
     Threads::DB::Subscription->new(
         user_id   => $thread_author->id,
         thread_id => $thread->id
     )->create;
 
-    my $user2 =
-      Threads::DB::User->new(email => 'foo2@bar.com', password => 'bar')->create;
+    my $user2 = Threads::DB::User->new(
+        name     => 'user2',
+        email    => 'foo2@bar.com',
+        password => 'bar'
+    )->create;
     Threads::DB::Subscription->new(
         user_id   => $user2->id,
         thread_id => $thread->id
@@ -258,33 +279,41 @@ subtest 'notify subscribed users' => sub {
 subtest 'notify parent reply user' => sub {
     TestDB->setup;
 
-    my $thread_author =
-      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $thread_author = Threads::DB::User->new(
+        name     => 'thread_author',
+        email    => 'foo@bar.com',
+        password => 'bar'
+    )->create;
     my $thread =
-      Threads::DB::Thread->new(user_id => $thread_author->id)
-      ->create;
+      Threads::DB::Thread->new(user_id => $thread_author->id)->create;
 
-    my $user =
-      Threads::DB::User->new(email => 'foo2@bar.com', password => 'bar')->create;
+    my $user = Threads::DB::User->new(
+        name     => 'user',
+        email    => 'foo2@bar.com',
+        password => 'bar'
+    )->create;
 
     my $parent_reply = Threads::DB::Reply->new(
         thread_id => $thread->id,
         user_id   => $user->id
     )->create;
 
-    my $user2 =
-      Threads::DB::User->new(email => 'foo3@bar.com', password => 'bar')->create;
+    my $user2 = Threads::DB::User->new(
+        name     => 'user2',
+        email    => 'foo3@bar.com',
+        password => 'bar'
+    )->create;
 
     my $action = _build_action(
-        req =>
-          POST('/?to=' . $parent_reply->id => {content => 'bar'}),
-        captures  => {id => $thread->id},
+        req       => POST('/?to=' . $parent_reply->id => {content => 'bar'}),
+        captures  => {id                              => $thread->id},
         'tu.user' => $user2
     );
 
     $action->run;
 
-    my $reply = Threads::DB::Reply->find(first => 1, order_by => [id => 'DESC']);
+    my $reply =
+      Threads::DB::Reply->find(first => 1, order_by => [id => 'DESC']);
     my $notification = Threads::DB::Notification->find(first => 1);
 
     is(Threads::DB::Notification->table->count, 1);
@@ -297,14 +326,19 @@ subtest 'notify parent reply user' => sub {
 subtest 'not notify parent reply user when same user' => sub {
     TestDB->setup;
 
-    my $thread_author =
-      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $thread_author = Threads::DB::User->new(
+        name     => 'thread_author',
+        email    => 'foo@bar.com',
+        password => 'bar'
+    )->create;
     my $thread =
-      Threads::DB::Thread->new(user_id => $thread_author->id)
-      ->create;
+      Threads::DB::Thread->new(user_id => $thread_author->id)->create;
 
-    my $user =
-      Threads::DB::User->new(email => 'foo2@bar.com', password => 'bar')->create;
+    my $user = Threads::DB::User->new(
+        name     => 'user',
+        email    => 'foo2@bar.com',
+        password => 'bar'
+    )->create;
 
     my $parent_reply = Threads::DB::Reply->new(
         thread_id => $thread->id,
@@ -312,15 +346,15 @@ subtest 'not notify parent reply user when same user' => sub {
     )->create;
 
     my $action = _build_action(
-        req =>
-          POST('/?to=' . $parent_reply->id => {content => 'bar'}),
-        captures  => {id => $thread->id},
+        req       => POST('/?to=' . $parent_reply->id => {content => 'bar'}),
+        captures  => {id                              => $thread->id},
         'tu.user' => $user
     );
 
     $action->run;
 
-    my $reply = Threads::DB::Reply->find(first => 1, order_by => [id => 'DESC']);
+    my $reply =
+      Threads::DB::Reply->find(first => 1, order_by => [id => 'DESC']);
     my $notification = Threads::DB::Notification->find(first => 1);
 
     is(Threads::DB::Notification->table->count, 0);
@@ -329,28 +363,37 @@ subtest 'not notify parent reply user when same user' => sub {
 subtest 'deletes notifications to parent reply' => sub {
     TestDB->setup;
 
-    my $thread_author =
-      Threads::DB::User->new(email => 'foo@bar.com', password => 'bar')->create;
+    my $thread_author = Threads::DB::User->new(
+        name     => 'foo',
+        email    => 'foo@bar.com',
+        password => 'bar'
+    )->create;
     my $thread =
-      Threads::DB::Thread->new(user_id => $thread_author->id)
-      ->create;
+      Threads::DB::Thread->new(user_id => $thread_author->id)->create;
 
-    my $other_user = TestDB->create('User', email => 'foo2@bar.com');
+    my $other_user =
+      TestDB->create('User', name => 'other_user', email => 'foo2@bar.com');
 
     my $parent_reply = Threads::DB::Reply->new(
         thread_id => $thread->id,
         user_id   => $other_user->id
     )->create;
 
-    my $user =
-      Threads::DB::User->new(email => 'foo3@bar.com', password => 'bar')->create;
+    my $user = Threads::DB::User->new(
+        name     => 'user',
+        email    => 'foo3@bar.com',
+        password => 'bar'
+    )->create;
 
-    TestDB->create('Notification', user_id => $user->id, reply_id => $parent_reply->id);
+    TestDB->create(
+        'Notification',
+        user_id  => $user->id,
+        reply_id => $parent_reply->id
+    );
 
     my $action = _build_action(
-        req =>
-          POST('/?to=' . $parent_reply->id => {content => 'bar'}),
-        captures  => {id => $thread->id},
+        req       => POST('/?to=' . $parent_reply->id => {content => 'bar'}),
+        captures  => {id                              => $thread->id},
         'tu.user' => $user
     );
 

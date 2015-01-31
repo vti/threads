@@ -25,23 +25,50 @@ subtest 'set template var errors' => sub {
     ok $action->vars->{errors};
 };
 
+subtest 'set template error when invalid name' => sub {
+    my $action =
+      _build_action(req => POST('/' => {name => '&#', email => 'foo', password => 'bar'}));
+
+    $action->run;
+
+    is $action->vars->{errors}->{name}, 'Invalid name';
+};
+
 subtest 'set template error when invalid email' => sub {
     my $action =
-      _build_action(req => POST('/' => {email => 'foo', password => 'bar'}));
+      _build_action(req => POST('/' => {name => 'foo', email => 'foo', password => 'bar'}));
 
     $action->run;
 
     is $action->vars->{errors}->{email}, 'Invalid email';
 };
 
+subtest 'set template error when name exists' => sub {
+    TestDB->setup;
+
+    TestDB->create('User', name => 'foo');
+
+    my $action = _build_action(
+        req => POST(
+            '/' => {name => 'foo', email => 'foo@bar.com', password => 'bar'}
+        )
+    );
+
+    $action->run;
+
+    is $action->vars->{errors}->{name}, 'User exists';
+};
+
 subtest 'set template error when email exists' => sub {
     TestDB->setup;
 
-    TestDB->create('User');
+    TestDB->create('User', email => 'foo@bar.com');
 
-    my $action =
-      _build_action(
-        req => POST('/' => {email => 'foo@bar.com', password => 'bar'}));
+    my $action = _build_action(
+        req => POST(
+            '/' => {name => 'foo2', email => 'foo@bar.com', password => 'bar'}
+        )
+    );
 
     $action->run;
 
@@ -52,7 +79,9 @@ subtest 'create user with correct params' => sub {
     TestDB->setup;
 
     my $action = _build_action(
-        req => POST('/' => {email => 'foo@bar.com', password => 'bar'}),
+        req => POST(
+            '/' => {name => 'foo', email => 'foo@bar.com', password => 'bar'}
+        ),
         'tu.displayer.vars' => {lang => 'ru'}
     );
 
@@ -71,7 +100,9 @@ subtest 'create user with name from email' => sub {
     TestDB->setup;
 
     my $action = _build_action(
-        req => POST('/' => {email => 'foo@bar.com', password => 'bar'}),
+        req => POST(
+            '/' => {name => 'foo', email => 'foo@bar.com', password => 'bar'}
+        ),
         'tu.displayer.vars' => {lang => 'ru'}
     );
 
@@ -82,30 +113,14 @@ subtest 'create user with name from email' => sub {
     is $user->name, 'foo';
 };
 
-subtest 'create user with empty name when exists' => sub {
-    TestDB->setup;
-
-    TestDB->create('User', email => 'foo2@bar.com', name => 'foo');
-
-    my $action = _build_action(
-        req => POST('/' => {email => 'foo@bar.com', password => 'bar'}),
-        'tu.displayer.vars' => {lang => 'ru'}
-    );
-
-    $action->run;
-
-    my $user =
-      Threads::DB::User->find(first => 1, where => [email => 'foo@bar.com']);
-
-    is $user->name, '';
-};
-
 subtest 'create confirmation token with correct params' => sub {
     TestDB->setup;
 
-    my $action =
-      _build_action(
-        req => POST('/' => {email => 'foo@bar.com', password => 'bar'}));
+    my $action = _build_action(
+        req => POST(
+            '/' => {name => 'foo', email => 'foo@bar.com', password => 'bar'}
+        )
+    );
 
     $action->run;
 
@@ -123,7 +138,9 @@ subtest 'sends email' => sub {
     my $mailer = _mock_mailer();
 
     my $action = _build_action(
-        req    => POST('/' => {email => 'foo@bar.com', password => 'bar'}),
+        req => POST(
+            '/' => {name => 'foo', email => 'foo@bar.com', password => 'bar'}
+        ),
         mailer => $mailer
     );
 
