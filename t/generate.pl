@@ -27,12 +27,14 @@ Threads::DB::Thread->table->delete;
 Threads::DB::Reply->table->delete;
 
 Threads::DB::User->new(
+    name     => 'foo',
     email    => 'foo@bar.com',
     password => 'password',
     status   => 'active'
 )->create;
 
 Threads::DB::User->new(
+    name     => 'foo2',
     email    => 'foo2@bar.com',
     password => 'password',
     status   => 'active'

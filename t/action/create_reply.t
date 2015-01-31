@@ -405,6 +405,44 @@ subtest 'deletes notifications to parent reply' => sub {
     );
 };
 
+subtest 'creates notifications for mentioned users' => sub {
+    TestDB->setup;
+
+    my $thread_author = Threads::DB::User->new(
+        name     => 'foo',
+        email    => 'foo@bar.com',
+        password => 'bar'
+    )->create;
+    my $thread =
+      Threads::DB::Thread->new(user_id => $thread_author->id)->create;
+
+    my $user = Threads::DB::User->new(
+        name     => 'user',
+        email    => 'foo3@bar.com',
+        password => 'bar'
+    )->create;
+
+    my $other_user = Threads::DB::User->new(
+        name     => 'other_user',
+        email    => 'foo4@bar.com',
+        password => 'bar'
+    )->create;
+
+    my $action = _build_action(
+        req       => POST('/' => {content => '@other_user bar'}),
+        captures  => {id      => $thread->id},
+        'tu.user' => $user
+    );
+
+    $action->run;
+
+    my $notification = TestDB->build('Notification')->find(
+        first => 1,
+        where => [user_id => $other_user->id]
+    );
+    ok $notification;
+};
+
 sub _mock_services {
     my (%params) = @_;
 

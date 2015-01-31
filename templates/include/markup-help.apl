@@ -1,6 +1,7 @@
                 <div class="markup-help-template">
                     <div class="markup-help-instance">
                     <ul>
+                        <li>@user</li>
                     % foreach my $code (
                     %   '_italic_',
                     %   '**bold**',

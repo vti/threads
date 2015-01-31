@@ -7,6 +7,7 @@ use parent 'Threads::Action::FormBase';
 
 use Threads::Action::JSONMixin 'new_json_response';
 use Threads::LimitChecker;
+use Threads::Notificator;
 use Threads::DB::User;
 use Threads::DB::Thread;
 use Threads::DB::Reply;
@@ -96,6 +97,8 @@ sub submit {
         $self->_notify_parent_reply_author($parent, $reply);
     }
 
+    $self->_notify_mentioned_users($reply);
+
     $self->_delete_thread_notifications($thread);
 
     my $url = $self->url_for(
@@ -139,6 +142,14 @@ sub _notify_parent_reply_author {
         user_id  => $parent->related('user')->id,
         reply_id => $reply->id
     )->load_or_create;
+}
+
+sub _notify_mentioned_users {
+    my $self = shift;
+    my ($reply) = @_;
+
+    return Threads::Notificator->new->notify_mentioned_users($self->scope->user,
+        $reply);
 }
 
 sub _delete_thread_notifications {

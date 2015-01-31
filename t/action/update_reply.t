@@ -9,6 +9,7 @@ use TestRequest;
 use JSON qw(decode_json);
 use HTTP::Request::Common;
 use Threads::DB::User;
+use Threads::DB::Notification;
 use Threads::DB::Thread;
 use Threads::DB::Reply;
 use Threads::Action::UpdateReply;
@@ -102,6 +103,37 @@ subtest 'updates reply with correct params' => sub {
 
     is $reply->content, 'foo';
     isnt $reply->updated, 0;
+};
+
+subtest 'notifies mentioned users' => sub {
+    TestDB->setup;
+
+    my $thread_user = TestDB->create('User', name => 'foo');
+    my $thread =
+      Threads::DB::Thread->new(user_id => $thread_user->id)->create;
+
+    my $user = TestDB->create('User', name => 'user', email => 'user@bar.com');
+    my $reply = Threads::DB::Reply->new(
+        user_id   => $user->id,
+        thread_id => $thread->id,
+        title     => 'foo',
+        content   => 'bar'
+    )->create;
+
+    my $action = _build_action(
+        req => POST('/' => {content => '@foo'}),
+        captures  => {id => $reply->id},
+        'tu.user' => $user
+    );
+
+    $action->run;
+
+    my $notification = Threads::DB::Notification->find(
+        first => 1,
+        where => [reply_id => $reply->id, user_id => $thread_user->id]
+    );
+
+    ok $notification;
 };
 
 subtest 'redirects after update' => sub {

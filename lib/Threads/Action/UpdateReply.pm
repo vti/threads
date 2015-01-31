@@ -7,6 +7,7 @@ use parent 'Threads::Action::FormBase';
 
 use Threads::ObjectACL;
 use Threads::DB::Reply;
+use Threads::Notificator;
 
 sub build_validator {
     my $self = shift;
@@ -56,6 +57,9 @@ sub submit {
     my $reply = $self->{reply};
     $reply->set_columns(%$params, updated => time);
     $reply->update;
+
+    Threads::Notificator->new->notify_mentioned_users($reply->related('user'),
+        $reply);
 
     my $thread = $reply->related('thread');
 

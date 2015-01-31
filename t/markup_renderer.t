@@ -69,6 +69,12 @@ subtest 'forbids html' => sub {
     is $helper->render('<a>'), '<p>&lt;a&gt;</p>';
 };
 
+subtest 'renders mention' => sub {
+    my $helper = _build_renderer();
+
+    is $helper->render('Hi, @foo!'), '<p>Hi, <strong>@foo</strong>!</p>';
+};
+
 subtest 'perl specific' => sub {
     my $helper = _build_renderer();
 
