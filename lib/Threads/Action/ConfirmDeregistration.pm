@@ -25,8 +25,8 @@ sub run {
       Threads::DB::User->new(id => $confirmation->user_id)->load;
 
     $user->set_columns(
-        email    => $user->id,
-        name     => '',
+        email    => '#' . $user->id,
+        name     => '#' . $user->id,
         password => '',
         status   => 'deleted'
     );

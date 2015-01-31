@@ -82,9 +82,9 @@ subtest 'removes user' => sub {
 
     $user->load;
 
-    is $user->email,    $user->id;
+    is $user->email,    '#' . $user->id;
     is $user->password, '';
-    is $user->name,     '';
+    is $user->name,     '#' . $user->id;
     is $user->status,   'deleted';
 };
 
