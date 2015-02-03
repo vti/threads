@@ -33,10 +33,10 @@ sub validate {
     my $self = shift;
     my ($validator, $params) = @_;
 
-    if ($self->env->{'antibot.detected'}) {
-        if ($self->env->{'antibot.textcaptcha.detected'}) {
+    if ($self->env->{'plack.antibot.detected'}) {
+        if ($self->env->{'plack.antibot.textcaptcha.detected'}) {
             $validator->add_error(
-                $self->env->{'antibot.textcaptcha.field_name'} =>
+                $self->env->{'plack.antibot.textcaptcha.field_name'} =>
                   $self->loc('Invalid captcha'));
             return;
         }
