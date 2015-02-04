@@ -15,17 +15,15 @@ sub run {
     $self->throw_not_found
       if $tag && !Threads::DB::Tag->new(title => $tag)->load;
 
-    my $params = {
-        tag       => $tag,
-        page      => 1,
-        page_size => 100
-    };
-
-    my $rss = $self->render(
-        'threads_rss',
-        layout => undef,
-        vars   => {params => $params}
+    $self->set_var(
+        params => {
+            tag       => $tag,
+            page      => 1,
+            page_size => 100
+        }
     );
+
+    my $rss = $self->render('threads_rss', layout => undef);
 
     my $res = $self->req->new_response(200);
     $res->header('Content-Type' => 'application/rss+xml; charset=utf-8');
