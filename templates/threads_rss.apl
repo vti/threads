@@ -20,7 +20,7 @@
               <%= $helpers->truncate->truncate($thread->{content}) %>
           ]]></description>
           % foreach my $tag (@{$thread->{tags}}) {
-              <category><%= $thread->{tags} %></category>
+          <category><%= $tag->{title} %></category>
           % }
           <pubDate><%== $helpers->date->format_rss($thread->{created}) %></pubDate>
           <comments><%= $base_url . $helpers->url->view_thread(id => $thread->{id}, slug => $thread->{slug}) %></comments>
