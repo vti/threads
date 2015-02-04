@@ -24,6 +24,13 @@ subtest 'builds route' => sub {
     is_deeply \%params, {foo => 'bar'};
 };
 
+subtest 'escapes uri' => sub {
+    my $routes = _mock_routes(path => 'must be escaped');
+    my $helper = _build_helper(routes => $routes);
+
+    is $helper->root(foo => 'bar'), 'must%20be%20escaped';
+};
+
 subtest 'builds route without language when default' => sub {
     my $routes = _mock_routes();
     my $helper = _build_helper(
@@ -55,8 +62,10 @@ sub _mock_i18n {
 }
 
 sub _mock_routes {
+    my (%params) = @_;
+
     my $routes = Test::MonkeyMock->new;
-    $routes->mock(build_path => sub { '/' });
+    $routes->mock(build_path => sub { $params{path} || '/' });
     return $routes;
 }
 
