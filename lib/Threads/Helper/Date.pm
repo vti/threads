@@ -14,6 +14,13 @@ sub format {
     return Time::Piece->new($epoch)->strftime('%Y-%m-%d %H:%M');
 }
 
+sub format_rss {
+    my $self = shift;
+    my ($epoch) = @_;
+
+    return Time::Piece->new($epoch)->strftime('%a, %d %b %Y %T GMT');
+}
+
 sub is_distant_update {
     my $self = shift;
     my ($object) = @_;

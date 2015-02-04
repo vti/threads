@@ -3,11 +3,12 @@
 <div class="grid-100">
 
     <div class="index-sorting">
-
         <%= loc('Sort') %>
         <form class="form-inline">
         <%== $helpers->form->select('by', options => [activity => loc('by activity'), popularity => loc('by popularity')]) %>
         </form>
+
+        <a href="<%= $helpers->url->threads_rss %><%= var('params')->{tag} ? "?tag=$params->{tag}" : '' %>"><img src="/images/rss.png" /></a>
     </div>
 
     <div class="index-stats">

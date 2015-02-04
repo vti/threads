@@ -93,6 +93,7 @@ sub _add_routes {
 
     $routes->add_route('/preview', name => 'preview', method => 'POST');
 
+    $routes->add_route('/threads.rss', name => 'threads_rss');
     $routes->add_route('/create-thread', name => 'create_thread');
     $routes->add_route(
         '/threads/(:id)-(:slug)',
@@ -186,6 +187,7 @@ sub _add_acl {
     $acl->add_role('user');
 
     $acl->allow('anonymous', 'index');
+    $acl->allow('anonymous', 'threads_rss');
     $acl->allow('anonymous', 'register');
     $acl->allow('anonymous', 'confirm_registration');
     $acl->allow('anonymous', 'resend_registration_confirmation');
