@@ -14,7 +14,7 @@
         % foreach my $thread (@threads) {
         <item>
           <title><%= $thread->{title} %></title>
-          <author><%= $helpers->user->display_name($thread->{user}) %></title>
+          <author><%= $helpers->user->display_name($thread->{user}) %></author>
           <link><%= $base_url . $helpers->url->view_thread(id => $thread->{id}, slug => $thread->{slug}) %></link>
           <description><![CDATA[
               <%= $helpers->truncate->truncate($thread->{content}) %>
