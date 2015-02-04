@@ -17,7 +17,8 @@
           <author><%= $helpers->user->display_name($thread->{user}) %></author>
           <link><%= $base_url . $helpers->url->view_thread(id => $thread->{id}, slug => $thread->{slug}) %></link>
           <description><![CDATA[
-              <%= $helpers->truncate->truncate($thread->{content}) %>
+            % my $content = $helpers->markup->render($thread->{content});
+            <%= $helpers->truncate->truncate($content) %>
           ]]></description>
           % foreach my $tag (@{$thread->{tags}}) {
           <category><%= $tag->{title} %></category>
