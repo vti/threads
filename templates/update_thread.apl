@@ -1,6 +1,8 @@
 % $helpers->assets->require('/autosize/jquery.autosize.min.js');
 % $helpers->assets->require('/js/autosize.js');
 % $helpers->assets->require('/js/quick-reply.js');
+% $helpers->assets->require('/jquery-ui/jquery-ui.css');
+% $helpers->assets->require('/jquery-ui/jquery-ui.min.js');
 % $helpers->assets->require('/tagsinput/jquery.tagsinput.css');
 % $helpers->assets->require('/tagsinput/jquery.tagsinput.js');
 % $helpers->assets->require('/js/tags.js');
