@@ -18,7 +18,7 @@
           <link><%= $base_url . $helpers->url->view_thread(id => $thread->{id}, slug => $thread->{slug}) %></link>
           <description><![CDATA[
             % my $content = $helpers->markup->render($thread->{content});
-            <%= $helpers->truncate->truncate($content) %>
+            <%== $helpers->truncate->truncate($content) %>
           ]]></description>
           % foreach my $tag (@{$thread->{tags}}) {
           <category><%= $tag->{title} %></category>
