@@ -22,8 +22,9 @@
             }
 
             textarea.focus();
+            textarea.autosize();
 
-            form.find('textarea').keydown(function (e) {
+            textarea.keydown(function (e) {
               if ((e.keyCode == 10 || e.keyCode == 13) && e.ctrlKey) {
                   e.preventDefault();
 
@@ -46,9 +47,12 @@
         if (!form.css('display') || form.css('display') == 'none') {
             form.addClass('visible');
             form.show();
-            form.find('textarea').focus();
 
-            form.find('textarea').keydown(function (e) {
+            var textarea = form.find('textarea');
+            textarea.focus();
+            textarea.autosize();
+
+            textarea.keydown(function (e) {
               if ((e.keyCode == 10 || e.keyCode == 13) && e.ctrlKey) {
                   e.preventDefault();
 

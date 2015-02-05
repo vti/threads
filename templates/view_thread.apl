@@ -1,3 +1,4 @@
+% $helpers->assets->require('/autosize/jquery.autosize.min.js');
 % $helpers->assets->require('/js/quick-reply.js');
 % $helpers->meta->set(title => $thread->{title});
 
