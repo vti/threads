@@ -46,10 +46,12 @@
                 % }
 
                 <i class="fa fa-user"></i> <a href="<%= $helpers->url->profile %>"><%= $helpers->user->display_name($helpers->acl->user) %></a>
+                <span class="notification-count-outer">
                 % my $notification_count = $helpers->notification->count;
                 % if ($notification_count) {
                 <a href="<%= $helpers->url->list_notifications %>" class="notification-count" title="<%= loc('Notifications') %>"><%= $notification_count %></a>
                 % }
+                </span>
                 |
                 <form class="form-inline" method="post" action="<%= $helpers->url->logout %>" id="logout">
                     <button class="link" type="submit"><%= loc('Logout') %></button>
@@ -78,6 +80,7 @@
     <script src="/formalize/js/jquery.formalize.min.js"></script>
     <script src="/codemirror/codemirror.js"></script>
     <script src="/codemirror/perl.js"></script>
+    <script src="/js/models.js"></script>
     <script src="/js/essentials.js"></script>
     %== $helpers->assets->include(type => 'js');
 </body>
