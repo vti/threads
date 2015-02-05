@@ -78,19 +78,7 @@
     <script src="/formalize/js/jquery.formalize.min.js"></script>
     <script src="/codemirror/codemirror.js"></script>
     <script src="/codemirror/perl.js"></script>
+    <script src="/js/essentials.js"></script>
     %== $helpers->assets->include(type => 'js');
-    <script>
-        $(document).ready(function() {
-            var editors = [];
-            $('pre.markup code').each(function() {
-                $(this).replaceWith('<textarea class="code perl">' + $(this).text() + '</textarea>');
-            });
-            $('textarea.code').each(function() {
-                var editor = CodeMirror.fromTextArea(this, {readOnly: true, lineNumbers: true});
-                editors.push(editor);
-            });
-        });
-    </script>
-
 </body>
 </html>
