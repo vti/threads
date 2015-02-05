@@ -171,7 +171,16 @@
             var action = unread.data('read-reply');
 
             if (action) {
-                $.ajax({type: 'POST', url: action});
+                $.ajax({type: 'POST', url: action, success: function(data) {
+                    var unread_count = data.count;
+
+                    if (unread_count) {
+                        $('.notification-count').text(unread_count);
+                    }
+                    else {
+                        $('.notification-count').remove();
+                    }
+                }});
             }
         }
     });
