@@ -8,14 +8,15 @@
 <body>
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
-  <script src="../public/js/jquery.js"></script>
   <script src="qunit-1.17.1.js"></script>
+  <script src="/js/jquery.js"></script>
+  <script src="blanket.min.js"></script>
 
-  <script src="../public/js/models.js"></script>
+  <script src="/js/models.js" data-cover></script>
   <script src="models/value_object.js"></script>
   <script src="models/value_object_observable.js"></script>
 
-  <script src="../public/js/actions.js"></script>
+  <script src="/js/actions.js" data-cover></script>
   <script src="actions/no_count.js"></script>
   <script src="actions/no_count_title.js"></script>
 </body>
