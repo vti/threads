@@ -1,54 +1,51 @@
 (function(){
 
-    this.Observer = function() {
+    this.ValueObject = function() {
         this.attrs = {};
-        this.attrs.on = {};
     };
 
-    Observer.prototype.on = function(name, cb) {
-        this.attrs.on[name] = cb;
-    };
-
-    Observer.prototype.events = function() {
-        var keys = [];
-        for (var k in this.attrs.on) keys.push(k);
-        return keys;
-    };
-
-    Observer.prototype.notify = function(name) {
-        var args = Array.prototype.slice.call(arguments, 1);
-        this.attrs.on[name].apply(null, args);
-    };
-
-    this.NotificationCount = function() {
-        this.attrs = {};
-        this.observers = [];
-    };
-
-    NotificationCount.prototype.set = function(key, value) {
+    ValueObject.prototype.set = function(key, value) {
         this.attrs[key] = value;
-
-        this.notify('set:' + key, value);
     };
 
-    NotificationCount.prototype.get = function(key) {
-        return this.attrs.key;
+    ValueObject.prototype.get = function(key) {
+        return this.attrs[key];
     };
 
-    NotificationCount.prototype.observe = function(object) {
-        var events = object.events();
-        for (var i = 0; i < events.length; i++) {
-            var name = events[i];
-            this.observers.push({name: name, object: object});
+    this.ValueObjectObservable = function() {
+        this.observers = {};
+        ValueObject.call(this);
+    };
+    ValueObjectObservable.prototype = Object.create(ValueObject.prototype);
+    ValueObjectObservable.prototype.constructor = ValueObjectObservable;
+
+    ValueObjectObservable.prototype.set = function(key, value) {
+        var old = this.get(key);
+
+        ValueObject.prototype.set.apply(this, arguments);
+
+        if (old != value) {
+            this.notify(key, value);
         }
     };
 
-    NotificationCount.prototype.notify = function() {
-        var name = arguments[0];
-        for (var i = 0; i < this.observers.length; i++) {
-            var observer = this.observers[i];
-            if (observer.name == name) {
-                observer.object.notify.apply(observer.object, arguments);
+    ValueObjectObservable.prototype.get = function(key) {
+        return ValueObject.prototype.get.apply(this, arguments);
+    };
+
+    ValueObjectObservable.prototype.onchange = function(key, fn) {
+        if (typeof this.observers[key] === 'undefined')
+            this.observers[key] = [];
+        this.observers[key].push(fn);
+    };
+
+    ValueObjectObservable.prototype.notify = function(key) {
+        if (this.observers.hasOwnProperty(key)) {
+            var observers = this.observers[key];
+
+            var args = Array.prototype.slice.call(arguments, 1);
+            for (var i = 0; i < observers.length; i++) {
+                observers[i].apply(null, args);
             }
         }
     };

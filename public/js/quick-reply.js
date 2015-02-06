@@ -178,7 +178,7 @@
                 $.ajax({type: 'POST', url: action, success: function(data) {
                     var unread_count = data.count;
 
-                    Models.notificationCount.set('count', data.count);
+                    Models.noCount.set('count', data.count);
                 }});
             }
         }
