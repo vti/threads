@@ -18,7 +18,7 @@ requires 'Text::APL';
 requires 'YAML::Tiny';
 requires 'Text::Unidecode';
 
-recommends 'AnyEvent';
+requires 'AnyEvent';
 
 on 'test' => sub {
     requires 'Test::More';
