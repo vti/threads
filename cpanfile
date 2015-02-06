@@ -19,6 +19,7 @@ requires 'YAML::Tiny';
 requires 'Text::Unidecode';
 
 requires 'AnyEvent';
+requires 'Twiggy';
 
 on 'test' => sub {
     requires 'Test::More';
