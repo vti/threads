@@ -5,7 +5,7 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 % my $base_title = $helpers->config->config->{meta}->{title} || loc('Forum');
-<title><%= $helpers->meta->get('title') ? $helpers->meta->get('title') . ' | ' : '' %><%= $base_title %></title>
+<title><% if ($helpers->acl->is_user && (my $notification_count = $helpers->notification->count)) { %>(<%= $notification_count %>) <% } %><%= $helpers->meta->get('title') ? $helpers->meta->get('title') . ' | ' : '' %><%= $base_title %></title>
 % my $description = $helpers->meta->get('description') || $helpers->config->config->{meta}->{description};
 % if ($description) {
 <meta name="description" content="<%= $description %>" />

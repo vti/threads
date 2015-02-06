@@ -23,6 +23,15 @@ var Models = {};
         else {
             $('.notification-count').remove();
         }
+
+        var old_title = document.title;
+        var new_title = old_title.replace(/^\(\d+\)\s+/, '');
+
+        if (count) {
+            new_title = '(' + count + ') ' + new_title;
+        }
+
+        document.title = new_title;
     });
 
     var notificationCount = new NotificationCount();
