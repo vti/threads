@@ -11,6 +11,7 @@ QUnit.test("return 0 when nothing in title", function(assert) {
 
   var count = action.get();
 
+  assert.ok(count === 0);
   assert.equal(count, 0);
 });
 
@@ -20,6 +21,7 @@ QUnit.test("return current count", function(assert) {
   document.title = '(123) hello';
   var count = action.get();
 
+  assert.ok(count === 123);
   assert.equal(count, 123);
 });
 

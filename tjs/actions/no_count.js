@@ -4,6 +4,7 @@ QUnit.test("return 0 when no element", function(assert) {
 
   var count = action.get();
 
+  assert.ok(count === 0);
   assert.equal(count, 0);
 });
 
@@ -16,6 +17,7 @@ QUnit.test("return current value", function(assert) {
 
   var count = action.get();
 
+  assert.ok(count === 6);
   assert.equal(count, 6);
 });
 

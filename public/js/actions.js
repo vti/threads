@@ -4,7 +4,7 @@
     NoCountAction.prototype.get = function() {
         var counter = $('.notification-count');
         if (counter.length)
-            return counter.text();
+            return +counter.text();
         else
             return 0;
     };
@@ -29,7 +29,7 @@
         var re = /^\((\d+)\)\s+/;
         var match = re.exec(title);
         if (match && match.length) {
-            return match[1];
+            return +match[1];
         }
 
         return 0;
