@@ -1,7 +1,7 @@
 (function(){
 
-    this.ValueObject = function() {
-        this.attrs = {};
+    this.ValueObject = function(attrs) {
+        this.attrs = attrs || {};
     };
 
     ValueObject.prototype.set = function(key, value) {

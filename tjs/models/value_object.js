@@ -6,3 +6,9 @@ QUnit.test("simple set/get", function(assert) {
 
   assert.equal(valueObject.get('foo'), 'bar');
 });
+
+QUnit.test("accept properties from constructor", function(assert) {
+  var valueObject = new ValueObject({foo: 'bar'});
+
+  assert.equal(valueObject.get('foo'), 'bar');
+});
