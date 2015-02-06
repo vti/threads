@@ -82,6 +82,21 @@
     <script src="/codemirror/perl.js"></script>
     <script src="/js/models.js"></script>
     <script src="/js/essentials.js"></script>
+    % if ($helpers->acl->is_user && (my $events_config = $helpers->config->config->{events})) {
+    <script src="/js/EventSource.js"></script>
+    <script>
+      var es = new EventSource("<%= $events_config->{path} %>", { withCredentials: true });
+      var listener = function (event) {
+        if (event.type === "message") {
+          var data = jQuery.parseJSON(event.data);
+          Models.notificationCount.set('count', data.total);
+        }
+      };
+      es.addEventListener("open", listener);
+      es.addEventListener("message", listener);
+      es.addEventListener("error", listener);
+    </script>
+    % }
     %== $helpers->assets->include(type => 'js');
 </body>
 </html>

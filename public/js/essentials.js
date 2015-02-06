@@ -15,7 +15,7 @@ var Models = {};
         if (count) {
             var counter = $('.notification-count');
             if (!counter.length) {
-                $('.notification-count-outer').append('<a class="notification-count"></a>');
+                $('.notification-count-outer').append('<a href="/notifications" class="notification-count"></a>');
             }
 
             $('.notification-count').text(count);

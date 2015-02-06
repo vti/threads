@@ -16,3 +16,6 @@
 [submodule "contrib/plack-i18n"]
 	path = contrib/plack-i18n
 	url = http://github.com/vti/plack-i18n
+[submodule "contrib/plack-app-eventsource"]
+	path = contrib/plack-app-eventsource
+	url = http://github.com/vti/plack-app-eventsource

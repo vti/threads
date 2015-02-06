@@ -18,6 +18,10 @@ requires 'Text::APL';
 requires 'YAML::Tiny';
 requires 'Text::Unidecode';
 
-requires 'Test::More';
-requires 'Test::WWW::Mechanize::PSGI';
-requires 'Test::MonkeyMock';
+recommends 'AnyEvent';
+
+on 'test' => sub {
+    requires 'Test::More';
+    requires 'Test::WWW::Mechanize::PSGI';
+    requires 'Test::MonkeyMock';
+};
