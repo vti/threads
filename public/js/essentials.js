@@ -1,7 +1,4 @@
-var Models  = {};
-var Actions = {};
-
-(function(){
+(function(globals){
     var editors = [];
     $('pre.markup code').each(function() {
         $(this).replaceWith('<textarea class="code perl">' + $(this).text() + '</textarea>');
@@ -10,6 +7,9 @@ var Actions = {};
         var editor = CodeMirror.fromTextArea(this, {readOnly: true, lineNumbers: true});
         editors.push(editor);
     });
+
+    globals.Models  = {};
+    globals.Actions = {};
 
     Actions.noCount = new NoCountAction;
     Actions.noCountTitle = new NoCountTitleAction;
@@ -21,4 +21,4 @@ var Actions = {};
     Models.noCount.onchange('count', function(count) {
         Actions.noCountTitle.update(count);
     });
-})();
+})(this);

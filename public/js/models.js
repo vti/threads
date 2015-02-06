@@ -1,7 +1,8 @@
-(function(){
+(function(global){
 
-    this.ValueObject = function(attrs) {
+    function ValueObject(attrs) {
         this.attrs = attrs || {};
+        return this;
     };
 
     ValueObject.prototype.set = function(key, value) {
@@ -12,9 +13,10 @@
         return this.attrs[key];
     };
 
-    this.ValueObjectObservable = function() {
+    function ValueObjectObservable() {
         this.observers = {};
         ValueObject.call(this);
+        return this;
     };
     ValueObjectObservable.prototype = Object.create(ValueObject.prototype);
     ValueObjectObservable.prototype.constructor = ValueObjectObservable;
@@ -50,4 +52,6 @@
         }
     };
 
-})();
+    global.ValueObject = ValueObject;
+    global.ValueObjectObservable = ValueObjectObservable;
+})(this);

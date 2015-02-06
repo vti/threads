@@ -1,6 +1,8 @@
-(function(){
+(function(global){
 
-    this.NoCountAction = function() {};
+    function NoCountAction() {
+        return this;
+    };
     NoCountAction.prototype.get = function() {
         var counter = $('.notification-count');
         if (counter.length)
@@ -22,7 +24,9 @@
         }
     };
 
-    this.NoCountTitleAction = function() {};
+    function NoCountTitleAction() {
+        return this;
+    };
     NoCountTitleAction.prototype.get = function() {
         var title = document.title;
 
@@ -46,4 +50,6 @@
         document.title = new_title;
     };
 
-})();
+    global.NoCountAction = NoCountAction;
+    global.NoCountTitleAction = NoCountTitleAction;
+})(this);
