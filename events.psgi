@@ -15,7 +15,7 @@ use JSON ();
 use Plack::Builder;
 use Plack::App::EventSource;
 use Threads;
-use Threads::DB::User;
+use Threads::UserLoader;
 use Threads::DB::Notification;
 
 my $app = Threads->new;
@@ -37,7 +37,7 @@ builder {
         enable '+Tu::Middleware::Session::Cookie', services => $app->services;
         enable '+Tu::Middleware::User',
           services    => $app->services,
-          user_loader => Threads::DB::User->new;
+          user_loader => Threads::UserLoader->new(finalize => 0);
         enable sub {
             my $app = shift;
             sub {

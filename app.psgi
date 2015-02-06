@@ -14,7 +14,7 @@ use Plack::Builder;
 use Plack::App::File;
 use Plack::I18N;
 use Threads;
-use Threads::DB::User;
+use Threads::UserLoader;
 
 my $app = Threads->new;
 
@@ -69,7 +69,7 @@ builder {
 
         enable '+Tu::Middleware::User',
           services    => $app->services,
-          user_loader => Threads::DB::User->new;
+          user_loader => Threads::UserLoader->new;
         enable '+Tu::Middleware::ACL',              services => $app->services;
         enable '+Tu::Middleware::ActionDispatcher', services => $app->services;
         enable '+Tu::Middleware::ViewDisplayer',    services => $app->services;
