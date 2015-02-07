@@ -96,6 +96,7 @@
               }
             }
             else if (event.type === "error") {
+              es.close();
               setTimeout(openEvents, 5000);
             }
           };
