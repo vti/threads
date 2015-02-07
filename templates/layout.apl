@@ -103,13 +103,16 @@
                   openEvents(timeout);
               }, timeout);
             }
+            else if (event.type === "open") {
+                timeout = 1000;
+            }
           };
           es.addEventListener("open", listener);
           es.addEventListener("message", listener);
           es.addEventListener("error", listener);
       }
 
-      openEvents(5000);
+      openEvents(1000);
     </script>
     % }
     %== $helpers->assets->include(type => 'js');
