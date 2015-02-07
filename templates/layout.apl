@@ -86,16 +86,25 @@
     % if ($helpers->acl->is_user && (my $events_config = $helpers->config->config->{events})) {
     <script src="/js/EventSource.js"></script>
     <script>
-      var es = new EventSource("<%= $events_config->{path} %>", { withCredentials: true });
-      var listener = function (event) {
-        if (event.type === "message") {
-          var data = jQuery.parseJSON(event.data);
-          Models.noCount.set('count', data.total);
-        }
-      };
-      es.addEventListener("open", listener);
-      es.addEventListener("message", listener);
-      es.addEventListener("error", listener);
+      function openEvents() {
+          var es = new EventSource("<%= $events_config->{path} %>", { withCredentials: true });
+          var listener = function (event) {
+            if (event.type === "message") {
+              if (event.data) {
+                var data = jQuery.parseJSON(event.data);
+                Models.noCount.set('count', data.total);
+              }
+            }
+            else if (event.type === "error") {
+              setTimeout(openEvents, 5000);
+            }
+          };
+          es.addEventListener("open", listener);
+          es.addEventListener("message", listener);
+          es.addEventListener("error", listener);
+      }
+
+      openEvents();
     </script>
     % }
     %== $helpers->assets->include(type => 'js');
