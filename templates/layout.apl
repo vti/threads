@@ -86,7 +86,7 @@
     % if ($helpers->acl->is_user && (my $events_config = $helpers->config->config->{events})) {
     <script src="/js/EventSource.js"></script>
     <script>
-      function openEvents() {
+      function openEvents(timeout) {
           var es = new EventSource("<%= $events_config->{path} %>", { withCredentials: true });
           var listener = function (event) {
             if (event.type === "message") {
@@ -97,7 +97,11 @@
             }
             else if (event.type === "error") {
               es.close();
-              setTimeout(openEvents, 5000);
+              setTimeout(function() {
+                  if (timeout < 300000)
+                      timeout = timeout * 2
+                  openEvents(timeout);
+              }, timeout);
             }
           };
           es.addEventListener("open", listener);
@@ -105,7 +109,7 @@
           es.addEventListener("error", listener);
       }
 
-      openEvents();
+      openEvents(5000);
     </script>
     % }
     %== $helpers->assets->include(type => 'js');
