@@ -61,8 +61,19 @@ builder {
                 my $user = $env->{'tu.user'};
 
                 $connections->{"$conn"} = {
-                    conn    => $conn,
-                    user_id => $user->id
+                    conn      => $conn,
+                    user_id   => $user->id,
+                    heartbeat => AnyEvent->timer(
+                        interval => 30,
+                        cb       => sub {
+                            eval {
+                                $conn->push('');
+                                1;
+                            } or do {
+                                delete $connections->{"$conn"};
+                            };
+                        }
+                    )
                 };
 
                 _install_timer(sub { _poll() });
