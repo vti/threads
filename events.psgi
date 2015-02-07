@@ -29,6 +29,10 @@ my $t;
 
 my $connections = {};
 
+$SIG{USR1} = sub {
+    print "Connections: " . (keys %$connections), "\n";
+};
+
 builder {
     mount '/' => builder {
         enable_if { $_[0]->{REMOTE_ADDR} eq '127.0.0.1' }
