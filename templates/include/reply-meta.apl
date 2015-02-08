@@ -9,10 +9,10 @@
                         → <span class="<%= $helpers->thread->is_author($thread, $reply->{parent}->{user}) ? 'status-bg-highlight' : ''%>"><%== $helpers->user->display_name($reply->{parent}->{user}) %></span>
                     % }
                 </div>
-                <div class="date reply-date">
-                    <%= $helpers->date->format($reply->{created}) %>
+                <div class="reply-date">
+                    <span class="date"><%= $helpers->date->format($reply->{created}) %></span>
                     % if ($helpers->date->is_distant_update($reply)) {
-                        <%= loc('upd.') %> <%= $helpers->date->format($reply->{updated}) %>
+                        <%= loc('upd.') %> <span class="date"><%= $helpers->date->format($reply->{updated}) %></span>
                     % }
                     <a href="<%= $helpers->url->view_thread(id => $thread->{id}, slug => $thread->{slug}) %>#reply-<%= $reply->{id} %>">#</a>
                 </div>
