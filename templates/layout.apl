@@ -80,6 +80,7 @@
     <script src="/formalize/js/jquery.formalize.min.js"></script>
     <script src="/codemirror/codemirror.js"></script>
     <script src="/codemirror/perl.js"></script>
+    <script src="/js/moment.js"></script>
     <script src="/js/models.js"></script>
     <script src="/js/actions.js"></script>
     <script src="/js/essentials.js"></script>

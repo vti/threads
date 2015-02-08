@@ -8,6 +8,11 @@
         editors.push(editor);
     });
 
+    $('.date').each(function() {
+        var time = moment.utc($(this).html().trim(), 'YYYY-MM-DD HH:mm');
+        $(this).html(time.local().format('YYYY-MM-DD HH:mm'));
+    });
+
     globals.Models  = {};
     globals.Actions = {};
 

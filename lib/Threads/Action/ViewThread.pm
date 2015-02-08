@@ -6,7 +6,7 @@ use warnings;
 use parent 'Tu::Action';
 
 use Digest::MD5 ();
-use Time::Piece;
+use Time::Moment;
 use Threads::DB::Thread;
 use Threads::DB::View;
 
@@ -24,7 +24,7 @@ sub run {
 
     my $view;
 
-    my $today = gmtime->strftime('%Y-%m-%d');
+    my $today = Time::Moment->now_utc->strftime('%Y-%m-%d');
 
     if ($user) {
         $view = Threads::DB::View->find(

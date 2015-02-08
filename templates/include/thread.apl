@@ -21,7 +21,7 @@
                 %== $helpers->gravatar->img($thread->{user}, 20);
                 <strong><%== $helpers->user->display_name($thread->{user}) %></strong>
             </div>
-            <div class="thread-date">
+            <div class="date thread-date">
                 <%= $helpers->date->format($thread->{created}) %>
                 % my $has_editor = $thread->{editor} && $thread->{editor}->{id} != $thread->{user}->{id};
                 % if ($helpers->date->is_distant_update($thread) || $has_editor) {

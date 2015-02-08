@@ -5,20 +5,20 @@ use warnings;
 
 use parent 'Tu::Helper';
 
-use Time::Piece;
+use Time::Moment;
 
 sub format {
     my $self = shift;
     my ($epoch) = @_;
 
-    return Time::Piece->new($epoch)->strftime('%Y-%m-%d %H:%M');
+    return Time::Moment->from_epoch($epoch)->strftime('%Y-%m-%d %H:%M');
 }
 
 sub format_rss {
     my $self = shift;
     my ($epoch) = @_;
 
-    return Time::Piece->new($epoch)->strftime('%a, %d %b %Y %T GMT');
+    return Time::Moment->from_epoch($epoch)->strftime('%a, %d %b %Y %T GMT');
 }
 
 sub is_distant_update {

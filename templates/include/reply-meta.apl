@@ -9,7 +9,7 @@
                         → <span class="<%= $helpers->thread->is_author($thread, $reply->{parent}->{user}) ? 'status-bg-highlight' : ''%>"><%== $helpers->user->display_name($reply->{parent}->{user}) %></span>
                     % }
                 </div>
-                <div class="reply-date">
+                <div class="date reply-date">
                     <%= $helpers->date->format($reply->{created}) %>
                     % if ($helpers->date->is_distant_update($reply)) {
                         <%= loc('upd.') %> <%= $helpers->date->format($reply->{updated}) %>
@@ -18,5 +18,3 @@
                 </div>
                 <div class="clear"></div>
             </div>
-
-

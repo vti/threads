@@ -15,8 +15,9 @@ requires 'Plack::Session';
 requires 'Routes::Tiny';
 requires 'String::CamelCase';
 requires 'Text::APL';
-requires 'YAML::Tiny';
 requires 'Text::Unidecode';
+requires 'Time::Moment';
+requires 'YAML::Tiny';
 
 requires 'AnyEvent';
 requires 'Twiggy';
