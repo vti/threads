@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Threads/Action/Login.pm:47
+#: lib/Threads/Action/Login.pm:48
 msgid "Account blocked"
 msgstr ""
 
@@ -12,12 +12,12 @@ msgstr ""
 msgid "Account does not need activation"
 msgstr ""
 
-#: lib/Threads/Action/Login.pm:42
+#: lib/Threads/Action/Login.pm:43
 #: lib/Threads/Action/RequestPasswordReset.pm:35
 msgid "Account not activated"
 msgstr ""
 
-#: lib/Threads/Action/Login.pm:52
+#: lib/Threads/Action/Login.pm:53
 msgid "Account not active"
 msgstr ""
 
@@ -37,12 +37,12 @@ msgstr ""
 msgid "Change password"
 msgstr ""
 
-#: templates/create_thread.apl:18 templates/update_thread.apl:16
+#: templates/create_thread.apl:18 templates/update_thread.apl:18
 msgid "Comma separated"
 msgstr ""
 
 #: templates/create_thread.apl:24 templates/include/quick-edit-form.apl:8
-#: templates/include/quick-reply-form.apl:8 templates/update_thread.apl:22
+#: templates/include/quick-reply-form.apl:8 templates/update_thread.apl:24
 msgid "Content"
 msgstr ""
 
@@ -103,17 +103,13 @@ msgstr ""
 msgid "Invalid password"
 msgstr ""
 
-#: templates/activation_success.apl:5 templates/layout.apl:59
-#: templates/login.apl:15 templates/view_thread.apl:70
+#: templates/activation_success.apl:5 templates/layout.apl:61
+#: templates/login.apl:15 templates/view_thread.apl:71
 msgid "Login"
 msgstr ""
 
-#: templates/layout.apl:55
+#: templates/layout.apl:57
 msgid "Logout"
-msgstr ""
-
-#: templates/register.apl:9
-msgid "Name"
 msgstr ""
 
 #: templates/change_password.apl:8 templates/reset_password.apl:7
@@ -124,7 +120,7 @@ msgstr ""
 msgid "Not readable"
 msgstr ""
 
-#: templates/layout.apl:51 templates/list_notifications.apl:2
+#: templates/layout.apl:52 templates/list_notifications.apl:2
 #: templates/list_notifications.apl:6 templates/profile.apl:10
 msgid "Notifications"
 msgstr ""
@@ -164,7 +160,7 @@ msgid "Please check your email for a confirmation link."
 msgstr ""
 
 #: templates/create_thread.apl:29 templates/include/quick-edit-form.apl:13
-#: templates/include/quick-reply-form.apl:13 templates/update_thread.apl:27
+#: templates/include/quick-reply-form.apl:13 templates/update_thread.apl:29
 msgid "Preview"
 msgstr ""
 
@@ -197,7 +193,7 @@ msgstr ""
 msgid "Repeat new password"
 msgstr ""
 
-#: lib/Threads/Action/CreateReply.pm:48
+#: lib/Threads/Action/CreateReply.pm:49
 msgid "Replying too often"
 msgstr ""
 
@@ -241,15 +237,15 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: templates/layout.apl:59 templates/view_thread.apl:70
+#: templates/layout.apl:61 templates/view_thread.apl:71
 msgid "Sign up"
 msgstr ""
 
-#: templates/view_thread.apl:15
+#: templates/view_thread.apl:16
 msgid "Similar threads"
 msgstr ""
 
-#: templates/index.apl:7
+#: templates/index.apl:6
 msgid "Sort"
 msgstr ""
 
@@ -262,7 +258,7 @@ msgstr ""
 msgid "Suspicious activity"
 msgstr ""
 
-#: templates/create_thread.apl:18 templates/update_thread.apl:16
+#: templates/create_thread.apl:18 templates/update_thread.apl:18
 msgid "Tags"
 msgstr ""
 
@@ -271,15 +267,15 @@ msgid ""
 "Thank you for registering. Please check your email for a confirmation link."
 msgstr ""
 
-#: templates/layout.apl:41 templates/profile.apl:8
+#: templates/layout.apl:41 templates/profile.apl:8 templates/threads_rss.apl:8
 msgid "Threads"
 msgstr ""
 
-#: templates/create_thread.apl:17 templates/update_thread.apl:15
+#: templates/create_thread.apl:17 templates/update_thread.apl:17
 msgid "Title"
 msgstr ""
 
-#: templates/view_thread.apl:67
+#: templates/view_thread.apl:68
 msgid "To reply to this thread login or register"
 msgstr ""
 
@@ -291,7 +287,7 @@ msgstr ""
 msgid "Too short"
 msgstr ""
 
-#: lib/Threads/Action/Login.pm:32 lib/Threads/Action/Login.pm:37
+#: lib/Threads/Action/Login.pm:33 lib/Threads/Action/Login.pm:38
 #: lib/Threads/Action/ResendRegistrationConfirmation.pm:32
 #: lib/Threads/Action/ResendRegistrationConfirmation.pm:37
 msgid "Unknown credentials"
@@ -301,11 +297,11 @@ msgstr ""
 msgid "Unread notifications: "
 msgstr ""
 
-#: templates/settings.apl:15 templates/update_thread.apl:43
+#: templates/settings.apl:15 templates/update_thread.apl:45
 msgid "Update"
 msgstr ""
 
-#: templates/update_thread.apl:11 templates/update_thread.apl:7
+#: templates/update_thread.apl:13 templates/update_thread.apl:9
 msgid "Update thread"
 msgstr ""
 
@@ -315,6 +311,10 @@ msgstr ""
 
 #: lib/Threads/Action/Register.pm:49 lib/Threads/Action/Register.pm:54
 msgid "User exists"
+msgstr ""
+
+#: templates/register.apl:9
+msgid "Username"
 msgstr ""
 
 #: templates/include/admin_nav.apl:1
@@ -370,11 +370,11 @@ msgstr ""
 msgid "ban"
 msgstr ""
 
-#: templates/index.apl:9
+#: templates/index.apl:8
 msgid "by activity"
 msgstr ""
 
-#: templates/index.apl:9
+#: templates/index.apl:8
 msgid "by popularity"
 msgstr ""
 
@@ -401,11 +401,11 @@ msgid "markup"
 msgstr ""
 
 #: templates/include/quick-edit-form.apl:28
-#: templates/include/quick-reply-form.apl:32 templates/view_thread.apl:70
+#: templates/include/quick-reply-form.apl:32 templates/view_thread.apl:71
 msgid "or"
 msgstr ""
 
-#: templates/layout.apl:73
+#: templates/layout.apl:75
 msgid "powered by"
 msgstr ""
 

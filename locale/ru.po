@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Threads/Action/Login.pm:47
+#: lib/Threads/Action/Login.pm:48
 msgid "Account blocked"
 msgstr "Аккаунт заблокирован"
 
@@ -12,12 +12,12 @@ msgstr "Аккаунт заблокирован"
 msgid "Account does not need activation"
 msgstr "Аккаунт не требует активации"
 
-#: lib/Threads/Action/Login.pm:42
+#: lib/Threads/Action/Login.pm:43
 #: lib/Threads/Action/RequestPasswordReset.pm:35
 msgid "Account not activated"
 msgstr "Аккаунт не активирован"
 
-#: lib/Threads/Action/Login.pm:52
+#: lib/Threads/Action/Login.pm:53
 msgid "Account not active"
 msgstr "Аккаунт не активен"
 
@@ -37,12 +37,12 @@ msgstr "Авторизация"
 msgid "Change password"
 msgstr "Изменить пароль"
 
-#: templates/create_thread.apl:18 templates/update_thread.apl:16
+#: templates/create_thread.apl:18 templates/update_thread.apl:18
 msgid "Comma separated"
 msgstr "Через запятую"
 
 #: templates/create_thread.apl:24 templates/include/quick-edit-form.apl:8
-#: templates/include/quick-reply-form.apl:8 templates/update_thread.apl:22
+#: templates/include/quick-reply-form.apl:8 templates/update_thread.apl:24
 msgid "Content"
 msgstr "Содержимое"
 
@@ -103,18 +103,14 @@ msgstr "Неправильное имя"
 msgid "Invalid password"
 msgstr "Неправильный пароль"
 
-#: templates/activation_success.apl:5 templates/layout.apl:59
-#: templates/login.apl:15 templates/view_thread.apl:70
+#: templates/activation_success.apl:5 templates/layout.apl:61
+#: templates/login.apl:15 templates/view_thread.apl:71
 msgid "Login"
 msgstr "Вход"
 
-#: templates/layout.apl:55
+#: templates/layout.apl:57
 msgid "Logout"
 msgstr "Выход"
-
-#: templates/register.apl:9
-msgid "Name"
-msgstr "Имя"
 
 #: templates/change_password.apl:8 templates/reset_password.apl:7
 msgid "New password"
@@ -124,7 +120,7 @@ msgstr "Новый пароль"
 msgid "Not readable"
 msgstr "Не читаемо"
 
-#: templates/layout.apl:51 templates/list_notifications.apl:2
+#: templates/layout.apl:52 templates/list_notifications.apl:2
 #: templates/list_notifications.apl:6 templates/profile.apl:10
 msgid "Notifications"
 msgstr "Уведомления"
@@ -165,7 +161,7 @@ msgid "Please check your email for a confirmation link."
 msgstr "Пожалуйста, проверьте свою почту на наличие письма с подтверждением."
 
 #: templates/create_thread.apl:29 templates/include/quick-edit-form.apl:13
-#: templates/include/quick-reply-form.apl:13 templates/update_thread.apl:27
+#: templates/include/quick-reply-form.apl:13 templates/update_thread.apl:29
 msgid "Preview"
 msgstr "Предпросмотр"
 
@@ -198,7 +194,7 @@ msgstr "Удалить аккаунт"
 msgid "Repeat new password"
 msgstr "Повторите новый пароль"
 
-#: lib/Threads/Action/CreateReply.pm:48
+#: lib/Threads/Action/CreateReply.pm:49
 msgid "Replying too often"
 msgstr "Слишком часто комментируете"
 
@@ -242,15 +238,15 @@ msgstr "Отправить"
 msgid "Settings"
 msgstr "Настройки"
 
-#: templates/layout.apl:59 templates/view_thread.apl:70
+#: templates/layout.apl:61 templates/view_thread.apl:71
 msgid "Sign up"
 msgstr "Регистрация"
 
-#: templates/view_thread.apl:15
+#: templates/view_thread.apl:16
 msgid "Similar threads"
 msgstr "Похожие темы"
 
-#: templates/index.apl:7
+#: templates/index.apl:6
 msgid "Sort"
 msgstr "Сортировать"
 
@@ -263,7 +259,7 @@ msgstr "Подписки"
 msgid "Suspicious activity"
 msgstr "Подозрительная активность"
 
-#: templates/create_thread.apl:18 templates/update_thread.apl:16
+#: templates/create_thread.apl:18 templates/update_thread.apl:18
 msgid "Tags"
 msgstr "Метки"
 
@@ -274,15 +270,15 @@ msgstr ""
 "Спасибо за вашу регистрацию. Пожалуйста, проверьте почту на наличие "
 "подтверждения."
 
-#: templates/layout.apl:41 templates/profile.apl:8
+#: templates/layout.apl:41 templates/profile.apl:8 templates/threads_rss.apl:8
 msgid "Threads"
 msgstr "Темы"
 
-#: templates/create_thread.apl:17 templates/update_thread.apl:15
+#: templates/create_thread.apl:17 templates/update_thread.apl:17
 msgid "Title"
 msgstr "Заголовок"
 
-#: templates/view_thread.apl:67
+#: templates/view_thread.apl:68
 msgid "To reply to this thread login or register"
 msgstr "Чтобы ответить, залогиньтесь или зарегистрируйтесь"
 
@@ -294,7 +290,7 @@ msgstr "Слишком длинно"
 msgid "Too short"
 msgstr "Слишком коротко"
 
-#: lib/Threads/Action/Login.pm:32 lib/Threads/Action/Login.pm:37
+#: lib/Threads/Action/Login.pm:33 lib/Threads/Action/Login.pm:38
 #: lib/Threads/Action/ResendRegistrationConfirmation.pm:32
 #: lib/Threads/Action/ResendRegistrationConfirmation.pm:37
 msgid "Unknown credentials"
@@ -304,11 +300,11 @@ msgstr "Неизвестные данные"
 msgid "Unread notifications: "
 msgstr "Непрочитанные уведомления: "
 
-#: templates/settings.apl:15 templates/update_thread.apl:43
+#: templates/settings.apl:15 templates/update_thread.apl:45
 msgid "Update"
 msgstr "Обновить"
 
-#: templates/update_thread.apl:11 templates/update_thread.apl:7
+#: templates/update_thread.apl:13 templates/update_thread.apl:9
 msgid "Update thread"
 msgstr "Обновить тему"
 
@@ -319,6 +315,10 @@ msgstr "Пользователь не существует"
 #: lib/Threads/Action/Register.pm:49 lib/Threads/Action/Register.pm:54
 msgid "User exists"
 msgstr "Пользователь существует"
+
+#: templates/register.apl:9
+msgid "Username"
+msgstr "Логин"
 
 #: templates/include/admin_nav.apl:1
 msgid "Users"
@@ -379,11 +379,11 @@ msgstr "Ваша регистрация была успешно активиро
 msgid "ban"
 msgstr ""
 
-#: templates/index.apl:9
+#: templates/index.apl:8
 msgid "by activity"
 msgstr "по активности"
 
-#: templates/index.apl:9
+#: templates/index.apl:8
 msgid "by popularity"
 msgstr "по популярности"
 
@@ -410,11 +410,11 @@ msgid "markup"
 msgstr "формат"
 
 #: templates/include/quick-edit-form.apl:28
-#: templates/include/quick-reply-form.apl:32 templates/view_thread.apl:70
+#: templates/include/quick-reply-form.apl:32 templates/view_thread.apl:71
 msgid "or"
 msgstr "или"
 
-#: templates/layout.apl:73
+#: templates/layout.apl:75
 msgid "powered by"
 msgstr "работает на"
 
@@ -449,3 +449,6 @@ msgstr "отписаться"
 #: templates/include/reply-meta.apl:15 templates/include/thread.apl:28
 msgid "upd."
 msgstr "обн."
+
+#~ msgid "Name"
+#~ msgstr "Имя"
