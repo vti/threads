@@ -147,6 +147,23 @@ subtest 'redirect to root' => sub {
     $ua->content_contains('Sort');
 };
 
+subtest 'redirect to origin' => sub {
+    TestDB->setup;
+    Threads::DB::User->new(
+        email    => 'foo@bar.com',
+        password => 'silly',
+        status   => 'active'
+    )->create;
+
+    my $ua = _build_ua();
+
+    $ua->get('/?by=activity');
+    $ua->follow_link(text => 'Login');
+
+    my $res = $ua->submit_form(fields => {email => 'foo@bar.com', password => 'silly'});
+    like $res->base, qr/by=activity/;
+};
+
 subtest 'logout is not found when not logged in' => sub {
     my $ua = _build_ua();
 

@@ -40,6 +40,7 @@ builder {
           filters => ['Static'];
         enable '+Tu::Middleware::Static',            services => $app->services;
         enable '+Tu::Middleware::RequestDispatcher', services => $app->services;
+        enable '+Threads::Middleware::Origin',       services => $app->services;
         enable 'I18N', i18n => $app->service('i18n');
 
         enable sub {

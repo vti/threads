@@ -17,12 +17,13 @@ sub to_env {
     my $env =
       req_to_psgi $params{req} ? $params{req} : HTTP::Request->new(GET => '/');
 
-    $env->{'psgix.session'}         ||= $params{'psgix.session'} || {};
+    $env->{'psgix.session'} ||= $params{'psgix.session'} || {};
     $env->{'psgix.session.options'} ||= {};
     $env->{'tu.displayer.vars'}     ||= $params{'tu.displayer.vars'} || {};
     $env->{'tu.auth'}               ||= $params{'tu.auth'};
     $env->{'tu.user'}               ||= $params{'tu.user'};
-    $env->{'tu.dispatched_request'} ||= _build_dispatched_request(%params);
+    $env->{'tu.dispatched_request'} ||=
+      $params{'tu.dispatched_request'} || _build_dispatched_request(%params);
 
     return $env;
 }

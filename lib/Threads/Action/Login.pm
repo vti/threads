@@ -5,6 +5,7 @@ use warnings;
 
 use parent 'Threads::Action::FormBase';
 
+use Threads::Origin;
 use Threads::DB::User;
 use Threads::DB::Nonce;
 use Threads::DB::Confirmation;
@@ -64,15 +65,21 @@ sub submit {
 
     my $user = $self->{user};
 
-    my $nonce =
-      Threads::DB::Nonce->new(user_id => $user->id)->create;
+    my $nonce = Threads::DB::Nonce->new(user_id => $user->id)->create;
 
     $self->scope->auth->login($self->env, {id => $nonce->id});
 
     Threads::DB::Confirmation->table->delete(
         where => [user_id => $user->id, type => 'reset_password']);
 
-    return $self->redirect('index');
+    my $next = Threads::Origin->new(
+        env      => $self->env,
+        user     => $user,
+        services => $self->{services}
+    )->origin;
+    $next ||= 'index';
+
+    return $self->redirect($next);
 }
 
 1;
