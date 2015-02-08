@@ -202,6 +202,11 @@ sub _add_acl {
 
     $acl->deny('user', 'login');
     $acl->deny('user', 'register');
+    $acl->deny('user', 'confirm_registration');
+    $acl->deny('user', 'resend_registration_confirmation');
+    $acl->deny('user', 'resend_registration_confirmation_success');
+    $acl->deny('user', 'request_password_reset');
+    $acl->deny('user', 'reset_password');
 
     $acl->add_role('admin', 'user');
     $acl->deny('user', qr/^admin_/);
