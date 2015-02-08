@@ -130,6 +130,11 @@ msgid "Old confirmation not expired. Try later"
 msgstr ""
 "Время действия старого письма-подтверждения еще не истекло. Попробуйте позже"
 
+#. ('a-z, 0-9, -, _')
+#: templates/register.apl:9
+msgid "Only %1"
+msgstr "Только %1"
+
 #: templates/email/confirmation_required.apl:7
 #: templates/email/deregistration_confirmation_required.apl:7
 #: templates/email/password_reset.apl:7
