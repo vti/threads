@@ -5,6 +5,7 @@
     <div class="index-sorting">
         <%= loc('Sort') %>
         <form class="form-inline">
+        <%== $helpers->form->input('q', type => 'hidden', value => $params->{q}) %>
         <%== $helpers->form->select('by', options => [activity => loc('by activity'), popularity => loc('by popularity')]) %>
         </form>
 
