@@ -46,12 +46,39 @@ subtest 'returns empty when no tags' => sub {
     is @similar, 0;
 };
 
+subtest 'finds by query' => sub {
+    TestDB->setup;
+
+    my $thread = TestDB->create(
+        'Thread',
+        user_id => 1,
+        title   => 'some foo other'
+    );
+    TestDB->create(
+        'Thread',
+        user_id => 1,
+        content => 'foo'
+    );
+    TestDB->create(
+        'Thread',
+        user_id => 1,
+        title   => 'bar'
+    );
+
+    my $helper = _build_helper(params => {q => 'foo'});
+
+    my @threads = $helper->find;
+
+    is @threads, 2;
+};
+
 my $env;
 
 sub _build_helper {
     my (%params) = @_;
 
     $env = $params{env} || TestRequest->to_env(%params);
+    $env->{'tu.displayer.vars'} = {params => $params{params} || {}};
 
     Threads::Helper::Thread->new(env => $env);
 }

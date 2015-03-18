@@ -16,6 +16,8 @@ sub run {
     my $by = $self->req->param('by');
     $by = 'activity' unless $by && first { $by eq $_ } qw/activity popularity/;
 
+    my $q = $self->req->param('q');
+
     my $user_id = $self->req->param('user_id');
     $user_id = undef unless $user_id && $user_id =~ m/^\d+$/;
 
@@ -33,6 +35,7 @@ sub run {
 
     $self->set_var(
         params => {
+            q         => $q,
             by        => $by,
             tag       => $tag,
             user_id   => $user_id,

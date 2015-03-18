@@ -129,7 +129,7 @@ msgstr ""
 msgid "Old confirmation not expired. Try later"
 msgstr ""
 
-#. ('a-z, 0-9, -, _')
+#. ('a-z, A-Z, 0-9, -, _')
 #: templates/register.apl:9
 msgid "Only %1"
 msgstr ""
@@ -227,6 +227,10 @@ msgstr ""
 
 #: templates/change_password.apl:12 templates/include/quick-edit-form.apl:28
 msgid "Save"
+msgstr ""
+
+#: templates/index.apl:15
+msgid "Search"
 msgstr ""
 
 #: templates/activation_needed.apl:5

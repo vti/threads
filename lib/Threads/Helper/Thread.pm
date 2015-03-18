@@ -21,6 +21,7 @@ sub is_author {
 sub find {
     my $self = shift;
 
+    my $q         = $self->param('q')         || '';
     my $by        = $self->param('by')        || '';
     my $tag       = $self->param('tag')       || '';
     my $page      = $self->param('page')      || 1;
@@ -96,6 +97,11 @@ sub _prepare_where {
 
     my $tag = $self->param('tag');
     push @where, 'tags.title' => $tag if $tag;
+
+    my $q = $self->param('q');
+    push @where,
+      -or => ['title' => {like => "%$q%"}, 'content' => {like => "%$q%"}]
+      if $q;
 
     return \@where;
 }

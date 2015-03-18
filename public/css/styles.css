@@ -159,6 +159,12 @@ td.td-right {
     padding-bottom:1em;
 }
 
+.index-search {
+    float:left;
+    padding-left:1em;
+    padding-bottom:1em;
+}
+
 .index-stats {
     float:right;
     padding-bottom:2em;

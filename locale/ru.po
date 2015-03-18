@@ -130,7 +130,7 @@ msgid "Old confirmation not expired. Try later"
 msgstr ""
 "Время действия старого письма-подтверждения еще не истекло. Попробуйте позже"
 
-#. ('a-z, 0-9, -, _')
+#. ('a-z, A-Z, 0-9, -, _')
 #: templates/register.apl:9
 msgid "Only %1"
 msgstr "Только %1"
@@ -229,6 +229,10 @@ msgstr "Сбросить пароль"
 #: templates/change_password.apl:12 templates/include/quick-edit-form.apl:28
 msgid "Save"
 msgstr "Сохранить"
+
+#: templates/index.apl:15
+msgid "Search"
+msgstr "Поиск"
 
 #: templates/activation_needed.apl:5
 #: templates/resend_registration_confirmation_success.apl:5
