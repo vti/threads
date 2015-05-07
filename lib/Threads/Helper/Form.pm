@@ -56,7 +56,8 @@ sub input {
     my $help_tag = $self->_build_help($help);
     my $error = $self->_build_error($name);
 
-    my $attrs = join ' ', map { qq/$_="$attrs{$_}"/ } sort keys %attrs;
+    my $attrs = join ' ',
+      map { $attrs{$_} //= ''; qq/$_="$attrs{$_}"/ } sort keys %attrs;
     $attrs = ' ' . $attrs if $attrs;
 
     return <<"";
