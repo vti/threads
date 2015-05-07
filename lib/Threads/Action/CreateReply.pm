@@ -22,7 +22,7 @@ sub build_validator {
     $validator->add_field('content');
 
     $validator->add_rule('content', 'Readable');
-    $validator->add_rule('content', 'MaxLength', 1024);
+    $validator->add_rule('content', 'MaxLength', 4096);
 
     return $validator;
 }
