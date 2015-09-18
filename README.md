@@ -27,23 +27,23 @@ Or you can use a migration tool. See below.
 
 1. Fetch submodules:
 
-```
-git submodule update --init
-```
+    ```
+    git submodule update --init
+    ```
 
 2. Install modules from CPAN
 
-With `carton`:
+    With `carton`:
 
-```
-carton install
-```
+    ```
+    carton install
+    ```
 
-With `cpanm`:
+    With `cpanm`:
 
-```
-cpanm -L perl5 --installdeps .
-```
+    ```
+    cpanm -L perl5 --installdeps .
+    ```
 
 ### Jobs
 
