@@ -53,19 +53,19 @@ clean and notifications working.
 Email notifications:
 
 ```
-perl util/run-jog.pl send_email_notifications
+perl util/run-job.pl send_email_notifications
 ```
 
 Inactive registrations:
 
 ```
-perl util/run-jog.pl cleanup_inactive_registrations
+perl util/run-job.pl cleanup_inactive_registrations
 ```
 
 Other system stuff:
 
 ```
-perl util/run-jog.pl cleanup_thread_views
+perl util/run-job.pl cleanup_thread_views
 ```
 
 ### Starting
