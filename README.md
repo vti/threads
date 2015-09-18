@@ -25,6 +25,14 @@ Or you can use a migration tool. See below.
 
 ### Dependencies installation
 
+1. Fetch submodules:
+
+```
+git submodule update --init
+```
+
+2. Install modules from CPAN
+
 With `carton`:
 
 ```
